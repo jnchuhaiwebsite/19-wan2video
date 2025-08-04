@@ -26,7 +26,7 @@
           <div class="flex flex-col items-start text-left">
             <p class="text-blue-logo text-2xl md:text-3xl font-bold mb-4">Wan2Video</p>
             <p class="text-sm text-blue-footertext max-w-xl mb-4">
-              Midjourney is the state-of-the-art AI suite, functioning as a premier MidjourneyAI image generator and a groundbreaking MidjourneyAi video generator to transform your prompts into both breathtaking art and cinematic clips.
+              Generate stunning, cinematic AI videos from a single prompt in seconds with Wan2.2, the ideal tool for creative professionals and marketers.
             </p>
             <div class="flex flex-col items-start gap-2 text-sm text-gray-500">
               <p>© 2025 Midjourney All rights reserved.</p>
@@ -43,7 +43,7 @@
         <!-- 导航链接和法律条款 -->
         <div class="flex-1 flex flex-col sm:flex-row gap-6 md:gap-8">
           <!-- 导航链接 -->
-          <div class="flex-1 text-center sm:text-left">
+          <!-- <div class="flex-1 text-center sm:text-left">
             <div class="text-blue-footer font-medium mb-4 text-sm md:text-lg">Resources</div>
             <div class="flex flex-col gap-2 items-center sm:items-start">
               <template v-for="(section, index) in footerSections" :key="index">
@@ -86,7 +86,7 @@
                 </div>
               </template>
             </div>
-          </div>
+          </div> -->
           <!-- Products 部分 - 只在有内容时显示 -->
           <div v-if="productsSections && productsSections.length > 0" class="flex-1 text-center sm:text-left">
             <div class="text-blue-footer font-medium mb-4 text-sm md:text-lg">Products</div>
