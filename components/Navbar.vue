@@ -8,7 +8,7 @@
           <!-- Logo -->
           <div class="flex-shrink-0">
             <NuxtLink to="/">
-              <span class="text-blue-logo text-2xl lg:text-3xl font-bold">MidjourneyAI</span>
+              <span class="text-blue-logo text-2xl lg:text-3xl font-bold">Wan2Video</span>
             </NuxtLink>
           </div>
 
@@ -17,8 +17,9 @@
             <template v-for="(section, index) in sections" :key="index">
               <div
                 @click="handleNavClick(section.href || section.id)"
-                class="relative text-blue-navtext hover:text-blue-dark  transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:shadow-lg whitespace-nowrap"
+                class="relative text-blue-navtext hover:text-blue-dark transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:shadow-lg whitespace-nowrap flex items-center gap-2"
               >
+
                 <span
                   v-if="section.badge"
                   :class="[
@@ -134,8 +135,13 @@
               <template v-for="(section, index) in sections" :key="index">
                 <div
                   @click="() => { handleNavClick(section.href || section.id); isOpen = false; }"
-                  class="relative block text-blue-navtext hover:text-blue-dark text-base transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:bg-blue-medium/10 hover:shadow-lg hover:shadow-blue-medium/20 whitespace-nowrap mt-3"
+                  class="relative block text-blue-navtext hover:text-blue-dark text-base transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:bg-blue-medium/10 hover:shadow-lg hover:shadow-blue-medium/20 whitespace-nowrap mt-3 flex items-center gap-3"
                 >
+                  <component 
+                    v-if="section.icon" 
+                    :is="getIconComponent(section.icon)" 
+                    class="w-5 h-5"
+                  />
                   <span
                     v-if="section.badge"
                     :class="[
@@ -177,6 +183,14 @@ import { useNavigation } from "~/utils/navigation";
 import { useClerkAuth } from '~/utils/authHelper';
 import { useRouter, useRoute } from 'vue-router';
 import { useUserStore } from '~/stores/user';
+import { 
+  HomeIcon, 
+  SparklesIcon, 
+  PlayIcon, 
+  TagIcon,
+  QuestionMarkCircleIcon,
+  BookOpenIcon
+} from '@heroicons/vue/24/outline';
 
 // 状态管理
 const isOpen = ref(false);
@@ -185,6 +199,21 @@ const router = useRouter();
 const route = useRoute();
 const userStore = useUserStore();
 const credits = ref(0);
+
+// 图标映射
+const iconMap = {
+  HomeIcon,
+  SparklesIcon,
+  PlayIcon,
+  TagIcon,
+  QuestionMarkCircleIcon,
+  BookOpenIcon
+};
+
+// 获取图标组件
+const getIconComponent = (iconName: string) => {
+  return iconMap[iconName as keyof typeof iconMap] || null;
+};
 
 // 监听用户信息变化
 watch(() => userStore.userInfo, (newUserInfo) => {

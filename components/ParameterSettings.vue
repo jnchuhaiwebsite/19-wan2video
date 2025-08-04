@@ -518,7 +518,7 @@ defineExpose({
 }
 
 .mode-btn.active {
-  @apply bg-white text-blue-600 shadow-md transform scale-105;
+  @apply bg-white text-blue-dark shadow-md transform scale-105;
 }
 
 .parameters-panel {
@@ -538,7 +538,7 @@ defineExpose({
 }
 
 .aspect-ratio-trigger {
-  @apply w-full bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all duration-300 flex items-center justify-between hover:border-gray-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm;
+  @apply w-full bg-white border-2 border-gray-200 rounded-xl p-3 cursor-pointer transition-all duration-300 flex items-center justify-between hover:border-gray-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-dark focus:border-blue-dark shadow-sm;
 }
 
 .selected-ratio-display {
@@ -570,11 +570,11 @@ defineExpose({
 }
 
 .ar-grid-item.active {
-  @apply bg-blue-50 text-blue-600 border-blue-600 shadow-md;
+  @apply bg-blue-light text-blue-dark border-blue-dark shadow-md;
 }
 
 .ar-grid-item.active .ar-label {
-  @apply text-blue-600 font-semibold;
+  @apply text-blue-dark font-semibold;
 }
 
 .ar-grid-item:hover {
@@ -594,7 +594,7 @@ defineExpose({
 }
 
 .speed-btn {
-  @apply bg-gray-100 border-2 border-transparent rounded-xl py-1.5 px-2 cursor-pointer transition-all duration-300 text-center font-semibold text-gray-600 flex items-center justify-center gap-1 hover:shadow-md hover:border-gray-300;
+  @apply bg-gray-100 border-2 border-transparent rounded-xl py-1.5 px-2 cursor-pointer transition-all duration-300 text-center font-semibold text-gray-600 flex items-center justify-center gap-1 hover:shadow-md hover:border-blue-button;
 }
 
 .speed-btn:hover {
@@ -602,7 +602,7 @@ defineExpose({
 }
 
 .speed-btn.active {
-  @apply bg-blue-600 text-white border-blue-600 shadow-lg transform scale-105;
+  @apply bg-blue-dark text-white border-blue-dark shadow-lg transform scale-105;
 }
 
 .slider-group {
@@ -614,15 +614,15 @@ defineExpose({
 }
 
 .slider-group input[type="range"]::-webkit-slider-thumb {
-  @apply appearance-none w-5 h-5 bg-blue-600 rounded-full cursor-pointer shadow-lg;
+  @apply appearance-none w-5 h-5 bg-blue-dark rounded-full cursor-pointer shadow-lg;
 }
 
 .slider-group input[type="range"]::-moz-range-thumb {
-  @apply w-5 h-5 bg-blue-600 rounded-full cursor-pointer border-0 shadow-lg;
+  @apply w-5 h-5 bg-blue-dark rounded-full cursor-pointer border-0 shadow-lg;
 }
 
 .slider-group input[type="number"] {
-  @apply w-20 p-2 border-2 border-gray-200 rounded-lg text-center font-semibold text-base transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+  @apply w-20 p-2 border-2 border-gray-200 rounded-lg text-center font-semibold text-base transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-dark focus:border-blue-dark;
 }
 
 .generate-button-container {
@@ -630,7 +630,7 @@ defineExpose({
 }
 
 .generate-btn {
-  @apply w-full py-4 px-6 bg-blue-600 text-white rounded-xl font-semibold text-lg transition-all duration-300 hover:bg-blue-buttonhover hover:transform hover:-translate-y-1 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed shadow-lg;
+  @apply w-full py-4 px-6 bg-blue-button text-white rounded-xl font-semibold text-lg transition-all duration-300 hover:bg-blue-medium hover:transform hover:-translate-y-1 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed shadow-lg;
 }
 
 .generate-btn:disabled {
@@ -646,7 +646,7 @@ defineExpose({
 }
 
 .credit-amount {
-  @apply font-bold text-blue-600;
+  @apply font-bold text-blue-dark;
 }
 
 .credit-icon {

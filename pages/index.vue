@@ -1,54 +1,49 @@
 <template>
-  <main class="w-full mx-auto p-6 bg-blue-pale rounded-lg max-w-24xl min-h-screen">
-    <!-- 首屏区块 -->
-    <section
-      id="hero"
-      class="min-h-[700px] relative"
-    >
-      <PageHero 
-        title="The Midjourney Video Generator"
-        subtitle="From static art to cinematic motion. Experience the premier midjourney video generator, built to transform your images into breathtaking video clips with unparalleled ease."
-      />
-      <HomeVideoGenerator 
-        ref="videoGenerator"
-      />
-    </section>
-    
-    <!-- How It Works 区块 -->
-    <HowItWorks />
-    
-    <!-- Feature Showcase 区块 -->
-    <FeatureShowcase />
-    
-    <!-- Showcase Gallery 区块 -->
-    <ShowcaseGallery />
-
-    <FaqPreview />
-  </main>
+  <div class="min-h-screen bg-blue-pale">
+    <main>
+      <!-- 主功能区 -->
+      <HeroSection />
+      
+      <!-- 操作步骤 -->
+      <ProcessSteps />
+      
+      <!-- 核心优势 -->
+      <CoreFeatures />
+      
+      <!-- 模型案例展示 -->
+      <ModelShowcase />
+      
+      <!-- 套餐价格 -->
+      <PricingPlans />
+    </main>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, defineAsyncComponent, onMounted } from "vue";
-import { useSeo } from '~/composables/useSeo';
-import { ref } from 'vue'
-import HomeVideoGenerator from '~/components/HomeVideoGenerator.vue'
-import HowItWorks from '~/components/HowItWorks.vue'
-import FeatureShowcase from '~/components/FeatureShowcase.vue'
-import ShowcaseGallery from '~/components/ShowcaseGallery.vue'
-
-const PageHero = defineAsyncComponent(() => import('~/components/PageHero.vue'));
-
+import { onMounted, onUnmounted } from 'vue'
+import { useSeo } from '~/composables/useSeo'
 import { useNuxtApp } from 'nuxt/app'
-import FaqPreview from "~/components/FaqPreview.vue";
+import { useNavigation } from '~/utils/navigation'
+
+// 导入组件
+import Navbar from '~/components/Navbar.vue'
+import HeroSection from '~/components/HeroSection.vue'
+import ProcessSteps from '~/components/ProcessSteps.vue'
+import CoreFeatures from '~/components/CoreFeatures.vue'
+import ModelShowcase from '~/components/ModelShowcase.vue'
+import PricingPlans from '~/components/PricingPlans.vue'
+
 const { $toast } = useNuxtApp() as any
+const { handleScroll } = useNavigation()
+
 // 使用默认的 SEO 配置
 useSeo({
-  title: 'Midjourney Video Generator - Animate Your Images with AI',
-  description: 'Experience the ultimate text-to-video and image-to-video workflow with our Midjourney Video Generator. Create stunning videos from simple prompts.'
+  title: 'Wan 2.2 Plus - Cinematic AI Video Generator',
+  description: 'Generate AI videos with Wan 2.2 Plus. Cinematic visuals, realistic motion, prompt control—ideal for creators and marketers.'
 })
 
 // 处理支付回调
-onBeforeMount(() => {
+onMounted(() => {
   if (typeof window === "undefined") return;
 
   const urlParams = new URLSearchParams(window.location.search);
@@ -57,77 +52,26 @@ onBeforeMount(() => {
   if (paySuccess == "1") {
     window.history.replaceState({}, "", window.location.pathname);
     setTimeout(() => {
-      $toast.success("Thank you for your support! Your membership benefits are now activated.",3000);
+      $toast.success("Thank you for your support! Your membership benefits are now activated.", 3000);
     }, 500);
   } else if (urlParams.get("payfail") == "1") {
     window.history.replaceState({}, "", window.location.pathname);
   }
-});
 
-// 设置页面元数据
-onMounted(() => {
-  // 结构化数据标记以提高SEO
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: "AI Video Generation",
-    description: "Advanced AI video generation platform that transforms static images into dynamic videos. Upload any image and watch it come to life with our cutting-edge AI animation technology. Professional video generation at your fingertips.",
-    applicationCategory: "VideoGenerationApplication",
-    operatingSystem: "All",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-    },
-    featureList: [
-      "Advanced AI video generation technology",
-      "Static image to video transformation",
-      "Customizable motion descriptions",
-      "Professional video quality",
-      "Fast video generation",
-      "Multiple video formats support",
-      "Commercial usage rights",
-      "Digital watermarking",
-      "Safety filters and content moderation",
-      "Instant video download"
-    ],
-    additionalProperty: [
-      {
-        "@type": "PropertyValue",
-        "name": "supportedVideoFormats",
-        "value": ["MP4", "MOV", "AVI"]
-      },
-      {
-        "@type": "PropertyValue",
-        "name": "videoDurationOptions",
-        "value": [3, 6, 10, 15]
-      },
-      {
-        "@type": "PropertyValue",
-        "name": "defaultSettings",
-        "value": {
-          "duration": 6,
-          "fps": 30,
-          "quality": "high"
-        }
-      }
-    ],
-    screenshot: "/logo.png",
-    applicationSubCategory: "AI Video Generation",
-    browserRequirements: "Requires JavaScript. Requires HTML5.",
-    softwareVersion: "1.0.0",
-    inLanguage: "en-US"
-  };
-  // 添加结构化数据到页面头部
-  const script = document.createElement("script");
-  script.type = "application/ld+json";
-  script.textContent = JSON.stringify(structuredData);
-  document.head.appendChild(script);
-});
+  // 添加滚动监听
+  window.addEventListener('scroll', handleScroll)
+})
+
+// 清理滚动监听
+onUnmounted(() => {
+  if (typeof window !== "undefined") {
+    window.removeEventListener('scroll', handleScroll)
+  }
+})
 </script>
 
 <style scoped>
 html {
-  font-size: 18px;
+  scroll-behavior: smooth;
 }
 </style>

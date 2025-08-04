@@ -15,9 +15,12 @@ export interface RouteItem {
 
 // 主路由配置
 export const mainRoutes: RouteItem[] = [
-  { id: "home", name: "Home", href: "/", icon: "home" },
-  { id: "image-generate", name: "Image Generate", href: "/ai-image-generator", icon: "image" },
-  { id: "pricing", name: "Pricing", href: "/pricing", icon: "tag" },
+  { id: "home", name: "Home", href: "/", icon: "HomeIcon" },
+  { id: "features", name: "Features", href: "/#features", icon: "SparklesIcon" },
+  { id: "showcase", name: "Showcase", href: "/#showcase", icon: "PlayIcon" },
+  { id: "pricing", name: "Pricing", href: "/#pricing", icon: "TagIcon" },
+  // { id: "image-generate", name: "Image Generate", href: "/ai-image-generator", icon: "image" },
+  // { id: "pricing", name: "Pricing", href: "/pricing", icon: "tag" },
 ]
 
 
@@ -26,8 +29,8 @@ export const footerRoutes: RouteItem[] = [
   // { id: "pricing", name: "Pricing", href: "/pricing", icon: "tag" },
   // { id: "normal vs ultra", name: "Normal vs Ultra", href: "/normal-vs-ultra", icon: "tag" },
   // { id: "free", name: "Free", href: "/free", icon: "tag"},
-  { id: "faq", name: "Faq", href: "/faq", icon: "faq" },
-  { id: "blog", name: "Blog", href: "/blog", icon: "book" }
+  { id: "faq", name: "Faq", href: "/faq", icon: "QuestionMarkCircleIcon" },
+  { id: "blog", name: "Blog", href: "/blog", icon: "BookOpenIcon" }
 ]
 
 export const productsSections: RouteItem[] = [
