@@ -21,7 +21,7 @@ export const urlList = {
   getSubplansTest: baseUrl + '/api/website/odl',     // 获取测试套餐信息
   payOrder: baseUrl + '/api/pay/creem',  // 支付
   opusList: baseUrl + '/api/user/opus_list', // 获取用户作品列表
-  checkTask: baseUrl + '/api/task/mj/check_task_status', // 检查任务
+
   friendLinkList: baseUrl + '/api/cms/friendLinkList', // 获取友情链接列表
   getScore: baseUrl + '/api/mj/score', // 获取积分
   getUserOpus: baseUrl + '/api/mj/show', // 查询用户作品展示列表
@@ -33,6 +33,11 @@ export const urlList = {
   blogList: baseUrl + '/api/cms/blogList', // 获取博客列表
   createTasksText: baseUrl + '/api/task/mj/create',  // 创建任务-文生图
   createTasks: baseUrl + '/api/task/mj/create',  // 创建任务
+
+  //wan2ai
+  text2video: baseUrl + '/api/task/wan2ai/text2video',  // 创建任务-文生视频
+  image2video: baseUrl + '/api/task/wan2ai/image2video',  // 创建任务-图生视频
+  checkTask: baseUrl + '/api/task/wan2ai/check_task_status', // 检查任务
 }
 
 /**
@@ -103,6 +108,34 @@ export const getCurrentUser = async () => {
 export const createTaskImgVideo = async (data: any) => {
   try {
     return await apiRequest(urlList.createTasksImgVideo, 'POST', data, true);
+  } catch (error) {
+    console.error('创建任务失败:', error);
+    throw error;
+  }
+}
+
+/**
+ * 创建任务-图生视频
+ * @param data 创建任务数据
+ * @returns 创建任务结果
+ */
+export const image2video = async (data: any) => {
+  try {
+    return await apiRequest(urlList.image2video, 'POST', data, true);
+  } catch (error) {
+    console.error('创建任务失败:', error);
+    throw error;
+  }
+}
+
+/**
+ * 创建任务-文生视频
+ * @param data 创建任务数据
+ * @returns 创建任务结果
+ */
+export const text2video = async (data: any) => {
+  try {
+    return await apiRequest(urlList.text2video, 'POST', data, true);
   } catch (error) {
     console.error('创建任务失败:', error);
     throw error;

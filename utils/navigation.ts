@@ -15,10 +15,10 @@ export interface RouteItem {
 
 // 主路由配置
 export const mainRoutes: RouteItem[] = [
-  { id: "home", name: "Home", href: "/", icon: "HomeIcon" },
-  { id: "features", name: "Features", href: "/#features", icon: "SparklesIcon" },
-  { id: "showcase", name: "Showcase", href: "/#showcase", icon: "PlayIcon" },
-  { id: "pricing", name: "Pricing", href: "/#pricing", icon: "TagIcon" },
+  { id: "hero", name: "Home", icon: "HomeIcon" },
+  { id: "features", name: "Features", icon: "SparklesIcon" },
+  { id: "showcase", name: "Showcase", icon: "PlayIcon" },
+  { id: "pricing", name: "Pricing", icon: "TagIcon" },
   // { id: "image-generate", name: "Image Generate", href: "/ai-image-generator", icon: "image" },
   // { id: "pricing", name: "Pricing", href: "/pricing", icon: "tag" },
 ]
