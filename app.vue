@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useNotificationStore } from '~/stores/notification'
-import { onMounted } from 'vue'
 import NotificationList from '~/components/NotificationList.vue'
 import LoginPromptModal from '~/components/LoginPromptModal.vue'
+import StatisticsTracker from '~/components/StatisticsTracker.vue'
 
 const notificationStore = useNotificationStore() 
 
@@ -14,6 +14,7 @@ const notificationStore = useNotificationStore()
     </NuxtLayout>
     <NotificationList />
     <LoginPromptModal />
+    <StatisticsTracker />
 </template>
 
 <style>

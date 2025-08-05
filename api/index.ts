@@ -39,6 +39,7 @@ export const urlList = {
   image2video: baseUrl + '/api/task/wan2ai/image2video',  // 创建任务-图生视频
   checkTask: baseUrl + '/api/task/wan2ai/check_task_status', // 检查任务
   opusList: baseUrl + '/api/user/opus_list', // 获取用户作品列表
+  statistics: baseUrl + '/api/statistics/pvuv', // 删除用户作品列表
 }
 
 /**
@@ -238,6 +239,18 @@ export const getOpusList = async (data: any) => {
   
   return apiRequest(url, 'GET', undefined, true);
 }
+
+/**
+ * 获取统计信息
+ * @param data 统计信息数据
+ * @returns 统计信息
+ */
+export const statistics = async (data: any) => {
+  // 构建基础URL参数
+  let url = `${urlList.statistics}?visitor_id=${data.userCode}`
+  return apiRequest(url, 'GET', undefined, false);
+}
+
 /**
  * 检查任务
  * @param task_id 任务id
