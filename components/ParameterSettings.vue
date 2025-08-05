@@ -156,7 +156,6 @@ import { ref, computed, watch, defineAsyncComponent, onMounted, onUnmounted } fr
 import { useUserStore } from '~/stores/user'
 import { useRouter } from 'vue-router'
 import { useNuxtApp } from 'nuxt/app'
-import { upload } from '~/api/index'
 import { createTasks } from '~/api/index'
 import { useClerkAuth } from '~/utils/authHelper';
 import { useVideoTaskStore } from '~/stores/videoTask';

@@ -319,6 +319,7 @@ import { useUiStore } from '~/stores/ui'
 import { useRouter } from 'vue-router'
 import { useNavigation } from '~/utils/navigation'
 import { text2video, image2video, upload, checkTask } from '~/api'
+import { useVideoTaskStore } from '~/stores/videoTask'
 
 const { $toast } = useNuxtApp() as any
 const { isSignedIn } = useClerkAuth()
@@ -326,6 +327,7 @@ const userStore = useUserStore()
 const uiStore = useUiStore()
 const router = useRouter()
 const { handleNavClick } = useNavigation()
+const videoTaskStore = useVideoTaskStore()
 
 // 响应式数据
 const activeMode = ref('text-to-video')
@@ -744,23 +746,46 @@ const handleGenerate = async () => {
         return
       }
       
-    
-      
-      const formData = {
-        prompt: prompt.value,
-        file: uploadedImage.value,
-        resolution: selectedResolution.value,
-        size: selectedAspectRatio.value,
-        optimize_prompt: optimizePrompt.value ? 1 : 0,
-        negative_prompt: showNegativePrompt.value ? negativePrompt.value : ''
+      try {
+        startProgress()
+        const uploadResponse = await upload({ file: uploadedImage.value }) as any;
+        console.log('📤 图片上传响应:', uploadResponse);
+        
+        if (uploadResponse && uploadResponse.code === 200) {
+          const file_url = uploadResponse.data;
+          console.log('✅ 图片上传成功, URL:', file_url);
+          
+          const formData = {
+            prompt: prompt.value,
+            file_url: file_url,
+            resolution: selectedResolution.value,
+            size: selectedAspectRatio.value,
+            optimize_prompt: optimizePrompt.value ? 1 : 0,
+            negative_prompt: showNegativePrompt.value ? negativePrompt.value : ''
+          }
+
+          response = await image2video(formData)
+        } else {
+          stopProgress()
+          console.error('❌ 图片上传失败:', uploadResponse);
+          $toast.error(uploadResponse?.msg || 'Image upload failed, please try again');
+          isGenerating.value = false
+          return
+        }
+      } catch (uploadError: any) {
+        stopProgress()
+        console.error('❌ 图片上传异常:', uploadError);
+        $toast.error(uploadError?.msg || 'Image upload failed, please check your network connection');
+        isGenerating.value = false
+        return
       }
-      startProgress()
-      response = await image2video(formData)
     }
 
     if (response && response.code === 200) {
-      taskId.value = response.data?.task_id || ''
-      
+      // 由于 response.data 可能为 {}，需确保 task_id 存在
+      const task_id = (response.data && (response.data as any).task_id) ? (response.data as any).task_id : ''
+      taskId.value = task_id
+
       if (taskId.value) {
         $toast.success('Video generation task created successfully!')
         // startProgress()
