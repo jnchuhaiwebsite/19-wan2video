@@ -4,9 +4,9 @@
       
       <!-- Section Headline -->
       <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-gray-900 mb-6">More Than AI. It's A New Architecture.</h2>
+        <h2 class="text-4xl font-bold text-blue-dark mb-6">More Than AI. It's A New Architecture.</h2>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Discover the core architecture, aesthetic training, and massive dataset that empower Wan 2.2's industry-leading performance.
+          Discover the core architecture, aesthetic training, and massive dataset that empower Wan 2.2 Plus industry-leading performance.
         </p>
       </div>
 
