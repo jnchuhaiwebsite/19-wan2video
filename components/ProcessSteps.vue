@@ -3,10 +3,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center">
         <h2 class="text-4xl font-bold lg:text-5xl xl:text-6xl 2xl:text-[4rem] text-blue-dark text-center mb-8 leading-loose mobile-large-title">
-          Go From Idea to Video in Seconds
+            How Wan 2.2 Plus Works
         </h2>
         <p class="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
-          Our streamlined process makes professional video creation effortless. Just three simple steps stand between your concept and a finished masterpiece.
+         Our streamlined workflow makes AI video generation with <font class="text-blue-dark md:font-bold">Wan 2.2</font> intuitive and fast. Go from idea to final render in minutes.
         </p>
       </div>
 
@@ -22,7 +22,7 @@
                 <component :is="step.icon" class="w-5 h-5 sm:w-6 sm:h-6 text-blue-dark" />
                 <h3 class="text-lg sm:text-xl font-semibold text-blue-dark">{{ step.title }}</h3>
               </div>
-              <p class="mt-2 text-gray-600 text-sm sm:text-base">{{ step.description }}</p>
+              <p class="mt-2 text-gray-600 text-sm sm:text-base" v-html="step.description"></p>
               <div v-if="step.specs" class="mt-4 pt-4 border-t border-blue-footerborder">
                 <p class="text-xs sm:text-sm text-blue-secondarytext">{{ step.specs }}</p>
               </div>
@@ -46,20 +46,20 @@ import {
 
 const steps = [
     {
-      title: "Describe Your Vision",
-      description: "Write a detailed prompt describing your scene, characters, and actions. Be specific to get the best results.",
+      title: "Choose Your Mode",
+      description: 'Start with a text prompt (Text-to-Video) or upload your own image (Image-to-Video) to bring it to life with the power of <font class="text-blue-dark md:font-bold">Wan 2.2</font>.',
       icon: CommandLineIcon,
       specs: "Text-to-video or Image-to-video"
     },
     {
-      title: "Set Your Parameters",
-      description: "Choose your resolution and aspect ratio, and decide whether to enable our AI-powered prompt enhancement for the best results.",
+      title: "Configure & Create",
+      description: 'Write your descriptive prompt, choose the aspect ratio, and tell <font class="text-blue-dark md:font-bold">Wan 2.2</font> exactly what to create for your vision.',
       icon: AdjustmentsHorizontalIcon,
       specs: "480p/1080p, Multiple ratios"
     },
     {
-      title: "Generate & Download",
-      description: "Click 'Generate' to start creating. A 480p video takes about 1 minute, while a 1080p HD video takes about 2 minutes.",
+      title: "Generate & Share",
+      description: 'The <font class="text-blue-dark md:font-bold">Wan 2.2</font> AI gets to work. Once ready, download your high-quality MP4 video or share it directly with the world.',
       icon: ArrowDownTrayIcon,
       specs: "Coherent multi-shot video, fluid animation, 480p or 1080p HD quality."
     }
