@@ -9,7 +9,7 @@
           Discover the core architecture, aesthetic training, and massive dataset that empower Wan 2.2's industry-leading performance.
         </p>
       </div>
-      
+
       <!-- Features Grid -->
       <div class="grid md:grid-cols-3 gap-8">
         

@@ -4,10 +4,10 @@
       <!-- 标题 -->
       <div class="text-center">
         <h2 class="text-4xl lg:text-5xl font-extrabold leading-tight mb-6 text-blue-h1">
-          FAQ - Wan 2.2 AI
+          FAQ - Wan 2.2 Plus 
         </h2>
         <p class="text-xl leading-relaxed max-w-3xl mx-auto mb-16 text-blue-footertext">
-          Find answers to frequently asked questions about Wan2.2, including pricing, credits, payments, and usage.
+          Find answers to frequently asked questions about Wan2.2 Plus, including pricing, credits, payments, and usage.
         </p>
       </div>
 
@@ -78,24 +78,24 @@ defineOptions({
 // FAQ数据 - 来自FAQ页面的前四个问题
 const faqPreviewData = [
 {
-    "question": "What is Wan 2.2?",
-    "answer": "Wan 2.2 is a state-of-the-art AI video generation platform designed for creators who demand high quality and precision. It excels at transforming simple text prompts into stunning, cinematic videos with three key advantages:\n\n- **Cinematic Visuals:** It understands filmmaking language, allowing you to control camera angles, lighting, and shots for a professional look.\n- **Fluid Motion:** Our model produces incredibly smooth and realistic character and object movements, free from the jitter seen in other tools.\n- **Semantic Accuracy:** It precisely interprets complex prompts, ensuring the final video faithfully represents your creative vision."
+    "question": "What is Wan 2.2 Plus?",
+    "answer": "Wan 2.2 Plus is a state-of-the-art AI video generation platform designed for creators who demand high quality and precision. It excels at transforming simple text prompts into stunning, cinematic videos with three key advantages:\n\n- **Cinematic Visuals:** It understands filmmaking language, allowing you to control camera angles, lighting, and shots for a professional look.\n- **Fluid Motion:** Our model produces incredibly smooth and realistic character and object movements, free from the jitter seen in other tools.\n- **Semantic Accuracy:** It precisely interprets complex prompts, ensuring the final video faithfully represents your creative vision."
   },
   {
     "question": "How long does it take to generate a video?",
     "answer": "Our platform is optimized for speed, but generation time depends on the selected quality. Here are our typical estimates:\n\n- **Standard Quality (480p):** Typically takes about **1 minute** to generate.\n- **High Quality (1080p):** Typically takes about **2 minutes** to generate.\n\nPlease note that these times can vary slightly depending on server traffic and the complexity of your prompt."
   },
   {
-    "question": "Can I try the Wan 2.2 AI Video Generator for free?",
-    "answer": "Absolutely! We believe in letting you experience the power of Wan 2.2 firsthand. Every new user who signs up receives **20 free credits**.\n\nThis is typically enough to generate one 480p video, allowing you to test the platform and see the quality of the results for yourself. No credit card is required to get started."
+    "question": "Can I try the Wan 2.2 Plus AI Video Generator for free?",
+    "answer": "Absolutely! We believe in letting you experience the power of Wan 2.2 Plus firsthand. Every new user who signs up receives **20 free credits**.\n\nThis is typically enough to generate one 480p video, allowing you to test the platform and see the quality of the results for yourself. No credit card is required to get started."
   },
   {
     "question": "Do the credits I receive or purchase have an expiration date?",
     "answer": "No, your credits are yours to keep. Any credits you receive upon signing up or purchase from a credit pack are **permanently valid** and will never expire. You can use them whenever your creativity strikes, whether it's today or a year from now."
   },
   {
-    "question": "Can I use videos made with Wan 2.2 AI Video Generator for commercial projects?",
-    "answer": "Absolutely. We believe in empowering every creator. All videos you generate on the Wan 2.2 platform, including those made with free trial credits, come with a full commercial license.\n\nThis means you are free to use your creations for any purpose, such as:\n\n- Marketing campaigns and online advertisements\n- Social media content for business accounts\n- Client projects and presentations\n- Monetized content on platforms like YouTube or TikTok\n\nOur goal is to provide you with complete creative and commercial freedom. For the full legal details, we always recommend reviewing our Terms of Service."
+    "question": "Can I use videos made with Wan 2.2 Plus AI Video Generator for commercial projects?",
+    "answer": "Absolutely. We believe in empowering every creator. All videos you generate on the Wan 2.2 Plus platform, including those made with free trial credits, come with a full commercial license.\n\nThis means you are free to use your creations for any purpose, such as:\n\n- Marketing campaigns and online advertisements\n- Social media content for business accounts\n- Client projects and presentations\n- Monetized content on platforms like YouTube or TikTok\n\nOur goal is to provide you with complete creative and commercial freedom. For the full legal details, we always recommend reviewing our Terms of Service."
   }
 ]
 

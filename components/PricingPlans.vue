@@ -4,7 +4,7 @@
       <div class="text-center mb-16">
         <h2 class="text-4xl font-bold text-blue-dark mb-6">Simple Plans for Every Creator</h2>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Start for free and scale as you grow. Find the perfect plan to unlock the full potential of Wan 2.2 for your needs.
+          Start for free and scale as you grow. Find the perfect plan to unlock the full potential of Wan 2.2 Plus for your needs.
         </p>
       </div>
       
