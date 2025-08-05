@@ -55,7 +55,7 @@ const features = [
   },
   {
     title: "Advanced MoE Architecture",
-    description: "Wan 2.2's Mixture-of-Experts (MoE) architecture divides tasks among specialized AI models. This boosts model power and detail, delivering higher-quality video without increasing computational cost.",
+    description: "Wan 2.2 Plus Mixture-of-Experts (MoE) architecture divides tasks among specialized AI models. This boosts model power and detail, delivering higher-quality video without increasing computational cost.",
     iconPath: "M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"
   },
   {
@@ -65,7 +65,7 @@ const features = [
   },
   {
     title: "Complex & Dynamic Motion",
-    description: "Powered by a massive training dataset (+83% more video), Wan 2.2 excels at generating complex and physically believable motion, with performance that rivals top closed-source models.",
+    description: " Powered by a massive training dataset (+83% more video), Wan 2.2 Plus excels at generating complex and physically believable motion, with performance that rivals top closed-source models.",
     iconPath: "M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
   }
 ]
