@@ -77,7 +77,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import { useNotificationStore } from '~/stores/notification';
-
+import { useNuxtApp } from 'nuxt/app'
 const notificationStore = useNotificationStore();
 
 const cases = [
@@ -252,15 +252,16 @@ onUnmounted(() => {
   playingIndex.value = null;
   loadingIndex.value = null;
 });
-
+const { $toast } = useNuxtApp() as any
 function copyDesc(idx: number) {
   navigator.clipboard.writeText(cases[idx].desc);
   copiedIndex.value = idx;
-  notificationStore.addNotification({
-    taskId: `copy-success-${Date.now()}`,
-    status: 'success',
-    message: 'copied to clipboard'
-  });
+  $toast.success('Prompt Copied to clipboard');
+  // notificationStore.addNotification({
+  //   taskId: `copy-success-${Date.now()}`,
+  //   status: 'success',
+  //   message: 'copied to clipboard'
+  // });
 }
 
 function scrollToTop() {
