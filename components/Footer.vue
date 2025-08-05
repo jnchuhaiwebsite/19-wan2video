@@ -29,7 +29,7 @@
               The Wan 2.2 Plus Video Generation Platform (wan2video.com) is a creative tool powered by the leading Tongyi Wanxiang 2.2 model, specializing in cinematic-quality video and precise semantic control. We are dedicated to empowering every creator, regardless of their background, to effortlessly transform text or static images into vivid, coherent, and story-driven moving visuals, truly making "what you write is what you get" a reality.
             </p>
             <div class="flex flex-col items-start gap-2 text-sm text-gray-500">
-              <p>© 2025 wan 2.2 All rights reserved.</p>
+              <p>© 2025 wan 2.2 Plus All rights reserved.</p>
               <div class="text-left">
                 <p class="text-blue-footertext text-sm">
                   <a href="mailto:support@wan2video.com" class="text-blue-h1 hover:text-blue-footerhover transition-colors">support@wan2video.com</a>
@@ -147,33 +147,33 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useNavigation } from '~/utils/navigation'
-import { getFriendLinkList } from '~/api'
-import { useAsyncData } from 'nuxt/app'
+// import { ref } from 'vue'
+// import { useNavigation } from '~/utils/navigation'
+// import { getFriendLinkList } from '~/api'
+// import { useAsyncData } from 'nuxt/app'
 
-interface PartnerSite {
-  url: string
-  name: string
-}
+// interface PartnerSite {
+//   url: string
+//   name: string
+// }
 
-const { activeSection, sections, handleNavClick, handleScroll, footerSections, productsSections } = useNavigation()
+// const { activeSection, sections, handleNavClick, handleScroll, footerSections, productsSections } = useNavigation()
 
-// 处理链接点击，支持新标签页打开
-const handleLinkClick = (href: string, openInNewTab?: boolean) => {
-  if (openInNewTab) {
-    window.open(href, '_blank', 'noopener,noreferrer');
-  }
-};
+// // 处理链接点击，支持新标签页打开
+// const handleLinkClick = (href: string, openInNewTab?: boolean) => {
+//   if (openInNewTab) {
+//     window.open(href, '_blank', 'noopener,noreferrer');
+//   }
+// };
 
 // 服务端请求友情链接
-const { data: partnerSites, error } = await useAsyncData('partnerSites', async () => {
-  const res = await getFriendLinkList()
-  if (res.code === 200) {
-    return res.data as PartnerSite[]
-  }
-  return []
-})
+// const { data: partnerSites, error } = await useAsyncData('partnerSites', async () => {
+//   const res = await getFriendLinkList()
+//   if (res.code === 200) {
+//     return res.data as PartnerSite[]
+//   }
+//   return []
+// })
 </script>
 
 <style scoped>

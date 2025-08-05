@@ -6,19 +6,14 @@ import LoginPromptModal from '~/components/LoginPromptModal.vue'
 
 const notificationStore = useNotificationStore() 
 
-onMounted(() => {
-  
-})
 </script>
 
 <template>
-  <div>
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
     <NotificationList />
     <LoginPromptModal />
-  </div>
 </template>
 
 <style>
