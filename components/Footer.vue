@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto px-4 mobile-padding">
       
       <!-- 友情链接区域 -->
-      <div class="mb-8" v-if="partnerSites && partnerSites.length > 0">
+      <!-- <div class="mb-8" v-if="partnerSites && partnerSites.length > 0">
         <div class="text-blue-footer font-medium mb-4 text-left text-sm md:text-lg">Partner Sites</div>
         <div class="flex flex-wrap gap-x-6 gap-y-2">
           <a v-for="(item,index) in partnerSites" :key="index" 
@@ -14,10 +14,10 @@
             {{ item.name }}
           </a>
         </div>
-      </div>
+      </div> -->
 
       <!-- 分割线 -->
-      <div class="w-full h-px bg-blue-footerborder/30 mb-8" v-if="partnerSites && partnerSites.length > 0"></div>
+      <!-- <div class="w-full h-px bg-blue-footerborder/30 mb-8" v-if="partnerSites && partnerSites.length > 0"></div> -->
 
       <!-- 主要内容区域 -->
       <div class="flex flex-col md:flex-row gap-8 md:gap-16 mobile-footer-links">
@@ -87,7 +87,7 @@
             </div>
           </div> -->
           <!-- Products 部分 - 只在有内容时显示 -->
-          <div v-if="productsSections && productsSections.length > 0" class="flex-1 text-center sm:text-left">
+          <!-- <div v-if="productsSections && productsSections.length > 0" class="flex-1 text-center sm:text-left">
             <div class="text-blue-footer font-medium mb-4 text-sm md:text-lg">Products</div>
             <div class="flex flex-col gap-2 items-center sm:items-start">
               <template v-for="(section, index) in productsSections" :key="index">
@@ -130,7 +130,7 @@
                 </div>
               </template>
             </div>
-          </div>
+          </div> -->
 
           <!-- 法律条款 -->
           <div class="flex-1 text-center sm:text-left">
