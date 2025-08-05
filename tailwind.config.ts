@@ -12,6 +12,10 @@ export default {
   ],
   theme: {
     extend: {
+        fontSize: {
+            // 定义2.8rem的自定义文本大小
+            '28rem': '2.8rem',
+        },
       colors: {
         theme: '#ffffff',
         blue: {
