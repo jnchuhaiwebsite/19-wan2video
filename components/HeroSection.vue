@@ -73,7 +73,7 @@
                       <line x1="12" y1="3" x2="12" y2="15" />
                     </svg>
                                          <p class="text-sm text-blue-secondarytext">Click to upload or drag and drop</p>
-                     <p class="text-xs text-blue-secondarytext mt-1">Supported formats: JPEG, JPG, PNG, BMP, WEBP</p>
+                     <p class="text-xs text-blue-secondarytext mt-1">Supported formats: JPEG, JPG, PNG, BMP, WEBP (Max 10MB, 360-2000px)</p>
                   </div>
                 </label>
                 
@@ -111,23 +111,21 @@
             
             <!-- Resolution Selection -->
             <div class="pb-2 border-b border-blue-footerborder">
-              <label class="block text-sm font-medium text-blue-maintext mb-2">
-                Resolution
-              </label>
+    
                              <div :class="activeMode === 'text-to-video' ? 'grid grid-cols-2 gap-4' : 'grid grid-cols-1 gap-4'">
                 <!-- Quality Selection -->
                 <div>
-                  <label class="block text-xs font-medium text-blue-resolutionlabel mb-2">
-                    Quality
+                  <label class="block text-xs font-medium text-blue-maintext mb-2">
+                    Resolution
                   </label>
                   <select 
                     v-model="selectedResolution" 
-                    class="w-full px-3 py-2 border border-blue-footerborder rounded-lg focus:ring-2 focus:ring-blue-dark focus:border-blue-dark transition-colors text-blue-resolutionoption bg-blue-pale"
+                    class="w-full px-3 py-2 border border-blue-footerborder rounded-lg focus:ring-2 focus:ring-blue-dark focus:border-blue-dark transition-colors text-blue-maintext bg-blue-pale"
                   >
-                    <option value="480p" class="text-blue-resolutionoptionselected">
+                    <option value="480p" class="text-blue-maintext">
                       480P (20 Credits)
                     </option>
-                    <option value="1080p" class="text-blue-resolutionoptionselected">
+                    <option value="1080p" class="text-blue-maintext">
                       1080P (100 Credits)
                     </option>
                   </select>
@@ -135,36 +133,36 @@
                 
                 <!-- Aspect Ratio Selection -->
                 <div v-if="activeMode === 'text-to-video'">
-                  <label class="block text-xs font-medium text-blue-aspectlabel mb-2">
+                  <label class="block text-xs font-medium text-blue-maintext mb-2">
                     Aspect Ratio
                   </label>
                   <select 
                     v-model="selectedAspectRatio" 
-                    class="w-full px-3 py-2 border border-blue-footerborder rounded-lg focus:ring-2 focus:ring-blue-dark focus:border-blue-dark transition-colors text-blue-aspectoption bg-blue-pale"
+                    class="w-full px-3 py-2 border border-blue-footerborder rounded-lg focus:ring-2 focus:ring-blue-dark focus:border-blue-dark transition-colors text-blue-maintext bg-blue-pale"
                   >
-                    <option v-if="selectedResolution === '480p'" value="832*480" class="text-blue-aspectoptionselected">
+                    <option v-if="selectedResolution === '480p'" value="832*480" class="text-blue-maintext">
                       16:9 (832*480)
                     </option>
 
-                    <option v-if="selectedResolution === '480p'" value="480*832" class="text-blue-aspectoptionselected">
+                    <option v-if="selectedResolution === '480p'" value="480*832" class="text-blue-maintext">
                       9:16 (480*832)
                     </option>
-                    <option v-if="selectedResolution === '480p'" value="624*624" class="text-blue-aspectoptionselected">
+                    <option v-if="selectedResolution === '480p'" value="624*624" class=" text-blue-maintext">
                       1:1 (624*624)
                     </option>
-                    <option v-if="selectedResolution === '1080p'" value="1920*1080" class="text-blue-aspectoptionselected">
+                    <option v-if="selectedResolution === '1080p'" value="1920*1080" class=" text-blue-maintext">
                       16:9 (1920*1080)
                     </option>
-                    <option v-if="selectedResolution === '1080p'" value="1080*1920" class="text-blue-aspectoptionselected">
+                    <option v-if="selectedResolution === '1080p'" value="1080*1920" class=" text-blue-maintext">
                       9:16 (1080*1920)
                     </option>
-                    <option v-if="selectedResolution === '1080p'" value="1440*1440" class="text-blue-aspectoptionselected">
+                    <option v-if="selectedResolution === '1080p'" value="1440*1440" class=" text-blue-maintext">
                       1:1 (1440*1440)
                     </option>
-                    <option v-if="selectedResolution === '1080p'" value="1632*1248" class="text-blue-aspectoptionselected">
+                    <option v-if="selectedResolution === '1080p'" value="1632*1248" class=" text-blue-maintext">
                       4:3 (1632*1248)
                     </option>
-                    <option v-if="selectedResolution === '1080p'" value="1248*1632" class="text-blue-aspectoptionselected">
+                    <option v-if="selectedResolution === '1080p'" value="1248*1632" class=" text-blue-maintext">
                       3:4 (1248*1632)
                     </option>
                   </select>
@@ -319,6 +317,7 @@ import { useUiStore } from '~/stores/ui'
 import { useRouter } from 'vue-router'
 import { useNavigation } from '~/utils/navigation'
 import { text2video, image2video, upload, checkTask } from '~/api'
+import { validateImageFile } from '~/utils/uploadAPI'
 import { useVideoTaskStore } from '~/stores/videoTask'
 
 const { $toast } = useNuxtApp() as any
@@ -426,22 +425,19 @@ const validatePrompt = () => {
 }
 
 // 验证图片上传
-const validateImageUpload = () => {
+const validateImageUpload = async () => {
   if (activeMode.value === 'image-to-video' && !uploadedImage.value) {
     $toast.error('Please upload an image for image-to-video mode')
     return false
   }
   
   if (uploadedImage.value) {
-    const maxSize = 10 * 1024 * 1024 // 10MB
-    if (uploadedImage.value.size > maxSize) {
-      $toast.error('Image file size must be less than 10MB')
-      return false
-    }
-    
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/bmp', 'image/webp']
-    if (!allowedTypes.includes(uploadedImage.value.type)) {
-      $toast.error('Please upload a valid image file (JPEG, JPG, PNG, BMP, or WebP)')
+    try {
+      // 使用新的验证函数
+      await validateImageFile(uploadedImage.value)
+      return true
+    } catch (error: any) {
+      $toast.error(error.message || 'Image validation failed')
       return false
     }
   }
@@ -721,7 +717,7 @@ const handleGenerate = async () => {
     return
   }
 
-  if (!validateImageUpload()) {
+  if (!(await validateImageUpload())) {
     return
   }
 

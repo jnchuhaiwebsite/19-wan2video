@@ -225,6 +225,7 @@ import { ref, reactive, nextTick, onMounted, watch, computed } from "vue";
 import { useUserStore } from "~/stores/user";
 import { useClerkAuth } from "~/utils/authHelper";
 import { useNuxtApp } from 'nuxt/app';
+import { validateImageFile } from '~/utils/uploadAPI';
 // import { createTask, getStyleList, getTaskInfo } from '~/api'; // Import getTaskInfo - 暂时注释API导入
 // Import icons used in the page
 import { 
@@ -442,15 +443,11 @@ const handleFileChange = async (event: Event) => {
   if (target.files && target.files.length > 0) {
     const file = target.files[0];
     
-    // Check file size (5MB = 5 * 1024 * 1024)
-    if (file.size > 5 * 1024 * 1024) {
-      showToast("File size cannot exceed 5MB", "error");
-      return;
-    }
-    
-    // Check file type
-    if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
-      showToast("Only JPG, PNG, and GIF formats are supported", "error");
+    try {
+      // 使用新的验证函数
+      await validateImageFile(file)
+    } catch (error: any) {
+      showToast(error.message || "Image validation failed", "error");
       return;
     }
     
