@@ -20,7 +20,7 @@ export const urlList = {
   getSubPlans: baseUrl + '/api/website/priceList',     // 获取套餐信息
   getSubplansTest: baseUrl + '/api/website/odl',     // 获取测试套餐信息
   payOrder: baseUrl + '/api/pay/creem',  // 支付
-  opusList: baseUrl + '/api/user/opus_list', // 获取用户作品列表
+
 
   friendLinkList: baseUrl + '/api/cms/friendLinkList', // 获取友情链接列表
   getScore: baseUrl + '/api/mj/score', // 获取积分
@@ -38,6 +38,7 @@ export const urlList = {
   text2video: baseUrl + '/api/task/wan2ai/text2video',  // 创建任务-文生视频
   image2video: baseUrl + '/api/task/wan2ai/image2video',  // 创建任务-图生视频
   checkTask: baseUrl + '/api/task/wan2ai/check_task_status', // 检查任务
+  opusList: baseUrl + '/api/user/opus_list', // 获取用户作品列表
 }
 
 /**

@@ -4,8 +4,8 @@
       <!-- 页面标题区域 -->
       <header>
         <PageHero 
-          title="Midjourney AI Video & Image Pricing"
-          subtitle="Unlock the full power of Midjourney with a plan that scales with your ambition. No hidden fees, cancel anytime."
+          title="wan2.2 AI Video & Image Pricing"
+          subtitle="Unlock the full power of wan2.2 with a plan that scales with your ambition. No hidden fees, cancel anytime."
         />
       </header>
 
@@ -181,8 +181,8 @@ interface PricingPlan {
 
 // 设置SEO
 useSeo({
-  title: 'Midjourney Pricing - See Free & Paid Subscription Plans',
-  description: 'Explore simple Midjourney pricing on Midjourney. Get unlimited AI art & video with V7. No Discord needed. Find the perfect plan and start for free!',
+  title: 'wan2.2 Pricing - See Free & Paid Subscription Plans',
+  description: 'Explore simple wan2.2 pricing on wan2.2. Get unlimited AI art & video with V7. No Discord needed. Find the perfect plan and start for free!',
 });
 
 // 引入auth认证

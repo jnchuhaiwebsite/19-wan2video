@@ -29,11 +29,11 @@
               Generate stunning, cinematic AI videos from a single prompt in seconds with Wan2.2, the ideal tool for creative professionals and marketers.
             </p>
             <div class="flex flex-col items-start gap-2 text-sm text-gray-500">
-              <p>© 2025 Midjourney All rights reserved.</p>
+              <p>© 2025 wan2.2 All rights reserved.</p>
               <div class="text-left">
                 <p class="text-blue-footertext text-sm">
     
-                  <a href="mailto:support@midjourneyai.net" class="text-blue-h1 hover:text-blue-footerhover transition-colors">support@midjourneyai.net</a>
+                  <a href="mailto:support@wan2video.com" class="text-blue-h1 hover:text-blue-footerhover transition-colors">support@wan2video.com</a>
                 </p>
               </div>
             </div>

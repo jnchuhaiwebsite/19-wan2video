@@ -239,7 +239,7 @@
             <template v-if="isVideoType(work.task_type)">
               <div class="relative w-full h-full">
                 <video 
-                  :src="work.url1" 
+                  :src="work.generate_image" 
                   class="w-full h-full object-cover cursor-pointer"
                   loading="lazy"
                   muted
@@ -247,7 +247,7 @@
                   ref="videoRefs"
                   @mouseenter="handleVideoPlay($event)"
                   @mouseleave="handleVideoPause($event)"
-                  @click="openLightbox(work.url1)"
+                  @click="openLightbox(work.generate_image)"
                   @loadstart="handleVideoLoadStart(work.task_id)"
                   @canplay="handleVideoCanPlay(work.task_id)"
                 />
@@ -261,7 +261,7 @@
               </div>
               <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
                 <button 
-                  @click="openLightbox(work.url1)"
+                  @click="openLightbox(work.generate_image)"
                   class="bg-blue-button bg-opacity-80 p-2 rounded-full hover:bg-opacity-100 transition-all shadow-lg hover:shadow-xl"
                   title="View full size"
                 >
@@ -270,7 +270,7 @@
                   </svg>
                 </button>
                 <button 
-                  @click="handleDownload(work.url1)"
+                  @click="handleDownload(work.generate_image)"
                   class="bg-blue-button bg-opacity-80 p-2 rounded-full hover:bg-opacity-100 transition-all shadow-lg hover:shadow-xl"
                   :disabled="isDownloading"
                   title="Download video"
@@ -287,16 +287,16 @@
             <template v-else-if="isImageType(work.task_type)">
               <div class="relative w-full h-full">
                 <img 
-                  :src="work.url1" 
+                  :src="work.generate_image" 
                   class="w-full h-full object-cover cursor-pointer"
                   loading="lazy"
                   alt="Generated image"
-                  @click="openImageLightbox(work.url1)"
+                  @click="openImageLightbox(work.generate_image)"
                 />
               </div>
               <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
                 <button 
-                  @click="openImageLightbox(work.url1)"
+                  @click="openImageLightbox(work.generate_image)"
                   class="bg-blue-button bg-opacity-80 p-2 rounded-full hover:bg-opacity-100 transition-all shadow-lg hover:shadow-xl"
                   title="View full size"
                 >
@@ -305,7 +305,7 @@
                   </svg>
                 </button>
                 <button 
-                  @click="handleDownload(work.url1)"
+                  @click="handleDownload(work.generate_image)"
                   class="bg-blue-button bg-opacity-80 p-2 rounded-full hover:bg-opacity-100 transition-all shadow-lg hover:shadow-xl"
                   :disabled="isDownloading"
                   title="Download image"
@@ -523,7 +523,7 @@ interface CreditRecordResponse {
 
 interface Work {
   task_id: string
-  url1: string
+  generate_image: string
   created_at: number
   origin_image: string
   status: number
@@ -566,7 +566,7 @@ const isDownloading = ref(false)
 // 标签选项卡配置
 const tabs = [
   { label: 'My Videos', value: 1 },
-  { label: 'My Images', value: 2 },
+  // { label: 'My Images', value: 2 },
   { label: 'In Progress', value: 0 }
 ]
 
@@ -612,8 +612,8 @@ const formatDate = (timestamp: number) => {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
+    // hour: '2-digit',
+    // minute: '2-digit'
   })
 }
 

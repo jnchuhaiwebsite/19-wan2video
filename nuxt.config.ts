@@ -25,7 +25,7 @@ export default defineNuxtConfig({
   ],
   app: {
     head: {
-      title: 'midjourney video generator',
+      title: 'wan2.2 video generator',
       htmlAttrs: {
         lang: 'en' // 设置 HTML 语言
       },
@@ -34,29 +34,29 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         {
           name: 'description',
-          content: 'The Premier Midjourney Video Generator - Transform static images into breathtaking video clips with unparalleled ease and cinematic motion.'
+          content: 'The Premier wan2.2 Video Generator - Transform static images into breathtaking video clips with unparalleled ease and cinematic motion.'
         },
         // Open Graph / Facebook
         { property: 'og:type', content: 'website' },
-        { property: 'og:title', content: 'The Midjourney Video Generator - Transform Images to Videos' },
-        { property: 'og:description', content: 'From static art to cinematic motion. Experience the premier midjourney video generator, built to transform your images into breathtaking video clips.' },
+        { property: 'og:title', content: 'The wan2.2 Video Generator - Transform Images to Videos' },
+        { property: 'og:description', content: 'From static art to cinematic motion. Experience the premier wan2.2 video generator, built to transform your images into breathtaking video clips.' },
         { property: 'og:image', content: '/favicon.ico' },
         // Twitter
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:title', content: 'The Midjourney Video Generator - Image to Video AI' },
-        { name: 'twitter:description', content: 'Transform your static images into stunning video clips with our premier midjourney video generator. From art to cinematic motion in seconds.' },
+        { name: 'twitter:title', content: 'The wan2.2 Video Generator - Image to Video AI' },
+        { name: 'twitter:description', content: 'Transform your static images into stunning video clips with our premier wan2.2 video generator. From art to cinematic motion in seconds.' },
         { name: 'twitter:image', content: '/favicon.ico' },
         // Keywords
-        { name: 'keywords', content: 'midjourney video generator, image to video, AI video creation, static to motion, cinematic video, AI animation' },
-        { name: 'author', content: 'Midjourney Video Generator Team' },
-        { name: 'application-name', content: 'Midjourney Video Generator' },
+        { name: 'keywords', content: 'wan2.2 video generator, image to video, AI video creation, static to motion, cinematic video, AI animation' },
+        { name: 'author', content: 'wan2.2 Video Generator Team' },
+        { name: 'application-name', content: 'wan2.2 Video Generator' },
       ],
       script: [
         { src: '/js/c6h.js', async: true } 
       ], // 外部脚本
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'canonical', href: 'https://www.midjourneyai.net' }
+        { rel: 'canonical', href: 'https://www.wan2video.com' }
       ]
     }
   },

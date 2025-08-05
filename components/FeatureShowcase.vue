@@ -11,7 +11,7 @@
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
-        <!-- Pioneering Midjourney V1 Core -->
+        <!-- Pioneering wan2.2 V1 Core -->
         <div class="showcase-card bg-blue-pale p-8 rounded-2xl border border-blue-pricingborder hover:border-blue-pricinghover transition-all duration-300 hover:shadow-lg group">
           <div class="showcase-icon w-12 h-12 bg-white border border-blue-pricingborder rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-light transition-all duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-button" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -19,10 +19,10 @@
             </svg>
           </div>
           <h3 class="text-xl font-bold mb-3 text-blue-h1 group-hover:text-blue-pricinghover transition-colors duration-300">
-            Pioneering Midjourney V1 Core
+            Pioneering wan2.2 V1 Core
           </h3>
           <p class="text-blue-footertext leading-relaxed">
-            Harnessing the creative spirit of the original <strong class="text-blue-button">Midjourney V1</strong>, our platform now extends its power to motion, optimizing our engine for video with a distinct, foundational aesthetic.
+            Harnessing the creative spirit of the original <strong class="text-blue-button">wan2.2 V1</strong>, our platform now extends its power to motion, optimizing our engine for video with a distinct, foundational aesthetic.
           </p>
         </div>
 
@@ -37,7 +37,7 @@
             Advanced Image to Video
           </h3>
           <p class="text-blue-footertext leading-relaxed">
-            Leverage our premier <strong class="text-blue-button">midjourney image to video</strong> capabilities to instantly add captivating motion to your static artwork.
+            Leverage our premier <strong class="text-blue-button">wan2.2 image to video</strong> capabilities to instantly add captivating motion to your static artwork.
           </p>
         </div>
 
@@ -52,7 +52,7 @@
             Intelligent Video Model
           </h3>
           <p class="text-blue-footertext leading-relaxed">
-            Our platform gives you direct access to the groundbreaking <strong class="text-blue-button">midjourney video model</strong>, interpreting your prompts to create subtle, realistic animations.
+            Our platform gives you direct access to the groundbreaking <strong class="text-blue-button">wan2.2 video model</strong>, interpreting your prompts to create subtle, realistic animations.
           </p>
         </div>
 

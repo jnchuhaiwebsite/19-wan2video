@@ -67,13 +67,13 @@
               @click="plan.code ? handleUpgradePlan(plan) : null"
               :disabled="upgradingPlanId === plan.code"
               :class="[
-                'w-full py-3 px-6 rounded-lg font-medium transition-all duration-300 transform hover:scale-105',
+                'w-full py-3 px-6 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 flex items-center justify-center min-h-[44px]',
                 getButtonClass(plan)
               ]"
               :aria-describedby="`plan-${index}-title`"
             >
               <div v-if="upgradingPlanId === plan.code" class="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mr-2" aria-hidden="true"></div>
-              {{ plan.button_text }}
+              <span>{{ plan.button_text }}</span>
             </button>
           </div>
           

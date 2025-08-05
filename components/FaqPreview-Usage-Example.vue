@@ -4,7 +4,7 @@
     <section class="py-16">
       <div class="max-w-7xl mx-auto">
         <h1 class="text-4xl font-bold text-center mb-8">Welcome to Genesis Engine</h1>
-        <p class="text-xl text-center text-gray-600 mb-16">Create stunning AI art and videos with Midjourney V7</p>
+        <p class="text-xl text-center text-gray-600 mb-16">Create stunning AI art and videos with wan2.2 V7</p>
       </div>
     </section>
 
