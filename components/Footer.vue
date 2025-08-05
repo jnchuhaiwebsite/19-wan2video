@@ -26,10 +26,10 @@
           <div class="flex flex-col items-start text-left">
             <p class="text-blue-logo text-2xl md:text-3xl font-bold mb-4">Wan2Video</p>
             <p class="text-sm text-blue-footertext max-w-xl mb-4">
-              Generate stunning, cinematic AI videos from a single prompt in seconds with Wan2.2, the ideal tool for creative professionals and marketers.
+              Generate stunning, cinematic AI videos from a single prompt in seconds with Wan 2.2, the ideal tool for creative professionals and marketers.
             </p>
             <div class="flex flex-col items-start gap-2 text-sm text-gray-500">
-              <p>© 2025 wan2.2 All rights reserved.</p>
+              <p>© 2025 wan 2.2 All rights reserved.</p>
               <div class="text-left">
                 <p class="text-blue-footertext text-sm">
     
