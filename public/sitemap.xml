@@ -3,74 +3,20 @@
 
   <url>
     <loc>https://www.wan2video.com</loc>
-    <lastmod>2025-08-01T11:00:00.000Z</lastmod>
+    <lastmod>2025-08-05T00:00:00.000Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-  
-
-  <url>
-    <loc>https://www.wan2video.com/ai-image-generator</loc>
-    <lastmod>2025-08-01T11:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wan2video.com/pricing</loc>
-    <lastmod>2025-08-01T11:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wan2video.com/faq</loc>
-    <lastmod>2025-08-01T11:00:00.000Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  
-
-  <url>
-    <loc>https://www.wan2video.com/blog</loc>
-    <lastmod>2025-08-01T11:00:00.000Z</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wan2video.com/blog/breathing-life-into-pixels</loc>
-    <lastmod>2025-08-01T11:00:00.000Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wan2video.com/blog/dialogue-with-the-dream-engine</loc>
-    <lastmod>2025-08-01T11:00:00.000Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wan2video.com/blog/understanding-the-creative-core</loc>
-    <lastmod>2025-08-01T11:00:00.000Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-
   <url>
     <loc>https://www.wan2video.com/subsidiary/terms-of-service</loc>
-    <lastmod>2025-08-01T11:00:00.000Z</lastmod>
+    <lastmod>2025-08-05T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   
   <url>
     <loc>https://www.wan2video.com/subsidiary/privacy-policy</loc>
-    <lastmod>2025-08-01T11:00:00.000Z</lastmod>
+    <lastmod>2025-08-05T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>

@@ -55,7 +55,7 @@ const steps = [
       title: "Set Your Parameters",
       description: "Choose your resolution and aspect ratio, and decide whether to enable our AI-powered prompt enhancement for the best results.",
       icon: AdjustmentsHorizontalIcon,
-      specs: "480p/1080p, Multiple ratios, 5s/10s"
+      specs: "480p/1080p, Multiple ratios"
     },
     {
       title: "Generate & Download",
