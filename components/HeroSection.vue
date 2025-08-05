@@ -72,7 +72,8 @@
                       <polyline points="17 8 12 3 7 8" />
                       <line x1="12" y1="3" x2="12" y2="15" />
                     </svg>
-                    <p class="text-sm text-blue-secondarytext">Click to upload or drag and drop</p>
+                                         <p class="text-sm text-blue-secondarytext">Click to upload or drag and drop</p>
+                     <p class="text-xs text-blue-secondarytext mt-1">Supported formats: JPEG, JPG, PNG, BMP, WEBP</p>
                   </div>
                 </label>
                 
@@ -88,7 +89,7 @@
                   </svg>
                 </button>
               </div>
-              <input type="file" id="image-upload" class="hidden" @change="handleImageUpload" accept="image/*" />
+                             <input type="file" id="image-upload" class="hidden" @change="handleImageUpload" accept="image/jpeg,image/jpg,image/png,image/bmp,image/webp" />
             </div>
             
             <!-- Prompt Input -->
@@ -113,7 +114,7 @@
               <label class="block text-sm font-medium text-blue-maintext mb-2">
                 Resolution
               </label>
-              <div class="grid grid-cols-2 gap-4">
+                             <div :class="activeMode === 'text-to-video' ? 'grid grid-cols-2 gap-4' : 'grid grid-cols-1 gap-4'">
                 <!-- Quality Selection -->
                 <div>
                   <label class="block text-xs font-medium text-blue-resolutionlabel mb-2">
@@ -144,11 +145,12 @@
                     <option v-if="selectedResolution === '480p'" value="832*480" class="text-blue-aspectoptionselected">
                       16:9 (832*480)
                     </option>
-                    <option v-if="selectedResolution === '480p'" value="624*624" class="text-blue-aspectoptionselected">
-                      1:1 (624*624)
-                    </option>
+
                     <option v-if="selectedResolution === '480p'" value="480*832" class="text-blue-aspectoptionselected">
                       9:16 (480*832)
+                    </option>
+                    <option v-if="selectedResolution === '480p'" value="624*624" class="text-blue-aspectoptionselected">
+                      1:1 (624*624)
                     </option>
                     <option v-if="selectedResolution === '1080p'" value="1920*1080" class="text-blue-aspectoptionselected">
                       16:9 (1920*1080)
@@ -204,7 +206,7 @@
                 v-model="negativePrompt"
                 rows="2" 
                 class="w-full px-3 py-2 border border-blue-footerborder rounded-lg focus:ring-2 focus:ring-blue-dark focus:border-blue-dark resize-none transition-colors bg-blue-pale text-blue-inputtextfilled placeholder-blue-inputtext"
-                placeholder="e.g., blurry, watermark, text, low quality"
+                placeholder="Please describe the video you want to generate. Both English and Chinese are supported. Keep it under 800 characters."
                 @input="handleNegativePromptInput"
                 @compositionstart="handleCompositionStart"
                 @compositionend="handleCompositionEnd"
@@ -430,9 +432,9 @@ const validateImageUpload = () => {
       return false
     }
     
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/bmp', 'image/webp']
     if (!allowedTypes.includes(uploadedImage.value.type)) {
-      $toast.error('Please upload a valid image file (JPEG, PNG, or WebP)')
+      $toast.error('Please upload a valid image file (JPEG, JPG, PNG, BMP, or WebP)')
       return false
     }
   }
@@ -446,10 +448,16 @@ const switchMode = (mode: string) => {
   if (mode === 'text-to-video') {
     uploadedImage.value = null
     imagePreview.value = null
+    // 当切换回文生视频时，根据当前分辨率设置合适的宽高比
+    if (selectedResolution.value === '480p') {
+      selectedAspectRatio.value = '832*480'
+    } else if (selectedResolution.value === '1080p') {
+      selectedAspectRatio.value = '1920*1080'
+    }
   } else if (mode === 'image-to-video') {
     uploadedImage.value = null
     imagePreview.value = null
-    selectedAspectRatio.value = '624*624'
+    // 图生视频模式下不需要设置宽高比，由上传的图片决定
   }
 }
 
@@ -737,6 +745,7 @@ const handleGenerate = async () => {
         prompt: prompt.value,
         file: uploadedImage.value,
         resolution: selectedResolution.value,
+        size: selectedAspectRatio.value,
         optimize_prompt: optimizePrompt.value ? 1 : 0,
         negative_prompt: showNegativePrompt.value ? negativePrompt.value : ''
       }
@@ -769,17 +778,25 @@ const handleGenerate = async () => {
 
 // 监听分辨率变化，重置宽高比选择
 watch(selectedResolution, (newResolution) => {
-  if (newResolution === '480p') {
-    selectedAspectRatio.value = '624*624'
-  } else if (newResolution === '1080p') {
-    selectedAspectRatio.value = '1440*1440'
+  if (activeMode.value === 'text-to-video') {
+    // 文生视频模式下，根据分辨率设置合适的宽高比
+    if (newResolution === '480p') {
+      selectedAspectRatio.value = '832*480'
+    } else if (newResolution === '1080p') {
+      selectedAspectRatio.value = '1920*1080'
+    }
   }
 })
 
 // 监听模式变化，重置宽高比选择
 watch(activeMode, (newMode) => {
-  if (newMode === 'image-to-video') {
-    selectedAspectRatio.value = '1:1'
+  if (newMode === 'text-to-video') {
+    // 当切换回文生视频时，根据当前分辨率设置合适的宽高比
+    if (selectedResolution.value === '480p') {
+      selectedAspectRatio.value = '832*480'
+    } else if (selectedResolution.value === '1080p') {
+      selectedAspectRatio.value = '1920*1080'
+    }
   }
 })
 
