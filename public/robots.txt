@@ -7,6 +7,7 @@ Disallow: /search?       # 屏蔽动态搜索结果页（如适用）
 Disallow: /mypay
 Disallow: /components/
 Disallow: /privacy
+Disallow: /profile
 
 # 通用规则（适用于所有搜索引擎）
 User-agent: *
@@ -17,6 +18,7 @@ Disallow: /search?
 Disallow: /mypay
 Disallow: /privacy
 Disallow: /components/
+Disallow: /profile
 
 # 声明网站地图
 Sitemap: https://www.wan2video.com/sitemap.xml

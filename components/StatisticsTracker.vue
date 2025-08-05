@@ -66,8 +66,17 @@ const initializeUniqueId = async () => {
 }
 
 onMounted(() => {
-  // 在页面加载时初始化唯一标识符
-  initializeUniqueId()
+  // 检查页面是否已经完全加载
+  if (document.readyState === 'complete') {
+    // 页面已经完全加载，立即执行
+    initializeUniqueId()
+  } else {
+    // 页面还未完全加载，等待 window.onload 事件
+    window.addEventListener('load', () => {
+      console.log('页面完全加载完成，开始初始化统计功能')
+      initializeUniqueId()
+    })
+  }
 })
 </script>
 
