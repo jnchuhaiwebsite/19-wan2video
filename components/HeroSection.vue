@@ -100,7 +100,7 @@
                 v-model="prompt"
                 rows="3" 
                 class="w-full px-3 py-2 border border-blue-footerborder rounded-lg focus:ring-2 focus:ring-blue-dark focus:border-blue-dark resize-none transition-colors bg-blue-pale text-blue-inputtextfilled placeholder-blue-inputtext"
-                placeholder="Please provide a prompt describing the video you want to generate. Your description should be no more than 800 characters long."
+                placeholder="Please provide a prompt describing the video you want to generate. Both Chinese and English are supported. Your description should be no more than 800 characters long."
                 @focus="handlePromptFocus"
                 @input="handlePromptInput"
                 @compositionstart="handleCompositionStart"
