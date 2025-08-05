@@ -51,6 +51,7 @@ import { downloadFileWithFetch, generateDownloadFilename, getFileExtension } fro
 import { useVideoTaskStore } from '~/stores/videoTask'
 import { useUserStore } from '~/stores/user'
 import { useClerkAuth } from '~/utils/authHelper'
+import { validateImageFile } from '~/utils/uploadAPI'
 import { storeToRefs } from 'pinia'
 
 import { useGeneration } from '~/composables/useGeneration';
@@ -201,19 +202,7 @@ const downloadMedia = async (result: any) => {
   });
 }
 
-// 验证图片文件
-const validateImageFile = (file: File) => {
-  const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
-  const maxSize = 10 * 1024 * 1024; // 10MB
 
-  if (!allowedTypes.includes(file.type)) {
-    throw new Error('Please upload a valid image file (JPEG, PNG, GIF, or WebP)');
-  }
-
-  if (file.size > maxSize) {
-    throw new Error('File size must be less than 10MB');
-  }
-}
 
 // 上传图片
 const uploadImage = async (file: File) => {
