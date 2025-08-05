@@ -100,16 +100,12 @@
                 v-model="prompt"
                 rows="3" 
                 class="w-full px-3 py-2 border border-blue-footerborder rounded-lg focus:ring-2 focus:ring-blue-dark focus:border-blue-dark resize-none transition-colors bg-blue-pale text-blue-inputtextfilled placeholder-blue-inputtext"
-                placeholder="e.g., A hyperrealistic shot of a hummingbird hovering over a flower, slow motion"
+                placeholder="Please provide a prompt describing the video you want to generate. Your description should be no more than 800 characters long."
                 @focus="handlePromptFocus"
                 @input="handlePromptInput"
                 @compositionstart="handleCompositionStart"
                 @compositionend="handleCompositionEnd"
               />
-              <div class="flex justify-between items-center mt-2 text-xs text-blue-secondarytext">
-                <span>Supports Chinese & English</span>
-                <span>{{ prompt.length }}/1000</span>
-              </div>
             </div>
             
             <!-- Resolution Selection -->
@@ -317,6 +313,7 @@ import { useClerkAuth } from '~/utils/authHelper'
 import { useUserStore } from '~/stores/user'
 import { useUiStore } from '~/stores/ui'
 import { useRouter } from 'vue-router'
+import { useNavigation } from '~/utils/navigation'
 import { text2video, image2video, upload, checkTask } from '~/api'
 
 const { $toast } = useNuxtApp() as any
@@ -324,6 +321,7 @@ const { isSignedIn } = useClerkAuth()
 const userStore = useUserStore()
 const uiStore = useUiStore()
 const router = useRouter()
+const { handleNavClick } = useNavigation()
 
 // 响应式数据
 const activeMode = ref('text-to-video')
@@ -613,9 +611,9 @@ const pollTaskStatus = async () => {
         
         $toast.success(statusMsg || 'Video generation completed!')
         console.log('Task completed:', response.data)
-      } else if (statusMsg === 'Task in progress') {
+      } else if (status === 0 || statusMsg === 'Task in progress') {
         taskStatus.value = 'processing'
-      } else if (status === -1) {
+      } else if (status === -1 || status === -2 ) {
         stopProgress()
         stopPolling()
         isGenerating.value = false
@@ -633,7 +631,6 @@ const startPolling = () => {
     clearInterval(pollingInterval.value)
   }
   
-  pollTaskStatus()
   pollingInterval.value = setInterval(pollTaskStatus, PROGRESS_CONFIG.pollingInterval)
 }
 
@@ -700,17 +697,8 @@ const handleGenerate = async () => {
   if (userCredits.value < currentCreditCost.value) {
     $toast.error(`Insufficient credits. This operation requires ${currentCreditCost.value} credits, but you only have ${userCredits.value} credits`)
     
-    // 滚动到定价区域
-    const pricingSection = document.getElementById('pricing')
-    if (pricingSection) {
-      pricingSection.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'start' 
-      })
-    } else {
-      // 如果找不到定价区域，则跳转到定价页面
-      router.push('/pricing')
-    }
+    // 使用 handleNavClick 滑动到价格部分
+    handleNavClick('pricing')
     return
   }
 
@@ -760,7 +748,7 @@ const handleGenerate = async () => {
       taskId.value = response.data?.task_id || ''
       
       if (taskId.value) {
-        $toast.success('视频生成任务创建成功！')
+        $toast.success('Video generation task created successfully!')
         // startProgress()
         startPolling()
       } else {

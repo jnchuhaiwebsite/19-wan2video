@@ -15,6 +15,9 @@
       
       <!-- 套餐价格 -->
       <PricingPlans />
+
+      <!-- 常见问题 -->
+      <FaqPreview />
     </main>
   </div>
 </template>

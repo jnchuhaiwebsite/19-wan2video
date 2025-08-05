@@ -45,24 +45,24 @@ import {
 } from '@heroicons/vue/24/outline'
 
 const steps = [
-  {
-    title: "Describe Your Vision",
-    description: "Write a detailed prompt describing your scene, characters, and actions. Be specific to get the best results.",
-    icon: CommandLineIcon,
-    specs: "Text-to-video or Image-to-video"
-  },
-  {
-    title: "Set Your Parameters",
-    description: "Choose your aspect ratio, style, and other advanced settings to perfectly match your creative needs.",
-    icon: AdjustmentsHorizontalIcon,
-    specs: "480p/1080p, Multiple ratios, 5s/10s"
-  },
-  {
-    title: "Generate & Download",
-    description: "Click 'Generate,' and let our Wan 2.2 engine do the work. Your high-quality video is ready in minutes.",
-    icon: ArrowDownTrayIcon,
-    specs: "Coherent multi-shot video, fluid animation, 1080p HD quality."
-  }
+    {
+      title: "Describe Your Vision",
+      description: "Write a detailed prompt describing your scene, characters, and actions. Be specific to get the best results.",
+      icon: CommandLineIcon,
+      specs: "Text-to-video or Image-to-video"
+    },
+    {
+      title: "Set Your Parameters",
+      description: "Choose your resolution and aspect ratio, and decide whether to enable our AI-powered prompt enhancement for the best results.",
+      icon: AdjustmentsHorizontalIcon,
+      specs: "480p/1080p, Multiple ratios, 5s/10s"
+    },
+    {
+      title: "Generate & Download",
+      description: "Click 'Generate' to start creating. A 480p video takes about 1 minute, while a 1080p HD video takes about 2 minutes.",
+      icon: ArrowDownTrayIcon,
+      specs: "Coherent multi-shot video, fluid animation, 480p or 1080p HD quality."
+    }
 ];
 </script>
 

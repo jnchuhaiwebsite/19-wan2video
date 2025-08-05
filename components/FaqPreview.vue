@@ -4,10 +4,10 @@
       <!-- 标题 -->
       <div class="text-center">
         <h2 class="text-4xl lg:text-5xl font-extrabold leading-tight mb-6 text-blue-h1">
-          Frequently Asked Questions
+          FAQ - Wan 2.2 AI
         </h2>
         <p class="text-xl leading-relaxed max-w-3xl mx-auto mb-16 text-blue-footertext">
-          Quick answers to common questions about Midjourney V1
+          Find answers to frequently asked questions about Wan2.2, including pricing, credits, payments, and usage.
         </p>
       </div>
 
@@ -53,24 +53,17 @@
       </div>
 
       <!-- 查看更多FAQ -->
-      <div class="text-center mt-12">
-        <NuxtLink
-          to="/faq"
-          class="inline-flex items-center px-8 py-4 bg-blue-button hover:bg-blue-buttonhover text-white rounded-lg font-medium text-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
-          aria-label="View all frequently asked questions"
-        >
-          View All FAQs
-          <svg 
-            class="ml-2 w-5 h-5" 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-          </svg>
-        </NuxtLink>
+      <div class="mt-16 text-center">
+      <div class="text-2xl text-blue-secondarytext mb-6">
+        Ready to create your own stunning videos?
       </div>
+      <button
+        @click="scrollToTop"
+        class="bg-blue-dark text-blue-buttontext hover:bg-blue-buttonhover font-semibold px-8 py-4 rounded-lg transition-colors focus:outline-none text-xl"
+      >
+        Start Creating Your Video
+      </button>
+    </div>
     </div>
   </section>
 </template>
@@ -84,22 +77,26 @@ defineOptions({
 
 // FAQ数据 - 来自FAQ页面的前四个问题
 const faqPreviewData = [
-    {
-      question: "What can I create with Midjourney?",
-      answer: "Midjourney is a powerful AI platform that allows you to create stunning, high-quality images and videos from text prompts or by transforming existing images. You can generate artwork, concept designs, marketing visuals, social media content, portraits, landscapes, and cinematic videos with incredible detail and artistic quality. Our platform supports multiple generation modes including text-to-image, image-to-image, and AI video creation, with various aspect ratios and generation speeds to fit your creative workflow."
-    },
-    {
-      question: "How do I use the AI Video Generator feature?",
-      answer: "It's designed to be incredibly simple! Here's the 3-step process:<br><br><strong>1.</strong> Select the \"AI Video\" mode in the generator.<br><strong>2.</strong> Upload a high-quality static image you've created or one of your own.<br><strong>3.</strong> (Optional) Add a text prompt to guide the motion, like \"gentle breeze through the trees\" or \"slow zoom in.\"<br><br>Our engine will then analyze the image and bring it to life with subtle, realistic motion, creating a captivating short video clip perfect for social media and presentations."
-    },
-    {
-      question: "How does Midjourney pricing work?",
-      answer: "Midjourney uses a flexible credit-based pricing system designed to give you maximum value and control. Instead of restrictive monthly subscriptions, you purchase credit packages that never expire. Different generation types consume different amounts of credits: AI video generation requires more credits due to computational complexity, while image generation uses fewer credits. You can choose from relaxed, fast, or turbo generation speeds, with faster speeds consuming more credits but delivering results quicker. This system lets you create at your own pace without worrying about monthly deadlines."
-    },
-    {
-      question: "Can I use the art and videos I create for commercial projects?",
-      answer: "Absolutely. This is a core benefit for our users. Our Creator and Studio plans grant you a full commercial license for every image and video you generate. This means you have the rights to use your creations in marketing campaigns, product designs, client work, and any other for-profit venture. Our licensing aligns with Midjourney's own commercial use terms, giving you complete peace of mind."
-    },
+{
+    "question": "What is Wan 2.2?",
+    "answer": "Wan 2.2 is a state-of-the-art AI video generation platform designed for creators who demand high quality and precision. It excels at transforming simple text prompts into stunning, cinematic videos with three key advantages:\n\n- **Cinematic Visuals:** It understands filmmaking language, allowing you to control camera angles, lighting, and shots for a professional look.\n- **Fluid Motion:** Our model produces incredibly smooth and realistic character and object movements, free from the jitter seen in other tools.\n- **Semantic Accuracy:** It precisely interprets complex prompts, ensuring the final video faithfully represents your creative vision."
+  },
+  {
+    "question": "How long does it take to generate a video?",
+    "answer": "Our platform is optimized for speed, but generation time depends on the selected quality. Here are our typical estimates:\n\n- **Standard Quality (480p):** Typically takes about **1 minute** to generate.\n- **High Quality (1080p):** Typically takes about **2 minutes** to generate.\n\nPlease note that these times can vary slightly depending on server traffic and the complexity of your prompt."
+  },
+  {
+    "question": "Can I try the Wan 2.2 AI Video Generator for free?",
+    "answer": "Absolutely! We believe in letting you experience the power of Wan 2.2 firsthand. Every new user who signs up receives **20 free credits**.\n\nThis is typically enough to generate one 480p video, allowing you to test the platform and see the quality of the results for yourself. No credit card is required to get started."
+  },
+  {
+    "question": "Do the credits I receive or purchase have an expiration date?",
+    "answer": "No, your credits are yours to keep. Any credits you receive upon signing up or purchase from a credit pack are **permanently valid** and will never expire. You can use them whenever your creativity strikes, whether it's today or a year from now."
+  },
+  {
+    "question": "Can I use videos made with Wan 2.2 AI Video Generator for commercial projects?",
+    "answer": "Absolutely. We believe in empowering every creator. All videos you generate on the Wan 2.2 platform, including those made with free trial credits, come with a full commercial license.\n\nThis means you are free to use your creations for any purpose, such as:\n\n- Marketing campaigns and online advertisements\n- Social media content for business accounts\n- Client projects and presentations\n- Monetized content on platforms like YouTube or TikTok\n\nOur goal is to provide you with complete creative and commercial freedom. For the full legal details, we always recommend reviewing our Terms of Service."
+  }
 ]
 
 // 跟踪每个FAQ项目的展开状态 - 默认全部折叠
@@ -110,9 +107,15 @@ const toggleFaq = (index: number) => {
   openFaqs.value[index] = !openFaqs.value[index]
 }
 
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
 // 格式化回答文本
 const formatAnswer = (answer: string) => {
-  return answer
+  return answer.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
 }
 </script>
 

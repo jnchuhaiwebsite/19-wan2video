@@ -4,7 +4,7 @@
       <!-- 页面标题区域 -->
       <header>
         <PageHero 
-          title="Midjourney FAQ - Help"
+          title="wan2.2 FAQ - Help"
           subtitle="Get answers to common questions about our pricing plans and features."
         />
       </header>
@@ -58,7 +58,7 @@
           <button
             @click="scrollToGenerator"
             class="inline-flex items-center px-8 py-4 bg-blue-button hover:bg-blue-buttonhover text-white rounded-lg font-medium text-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
-            aria-label="Start creating with Midjourney"
+            aria-label="Start creating with wan2.2"
           >
             Start Creating Today
             <svg 
@@ -90,8 +90,8 @@ defineOptions({
 
 // SEO data
 useSeo({
-  title: 'Midjourney FAQ - Help & Support Center',
-  description: 'Unlock Midjourney full power. Midjourney is the ultimate AI art & video generator for creating stunning visuals from text or images. No Discord needed. Try it now!',
+  title: 'wan2.2 FAQ - Help & Support Center',
+  description: 'Unlock wan2.2 full power. wan2.2 is the ultimate AI art & video generator for creating stunning visuals from text or images. No Discord needed. Try it now!',
 })
 
 // FAQ data
@@ -100,24 +100,24 @@ const faqSection = {
   subheading: "Get answers to common questions about our pricing plans and features.",
   questions: [
     {
-      question: "What can I create with Midjourney?",
-      answer: "Midjourney is a powerful AI platform that allows you to create stunning, high-quality images and videos from text prompts or by transforming existing images. You can generate artwork, concept designs, marketing visuals, social media content, portraits, landscapes, and cinematic videos with incredible detail and artistic quality. Our platform supports multiple generation modes including text-to-image, image-to-image, and AI video creation, with various aspect ratios and generation speeds to fit your creative workflow."
+      question: "What can I create with wan2.2?",
+      answer: "wan2.2 is a powerful AI platform that allows you to create stunning, high-quality images and videos from text prompts or by transforming existing images. You can generate artwork, concept designs, marketing visuals, social media content, portraits, landscapes, and cinematic videos with incredible detail and artistic quality. Our platform supports multiple generation modes including text-to-image, image-to-image, and AI video creation, with various aspect ratios and generation speeds to fit your creative workflow."
     },
     {
       question: "How do I use the AI Video Generator feature?",
       answer: "It's designed to be incredibly simple! Here's the 3-step process:<br><br><strong>1.</strong> Select the \"AI Video\" mode in the generator.<br><strong>2.</strong> Upload a high-quality static image you've created or one of your own.<br><strong>3.</strong> (Optional) Add a text prompt to guide the motion, like \"gentle breeze through the trees\" or \"slow zoom in.\"<br><br>Our engine will then analyze the image and bring it to life with subtle, realistic motion, creating a captivating short video clip perfect for social media and presentations."
     },
     {
-      question: "How does Midjourney pricing work?",
-      answer: "Midjourney uses a flexible credit-based pricing system designed to give you maximum value and control. Instead of restrictive monthly subscriptions, you purchase credit packages that never expire. Different generation types consume different amounts of credits: AI video generation requires more credits due to computational complexity, while image generation uses fewer credits. You can choose from relaxed, fast, or turbo generation speeds, with faster speeds consuming more credits but delivering results quicker. This system lets you create at your own pace without worrying about monthly deadlines."
+      question: "How does wan2.2 pricing work?",
+      answer: "wan2.2 uses a flexible credit-based pricing system designed to give you maximum value and control. Instead of restrictive monthly subscriptions, you purchase credit packages that never expire. Different generation types consume different amounts of credits: AI video generation requires more credits due to computational complexity, while image generation uses fewer credits. You can choose from relaxed, fast, or turbo generation speeds, with faster speeds consuming more credits but delivering results quicker. This system lets you create at your own pace without worrying about monthly deadlines."
     },
     {
       question: "Can I use the art and videos I create for commercial projects?",
-      answer: "Absolutely. This is a core benefit for our users. Our Creator and Studio plans grant you a full commercial license for every image and video you generate. This means you have the rights to use your creations in marketing campaigns, product designs, client work, and any other for-profit venture. Our licensing aligns with Midjourney's own commercial use terms, giving you complete peace of mind."
+      answer: "Absolutely. This is a core benefit for our users. Our Creator and Studio plans grant you a full commercial license for every image and video you generate. This means you have the rights to use your creations in marketing campaigns, product designs, client work, and any other for-profit venture. Our licensing aligns with wan2.2's own commercial use terms, giving you complete peace of mind."
     },
     {
-      question: "What kind of prompts work best for Midjourney V1?",
-      answer: "Midjourney V1 has exceptional natural language understanding, but specificity is still key. Think like a photographer or art director. Instead of just \"a dog,\" try:<br><br><em>\"A cinematic, ultra-realistic photo of a golden retriever puppy sitting in a sun-drenched, grassy field, soft morning light, looking at the camera with a playful expression.\"</em><br><br>Include subject, action, environment, lighting, style, and composition. The more detail you provide, the closer the AI can get to the masterpiece in your mind."
+      question: "What kind of prompts work best for wan2.2 V1?",
+      answer: "wan2.2 V1 has exceptional natural language understanding, but specificity is still key. Think like a photographer or art director. Instead of just \"a dog,\" try:<br><br><em>\"A cinematic, ultra-realistic photo of a golden retriever puppy sitting in a sun-drenched, grassy field, soft morning light, looking at the camera with a playful expression.\"</em><br><br>Include subject, action, environment, lighting, style, and composition. The more detail you provide, the closer the AI can get to the masterpiece in your mind."
     },
     {
       question: "Is it safe to upload my images for the Image-to-Image and AI Video features?",

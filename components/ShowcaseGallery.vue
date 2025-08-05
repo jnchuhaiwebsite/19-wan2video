@@ -5,7 +5,7 @@
         Proof in Pixels (and Motion)
       </h2>
       <p class="text-xl leading-relaxed max-w-3xl mx-auto mb-16 text-blue-footertext">
-        Explore a gallery of incredible works created with our <strong class="text-blue-button">midjourney image to video</strong> tools and the powerful <strong class="text-blue-button">Midjourney V1</strong> engine. This is the quality and creativity you can achieve in seconds.
+        Explore a gallery of incredible works created with our <strong class="text-blue-button">wan2.2 image to video</strong> tools and the powerful <strong class="text-blue-button">wan2.2 V1</strong> engine. This is the quality and creativity you can achieve in seconds.
       </p>
       
       <div class="gallery-container mt-16">
@@ -16,8 +16,8 @@
             loop 
             muted 
             playsinline 
-            src="https://resp.midjourneyai.net/midjourney/videogenerator/1.mp4" 
-            poster="https://resp.midjourneyai.net/midjourney/videogenerator/1.webp"
+            src="https://resp.wan2video.com/wan2.2/videogenerator/1.mp4" 
+            poster="https://resp.wan2video.com/wan2.2/videogenerator/1.webp"
             loading="lazy"
             preload="metadata"
             @click="togglePlay($event)"
@@ -34,8 +34,8 @@
             loop 
             muted 
             playsinline 
-            src="https://resp.midjourneyai.net/midjourney/videogenerator/2.mp4" 
-            poster="https://resp.midjourneyai.net/midjourney/videogenerator/2.webp"
+            src="https://resp.wan2video.com/wan2.2/videogenerator/2.mp4" 
+            poster="https://resp.wan2video.com/wan2.2/videogenerator/2.webp"
             loading="lazy"
             preload="metadata"
             @click="togglePlay($event)"
@@ -52,8 +52,8 @@
             loop 
             muted 
             playsinline 
-            src="https://resp.midjourneyai.net/midjourney/videogenerator/3.mp4" 
-            poster="https://resp.midjourneyai.net/midjourney/videogenerator/3.webp"
+            src="https://resp.wan2video.com/wan2.2/videogenerator/3.mp4" 
+            poster="https://resp.wan2video.com/wan2.2/videogenerator/3.webp"
             loading="lazy"
             preload="metadata"
             @click="togglePlay($event)"
@@ -70,8 +70,8 @@
             loop 
             muted 
             playsinline 
-            src="https://resp.midjourneyai.net/midjourney/videogenerator/4.mp4" 
-            poster="https://resp.midjourneyai.net/midjourney/videogenerator/4.webp"
+            src="https://resp.wan2video.com/wan2.2/videogenerator/4.mp4" 
+            poster="https://resp.wan2video.com/wan2.2/videogenerator/4.webp"
             loading="lazy"
             preload="metadata"
             @click="togglePlay($event)"
@@ -87,8 +87,8 @@
              loop 
              muted 
              playsinline 
-             src="https://resp.midjourneyai.net/midjourney/videogenerator/7.mp4" 
-             poster="https://resp.midjourneyai.net/midjourney/videogenerator/7.webp"
+             src="https://resp.wan2video.com/wan2.2/videogenerator/7.mp4" 
+             poster="https://resp.wan2video.com/wan2.2/videogenerator/7.webp"
              loading="lazy"
              preload="metadata"
              @click="togglePlay($event)"
@@ -105,8 +105,8 @@
              loop 
              muted 
              playsinline 
-             src="https://resp.midjourneyai.net/midjourney/videogenerator/8.mp4" 
-             poster="https://resp.midjourneyai.net/midjourney/videogenerator/8.webp"
+             src="https://resp.wan2video.com/wan2.2/videogenerator/8.mp4" 
+             poster="https://resp.wan2video.com/wan2.2/videogenerator/8.webp"
              loading="lazy"
              preload="metadata"
              @click="togglePlay($event)"

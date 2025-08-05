@@ -6,8 +6,8 @@
       class="relative"
     >
       <PageHero 
-        title="Midjourney Video Generator Blog"
-        subtitle="Tips, tutorials, and inspiration for creating professional-quality videos with Midjourney Video Generator AI video generation technology"
+        title="wan2.2 Video Generator Blog"
+        subtitle="Tips, tutorials, and inspiration for creating professional-quality videos with wan2.2 Video Generator AI video generation technology"
       />
     </section>
     
@@ -135,8 +135,8 @@ declare const useAsyncData: <T>(key: string, handler: () => Promise<T>) => Promi
 const router = useRouter()
 
 useSeo({
-    title: "Blog | Midjourney model  Image & Video Generation",
-    description: "Discover Midjourney model's AI technology for creating professional videos and animations. Get tips and updates to enhance your visual content.",
+    title: "Blog | wan2.2 model  Image & Video Generation",
+    description: "Discover wan2.2 model's AI technology for creating professional videos and animations. Get tips and updates to enhance your visual content.",
 });
 
 // 使用 useAsyncData 获取数据
@@ -323,12 +323,12 @@ onMounted(() => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Blog",
-          name: "Midjourney Video Generator Blog",
+          name: "wan2.2 Video Generator Blog",
     description: "Professional AI image generation and animation technology tutorials and insights",
-    url: "https://www.midjourneyai.net/blog",
+    url: "https://www.wan2video.com/blog",
     publisher: {
       "@type": "Organization",
-      name: "Midjourney Video Generator",
+      name: "wan2.2 Video Generator",
       logo: {
         "@type": "ImageObject",
         url: "/logo.png"

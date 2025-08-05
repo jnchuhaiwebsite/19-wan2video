@@ -5,7 +5,7 @@
         Transform Your Art into Motion
       </h2>
       <p class="text-xl leading-relaxed max-w-3xl mx-auto mb-16 text-blue-footertext">
-        Unlock the power of our <strong class="text-blue-button">midjourney image to video</strong> technology. 
+        Unlock the power of our <strong class="text-blue-button">wan2.2 image to video</strong> technology. 
         We've simplified the complex process of animation into a seamless, three-step workflow that anyone can master.
       </p>
       
@@ -51,7 +51,7 @@
             2. Guide the AI
           </h3>
           <p class="text-blue-footertext text-sm leading-relaxed mb-6">
-            Provide a simple, descriptive prompt to guide our intelligent <strong class="text-blue-button">midjourney video model</strong>. 
+            Provide a simple, descriptive prompt to guide our intelligent <strong class="text-blue-button">wan2.2 video model</strong>. 
             Use phrases like "slow zoom" or "leaves gently swaying."
           </p>
         </div>

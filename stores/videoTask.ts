@@ -228,7 +228,7 @@ export const useVideoTaskStore = defineStore('videoTask', {
           type: fileType,
           size: '512x288', // 默认尺寸
           quality: 'High Quality',
-          model: 'Midjourney V7',
+          model: 'wan2.2 V7',
           createdAt: Date.now(),
           parameters: {}
         };
