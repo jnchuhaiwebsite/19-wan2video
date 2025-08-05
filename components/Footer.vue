@@ -26,13 +26,12 @@
           <div class="flex flex-col items-start text-left">
             <p class="text-blue-logo text-2xl md:text-3xl font-bold mb-4">Wan2Video</p>
             <p class="text-sm text-blue-footertext max-w-xl mb-4">
-              The Wan2.2 Video Generation Platform (wan2video.com) is a creative tool powered by the leading Tongyi Wanxiang 2.2 model, specializing in cinematic-quality video and precise semantic control. We are dedicated to empowering every creator, regardless of their background, to effortlessly transform text or static images into vivid, coherent, and story-driven moving visuals, truly making "what you write is what you get" a reality.
+              The Wan 2.2 Plus Video Generation Platform (wan2video.com) is a creative tool powered by the leading Tongyi Wanxiang 2.2 model, specializing in cinematic-quality video and precise semantic control. We are dedicated to empowering every creator, regardless of their background, to effortlessly transform text or static images into vivid, coherent, and story-driven moving visuals, truly making "what you write is what you get" a reality.
             </p>
             <div class="flex flex-col items-start gap-2 text-sm text-gray-500">
               <p>© 2025 wan 2.2 All rights reserved.</p>
               <div class="text-left">
                 <p class="text-blue-footertext text-sm">
-    
                   <a href="mailto:support@wan2video.com" class="text-blue-h1 hover:text-blue-footerhover transition-colors">support@wan2video.com</a>
                 </p>
               </div>

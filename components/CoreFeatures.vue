@@ -9,7 +9,7 @@
           Discover the core architecture, aesthetic training, and massive dataset that empower Wan 2.2's industry-leading performance.
         </p>
       </div>
-      
+
       <!-- Features Grid -->
       <div class="grid md:grid-cols-3 gap-8">
         
@@ -23,7 +23,7 @@
           </div>
           <h3 class="text-xl font-semibold text-gray-900 mb-4">Advanced MoE Architecture</h3>
           <p class="text-gray-600">
-            Wan 2.2's Mixture-of-Experts (MoE) architecture divides tasks among specialized AI models. This boosts model power and detail, delivering higher-quality video without increasing computational cost.
+            Wan 2.2 Plus's Mixture-of-Experts (MoE) architecture divides tasks among specialized AI models. This boosts model power and detail, delivering higher-quality video without increasing computational cost.
           </p>
         </div>
 
@@ -51,7 +51,7 @@
           </div>
           <h3 class="text-xl font-semibold text-gray-900 mb-4">Complex & Dynamic Motion</h3>
           <p class="text-gray-600">
-            Powered by a massive training dataset (+83% more video), Wan 2.2 excels at generating complex and physically believable motion, with performance that rivals top closed-source models.
+            Powered by a massive training dataset (+83% more video), Wan 2.2 Plus excels at generating complex and physically believable motion, with performance that rivals top closed-source models.
           </p>
         </div>
       </div>
