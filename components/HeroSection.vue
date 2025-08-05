@@ -257,22 +257,24 @@
 
           </div>
           
-          <!-- 生成的视频显示 -->
-          <div v-else-if="generatedVideo" class="w-full h-full flex flex-col items-center justify-center text-center">
-            <div class="w-full max-w-md">
-              <video 
-                ref="videoRef"
-                :src="generatedVideo.url" 
-                controls 
-                autoplay
-                muted
-                class="w-full rounded-lg mb-4 shadow-lg"
-                preload="metadata"
-                @loadeddata="handleVideoLoaded"
-              >
+                     <!-- 生成的视频显示 -->
+           <div v-else-if="generatedVideo" class="w-full h-full flex flex-col items-center justify-center text-center">
+                          <div class="w-full max-w-md h-80 flex flex-col items-center justify-center">
+               <div class="w-full h-full flex items-center justify-center mb-4">
+                 <video 
+                   ref="videoRef"
+                   :src="generatedVideo.url" 
+                   controls 
+                   autoplay
+                   muted
+                   class="max-w-full max-h-full rounded-lg shadow-lg object-contain"
+                   preload="metadata"
+                   @loadeddata="handleVideoLoaded"
+                 >
                 Your browser does not support video playback
-              </video>
-              <div class="space-y-3">
+                               </video>
+               </div>
+               <div class="space-y-3 w-full">
                 <button 
                   @click="downloadVideo"
                   class="w-full py-3 bg-blue-button text-blue-buttontext font-medium rounded-lg hover:bg-blue-buttonhover transition-colors duration-200"
@@ -361,12 +363,15 @@ const progressStartTime = ref(0)
 const progressDuration = ref(0)
 
 // 进度条配置
-const PROGRESS_CONFIG = {
-  duration: 120000, // 2分钟到达95%
-  pollingInterval: 5000, // 5秒轮询一次
-  maxProgress: 95, // 最大进度95%
-  finalProgress: 100 // 完成时进度100%
-}
+const PROGRESS_CONFIG = computed(() => {
+  const duration = selectedResolution.value === '480p' ? 60000 : 120000 // 480P: 1分钟, 1080P: 2分钟
+  return {
+    duration, // 根据分辨率调整持续时间
+    pollingInterval: 5000, // 5秒轮询一次
+    maxProgress: 95, // 最大进度95%
+    finalProgress: 100 // 完成时进度100%
+  }
+})
 
 // 用户积分计算
 const userCredits = computed(() => {
@@ -553,12 +558,12 @@ const removeImage = () => {
 // 开始进度条
 const startProgress = () => {
   progressStartTime.value = Date.now()
-  progressDuration.value = PROGRESS_CONFIG.duration
+  progressDuration.value = PROGRESS_CONFIG.value.duration
   progress.value = 0
   
   const updateProgress = () => {
     const elapsed = Date.now() - progressStartTime.value
-    const progressPercent = Math.min((elapsed / progressDuration.value) * PROGRESS_CONFIG.maxProgress, PROGRESS_CONFIG.maxProgress)
+    const progressPercent = Math.min((elapsed / progressDuration.value) * PROGRESS_CONFIG.value.maxProgress, PROGRESS_CONFIG.value.maxProgress)
     
     progress.value = progressPercent
     
@@ -571,7 +576,7 @@ const startProgress = () => {
       estimatedTime.value = 'Almost done'
     }
     
-    if (progressPercent < PROGRESS_CONFIG.maxProgress) {
+    if (progressPercent < PROGRESS_CONFIG.value.maxProgress) {
       requestAnimationFrame(updateProgress)
     }
   }
@@ -581,7 +586,7 @@ const startProgress = () => {
 
 // 停止进度条
 const stopProgress = () => {
-  progress.value = PROGRESS_CONFIG.finalProgress
+  progress.value = PROGRESS_CONFIG.value.finalProgress
 }
 
 // 获取状态文本
@@ -639,7 +644,7 @@ const startPolling = () => {
     clearInterval(pollingInterval.value)
   }
   
-  pollingInterval.value = setInterval(pollTaskStatus, PROGRESS_CONFIG.pollingInterval)
+  pollingInterval.value = setInterval(pollTaskStatus, PROGRESS_CONFIG.value.pollingInterval)
 }
 
 // 停止轮询
