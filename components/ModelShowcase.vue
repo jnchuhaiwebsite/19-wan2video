@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center">
         <h2 class="text-3xl font-extrabold text-blue-dark sm:text-4xl">
-          See What's Possible with Wan 2.2
+          See What's Possible with Wan 2.2 Plus
         </h2>
         <p class="mt-4 text-xl text-blue-secondarytext">
           Explore a gallery of stunning short films, dynamic visuals, and creative shorts—all generated with the power of Wan 2.2.
