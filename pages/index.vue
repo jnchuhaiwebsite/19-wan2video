@@ -9,6 +9,10 @@
       
       <!-- 核心优势 -->
       <CoreFeatures />
+
+            
+      <!-- 适用人群 -->
+      <ForWhomSection />
       
       <!-- 模型案例展示 -->
       <ModelShowcase />
@@ -18,6 +22,7 @@
 
       <!-- 常见问题 -->
       <FaqPreview />
+
     </main>
   </div>
 </template>
@@ -35,6 +40,7 @@ import ProcessSteps from '~/components/ProcessSteps.vue'
 import CoreFeatures from '~/components/CoreFeatures.vue'
 import ModelShowcase from '~/components/ModelShowcase.vue'
 import PricingPlans from '~/components/PricingPlans.vue'
+import ForWhomSection from '~/components/ForWhomSection.vue'
 
 const { $toast } = useNuxtApp() as any
 const { handleScroll } = useNavigation()
