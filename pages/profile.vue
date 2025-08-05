@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-blue-pale pt-[80px]">
     <!-- 用户信息卡片 -->
-    <div class="max-w-7xl mx-auto bg-white p-6 rounded-lg shadow-sm mb-6 border border-blue-pricingborder">
+    <div class="max-w-7xl mx-auto bg-white p-6 rounded-lg shadow-sm mb-6 mt-12 border border-blue-pricingborder">
       <!-- 基本信息 -->
       <div class="flex items-center space-x-6">
         <div class="relative">
