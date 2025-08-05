@@ -3,10 +3,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center">
         <h2 class="text-3xl font-extrabold text-blue-dark sm:text-4xl">
-          The Seedance AI Inspiration Gallery
+          See What's Possible with Wan 2.2
         </h2>
         <p class="mt-4 text-xl text-blue-secondarytext">
-          Explore stunning AI video, copy the exact prompts, and jumpstart your own masterpiece with Seedance AI.
+          Explore a gallery of stunning short films, dynamic visuals, and creative shorts—all generated with the power of Wan 2.2.
         </p>
       </div>
       <div class="mt-16 flex flex-wrap justify-center gap-6">
