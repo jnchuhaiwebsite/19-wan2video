@@ -211,7 +211,7 @@
     <SignInButton v-else mode="modal">
       <button id="bindLogin"
         :disabled="isAuthLoading"
-        class="mt-6 w-full py-4 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 active:scale-[0.98] text-white transition-all text-base font-semibold disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center shadow-lg hover:shadow-xl border border-blue-400/20"
+        class="mt-6 w-full py-4 rounded-xl bg-gradient-to-r bg-blue-button active:scale-[0.98] text-white transition-all text-base font-semibold disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center shadow-lg hover:shadow-xl border border-blue-400/20"
       >
         <div v-if="!isAuthLoading" class="flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
