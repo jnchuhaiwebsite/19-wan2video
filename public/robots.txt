@@ -11,7 +11,8 @@ Disallow: /profile
 
 # 通用规则（适用于所有搜索引擎）
 User-agent: *
-Disallow: /admin/        # 其他引擎也屏蔽敏感目录
+Allow: /     
+Disallow: /admin/        
 Disallow: /tmp/
 Disallow: /private/
 Disallow: /search?
