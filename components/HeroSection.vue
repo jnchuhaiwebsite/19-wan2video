@@ -274,15 +274,6 @@
                </div>
                <div class="space-y-3 w-full">
                 <button 
-                  @click="downloadVideo"
-                  class="w-full py-3 bg-blue-button text-blue-buttontext font-medium rounded-lg hover:bg-blue-buttonhover transition-colors duration-200"
-                >
-                  <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  Download Video
-                </button>
-                <button 
                   @click="generatedVideo = null"
                   class="w-full py-2 text-blue-secondarytext hover:text-blue-maintext transition-colors duration-200"
                 >
@@ -294,13 +285,34 @@
           
           <!-- 默认状态 -->
           <div v-else class="w-full h-full flex flex-col items-center justify-center text-center">
-            <svg class="w-12 h-12 text-blue-secondarytext mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10" />
-              <polygon points="10 8 16 12 10 16 10 8" />
-            </svg>
-            <p class="text-blue-maintext font-medium">
-              Your generated video will appear here
-            </p>
+            <!-- 默认预览图片 -->
+            <div class="relative w-full max-w-md h-80 flex items-center justify-center mb-4">
+              <img 
+                v-if="!defaultVideoLoaded"
+                :src="defaultPreviewImage" 
+                alt="Default Preview"
+                class="max-w-full max-h-full rounded-lg shadow-lg object-contain"
+              />
+              
+
+              
+              <!-- 默认视频 -->
+              <video 
+                v-if="defaultVideoLoaded"
+                ref="defaultVideoRef"
+                :src="defaultVideoUrl" 
+                autoplay
+                muted
+                loop
+                class="max-w-full max-h-full rounded-lg shadow-lg object-contain"
+                preload="metadata"
+                @loadeddata="handleDefaultVideoLoaded"
+              >
+                <!-- Your browser does not support video playback -->
+              </video>
+            </div>
+            
+
           </div>
         </div>
       </div>
@@ -353,6 +365,12 @@ const generatedVideo = ref<{
 
 // 视频元素引用
 const videoRef = ref<HTMLVideoElement | null>(null)
+const defaultVideoRef = ref<HTMLVideoElement | null>(null)
+
+// 默认预览相关
+const defaultPreviewImage = ref('https://resp.wan2video.com/wan2ai/gallery/image/wan2.2.webp')
+const defaultVideoUrl = ref('https://resp.wan2video.com/wan2ai/gallery/video/wan2.2.mp4')
+const defaultVideoLoaded = ref(false)
 
 // 进度条相关状态
 const progress = ref(0)
@@ -663,40 +681,19 @@ const handleVideoLoaded = () => {
   }
 }
 
-// 下载视频
-const downloadVideo = async () => {
-  if (!generatedVideo.value?.url) {
-    $toast.error('Invalid video link')
-    return
-  }
-  
-  try {
-    const response = await fetch(generatedVideo.value.url)
-    if (!response.ok) {
-      throw new Error('Failed to fetch video')
-    }
-    
-    const blob = await response.blob()
-    const blobUrl = URL.createObjectURL(blob)
-    
-    const link = document.createElement('a')
-    link.href = blobUrl
-    link.download = `wan2video_${generatedVideo.value.taskId}.mp4`
-    link.style.display = 'none'
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-    
-    setTimeout(() => {
-      URL.revokeObjectURL(blobUrl)
-    }, 100)
-    
-    $toast.success('Starting video download')
-  } catch (error) {
-    console.error('Failed to download video:', error)
-    $toast.error('Download failed, please try again')
+// 默认视频加载完成处理
+const handleDefaultVideoLoaded = () => {
+  if (defaultVideoRef.value) {
+    // 尝试播放默认视频
+    defaultVideoRef.value.play().catch((error) => {
+      console.log('Default video auto-play failed:', error)
+    })
   }
 }
+
+
+
+
 
 // 生成处理
 const handleGenerate = async () => {
@@ -834,6 +831,11 @@ onUnmounted(() => {
 // 组件挂载时获取用户信息
 onMounted(() => {
   userStore.fetchUserInfo()
+  
+  // 页面加载完成后自动显示默认视频
+  setTimeout(() => {
+    defaultVideoLoaded.value = true
+  }, 1000) // 延迟1秒显示，确保页面完全加载
 })
 </script>
 
