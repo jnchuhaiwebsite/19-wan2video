@@ -114,7 +114,7 @@
 
       <!-- Right preview area -->
       <div class="w-full lg:w-1/2 flex flex-col gap-4">
-        <div class="mx-auto border border-gray-700 rounded-xl overflow-hidden bg-[#1E1C21] flex items-center justify-center relative" style="width: 300px; height: 450px;">
+        <div class="mx-auto border border-gray-700 rounded-xl overflow-hidden bg-[#1E1C21] flex items-center justify-center relative" style="width: 380px; height: 520px;">
           <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAgTSAwIDIwIEwgNDAgMjAgTSAyMCAwIEwgMjAgNDAgTSAwIDMwIEwgNDAgMzAgTSAzMCAwIEwgMzAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzJkMmQyZCIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')]"></div>
           
           <!-- Regular loading state (not for generation) -->
