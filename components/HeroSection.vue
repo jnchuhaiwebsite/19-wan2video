@@ -257,7 +257,7 @@
           
                      <!-- 生成的视频显示 -->
            <div v-else-if="generatedVideo" class="w-full h-full flex flex-col items-center justify-center text-center">
-                          <div class="w-full max-w-md h-80 flex flex-col items-center justify-center">
+                          <div class="w-full max-w-md h-96 flex flex-col items-center justify-center">
                <div class="w-full h-full flex items-center justify-center mb-4">
                  <video 
                    ref="videoRef"
@@ -265,7 +265,8 @@
                    controls 
                    autoplay
                    muted
-                   class="max-w-full max-h-full rounded-lg shadow-lg object-contain"
+                   class="rounded-lg shadow-lg object-contain"
+                   :style="getVideoStyle()"
                    preload="metadata"
                    @loadeddata="handleVideoLoaded"
                  >
@@ -273,46 +274,53 @@
                                </video>
                </div>
                <div class="space-y-3 w-full">
-                <button 
-                  @click="generatedVideo = null"
-                  class="w-full py-2 text-blue-secondarytext hover:text-blue-maintext transition-colors duration-200"
-                >
-                  Generate New Video
-                </button>
+                                 <button 
+                   @click="downloadVideo"
+                   class="w-full py-2 px-4 bg-[#ec2657] text-white rounded-lg hover:bg-[#990066] transition-colors duration-200 flex items-center justify-center gap-2"
+                 >
+                   <svg class="w-4 h-4" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                     <path d="M512 741.877551c-11.493878 0-20.897959-9.404082-20.897959-20.897959V303.020408c0-11.493878 9.404082-20.897959 20.897959-20.897959s20.897959 9.404082 20.897959 20.897959v417.959184c0 11.493878-9.404082 20.897959-20.897959 20.897959z" fill="currentColor"></path>
+                     <path d="M512 741.877551c-5.22449 0-10.44898-2.089796-14.628571-6.269388-8.359184-8.359184-8.359184-21.420408 0-29.779592l169.273469-169.273469c8.359184-8.359184 21.420408-8.359184 29.779592 0 8.359184 8.359184 8.359184 21.420408 0 29.779592l-169.27347 169.273469c-4.702041 4.179592-9.926531 6.269388-15.15102 6.269388z" fill="currentColor"></path>
+                     <path d="M512 741.877551c-5.22449 0-10.44898-2.089796-14.628571-6.269388l-169.27347-169.273469c-8.359184-8.359184-8.359184-21.420408 0-29.779592 8.359184-8.359184 21.420408-8.359184 29.779592 0l169.273469 169.273469c8.359184 8.359184 8.359184 21.420408 0 29.779592-4.702041 4.179592-9.926531 6.269388-15.15102 6.269388z" fill="currentColor"></path>
+                     <path d="M512 929.959184c-230.4 0-417.959184-187.559184-417.959184-417.959184s187.559184-417.959184 417.959184-417.959184 417.959184 187.559184 417.959184 417.959184-187.559184 417.959184-417.959184 417.959184z m0-794.122449c-207.412245 0-376.163265 168.75102-376.163265 376.163265s168.75102 376.163265 376.163265 376.163265 376.163265-168.75102 376.163265-376.163265-168.75102-376.163265-376.163265-376.163265z" fill="currentColor"></path>
+                   </svg>
+                   Download Video
+                 </button>
+                 
+                
               </div>
             </div>
           </div>
           
           <!-- 默认状态 -->
           <div v-else class="w-full h-full flex flex-col items-center justify-center text-center">
-            <!-- 默认预览图片 -->
-            <div class="relative w-full max-w-md h-80 flex items-center justify-center mb-4">
-              <img 
-                v-if="!defaultVideoLoaded"
-                :src="defaultPreviewImage" 
-                alt="Default Preview"
-                class="max-w-full max-h-full rounded-lg shadow-lg object-contain"
-              />
-              
-
-              
-              <!-- 默认视频 -->
-              <video 
-                v-if="defaultVideoLoaded"
-                ref="defaultVideoRef"
-                :src="defaultVideoUrl" 
-                autoplay
-                muted
-                loop
-                class="max-w-full max-h-full rounded-lg shadow-lg object-contain"
-                preload="metadata"
-                @loadeddata="handleDefaultVideoLoaded"
-              >
-                <!-- Your browser does not support video playback -->
-              </video>
+            <!-- Loading状态 -->
+            <div 
+              v-if="isDefaultLoading"
+              class="w-full max-w-md flex items-center justify-center mb-4 bg-black rounded-lg shadow-lg"
+              style="aspect-ratio: 16/9; height: auto;"
+            >
+              <div class="text-white text-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-4 border-white border-t-transparent mx-auto mb-3"></div>
+                <p class="text-sm font-medium">Loading preview...</p>
+              </div>
             </div>
             
-
+            <!-- 默认视频 -->
+            <video 
+              v-if="!isDefaultLoading && defaultVideoLoaded"
+              ref="defaultVideoRef"
+              :src="defaultVideoUrl" 
+              autoplay
+              muted
+              loop
+              class="max-w-full rounded-lg shadow-lg object-contain"
+              style="aspect-ratio: 16/9; height: auto;"
+              preload="metadata"
+              @loadeddata="handleDefaultVideoLoaded"
+            >
+              <!-- Your browser does not support video playback -->
+            </video>
           </div>
         </div>
       </div>
@@ -362,6 +370,9 @@ const generatedVideo = ref<{
   url: string
   taskId: string
 } | null>(null)
+
+// 默认预览loading状态
+const isDefaultLoading = ref(true)
 
 // 视频元素引用
 const videoRef = ref<HTMLVideoElement | null>(null)
@@ -681,6 +692,49 @@ const handleVideoLoaded = () => {
   }
 }
 
+// 获取视频样式
+const getVideoStyle = () => {
+  // 根据用户选择的比例设置视频的宽高比
+  const aspectRatio = selectedAspectRatio.value
+  if (aspectRatio) {
+    const [width, height] = aspectRatio.split('*').map(Number)
+    const ratio = width / height
+    
+    // 设置最大尺寸
+    const maxWidth = 400
+    const maxHeight = 350
+    
+    let videoWidth, videoHeight
+    
+    if (ratio >= 1) {
+      // 横向或正方形
+      videoWidth = Math.min(maxWidth, width)
+      videoHeight = videoWidth / ratio
+    } else {
+      // 纵向
+      videoHeight = Math.min(maxHeight, height)
+      videoWidth = videoHeight * ratio
+    }
+    
+    return {
+      width: `${videoWidth}px`,
+      height: `${videoHeight}px`,
+      maxWidth: `${maxWidth}px`,
+      maxHeight: `${maxHeight}px`,
+      aspectRatio: `${width} / ${height}`
+    }
+  }
+  
+  // 默认样式
+  return {
+    width: '400px',
+    height: '300px',
+    maxWidth: '400px',
+    maxHeight: '350px',
+    aspectRatio: '4 / 3'
+  }
+}
+
 // 默认视频加载完成处理
 const handleDefaultVideoLoaded = () => {
   if (defaultVideoRef.value) {
@@ -688,6 +742,48 @@ const handleDefaultVideoLoaded = () => {
     defaultVideoRef.value.play().catch((error) => {
       console.log('Default video auto-play failed:', error)
     })
+  }
+}
+
+// 下载视频
+const downloadVideo = async () => {
+  if (!generatedVideo.value?.url) {
+    $toast.error('No video available for download')
+    return
+  }
+  
+  try {
+    $toast.info('Starting download...')
+    
+    // 获取视频文件
+    const response = await fetch(generatedVideo.value.url)
+    if (!response.ok) {
+      throw new Error('Failed to fetch video')
+    }
+    
+    const blob = await response.blob()
+    
+    // 创建下载链接
+    const url = window.URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    
+    // 生成文件名
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
+    link.download = `wan2-video-${timestamp}.mp4`
+    
+    // 触发下载
+    document.body.appendChild(link)
+    link.click()
+    
+    // 清理
+    document.body.removeChild(link)
+    window.URL.revokeObjectURL(url)
+    
+    $toast.success('Video downloaded successfully!')
+  } catch (error) {
+    console.error('Download failed:', error)
+    $toast.error('Download failed, please try again')
   }
 }
 
@@ -832,8 +928,9 @@ onUnmounted(() => {
 onMounted(() => {
   userStore.fetchUserInfo()
   
-  // 页面加载完成后自动显示默认视频
+  // 页面加载完成后关闭loading并显示默认视频
   setTimeout(() => {
+    isDefaultLoading.value = false
     defaultVideoLoaded.value = true
   }, 1000) // 延迟1秒显示，确保页面完全加载
 })

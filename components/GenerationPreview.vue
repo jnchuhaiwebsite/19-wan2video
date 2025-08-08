@@ -50,6 +50,7 @@
               ref="videoElement"
               :src="result.url" 
               class="result-media video-media"
+              :style="result.size ? getMediaStyle(result.size) : {}"
               muted
               loop
               preload="metadata"
@@ -64,6 +65,7 @@
               :src="result.url" 
               :alt="result.name"
               class="result-media image-media"
+              :style="result.size ? getMediaStyle(result.size) : {}"
               @error="handleMediaError"
             />
             
@@ -183,9 +185,9 @@ const getMediaStyle = (size: string) => {
   const [width, height] = size.split('x').map(Number)
   const aspectRatio = width / height
   
-  // 设置最大宽度和高度，让媒体元素更好地填充容器
-  const maxWidth = 320
-  const maxHeight = 280  // 增加最大高度，更好地利用容器空间
+  // 增加最大宽度和高度，让媒体元素更大
+  const maxWidth = 400  // 从320增加到400
+  const maxHeight = 350  // 从280增加到350
   
   let mediaWidth, mediaHeight
   
@@ -365,7 +367,7 @@ defineExpose({
   @apply relative bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-xl hover:scale-[1.02] transition-all duration-300;
   @apply bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center;
   width: 100%;
-  height: 280px;  /* 固定高度 */
+  height: 380px;  /* 增加高度从280px到380px */
 }
 
 .result-item::before {

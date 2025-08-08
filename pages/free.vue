@@ -85,6 +85,5 @@ const scrollToGenerator = () => {
 useSeo({
       title: 'wan2.2 Video Generator Free | Get 20 Free AI Video Credits',
     description: 'Sign up for wan2.2 Video Generator Free and receive 20 free credits to explore AI video generation. No credit card required. Start creating today!',
-  url: '/free'
 });
 </script> 
