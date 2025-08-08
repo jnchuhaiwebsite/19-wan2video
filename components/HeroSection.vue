@@ -297,7 +297,7 @@
             <!-- Loading状态 -->
             <div 
               v-if="isDefaultLoading"
-              class="w-full max-w-md flex items-center justify-center mb-4 bg-black rounded-lg shadow-lg"
+              class="w-full max-w-full flex items-center justify-center mb-4 bg-black rounded-lg shadow-lg"
               style="aspect-ratio: 16/9; height: auto;"
             >
               <div class="text-white text-center">
@@ -314,7 +314,7 @@
               autoplay
               muted
               loop
-              class="max-w-full rounded-lg shadow-lg object-contain"
+              class="w-full max-w-full rounded-lg shadow-lg object-contain"
               style="aspect-ratio: 16/9; height: auto;"
               preload="metadata"
               @loadeddata="handleDefaultVideoLoaded"
