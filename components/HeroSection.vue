@@ -401,8 +401,8 @@ const userCredits = computed(() => {
 
 // 分辨率积分配置
 const resolutionCreditConfig = {
-  '480p': 20,
-  '1080p': 100
+  '480p': 40,
+  '1080p': 200
 }
 
 // 当前积分消耗
