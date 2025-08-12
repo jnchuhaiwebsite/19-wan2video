@@ -89,8 +89,21 @@ const initializeUniqueId = async () => {
 //     })
 //   })
 // })
-onNuxtReady(()=>{
-     initializeUniqueId()
+// onNuxtReady(()=>{
+//      initializeUniqueId()
+// })
+
+onMounted(() => {
+  // 双 rAF：确保经历一次完成的绘制帧
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(() => initializeUniqueId(), { timeout: 1500 })
+      } else {
+        setTimeout(initializeUniqueId, 0)
+      }
+    })
+  })
 })
 </script>
 
