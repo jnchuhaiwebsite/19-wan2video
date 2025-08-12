@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onNuxtReady } from 'nuxt/app'
 import { onMounted } from 'vue'
 import { statistics } from '~/api'
 
@@ -65,8 +66,21 @@ const initializeUniqueId = async () => {
   }
 }
 
-onMounted(() => {
-  // 检查页面是否已经完全加载
+// onMounted(() => {
+//   // 检查页面是否已经完全加载
+//   if (document.readyState === 'complete') {
+//     // 页面已经完全加载，立即执行
+//     initializeUniqueId()
+//   } else {
+//     // 页面还未完全加载，等待 window.onload 事件
+//     window.addEventListener('load', () => {
+//       console.log('页面完全加载完成，开始初始化统计功能')
+//       initializeUniqueId()
+//     })
+//   }
+// })
+onNuxtReady(()=>{
+     // 检查页面是否已经完全加载
   if (document.readyState === 'complete') {
     // 页面已经完全加载，立即执行
     initializeUniqueId()
