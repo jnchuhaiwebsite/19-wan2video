@@ -89,7 +89,7 @@ onNuxtReady(()=>{
     window.addEventListener('load', () => {
       console.log('页面完全加载完成，开始初始化统计功能')
       initializeUniqueId()
-    })
+    },{once:true})
   }
 })
 </script>
