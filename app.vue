@@ -13,6 +13,7 @@ const notificationStore = useNotificationStore()
     </NuxtLayout>
     <NotificationList />
     <LoginPromptModal />
+    <StatisticsTracker />
 </template>
 
 <style>
