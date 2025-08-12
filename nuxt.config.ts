@@ -156,7 +156,7 @@ export default defineNuxtConfig({
   // 强制CSS提取的配置
   experimental: {
     // 强制禁用内联样式，将样式提取到外部文件
-    inlineSSRStyles: true,
+    inlineSSRStyles: false,
   },
   colorMode: {
     classSuffix: '',
