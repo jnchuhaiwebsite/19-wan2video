@@ -157,8 +157,6 @@ export default defineNuxtConfig({
   experimental: {
     // 强制禁用内联样式，将样式提取到外部文件
     inlineSSRStyles: false,
-    // 启用vite特性兼容
-    viteNode: true
   },
   colorMode: {
     classSuffix: '',
