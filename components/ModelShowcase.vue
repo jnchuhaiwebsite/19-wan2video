@@ -112,17 +112,17 @@ const cases = [
     desc: "A straight-on close-up of a foreign man's face. He has blue eyes and a shaved head. His face is covered in sweat as he stares directly into the camera, then slowly lowers his head. At the bottom of the screen, white English subtitles appear: \"My little Max...\". The background is blurred and indistinct. The camera tilts upward, transitioning to an overhead close-up of the back of his head."
   },
   {
-    video: "https://resp.wan2video.com/wan2ai/gallery/video/Jungle-Prowl.mp4",
+    video: "https://res.wan2video.com/wan2ai/gallery/video/Jungle-Prowl.mp4",
     poster: "https://resp.wan2video.com/wan2ai/gallery/image/Jungle-Prowl.webp",
     desc: "A telephoto shot captures a tiger moving through the jungle. The camera follows the tiger with smooth motion as it remains centered in the frame. Its muscles shift subtly beneath its striped fur. The tiger's eyes are focused straight ahead, and its steps are steady and powerful. The background is filled with dense green foliage and trees, with sunlight filtering through the leaves to create dappled patterns of light and shadow."
   },
   {
-    video: "https://resp.wan2video.com/wan2ai/gallery/video/Desert-Drive.mp4",
+    video: "https://res.wan2video.com/wan2ai/gallery/video/Desert-Drive.mp4",
     poster: "https://resp.wan2video.com/wan2ai/gallery/image/Desert-Drive.webp",
     desc: "Warm tones, extreme wide shot, aerial view, daylight, hard lighting, establishing shot. In a barren desert, a black SUV speeds along a highway. Filmed from above, the vehicle drives on the left side of the road, with a roof rack and a red taillight visible on top. The camera slowly pushes forward, revealing vast yellow sand dunes ahead, with several mountains visible in the distance. The sky is pale blue, and sunlight filters through the clouds, casting a warm glow over the desolate landscape. On both sides of the road are dry grasslands dotted with low shrubs."
   },
   {
-    video: "https://resp.wan2video.com/wan2ai/gallery/video/The-Aftermath.mp4",
+    video: "https://res.wan2video.com/wan2ai/gallery/video/The-Aftermath.mp4",
     poster: "https://resp.wan2video.com/wan2ai/gallery/image/The-Aftermath.webp",
     desc: "Practical lighting, high saturation, balanced composition, nighttime, top lighting, soft light, warm tones, mid focal length, low contrast, medium shot, artificial lighting, three-person frame. In a dimly lit interior, the camera captures a straight-on medium shot of three foreign individuals. On the left, a woman in a black dress with gold embellishments holds a handgun. In the center, a man in a black tuxedo has blood on his face. On the right, a woman in a red dress with a large flower on her chest also has blood on her face. All three are looking in the same direction. In the background, a table lamp and some furniture are visible, but the details are unclear."
   }
