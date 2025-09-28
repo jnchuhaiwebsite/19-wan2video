@@ -13,6 +13,11 @@
     </section>
     
 
+        <!-- Generator -->
+        <section class="relative">
+      <Wan25Generator />
+    </section>
+
     <!-- Video Showcase -->
     <section class="relative">
       <Wan25Showcase />
@@ -29,6 +34,8 @@
     <section class="relative">
       <Wan25PromptFormulas />
     </section>
+
+
 
     <!-- Use Cases -->
     <section class="relative">
@@ -86,6 +93,7 @@ import Wan25Faq from '~/components/Wan25Faq.vue';
 import Wan25Showcase from '~/components/Wan25Showcase.vue';
 import Wan25Specs from '~/components/Wan25Specs.vue';
 import Wan25PromptFormulas from '~/components/Wan25PromptFormulas.vue';
+import Wan25Generator from '~/components/Wan25Generator.vue';
 import Wan25UseCases from '~/components/Wan25UseCases.vue';
 import Wan25HeroSection from '~/components/Wan25HeroSection.vue';
 
