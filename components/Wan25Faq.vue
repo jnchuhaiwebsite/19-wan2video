@@ -1,49 +1,64 @@
 <template>
-  <section class="py-20 bg-white">
-    <div class="max-w-4xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-gray-900 mb-6">
-          Frequently Asked Questions About Wan 2.5 AI
+  <section class="py-24 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 relative overflow-hidden">
+    <!-- 背景装饰 -->
+    <div class="absolute inset-0 opacity-20">
+      <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-blue-200 to-indigo-200 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-1/4 left-1/4 w-80 h-80 bg-gradient-to-tr from-indigo-200 to-purple-200 rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="max-w-5xl mx-auto px-6 relative z-10">
+      <div class="text-center mb-20">
+        <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-full text-sm font-medium text-blue-800 mb-6 shadow-sm">
+          <span class="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse"></span>
+          Frequently Asked Questions
+        </div>
+        <h2 class="text-3xl md:text-4xl font-normal bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mb-8 leading-tight">
+          Wan 2.5 FAQ – Everything You Need to Know
         </h2>
-        <p class="text-xl text-gray-600">
-          Everything you need to know about Wan 2.5—from capabilities to usage and pricing.
+        <p class="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed font-light">
+          Everything you need to know about <span class="font-semibold text-blue-600">Wan 2.5</span>—from capabilities to usage and pricing.
         </p>
       </div>
 
       <!-- FAQ Items -->
-      <div class="space-y-6">
+      <div class="space-y-6 mb-20">
         <div 
           v-for="(faq, index) in faqs" 
           :key="index"
-          class="bg-gray-50 rounded-xl overflow-hidden"
+          class="group bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-white/50"
+          :class="faq.isOpen ? 'ring-2 ring-blue-200 shadow-xl' : ''"
         >
           <button
             @click="toggleFaq(index)"
-            class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-100 transition-colors"
+            class="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-blue-50/50 transition-all duration-300 group"
           >
-            <h3 class="text-lg font-semibold text-gray-900 pr-4">
+            <h3 class="text-xl font-bold text-gray-900 pr-6 group-hover:text-blue-600 transition-colors duration-300">
               {{ faq.question }}
             </h3>
-            <svg 
-              :class="[
-                'w-5 h-5 text-gray-500 transition-transform duration-200',
-                faq.isOpen ? 'rotate-180' : ''
-              ]"
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
+            <div class="flex-shrink-0">
+              <div 
+                :class="[
+                  'w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300',
+                  faq.isOpen 
+                    ? 'bg-blue-100 text-blue-600 rotate-180' 
+                    : 'bg-gray-100 text-gray-500 group-hover:bg-blue-100 group-hover:text-blue-600'
+                ]"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </div>
           </button>
           <div 
             :class="[
-              'overflow-hidden transition-all duration-300',
+              'overflow-hidden transition-all duration-500 ease-in-out',
               faq.isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
             ]"
           >
-            <div class="px-6 pb-4">
-              <p class="text-gray-600 leading-relaxed">
+            <div class="px-8 pb-8">
+              <div class="w-full h-px bg-gradient-to-r from-blue-200 to-purple-200 mb-6"></div>
+              <p class="text-gray-700 leading-relaxed text-lg">
                 {{ faq.answer }}
               </p>
             </div>
@@ -51,26 +66,7 @@
         </div>
       </div>
 
-      <!-- Additional Info -->
-      <div class="mt-16 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8">
-        <div class="text-center">
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">
-            Ready to Try Wan 2.5?
-          </h3>
-          <p class="text-gray-600 mb-6">
-            Experience the next generation of AI video generation with Wan 2.5's 
-            enhanced capabilities and professional-quality output.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <button class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
-              Start Creating Videos
-            </button>
-            <button class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium">
-              View Pricing Plans
-            </button>
-          </div>
-        </div>
-      </div>
+
     </div>
   </section>
 </template>

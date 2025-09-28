@@ -1,12 +1,23 @@
 <template>
-  <section class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-gray-900 mb-6">
-          Wan 2.5 Use Cases
+  <section class="py-24 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 relative overflow-hidden">
+    <!-- 背景装饰 -->
+    <div class="absolute inset-0 opacity-15">
+      <div class="absolute top-1/3 left-1/4 w-96 h-96 bg-gradient-to-br from-emerald-200 to-teal-200 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-to-tr from-teal-200 to-cyan-200 rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <div class="text-center mb-20">
+        <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-full text-sm font-medium text-emerald-800 mb-6 shadow-sm">
+          <span class="w-2 h-2 bg-emerald-500 rounded-full mr-2 animate-pulse"></span>
+        Use Cases
+        </div>
+        <h2 class="text-3xl md:text-4xl font-normal bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent mb-8 leading-tight">
+          Wan 2.5  - Transforming Content Across Industries
         </h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Discover how Wan 2.5 can transform your creative workflow across various industries and applications.
+        <p class="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed font-light">
+          Discover how <span class="font-semibold text-emerald-600">Wan 2.5</span> can transform your creative workflow across 
+          <span class="font-semibold text-teal-600">various industries</span> and <span class="font-semibold text-cyan-600">applications</span>.
         </p>
       </div>
 
@@ -23,9 +34,14 @@
               :poster="useCase.posterUrl"
               controls
               muted
+              playsinline
+              webkit-playsinline
               class="w-full h-full object-cover"
               preload="metadata"
+              @error="handleVideoError"
+              @loadstart="handleVideoLoadStart"
             >
+              <source :src="useCase.videoUrl" type="video/mp4">
               Your browser does not support video playback
             </video>
             <div class="absolute top-4 left-4 bg-black bg-opacity-75 text-white px-3 py-1 rounded-full text-sm font-medium">

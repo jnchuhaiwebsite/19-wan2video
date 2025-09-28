@@ -1,27 +1,40 @@
 <template>
-  <section class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-gray-900 mb-6">
-          Wan 2.5 AI Technical Specifications
+  <section class="py-24 bg-gradient-to-br from-slate-50 via-gray-50 to-blue-50 relative overflow-hidden">
+    <!-- 背景装饰 -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-1/4 left-10 w-72 h-72 bg-gradient-to-br from-blue-300 to-purple-300 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-1/4 right-10 w-80 h-80 bg-gradient-to-tr from-purple-300 to-teal-300 rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <div class="text-center mb-20">
+        <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-slate-100 to-blue-100 rounded-full text-sm font-medium text-slate-800 mb-6 shadow-sm">
+          <span class="w-2 h-2 bg-slate-500 rounded-full mr-2 animate-pulse"></span>
+          Wan 2.5 Technical Specs
+        </div>
+        <h2 class="text-3xl md:text-4xl font-normal bg-gradient-to-r from-slate-600 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-8 leading-tight">
+          Wan 2.5 - Power, Flexibility, and High-Quality Output
         </h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Wan 2.5 supports multiple resolutions and flexible outputs with optional audio sync. 
-          Create Wan 2.5 video clips from text or image inputs with 5s or 10s durations and seed control.
+        <p class="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed font-light">
+          Wan 2.5 supports <span class="font-semibold text-blue-600">multiple resolutions</span> and <span class="font-semibold text-purple-600">flexible outputs</span> with optional audio sync. 
+          Create Wan 2.5 video clips from text or image inputs with <span class="font-semibold text-teal-600">5s or 10s durations</span> and seed control.
         </p>
       </div>
 
       <!-- Generation Modes -->
-      <div class="grid lg:grid-cols-2 gap-8 mb-16">
+      <div class="grid lg:grid-cols-2 gap-10 mb-20">
         <!-- Image-to-Video -->
-        <div class="bg-white rounded-2xl p-8 shadow-lg">
-          <div class="flex items-center mb-6">
-            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
-              <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="group bg-white/90 backdrop-blur-sm rounded-3xl p-10 shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 border border-purple-100 hover:border-purple-200">
+          <div class="flex items-center mb-8">
+            <div class="w-16 h-16 bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
-            <h3 class="text-2xl font-bold text-gray-900">Wan 2.5 – Image-to-Video (I2V)</h3>
+            <div>
+              <h3 class="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Wan 2.5 – Image-to-Video</h3>
+              <p class="text-purple-600 font-medium mt-1">(I2V)</p>
+            </div>
           </div>
 
           <div class="space-y-4 mb-6">

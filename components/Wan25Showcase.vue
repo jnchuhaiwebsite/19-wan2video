@@ -1,51 +1,68 @@
 <template>
-  <section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-gray-900 mb-6">
-          Wan 2.5 Video Generation Showcase
+  <section class="py-24 bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 relative overflow-hidden">
+    <!-- 背景装饰 -->
+    <div class="absolute inset-0 opacity-20">
+      <div class="absolute top-20 right-1/4 w-64 h-64 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-20 left-1/4 w-80 h-80 bg-gradient-to-tr from-purple-200 to-pink-200 rounded-full blur-3xl"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <div class="text-center mb-20">
+        <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full text-sm font-medium text-purple-800 mb-6 shadow-sm">
+          <span class="w-2 h-2 bg-purple-500 rounded-full mr-2 animate-pulse"></span>
+          Video Showcase
+        </div>
+        <h2 class="text-3xl md:text-4xl font-normal bg-gradient-to-r from-purple-600 via-blue-600 to-teal-600 bg-clip-text text-transparent mb-8 leading-tight">
+          Wan 2.5 - Real Examples of Next-Gen AI Video
         </h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Discover what Wan 2.5 can achieve. These Wan 2.5 video samples highlight 
-          smoother motion, consistent color and lighting, sharper clarity at 1080p, 
-          and accurate prompt following across styles.
+        <p class="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed font-light">
+          Discover what <span class="font-semibold text-purple-600">Wan 2.5</span> can achieve. These video samples highlight 
+          <span class="font-semibold text-blue-600">smoother motion</span>, <span class="font-semibold text-teal-600">consistent color and lighting</span>, 
+          <span class="font-semibold text-green-600">sharper clarity at 1080p</span>, and accurate prompt following across styles.
         </p>
       </div>
 
       <!-- Video Grid -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
         <div 
           v-for="(video, index) in videos" 
           :key="index"
-          class="bg-gray-50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+          class="group bg-white/80 backdrop-blur-sm rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-white/50"
+          :class="`hover:border-${getCardColor(index)}-200`"
         >
-          <div class="relative aspect-video bg-black">
+          <div class="relative aspect-video bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden">
             <video 
               :src="video.url"
               :poster="video.poster"
               controls
-              muted
-              class="w-full h-full object-cover"
+              playsinline
+              webkit-playsinline
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               preload="metadata"
             >
+              <source :src="video.url" type="video/mp4">
               Your browser does not support video playback
             </video>
-            <div class="absolute top-4 left-4 bg-black bg-opacity-75 text-white px-3 py-1 rounded-full text-sm font-medium">
-              Wan 2.5
+            <div class="absolute top-4 left-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+              <span class="flex items-center">
+                <span class="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></span>
+                Wan 2.5
+              </span>
             </div>
           </div>
-          <div class="p-6">
-            <h3 class="font-semibold text-gray-900 mb-2">
+          <div class="p-8">
+            <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors duration-300">
               {{ video.title }}
             </h3>
-            <p class="text-gray-600 text-sm">
+            <p class="text-gray-600 leading-relaxed mb-5">
               {{ video.description }}
             </p>
-            <div class="mt-4 flex flex-wrap gap-2">
+            <div class="flex flex-wrap gap-2">
               <span 
-                v-for="tag in video.tags" 
+                v-for="(tag, tagIndex) in video.tags" 
                 :key="tag"
-                class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full"
+                class="px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-300"
+                :class="getTagStyle(tagIndex)"
               >
                 {{ tag }}
               </span>
@@ -107,6 +124,24 @@
 </template>
 
 <script setup lang="ts">
+// 工具函数
+const getCardColor = (index: number) => {
+  const colors = ['blue', 'purple', 'teal', 'green', 'pink', 'orange']
+  return colors[index % colors.length]
+}
+
+const getTagStyle = (index: number) => {
+  const styles = [
+    'bg-blue-100 text-blue-800 hover:bg-blue-200',
+    'bg-purple-100 text-purple-800 hover:bg-purple-200',
+    'bg-teal-100 text-teal-800 hover:bg-teal-200',
+    'bg-green-100 text-green-800 hover:bg-green-200',
+    'bg-pink-100 text-pink-800 hover:bg-pink-200',
+    'bg-orange-100 text-orange-800 hover:bg-orange-200'
+  ]
+  return styles[index % styles.length]
+}
+
 const videos = ref([
   {
     url: 'https://cdn.flux-context.org/wan2.5-video-1.mp4',
@@ -140,7 +175,7 @@ const videos = ref([
     url: 'https://cdn.flux-context.org/wan2.5-video-6.mp4',
     poster: '',
     title: 'Times Square Announcement',
-    description: 'A young woman in Times Square announces: "Yo, Wan 2.5 just dropped!" showcasing viral UGC style with saturated colors.',
+    description: 'A young woman in Times Square announces: "Yo, Wan2.5 just dropped on FLUXContext.org — sound and texture are next level, try it right now!" showcasing viral UGC style with saturated colors.',
     tags: ['UGC', 'Viral', 'Announcement']
   },
   {
