@@ -126,7 +126,8 @@ useSeoMeta({
   canonicalUrl: baseUrl + 'wan-2-5-ai',
   other: [
     { rel: 'canonical', href: baseUrl + 'wan-2-5-ai' }
-  ]
+  ],
+  link: [{ rel: 'canonical', href:  baseUrl + 'wan-2-5-ai' }]
 
 })
 
@@ -136,6 +137,7 @@ useHead({
   meta: [
     { name: 'description', content: 'TCreate cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.' },
     { name: 'keywords', content: 'Wan 2.5, AI video generator, text-to-video, image-to-video, 1080p video, AI video creation' }
-  ]
+  ],
+  link: [{ rel: 'canonical', href:  baseUrl + 'wan-2-5-ai' }]
 })
 </script>
