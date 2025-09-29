@@ -14,14 +14,14 @@
     
 
         <!-- Generator -->
-    <!-- <section class="relative" id="generator">
+    <section class="relative" id="generator">
       <Wan25Generator />
-    </section> -->
+    </section>
 
     <!-- Process Steps -->
-    <!-- <section class="relative">
+    <section class="relative">
       <Wan25ProcessSteps />
-    </section> -->
+    </section>
 
     <!-- Video Showcase -->
     <section class="relative" id="showcase">
