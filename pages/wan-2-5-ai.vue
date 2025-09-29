@@ -105,27 +105,27 @@ import Wan25ProcessSteps from '~/components/Wan25ProcessSteps.vue';
 
 import { useHead } from 'nuxt/app';
 import { useSeoMeta } from 'nuxt/app';
-
+const baseUrl = 'https://www.wan2video.com/'
 // SEO Meta
 useSeoMeta({
   title: 'Wan 2.5 | Cinematic AI Video Generator with Audio Sync',
   ogTitle: 'Wan 2.5 | Cinematic AI Video Generator with Audio Sync',
   description: 'TCreate cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
   ogDescription: 'TCreate cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
-  ogImage: '/wan2.5-og-image.webp',
-  ogUrl: 'https://www.wan2video.com/wan-2-5-ai',
+  ogImage: baseUrl + '/wan-25-og-image.webp',
+  ogUrl: baseUrl + 'wan-2-5-ai',
   ogType: 'website',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Wan 2.5 | Cinematic AI Video Generator with Audio Sync',
   twitterDescription: 'TCreate cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
-  twitterImage: '/wan2.5-og-image.webp',
-  twitterUrl: 'https://www.wan2video.com/wan-2-5-ai',
+  twitterImage: baseUrl + '/wan-25-og-image.webp',
+  twitterUrl: baseUrl + 'wan-2-5-ai',
   twitterType: 'summary_large_image',
   twitterSite: '@wan2video',
-  canonical: 'https://www.wan2video.com/wan-2-5-ai',
-  canonicalUrl: 'https://www.wan2video.com/wan-2-5-ai',
+  canonical: baseUrl + 'wan-2-5-ai',
+  canonicalUrl: baseUrl + 'wan-2-5-ai',
   other: [
-    { rel: 'canonical', href: 'https://www.wan2video.com/wan-2-5-ai' }
+    { rel: 'canonical', href: baseUrl + 'wan-2-5-ai' }
   ]
 
 })
