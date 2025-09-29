@@ -396,12 +396,16 @@
             </div>
             <h4 class="text-2xl font-bold text-gray-900 mb-4">Generating Video</h4>
             <p class="text-gray-600 text-center mb-6">{{ statusMessage }}</p>
-            <div class="w-full max-w-sm bg-gray-200 rounded-full h-2">
-              <div class="bg-gradient-to-r from-blue-600 to-purple-600 h-2 rounded-full animate-pulse" style="width: 45%"></div>
+            <div class="w-full max-w-sm bg-gray-200 rounded-full h-3 relative overflow-hidden">
+              <div class="bg-gradient-to-r from-blue-600 to-purple-600 h-3 rounded-full transition-all duration-500 ease-out" :style="`width: ${progressPercent}%`"></div>
+              <!-- 动态滚动条 -->
+              <div class="absolute top-0 left-0 w-full h-full">
+                <div class="bg-gradient-to-r from-transparent via-white/30 to-transparent h-full w-8 rounded-full animate-slide"></div>
+              </div>
             </div>
-            <div v-if="currentTaskId" class="mt-4 text-xs text-gray-500">
+            <!-- <div v-if="currentTaskId" class="mt-4 text-xs text-gray-500">
               Task ID: {{ currentTaskId }}
-            </div>
+            </div> -->
           </div>
 
           <!-- Generated Result -->
@@ -487,6 +491,8 @@ const currentTaskId = ref<string | null>(null)
 const taskStatus = ref<'idle' | 'generating' | 'success' | 'failed'>('idle')
 const statusMessage = ref('')
 const pollingInterval = ref<NodeJS.Timeout | null>(null)
+const progressPercent = ref(0)
+const progressInterval = ref<NodeJS.Timeout | null>(null)
 
 // 表单数据
 const formData = ref({
@@ -774,6 +780,7 @@ const handleGenerate = async () => {
   isGenerating.value = true
   taskStatus.value = 'generating'
   statusMessage.value = 'Generating video...'
+  startProgressAnimation()
   
   try {
     // 准备请求数据
@@ -790,14 +797,16 @@ const handleGenerate = async () => {
       // 开始轮询检查任务状态
       startPolling()
     } else {
+      console.log(response)
       throw new Error(response.msg || 'Failed to create task')
     }
   } catch (error: any) {
-    console.error('Generation failed:', error)
+    console.log('Generation failed:', error)
     taskStatus.value = 'failed'
-    statusMessage.value = error.msg || 'Generation failed, please try again'
+    statusMessage.value = error || 'Generation failed, please try again'
     $toast.error(statusMessage.value)
     isGenerating.value = false
+    stopProgressAnimation()
   }
 }
 
@@ -873,6 +882,7 @@ const checkTaskStatus = async () => {
         // 停止轮询
         stopPolling()
         isGenerating.value = false
+        stopProgressAnimation()
       } else if (status <= -1) {
         // 生成失败
         taskStatus.value = 'failed'
@@ -882,6 +892,7 @@ const checkTaskStatus = async () => {
         // 停止轮询
         stopPolling()
         isGenerating.value = false
+        stopProgressAnimation()
       } else if (status === 0) {
         // 生成中
         statusMessage.value = status_msg || 'Generating...'
@@ -899,6 +910,35 @@ const stopPolling = () => {
     clearInterval(pollingInterval.value)
     pollingInterval.value = null
   }
+}
+
+// 开始进度条动画
+const startProgressAnimation = () => {
+  progressPercent.value = 0
+  const duration = 5 * 60 * 1000 // 5分钟 = 300秒 = 300000毫秒
+  const targetProgress = 95 // 目标进度95%
+  const interval = 100 // 每100ms更新一次
+  const increment = (targetProgress / duration) * interval
+  
+  progressInterval.value = setInterval(() => {
+    progressPercent.value += increment
+    if (progressPercent.value >= targetProgress) {
+      progressPercent.value = targetProgress
+      if (progressInterval.value) {
+        clearInterval(progressInterval.value)
+        progressInterval.value = null
+      }
+    }
+  }, interval)
+}
+
+// 停止进度条动画
+const stopProgressAnimation = () => {
+  if (progressInterval.value) {
+    clearInterval(progressInterval.value)
+    progressInterval.value = null
+  }
+  progressPercent.value = 0
 }
 
 // 下载视频
@@ -947,6 +987,7 @@ const resetGenerator = () => {
   taskStatus.value = 'idle'
   statusMessage.value = ''
   isGenerating.value = false
+  stopProgressAnimation()
   
   resetForm()
   
@@ -974,6 +1015,7 @@ const resetForm = () => {
 // 组件卸载时清理
 onUnmounted(() => {
   stopPolling()
+  stopProgressAnimation()
 })
 
 // 组件挂载时获取用户信息
@@ -984,3 +1026,18 @@ onMounted(() => {
 // 初始化
 updateSizeOptions()
 </script>
+
+<style scoped>
+@keyframes slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
+}
+
+.animate-slide {
+  animation: slide 2s ease-in-out infinite;
+}
+</style>
