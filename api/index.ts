@@ -40,6 +40,8 @@ export const urlList = {
   checkTask: baseUrl + '/api/task/wan2ai/check_task_status', // 检查任务
   opusList: baseUrl + '/api/user/opus_list', // 获取用户作品列表
   statistics: baseUrl + '/api/statistics/pvuv', // 删除用户作品列表
+  previewGenvideo: baseUrl + '/api/task/wan2ai/preview/genvideo', // 预览生成视频
+  checkTaskStatus: baseUrl + '/api/task/wan2ai/check_task_status', // 检查任务状态
 }
 
 /**
@@ -608,6 +610,25 @@ const createHeaders = () => {
 export const upload = async (data: any) => {
   return apiRequest(urlList.upload, 'POST', data, true);
 }
+
+/**
+ * 预览生成视频
+ * @param data 预览生成视频数据
+ * @returns 预览生成视频
+ */
+export const previewGenvideo = async (data: any) => {
+  return apiRequest(urlList.previewGenvideo, 'POST', data, true);
+}
+
+/**
+ * 检查任务状态
+ * @param data 检查任务状态数据
+ * @returns 检查任务状态
+ */
+export const checkTaskStatusVideo = async (task_id: string) => {
+  return apiRequest(urlList.checkTaskStatus+'?task_id='+task_id, 'GET', undefined, true);
+}
+
 /**
  * 通用API请求函数
  * @param url 请求地址

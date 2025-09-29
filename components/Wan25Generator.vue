@@ -122,40 +122,40 @@
                     type="button"
                     @click="formData.resolution = '480P'"
                     :class="[
-                      'p-4 rounded-xl border-2 transition-all duration-300 text-center',
+                      'p-3 rounded-lg border-2 transition-all duration-300 text-center',
                       formData.resolution === '480P'
-                        ? 'border-purple-500 bg-purple-50 text-purple-700 shadow-lg transform scale-105'
-                        : 'border-gray-200 bg-white text-gray-700 hover:border-purple-300 hover:bg-purple-50'
+                        ? 'border-purple-500 bg-purple-50 text-purple-700 shadow-md'
+                        : 'border-gray-300 bg-gray-100 text-gray-600 hover:border-gray-400 hover:bg-gray-200'
                     ]"
                   >
-                    <div class="font-semibold text-lg">480P</div>
-                    <div class="text-xs mt-1">Faster Generation</div>
+                    <div class="font-semibold text-base">480P</div>
+                    <div class="text-xs mt-1 text-gray-500">Faster Generation</div>
                   </button>
                   <button
                     type="button"
                     @click="formData.resolution = '720P'"
                     :class="[
-                      'p-4 rounded-xl border-2 transition-all duration-300 text-center',
+                      'p-3 rounded-lg border-2 transition-all duration-300 text-center',
                       formData.resolution === '720P'
-                        ? 'border-purple-500 bg-purple-50 text-purple-700 shadow-lg transform scale-105'
-                        : 'border-gray-200 bg-white text-gray-700 hover:border-purple-300 hover:bg-purple-50'
+                        ? 'border-purple-500 bg-purple-50 text-purple-700 shadow-md'
+                        : 'border-gray-300 bg-gray-100 text-gray-600 hover:border-gray-400 hover:bg-gray-200'
                     ]"
                   >
-                    <div class="font-semibold text-lg">720P</div>
-                    <div class="text-xs mt-1">Balanced Quality</div>
+                    <div class="font-semibold text-base">720P</div>
+                    <div class="text-xs mt-1 text-gray-500">Balanced Quality</div>
                   </button>
                   <button
                     type="button"
                     @click="formData.resolution = '1080P'"
                     :class="[
-                      'p-4 rounded-xl border-2 transition-all duration-300 text-center',
+                      'p-3 rounded-lg border-2 transition-all duration-300 text-center',
                       formData.resolution === '1080P'
-                        ? 'border-purple-500 bg-purple-50 text-purple-700 shadow-lg transform scale-105'
-                        : 'border-gray-200 bg-white text-gray-700 hover:border-purple-300 hover:bg-purple-50'
+                        ? 'border-purple-500 bg-purple-50 text-purple-700 shadow-md'
+                        : 'border-gray-300 bg-gray-100 text-gray-600 hover:border-gray-400 hover:bg-gray-200'
                     ]"
                   >
-                    <div class="font-semibold text-lg">1080P</div>
-                    <div class="text-xs mt-1">HD Quality</div>
+                    <div class="font-semibold text-base">1080P</div>
+                    <div class="text-xs mt-1 text-gray-500">HD Quality</div>
                   </button>
                 </div>
               </div>
@@ -171,40 +171,40 @@
                     type="button"
                     @click="selectResolutionLevel('480P')"
                     :class="[
-                      'p-4 rounded-xl border-2 transition-all duration-300 text-center',
+                      'p-3 rounded-lg border-2 transition-all duration-300 text-center',
                       formData.resolutionLevel === '480P'
-                        ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-lg transform scale-105'
-                        : 'border-gray-200 bg-white text-gray-700 hover:border-blue-300 hover:bg-blue-50'
+                        ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-md'
+                        : 'border-gray-300 bg-gray-100 text-gray-600 hover:border-gray-400 hover:bg-gray-200'
                     ]"
                   >
-                    <div class="font-semibold text-lg">480P</div>
-                    <div class="text-xs mt-1">Fast Generation</div>
+                    <div class="font-semibold text-base">480P</div>
+                    <div class="text-xs mt-1 text-gray-500">Fast Generation</div>
                   </button>
                   <button
                     type="button"
                     @click="selectResolutionLevel('720P')"
                     :class="[
-                      'p-4 rounded-xl border-2 transition-all duration-300 text-center',
+                      'p-3 rounded-lg border-2 transition-all duration-300 text-center',
                       formData.resolutionLevel === '720P'
-                        ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-lg transform scale-105'
-                        : 'border-gray-200 bg-white text-gray-700 hover:border-blue-300 hover:bg-blue-50'
+                        ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-md'
+                        : 'border-gray-300 bg-gray-100 text-gray-600 hover:border-gray-400 hover:bg-gray-200'
                     ]"
                   >
-                    <div class="font-semibold text-lg">720P</div>
-                    <div class="text-xs mt-1">Balanced Quality</div>
+                    <div class="font-semibold text-base">720P</div>
+                    <div class="text-xs mt-1 text-gray-500">Balanced Quality</div>
                   </button>
                   <button
                     type="button"
                     @click="selectResolutionLevel('1080P')"
                     :class="[
-                      'p-4 rounded-xl border-2 transition-all duration-300 text-center',
+                      'p-3 rounded-lg border-2 transition-all duration-300 text-center',
                       formData.resolutionLevel === '1080P'
-                        ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-lg transform scale-105'
-                        : 'border-gray-200 bg-white text-gray-700 hover:border-blue-300 hover:bg-blue-50'
+                        ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-md'
+                        : 'border-gray-300 bg-gray-100 text-gray-600 hover:border-gray-400 hover:bg-gray-200'
                     ]"
                   >
-                    <div class="font-semibold text-lg">1080P</div>
-                    <div class="text-xs mt-1">HD Quality</div>
+                    <div class="font-semibold text-base">1080P</div>
+                    <div class="text-xs mt-1 text-gray-500">HD Quality</div>
                   </button>
                 </div>
               </div>
@@ -212,20 +212,20 @@
               <!-- Video Aspect Ratio Selection -->
               <div>
                 <label class="block text-sm font-semibold text-gray-900 mb-4">Video Aspect Ratio</label>
-                <div class="grid grid-cols-2 gap-3">
+                <div class="grid grid-cols-4 gap-2">
                   <button
                     v-for="size in availableSizes"
                     :key="size.value"
                     type="button"
                     @click="formData.size = size.value"
                     :class="[
-                      'p-4 rounded-xl border-2 transition-all duration-300 text-center',
+                      'p-2 rounded-lg border-2 transition-all duration-300 text-center',
                       formData.size === size.value
-                        ? 'border-teal-500 bg-teal-50 text-teal-700 shadow-lg transform scale-105'
-                        : 'border-gray-200 bg-white text-gray-700 hover:border-teal-300 hover:bg-teal-50'
+                        ? 'border-teal-500 bg-teal-50 text-teal-700 shadow-md'
+                        : 'border-gray-300 bg-gray-100 text-gray-600 hover:border-gray-400 hover:bg-gray-200'
                     ]"
                   >
-                    <div class="font-semibold">{{ size.label.split('(')[0].trim() }}</div>
+                    <div class="font-semibold text-sm">{{ size.label.split('(')[0].trim() }}</div>
                     <div class="text-xs mt-1 text-gray-500">{{ size.label.split('(')[1]?.replace(')', '') }}</div>
                   </button>
                 </div>
@@ -237,6 +237,7 @@
             <div>
               <label class="block text-sm font-semibold text-gray-900 mb-3">
                 Prompt <span v-if="activeMode === 'text-to-video'" class="text-red-500">*</span>
+                <span v-else class="text-gray-500">(Optional)</span>
               </label>
               <textarea 
                 v-model="formData.prompt"
@@ -245,7 +246,6 @@
                 :placeholder="activeMode === 'image-to-video' ? 'Describe how you want the image to move...' : 'Describe the video content you want to generate...'"
                 maxlength="2000"
                 @focus="handlePromptFocus"
-                @input="handlePromptInput"
               />
               <div class="flex justify-between items-center mt-2 text-xs text-gray-500">
                 <span>Supports English and Chinese</span>
@@ -275,48 +275,110 @@
                 </label>
                 <input type="file" id="audio-upload" class="hidden" @change="handleAudioUpload" accept="audio/wav,audio/mp3" />
               </div>
+              
+              <!-- Audio Preview -->
+              <div v-if="audioPreview" class="mt-3 p-3 bg-gray-50 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-medium text-gray-700">Audio Preview</span>
+                  <button 
+                    @click="removeAudio"
+                    type="button"
+                    class="w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
+                  >
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                <audio 
+                  :src="audioPreview" 
+                  controls 
+                  class="w-full h-8"
+                >
+                  Your browser does not support audio playback
+                </audio>
+              </div>
+              
               <p class="text-xs text-gray-500 mt-2">Supports WAV, MP3 format, 3-30 seconds, max 15MB</p>
             </div>
 
             <!-- Duration and Options -->
-            <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-6">
               <div>
                 <label class="block text-sm font-semibold text-gray-900 mb-3">Video Duration</label>
-                <div class="flex space-x-3">
-                  <label class="flex items-center">
-                    <input type="radio" v-model="formData.duration" value="5" class="w-4 h-4 text-blue-600" />
-                    <span class="ml-2 text-sm text-gray-700">5 seconds</span>
-                  </label>
-                  <label class="flex items-center">
-                    <input type="radio" v-model="formData.duration" value="10" class="w-4 h-4 text-blue-600" />
-                    <span class="ml-2 text-sm text-gray-700">10 seconds</span>
-                  </label>
+                <div class="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    @click="formData.duration = '5'"
+                    :class="[
+                      'p-2 rounded-lg border-2 transition-all duration-300 text-center',
+                      formData.duration === '5'
+                        ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-md'
+                        : 'border-gray-300 bg-gray-100 text-gray-600 hover:border-gray-400 hover:bg-gray-200'
+                    ]"
+                  >
+                    <div class="font-semibold text-sm">5s</div>
+                    <div class="text-xs mt-1 text-gray-500">Standard</div>
+                  </button>
+                  <button
+                    type="button"
+                    @click="formData.duration = '10'"
+                    :class="[
+                      'p-2 rounded-lg border-2 transition-all duration-300 text-center',
+                      formData.duration === '10'
+                        ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-md'
+                        : 'border-gray-300 bg-gray-100 text-gray-600 hover:border-gray-400 hover:bg-gray-200'
+                    ]"
+                  >
+                    <div class="font-semibold text-sm">10s</div>
+                    <div class="text-xs mt-1 text-gray-500">Extended</div>
+                  </button>
                 </div>
               </div>
               <div>
-                <label class="block text-sm font-semibold text-gray-900 mb-3">Smart Enhancement</label>
-                <label class="flex items-center">
-                  <input type="checkbox" v-model="formData.promptExtend" class="w-4 h-4 text-blue-600 rounded" />
-                  <span class="ml-2 text-sm text-gray-700">Prompt Enhancement</span>
-                </label>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-700">Prompt Enhancement</span>
+                  <button
+                    type="button"
+                    @click="formData.promptExtend = !formData.promptExtend"
+                    :class="[
+                      'relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
+                      formData.promptExtend ? 'bg-blue-600' : 'bg-gray-200'
+                    ]"
+                  >
+                    <span
+                      :class="[
+                        'inline-block h-4 w-4 transform rounded-full bg-white transition-transform',
+                        formData.promptExtend ? 'translate-x-6' : 'translate-x-1'
+                      ]"
+                    />
+                  </button>
+                </div>
               </div>
             </div>
 
             <!-- Generate Button -->
-            <button 
-              type="submit" 
-              :disabled="isGenerating || !canGenerate"
-              class="w-full py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-            >
-              <span v-if="isGenerating" class="flex items-center justify-center">
-                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Generating Video...
-              </span>
-              <span v-else>🎬 Generate Video</span>
-            </button>
+            <div class="relative">
+              <button 
+                type="submit" 
+                :disabled="isGenerating || !canGenerate"
+                class="w-full py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              >
+                <span v-if="isGenerating" class="flex items-center justify-center">
+                  <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Generating Video...
+                </span>
+                <span v-else>🎬 Generate Video</span>
+              </button>
+              
+              <!-- Credit Badge -->
+              <div class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg">
+                {{ requiredCredits }} credits
+              </div>
+            </div>
           </form>
         </div>
 
@@ -333,9 +395,12 @@
               </svg>
             </div>
             <h4 class="text-2xl font-bold text-gray-900 mb-4">Generating Video</h4>
-            <p class="text-gray-600 text-center mb-6">AI is processing your request, this may take a few minutes</p>
+            <p class="text-gray-600 text-center mb-6">{{ statusMessage }}</p>
             <div class="w-full max-w-sm bg-gray-200 rounded-full h-2">
               <div class="bg-gradient-to-r from-blue-600 to-purple-600 h-2 rounded-full animate-pulse" style="width: 45%"></div>
+            </div>
+            <div v-if="currentTaskId" class="mt-4 text-xs text-gray-500">
+              Task ID: {{ currentTaskId }}
             </div>
           </div>
 
@@ -395,32 +460,40 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onUnmounted, onMounted } from 'vue'
+import { previewGenvideo, checkTaskStatusVideo, upload } from '~/api'
 import { useNuxtApp } from 'nuxt/app'
 import { useClerkAuth } from '~/utils/authHelper'
 import { useUserStore } from '~/stores/user'
 import { useUiStore } from '~/stores/ui'
 
 // Toast 通知
-const { $toast } = useNuxtApp()
+const { $toast } = useNuxtApp() as any
 const { isSignedIn } = useClerkAuth()
 const userStore = useUserStore()
 const uiStore = useUiStore()
 
 // 响应式数据
-const activeMode = ref<'image-to-video' | 'text-to-video'>('image-to-video')
+const activeMode = ref<'image-to-video' | 'text-to-video'>('text-to-video')
 const isGenerating = ref(false)
 const uploadedImage = ref<File | null>(null)
 const uploadedAudio = ref<File | null>(null)
 const imagePreview = ref<string | null>(null)
+const audioPreview = ref<string | null>(null)
 const generatedVideo = ref<{ url: string } | null>(null)
+
+// 任务状态相关
+const currentTaskId = ref<string | null>(null)
+const taskStatus = ref<'idle' | 'generating' | 'success' | 'failed'>('idle')
+const statusMessage = ref('')
+const pollingInterval = ref<NodeJS.Timeout | null>(null)
 
 // 表单数据
 const formData = ref({
   prompt: '',
   resolution: '720P', // for image-to-video
-  resolutionLevel: '1080P', // for text-to-video
-  size: '1920*1080', // for text-to-video
+  resolutionLevel: '720P', // for text-to-video
+  size: '1280*720', // for text-to-video
   duration: '5',
   promptExtend: true,
   audioUrl: ''
@@ -453,10 +526,24 @@ const availableSizes = computed(() => {
   return sizeOptions[formData.value.resolutionLevel as keyof typeof sizeOptions] || sizeOptions['1080P']
 })
 
+// 计算消耗积分
+const requiredCredits = computed(() => {
+  const resolution = activeMode.value === 'image-to-video' ? formData.value.resolution : formData.value.resolutionLevel
+  const duration = parseInt(formData.value.duration)
+  
+  const creditMap: Record<string, Record<number, number>> = {
+    '480P': { 5: 100, 10: 200 },
+    '720P': { 5: 200, 10: 400 },
+    '1080P': { 5: 300, 10: 600 }
+  }
+  
+  return creditMap[resolution]?.[duration] || 0
+})
+
 // 是否可以生成
 const canGenerate = computed(() => {
   if (activeMode.value === 'image-to-video') {
-    return uploadedImage.value && formData.value.prompt.trim()
+    return uploadedImage.value
   } else {
     return formData.value.prompt.trim().length > 0
   }
@@ -493,25 +580,16 @@ const checkLoginStatus = async () => {
   return true
 }
 
+// 登录状态检查标志
+const hasCheckedLogin = ref(false)
+
 // 提示词聚焦处理
 const handlePromptFocus = async () => {
-  await checkLoginStatus()
-}
-
-// 提示词输入处理
-const handlePromptInput = async (event: Event) => {
-  const target = event.target as HTMLTextAreaElement
-  const value = target.value
-  
-  // 如果用户开始输入内容，检查登录状态
-  if (value.length > 0) {
+  if (!hasCheckedLogin.value) {
     const isLoggedIn = await checkLoginStatus()
+    hasCheckedLogin.value = true
     if (!isLoggedIn) {
-      // 清空输入内容
-      target.value = ''
-      formData.value.prompt = ''
       $toast.error('Please login to enter prompts')
-      return
     }
   }
 }
@@ -583,7 +661,6 @@ const handleImageUpload = async (event: Event) => {
     }
     reader.readAsDataURL(file)
     
-    $toast.success('Image uploaded successfully')
   }
 }
 
@@ -616,11 +693,52 @@ const handleAudioUpload = async (event: Event) => {
       }
     
     uploadedAudio.value = file
-    // 这里可以上传音频文件到服务器，获取 URL
-    // formData.value.audioUrl = uploadedUrl
     
-    $toast.success('Audio file uploaded successfully')
+    // 创建音频预览
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      audioPreview.value = e.target?.result as string
+    }
+    reader.readAsDataURL(file)
+    
   }
+}
+
+// 删除音频
+const removeAudio = () => {
+  uploadedAudio.value = null
+  audioPreview.value = null
+  const fileInput = document.getElementById('audio-upload') as HTMLInputElement
+  if (fileInput) {
+    fileInput.value = ''
+  }
+}
+
+// 用户积分计算
+const userCredits = computed(() => {
+  const userInfo = userStore.userInfo
+  if (!userInfo) return 0
+  return (userInfo.free_limit || 0) + (userInfo.remaining_limit || 0)
+})
+
+// 检查音频文件时长
+const checkAudioDuration = (file: File): Promise<number> => {
+  return new Promise((resolve, reject) => {
+    const audio = new Audio()
+    const url = URL.createObjectURL(file)
+    
+    audio.addEventListener('loadedmetadata', () => {
+      URL.revokeObjectURL(url)
+      resolve(audio.duration)
+    })
+    
+    audio.addEventListener('error', () => {
+      URL.revokeObjectURL(url)
+      reject(new Error('Failed to load audio file'))
+    })
+    
+    audio.src = url
+  })
 }
 
 // 生成视频
@@ -633,41 +751,194 @@ const handleGenerate = async () => {
   
   if (!canGenerate.value) return
   
+  // 检查积分是否充足
+  if (userCredits.value < requiredCredits.value) {
+    $toast.error(`Insufficient credits. This operation requires ${requiredCredits.value} credits, but you only have ${userCredits.value} credits`)
+    return
+  }
+  
+  // 检查音频文件时长
+  if (uploadedAudio.value) {
+    try {
+      const duration = await checkAudioDuration(uploadedAudio.value)
+      if (duration < 3 || duration > 30) {
+        $toast.error(`Audio duration must be between 3-30 seconds. Current duration: ${duration.toFixed(1)}s`)
+        return
+      }
+    } catch (error) {
+      $toast.error('Failed to validate audio file duration')
+      return
+    }
+  }
+  
   isGenerating.value = true
+  taskStatus.value = 'generating'
+  statusMessage.value = 'Generating video...'
   
   try {
-    // 模拟 API 调用
-    await new Promise(resolve => setTimeout(resolve, 5000))
+    // 准备请求数据
+    const requestData = await prepareRequestData()
+    console.log(requestData)
+    // return
+    // 调用 previewGenvideo API
+
+    const response = await previewGenvideo(requestData)
     
-    // 模拟生成结果
-    generatedVideo.value = {
-      url: 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4'
+    if (response.success && response.data?.task_id) {
+      currentTaskId.value = response.data.task_id
+      
+      // 开始轮询检查任务状态
+      startPolling()
+    } else {
+      throw new Error(response.msg || 'Failed to create task')
     }
+  } catch (error: any) {
+    console.error('Generation failed:', error)
+    taskStatus.value = 'failed'
+    statusMessage.value = error.msg || 'Generation failed, please try again'
+    $toast.error(statusMessage.value)
+    isGenerating.value = false
+  }
+}
+
+// 准备请求数据
+const prepareRequestData = async () => {
+  const data: any = {
+    model: activeMode.value === 'text-to-video' ? 'wan2.5-t2v-preview' : 'wan2.5-i2v-preview',
+    prompt: formData.value.prompt,
+    duration: parseInt(formData.value.duration),
+    prompt_extend: formData.value.promptExtend
+  }
+  
+  if (activeMode.value === 'image-to-video') {
+    // 图生视频模式
+    if (!uploadedImage.value) {
+      throw new Error('Please upload an image')
+    }
+    // 上传图片获取URL
+      data.image = uploadedImage.value
+      data.resolution = formData.value.resolution
+  } else {
+    // 文生视频模式
+    data.resolution = formData.value.resolutionLevel
+    data.size = formData.value.size
+  }
+  
+  // 如果有音频文件，上传音频
+  if (uploadedAudio.value) {
+      data.audio = uploadedAudio.value
+  }
+  
+  return data
+}
+
+// 开始轮询检查任务状态
+const startPolling = () => {
+  if (pollingInterval.value) {
+    clearInterval(pollingInterval.value)
+  }
+  
+  pollingInterval.value = setInterval(async () => {
+    await checkTaskStatus()
+  }, 5000) // 每5秒检查一次
+}
+
+// 检查任务状态
+const checkTaskStatus = async () => {
+  if (!currentTaskId.value) return
+  
+  try {
+  
+    const response = await checkTaskStatusVideo(currentTaskId.value)
     
-    $toast.success('Video generated successfully!')
-    } catch (error) {
-      console.error('Generation failed:', error)
-      $toast.error('Generation failed, please try again')
-    } finally {
-      isGenerating.value = false
+    if (response.success && response.data) {
+      const { status, status_msg, url } = response.data
+      
+      if (status === 1 && url) {
+        // 生成成功
+        taskStatus.value = 'success'
+        statusMessage.value = 'Video generated successfully!'
+        generatedVideo.value = { url }
+        $toast.success('Video generated successfully!')
+        
+        // 停止轮询
+        stopPolling()
+        isGenerating.value = false
+      } else if (status <= -1) {
+        // 生成失败
+        taskStatus.value = 'failed'
+        statusMessage.value = status_msg || 'Generation failed'
+        $toast.error(statusMessage.value)
+        
+        // 停止轮询
+        stopPolling()
+        isGenerating.value = false
+      } else if (status === 0) {
+        // 生成中
+        statusMessage.value = status_msg || 'Generating...'
+      }
     }
+  } catch (error: any) {
+    console.error('Failed to check task status:', error)
+    // 不停止轮询，继续尝试
+  }
+}
+
+// 停止轮询
+const stopPolling = () => {
+  if (pollingInterval.value) {
+    clearInterval(pollingInterval.value)
+    pollingInterval.value = null
+  }
 }
 
 // 下载视频
-const downloadVideo = () => {
+const downloadVideo = async () => {
   if (generatedVideo.value?.url) {
-    const link = document.createElement('a')
-    link.href = generatedVideo.value.url
-    link.download = `wan25-video-${Date.now()}.mp4`
-    link.click()
-    
-    $toast.success('Video download started')
+    try {
+      // 使用 fetch 获取视频文件
+      const response = await fetch(generatedVideo.value.url)
+      if (!response.ok) {
+        throw new Error('Failed to fetch video')
+      }
+      
+      // 获取视频数据
+      const blob = await response.blob()
+      
+      // 创建下载链接
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `wan25-video-${Date.now()}.mp4`
+      
+      // 触发下载
+      document.body.appendChild(link)
+      link.click()
+      
+      // 清理
+      document.body.removeChild(link)
+      window.URL.revokeObjectURL(url)
+      
+      $toast.success('Video download started')
+    } catch (error) {
+      console.error('Download failed:', error)
+      $toast.error('Download failed, please try again')
+    }
   }
 }
 
 // 重置生成器
 const resetGenerator = () => {
+  // 停止轮询
+  stopPolling()
+  
+  // 重置状态
   generatedVideo.value = null
+  currentTaskId.value = null
+  taskStatus.value = 'idle'
+  statusMessage.value = ''
+  isGenerating.value = false
+  
   resetForm()
   
   $toast.info('Generator reset, ready for new video')
@@ -678,8 +949,8 @@ const resetForm = () => {
   formData.value = {
     prompt: '',
     resolution: '720P',
-    resolutionLevel: '1080P',
-    size: '1920*1080',
+    resolutionLevel: '720P',
+    size: '1280*720',
     duration: '5',
     promptExtend: true,
     audioUrl: ''
@@ -687,7 +958,19 @@ const resetForm = () => {
   uploadedImage.value = null
   uploadedAudio.value = null
   imagePreview.value = null
+  audioPreview.value = null
+  hasCheckedLogin.value = false
 }
+
+// 组件卸载时清理
+onUnmounted(() => {
+  stopPolling()
+})
+
+// 组件挂载时获取用户信息
+onMounted(() => {
+  userStore.fetchUserInfo()
+})
 
 // 初始化
 updateSizeOptions()

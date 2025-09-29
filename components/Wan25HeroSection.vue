@@ -12,11 +12,11 @@
           <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
           Next-Generation AI Video Model
         </div>
-        <h1 class="text-6xl md:text-7xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-8 leading-tight">
-          Wan 2.5 AI Video Generator
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-8 leading-relaxed" style="line-height: 1.4;">
+          Wan 2.5 | Cinematic AI Video Generator with Audio Sync
         </h1>
         <p class="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed font-light">
-          Wan 2.5 is a <span class="font-semibold text-blue-600">next-generation AI video model</span> designed for creators worldwide. 
+          <!-- Wan 2.5 is a <span class="font-semibold text-blue-600">next-generation AI video model</span> designed for creators worldwide.  -->
           With Wan 2.5 you can easily generate <span class="font-semibold text-purple-600">text-to-video</span> and <span class="font-semibold text-pink-600">image-to-video</span> content 
           in <span class="font-semibold text-green-600">1080p quality</span>. From simple prompts or still images, Wan 2.5 delivers 
           professional video output with optional audio guidance.
@@ -24,6 +24,7 @@
         
         <!-- 快速开始按钮 -->
         <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+          <NuxtLink to="#generator">
           <button class="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 overflow-hidden">
             <span class="relative z-10 flex items-center">
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -33,6 +34,8 @@
             </span>
             <div class="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </button>
+          </NuxtLink>
+          <NuxtLink to="#showcase">
           <button class="group px-8 py-4 bg-white/80 backdrop-blur-sm text-gray-700 font-semibold rounded-2xl border-2 border-gray-200 hover:border-gray-300 hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
             <span class="flex items-center">
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,6 +44,7 @@
               Watch Demo
             </span>
           </button>
+          </NuxtLink>
         </div>
       </div>
 

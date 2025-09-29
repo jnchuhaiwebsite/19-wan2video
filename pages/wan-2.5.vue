@@ -14,12 +14,12 @@
     
 
         <!-- Generator -->
-        <section class="relative">
+    <section class="relative" id="generator">
       <Wan25Generator />
     </section>
 
     <!-- Video Showcase -->
-    <section class="relative">
+    <section class="relative" id="showcase">
       <Wan25Showcase />
     </section>
     
@@ -64,7 +64,7 @@
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <NuxtLink 
-            to="/" 
+            to="#generator" 
             class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,19 +102,19 @@ import { useSeoMeta } from 'nuxt/app';
 
 // SEO Meta
 useSeoMeta({
-  title: 'Wan 2.5 – AI Image to Video Generator with Motion Control',
-  ogTitle: 'Wan 2.5 – AI Image to Video Generator with Motion Control',
-  description: 'Turn static images into dynamic HD videos with Wan 2.5. Experience AI-powered motion control, seamless style transformation, and easy video creation.',
-  ogDescription: 'Turn static images into dynamic HD videos with Wan 2.5. Experience AI-powered motion control, seamless style transformation, and easy video creation.',
+  title: 'Wan 2.5 | Cinematic AI Video Generator with Audio Sync',
+  ogTitle: 'Wan 2.5 | Cinematic AI Video Generator with Audio Sync',
+  description: 'TCreate cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
+  ogDescription: 'TCreate cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
   ogImage: '/wan2.5-og-image.webp',
   twitterCard: 'summary_large_image',
 })
 
 // Page head
 useHead({
-  title: 'Wan 2.5 – AI Image to Video Generator with Motion Control',
+  title: 'Wan 2.5 | Cinematic AI Video Generator with Audio Sync',
   meta: [
-    { name: 'description', content: 'Turn static images into dynamic HD videos with Wan 2.5. Experience AI-powered motion control, seamless style transformation, and easy video creation.' },
+    { name: 'description', content: 'TCreate cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.' },
     { name: 'keywords', content: 'Wan 2.5, AI video generator, text-to-video, image-to-video, 1080p video, AI video creation' }
   ]
 })
