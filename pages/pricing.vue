@@ -4,8 +4,8 @@
       <!-- 页面标题区域 -->
       <header>
         <PageHero 
-          title="wan2.2 AI Video & Image Pricing"
-          subtitle="Unlock the full power of wan2.2 with a plan that scales with your ambition. No hidden fees, cancel anytime."
+          title="Affordable Pricing for AI-Powered Video Creation"
+          subtitle="Wan2Video offers flexible pricing plans for every creator — from beginner to pro, choose the plan that fits your needs."
         />
       </header>
 
@@ -181,8 +181,8 @@ interface PricingPlan {
 
 // 设置SEO
 useSeo({
-  title: 'wan2.2 Pricing - See Free & Paid Subscription Plans',
-  description: 'Explore simple wan2.2 pricing on wan2.2. Get unlimited AI art & video with V7. No Discord needed. Find the perfect plan and start for free!',
+  title: 'Pricing | Affordable AI Video Generation Plans | Wan2Video',
+  description: 'Explore flexible pricing plans for Wan2Video, the AI video platform. Choose the best plan for your needs, from beginner to pro, with advanced features',
 });
 
 // 引入auth认证
