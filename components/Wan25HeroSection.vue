@@ -13,7 +13,7 @@
           Next-Generation AI Video Model
         </div>
         <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-8 leading-relaxed" style="line-height: 1.4;">
-          Wan 2.5 | Cinematic AI Video Generator with Audio Sync
+          Wan 2.5 - Cinematic AI Video Generator with Audio Sync
         </h1>
         <p class="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed font-light">
           <!-- Wan 2.5 is a <span class="font-semibold text-blue-600">next-generation AI video model</span> designed for creators worldwide.  -->
