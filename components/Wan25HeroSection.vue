@@ -56,7 +56,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m-9 0h10m-10 0a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2M9 12h6m-6 4h6" />
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Text-to-Video</h3>
+          <h2 class="text-xl font-bold text-gray-900 mb-3 text-center">Text-to-Video</h2>
           <p class="text-gray-600 text-center leading-relaxed">Generate stunning videos from text descriptions with AI-powered creativity and precision</p>
         </div>
 
@@ -66,7 +66,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Image-to-Video</h3>
+          <h2 class="text-xl font-bold text-gray-900 mb-3 text-center">Image-to-Video</h2>
           <p class="text-gray-600 text-center leading-relaxed">Transform static images into dynamic video content with smooth animations and natural motion</p>
         </div>
 
@@ -76,7 +76,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Up to 1080p</h3>
+          <h2 class="text-xl font-bold text-gray-900 mb-3 text-center">Up to 1080p</h2>
           <p class="text-gray-600 text-center leading-relaxed">High-definition video output with crystal clear quality and professional-grade resolution</p>
         </div>
 
@@ -86,7 +86,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Audio Guidance</h3>
+          <h2 class="text-xl font-bold text-gray-900 mb-3 text-center">Audio Guidance</h2>
           <p class="text-gray-600 text-center leading-relaxed">Optional audio sync and guidance for enhanced video experience and better results</p>
         </div>
       </div>
