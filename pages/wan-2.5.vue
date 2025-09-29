@@ -14,9 +14,9 @@
     
 
         <!-- Generator -->
-    <section class="relative" id="generator">
+    <!-- <section class="relative" id="generator">
       <Wan25Generator />
-    </section>
+    </section> -->
 
     <!-- Video Showcase -->
     <section class="relative" id="showcase">
