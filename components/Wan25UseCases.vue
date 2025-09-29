@@ -144,48 +144,48 @@ const useCases = ref([
   {
     title: 'Film & Short Video Production',
     description: 'Create high-definition short videos, animation clips, and previews with Wan 2.5.',
-    videoUrl: 'https://cdn.viddo.ai/pub/wan2_5/cases/1.webm',
-    posterUrl: 'https://cdn.viddo.ai/pub/wan2_5/cases/1.webp',
+    videoUrl: 'https://resp.wan2video.com/wan2ai/video/use-cases-1.webm',
+    posterUrl: 'https://resp.wan2video.com/wan2ai/images/use-cases-1.webp',
     category: 'Film',
     tags: ['HD Video', 'Animation', 'Previews']
   },
   {
     title: 'Game Scenes & Virtual Worlds',
     description: 'Wan 2.5 helps developers build immersive cutscenes and environments from text or images.',
-    videoUrl: 'https://cdn.viddo.ai/pub/wan2_5/cases/2.webm',
-    posterUrl: 'https://cdn.viddo.ai/pub/wan2_5/cases/2.webp',
+    videoUrl: 'https://resp.wan2video.com/wan2ai/video/use-cases-2.webm',
+    posterUrl: 'https://resp.wan2video.com/wan2ai/images/use-cases-2.webp',
     category: 'Gaming',
     tags: ['Cutscenes', 'Environments', 'Immersive']
   },
   {
     title: 'Educational & Training Videos',
     description: 'Transform course content into engaging video lessons with Wan 2.5 narration and music.',
-    videoUrl: 'https://cdn.viddo.ai/pub/wan2_5/cases/3.webm',
-    posterUrl: 'https://cdn.viddo.ai/pub/wan2_5/cases/3.webp',
+    videoUrl: 'https://resp.wan2video.com/wan2ai/video/use-cases-3.webm',
+    posterUrl: 'https://resp.wan2video.com/wan2ai/images/use-cases-3.webp',
     category: 'Education',
     tags: ['Training', 'Lessons', 'Narration']
   },
   {
     title: 'Advertising & Marketing Content',
     description: 'Produce ad campaigns and product promos faster with Wan 2.5 voiceovers and visuals.',
-    videoUrl: 'https://cdn.viddo.ai/pub/wan2_5/cases/4.webm',
-    posterUrl: 'https://cdn.viddo.ai/pub/wan2_5/cases/4.webp',
+    videoUrl: 'https://resp.wan2video.com/wan2ai/video/use-cases-4.webm',
+    posterUrl: 'https://resp.wan2video.com/wan2ai/images/use-cases-4.webp',
     category: 'Marketing',
     tags: ['Ads', 'Promos', 'Campaigns']
   },
   {
     title: 'Virtual Hosts & AI Characters',
     description: 'Use Wan 2.5 to create virtual presenters and interactive avatars for demos and live events.',
-    videoUrl: 'https://cdn.viddo.ai/pub/wan2_5/cases/5.webm',
-    posterUrl: 'https://cdn.viddo.ai/pub/wan2_5/cases/5.webp',
+    videoUrl: 'https://resp.wan2video.com/wan2ai/video/use-cases-5.webm',
+    posterUrl: 'https://resp.wan2video.com/wan2ai/images/use-cases-5.webp',
     category: 'Virtual',
     tags: ['Presenters', 'Avatars', 'Interactive']
   },
   {
     title: 'Cross-Media & Multilingual Presentations',
     description: 'Wan 2.5 generates cross-platform content for global audiences in multiple languages.',
-    videoUrl: 'https://cdn.viddo.ai/pub/wan2_5/cases/6.webm',
-    posterUrl: 'https://cdn.viddo.ai/pub/wan2_5/cases/6.webp',
+    videoUrl: 'https://resp.wan2video.com/wan2ai/video/use-cases-6.webm',
+    posterUrl: 'https://resp.wan2video.com/wan2ai/images/use-cases-6.webp',
     category: 'Global',
     tags: ['Multilingual', 'Cross-Platform', 'Global']
   }
