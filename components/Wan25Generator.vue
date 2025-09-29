@@ -474,7 +474,7 @@ const userStore = useUserStore()
 const uiStore = useUiStore()
 
 // 响应式数据
-const activeMode = ref<'image-to-video' | 'text-to-video'>('text-to-video')
+const activeMode = ref<'image-to-video' | 'text-to-video'>('image-to-video')
 const isGenerating = ref(false)
 const uploadedImage = ref<File | null>(null)
 const uploadedAudio = ref<File | null>(null)
@@ -815,7 +815,16 @@ const prepareRequestData = async () => {
     if (!uploadedImage.value) {
       throw new Error('Please upload an image')
     }
-    // 上传图片获取URL
+
+    // if(uploadedImage.value)
+    // {
+    //   const uploadResponse = await upload({ file: uploadedImage.value }) as any;
+    //   if (uploadResponse && uploadResponse.code === 200) {
+    //     data.image_url = uploadResponse.data;
+    //   } 
+    // }
+
+     // 上传图片获取URL
       data.image = uploadedImage.value
       data.resolution = formData.value.resolution
   } else {
