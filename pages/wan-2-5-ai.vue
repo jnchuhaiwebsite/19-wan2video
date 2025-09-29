@@ -121,7 +121,7 @@ useSeoMeta({
   twitterImage: '/wan2.5-og-image.webp',
   twitterUrl: 'https://www.wan2video.com/wan-2-5-ai',
   twitterType: 'summary_large_image',
-  twitterSite: 'https://www.wan2video.com',
+  twitterSite: '@wan2video',
   canonical: 'https://www.wan2video.com/wan-2-5-ai',
   canonicalUrl: 'https://www.wan2video.com/wan-2-5-ai',
   other: [
