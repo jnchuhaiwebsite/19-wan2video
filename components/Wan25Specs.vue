@@ -54,13 +54,9 @@
               <span class="font-medium text-gray-700">Audio:</span>
               <span class="text-gray-600">Optional (URL)</span>
             </div>
-            <div class="flex justify-between items-center py-2 border-b border-gray-100">
-              <span class="font-medium text-gray-700">Seed:</span>
-              <span class="text-gray-600">-1 (random)</span>
-            </div>
             <div class="flex justify-between items-center py-2">
               <span class="font-medium text-gray-700">Credits Example:</span>
-              <span class="text-gray-600">720p 5s=40 • 10s=80</span>
+              <span class="text-gray-600">720p 5s=200 • 10s=400</span>
             </div>
           </div>
 
@@ -99,13 +95,10 @@
               <span class="font-medium text-gray-700">Audio:</span>
               <span class="text-gray-600">Optional (URL)</span>
             </div>
-            <div class="flex justify-between items-center py-2 border-b border-gray-100">
-              <span class="font-medium text-gray-700">Seed:</span>
-              <span class="text-gray-600">-1 (random)</span>
-            </div>
+
             <div class="flex justify-between items-center py-2">
               <span class="font-medium text-gray-700">Credits Example:</span>
-              <span class="text-gray-600">1280×720 5s=40 • 10s=80</span>
+              <span class="text-gray-600">1280×720 5s=200 • 10s=400</span>
             </div>
           </div>
 

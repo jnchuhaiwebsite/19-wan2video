@@ -18,6 +18,11 @@
       <Wan25Generator />
     </section> -->
 
+    <!-- Process Steps -->
+    <!-- <section class="relative">
+      <Wan25ProcessSteps />
+    </section> -->
+
     <!-- Video Showcase -->
     <section class="relative" id="showcase">
       <Wan25Showcase />
@@ -96,6 +101,7 @@ import Wan25PromptFormulas from '~/components/Wan25PromptFormulas.vue';
 import Wan25Generator from '~/components/Wan25Generator.vue';
 import Wan25UseCases from '~/components/Wan25UseCases.vue';
 import Wan25HeroSection from '~/components/Wan25HeroSection.vue';
+import Wan25ProcessSteps from '~/components/Wan25ProcessSteps.vue';
 
 import { useHead } from 'nuxt/app';
 import { useSeoMeta } from 'nuxt/app';
@@ -107,7 +113,21 @@ useSeoMeta({
   description: 'TCreate cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
   ogDescription: 'TCreate cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
   ogImage: '/wan2.5-og-image.webp',
+  ogUrl: 'https://www.wan2video.com/wan-2-5-ai',
+  ogType: 'website',
   twitterCard: 'summary_large_image',
+  twitterTitle: 'Wan 2.5 | Cinematic AI Video Generator with Audio Sync',
+  twitterDescription: 'TCreate cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
+  twitterImage: '/wan2.5-og-image.webp',
+  twitterUrl: 'https://www.wan2video.com/wan-2-5-ai',
+  twitterType: 'summary_large_image',
+  twitterSite: '@wan2video',
+  canonical: 'https://www.wan2video.com/wan-2-5-ai',
+  canonicalUrl: 'https://www.wan2video.com/wan-2-5-ai',
+  other: [
+    { rel: 'canonical', href: 'https://www.wan2video.com/wan-2-5-ai' }
+  ]
+
 })
 
 // Page head
