@@ -126,7 +126,8 @@ useSeoMeta({
   canonicalUrl: baseUrl + 'wan-2-5-ai',
   other: [
     { rel: 'canonical', href: baseUrl + 'wan-2-5-ai' }
-  ]
+  ],
+  link: [{ rel: 'canonical', href:  baseUrl + 'wan-2-5-ai' }],
 
 })
 
