@@ -110,14 +110,14 @@ const baseUrl = 'https://www.wan2video.com/'
 useSeoMeta({
   title: 'Wan 2.5 | Cinematic AI Video Generator with Audio Sync',
   ogTitle: 'Wan 2.5 | Cinematic AI Video Generator with Audio Sync',
-  description: 'TCreate cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
-  ogDescription: 'TCreate cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
+  description: 'Create cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
+  ogDescription: 'Create cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
   ogImage: baseUrl + '/wan-25-og-image.webp',
   ogUrl: baseUrl + 'wan-2-5-ai',
   ogType: 'website',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Wan 2.5 | Cinematic AI Video Generator with Audio Sync',
-  twitterDescription: 'TCreate cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
+  twitterDescription: 'Create cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
   twitterImage: baseUrl + '/wan-25-og-image.webp',
   twitterUrl: baseUrl + 'wan-2-5-ai',
   twitterType: 'summary_large_image',
@@ -135,7 +135,7 @@ useSeoMeta({
 useHead({
   title: 'Wan 2.5 | Cinematic AI Video Generator with Audio Sync',
   meta: [
-    { name: 'description', content: 'TCreate cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.' },
+    { name: 'description', content: 'Create cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.' },
     { name: 'keywords', content: 'Wan 2.5, AI video generator, text-to-video, image-to-video, 1080p video, AI video creation' }
   ],
   link: [{ rel: 'canonical', href:  baseUrl + 'wan-2-5-ai' }]
