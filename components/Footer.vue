@@ -29,7 +29,7 @@
               Easily transform text or images into high-quality videos, enabling fast and efficient content creation without the need for technical expertise.
             </p>
             <div class="flex flex-col items-start gap-2 text-sm text-gray-500">
-              <p>© 2025 wan 2.2 Plus All rights reserved.</p>
+              <p>© 2025 Wan2Video All rights reserved.</p>
               <div class="text-left">
                 <p class="text-blue-footertext text-sm">
                   <a href="mailto:support@wan2video.com" class="text-blue-h1 hover:text-blue-footerhover transition-colors">support@wan2video.com</a>
