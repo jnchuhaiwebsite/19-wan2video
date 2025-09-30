@@ -6,8 +6,8 @@
       class="relative"
     >
       <PageHero 
-        title="Wan2Video Generator Blog"
-        subtitle="Tips, tutorials, and inspiration for creating professional-quality videos with Wan2Video Generator AI video generation technology"
+        title="Wan2Video Blog"
+        subtitle="Tips, tutorials, and inspiration for creating professional-quality videos with Wan2Video AI video generation technology"
       />
     </section>
     
@@ -135,8 +135,8 @@ declare const useAsyncData: <T>(key: string, handler: () => Promise<T>) => Promi
 const router = useRouter()
 
 useSeo({
-    title: "Blog | Wan2 model  Video Generation",
-    description: "Discover Wan2 model's AI technology for creating professional videos and animations. Get tips and updates to enhance your visual content.",
+    title: "Blog | Wan2Video",
+    description: "Discover Wan2Video AI technology for creating professional videos and animations. Get tips and updates to enhance your visual content.",
 });
 
 // 使用 useAsyncData 获取数据
