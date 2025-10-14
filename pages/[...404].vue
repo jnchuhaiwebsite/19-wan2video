@@ -10,6 +10,17 @@
 
 <script setup lang="ts">
 import { useSeo } from '~/composables/useSeo';
+import { useRequestEvent } from 'nuxt/app';
+import { setResponseStatus } from 'nuxt/app';
+
+// 设置404状态码
+const event = useRequestEvent()
+if (event) {
+  setResponseStatus(event, 404)
+}
+
+
+
 useSeo({
   title: 'Page Not Found - 404 Error',
   description: 'The requested page could not be found. Please return to homepage or use navigation menu.'
