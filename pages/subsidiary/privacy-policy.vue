@@ -113,7 +113,7 @@ definePageMeta({
 })
 
 useSeo({
-    title: 'Wan 2.2 Plus | Privacy Policy',
+    title: 'Privacy Policy | Wan2Video',
     description: 'Read our privacy policy for Wan 2.2 Plus, the advanced AI platform for generating cinematic videos from text and images.'
 })
 </script>
