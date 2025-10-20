@@ -122,7 +122,7 @@ definePageMeta({
 })
 
 useSeo({
-  title: 'Terms of Service | Wan 2.2 Plus AI Video Generator',
+  title: 'Terms of Service | Wan2Video',
   description: 'Review the terms and conditions for using Wan 2.2 Plus, the advanced AI platform for generating cinematic videos from text and images.'
 })
 </script>
