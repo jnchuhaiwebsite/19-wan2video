@@ -10,20 +10,20 @@
               <svg class="inline-block w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>
               </svg>
-              Wan 2.2 Plus · AI Video Generation
+              Wan Mobile App · AI Video Generation
             </span>
           </div>
           
           <!-- Main Title -->
           <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight">
             <span class="bg-gradient-to-r from-blue-h1start via-blue-h1end to-blue-h1start bg-clip-text text-transparent">
-              Wan 2.2 Plus - Mobile App
+              Wan Mobile App  
             </span>
           </h1>
           
           <!-- Subtitle -->
           <p class="text-xl text-blue-h1p max-w-3xl mx-auto leading-relaxed">
-            Create professional videos anywhere, anytime. Wan 2.2 Plus lets you generate high-quality videos on your mobile device, bringing your creative ideas to life effortlessly.
+            Create professional videos anywhere, anytime. Wan Mobile App lets you generate high-quality videos on your mobile device, bringing your creative ideas to life effortlessly.
           </p>
           
           <!-- Download Buttons -->
@@ -48,7 +48,7 @@
               target="_blank" 
               rel="nofollow noopener"
               aria-label="Download from Google Play Store"
-              title="Wan 2.2 Plus Google Play Store"
+              title="Wan Mobile App Google Play Store"
             >
               <svg class="w-12 h-12 flex-shrink-0" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
                 <path fill="none" d="M0,0h40v40H0V0z"></path>
@@ -164,7 +164,7 @@
             </div>
             <h3 class="text-2xl font-bold text-blue-maintext mb-4">Lightning-Fast Processing</h3>
             <p class="text-blue-secondarytext leading-relaxed">
-              Powered by Wan 2.2 Plus technology optimized for mobile devices. Get results in minutes, not hours. Fast, efficient video processing that works within your phone's capabilities.
+              Powered by Wan Mobile App technology optimized for mobile devices. Get results in minutes, not hours. Fast, efficient video processing that works within your phone's capabilities.
             </p>
           </article>
         </div>
@@ -190,12 +190,12 @@ import { useNuxtApp } from 'nuxt/app'
 const { $toast } = useNuxtApp() as any
 
 useSeo({
-  title: 'Wan 2.2 Plus Mobile App | AI Video Generation',
-  description: 'Create high-quality videos from text or images with Wan 2.2 Plus Mobile App. Supports photorealistic, anime, and surreal styles. Available on Android & iOS.',
+  title: 'Wan Mobile App | AI Video Generation',
+  description: 'Create high-quality videos from text or images with Wan Mobile App. Supports photorealistic, anime, and surreal styles. Available on Android & iOS.',
 })
 
 const showIOSComingSoon = () => {
-  $toast.info('iOS App Coming Soon! The Wan 2.2 Plus app for iOS is currently under development and will be available soon. Stay tuned!', 4000, 'center')
+  $toast.info('iOS App Coming Soon! The Wan app for iOS is currently under development and will be available soon. Stay tuned!', 4000, 'center')
 }
 
 const scrollTo = (selector: string) => {
