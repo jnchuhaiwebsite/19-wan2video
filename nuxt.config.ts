@@ -114,14 +114,24 @@ export default defineNuxtConfig({
             }
             return '_nuxt/assets/[hash][extname]';
           },
-          // 优化代码分割
-          manualChunks: {
+          // 优化代码分割 - Rolldown 需要函数格式
+          manualChunks: (id) => {
             // 将 Vue 相关代码分离
-            'vue-vendor': ['vue', 'vue-router'],
+            if (id.includes('vue') || id.includes('vue-router')) {
+              return 'vue-vendor';
+            }
             // 将 UI 组件分离
-            'ui-components': ['@heroicons/vue'],
+            if (id.includes('@heroicons/vue')) {
+              return 'ui-components';
+            }
             // 将工具库分离
-            'utils': ['pinia', 'exifr']
+            if (id.includes('pinia') || id.includes('exifr')) {
+              return 'utils';
+            }
+            // 将 node_modules 中的其他大型依赖分离
+            if (id.includes('node_modules')) {
+              return 'vendor';
+            }
           }
         }
       },
