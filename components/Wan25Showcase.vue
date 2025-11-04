@@ -152,42 +152,42 @@ import { ref, onMounted } from 'vue'
 const videos = ref([
   {
     url: 'https://resp.wan2video.com/wan2ai/video/wan-25-video-1.mp4',
-    poster: 'https://resp.wan2video.com/wan2ai/ceshi/wan-25-video-1.webp',
+    poster: 'https://resp.wan2video.com/wan2ai/images/wan-25-video-1.webp',
     title: 'Confident Speaker',
     description: 'A confident woman in her 40s speaks on stage with synchronized lip movements and gestures.',
     tags: ['Speaking', 'Professional', 'Lip Sync']
   },
   {
     url: 'https://resp.wan2video.com/wan2ai/video/wan-25-video-2.mp4',
-    poster: 'https://resp.wan2video.com/wan2ai/ceshi/wan-25-video-2.webp',
+    poster: 'https://resp.wan2video.com/wan2ai/images/wan-25-video-2.webp',
     title: 'Subway Scene',
     description: 'A young man sits on a subway train while blurred figures move rapidly, showing Wan 2.5\'s cinematic depth.',
     tags: ['Cinematic', 'Motion Blur', 'Depth']
   },
   {
     url: 'https://resp.wan2video.com/wan2ai/video/wan-25-video-3.mp4',
-    poster: 'https://resp.wan2video.com/wan2ai/ceshi/wan-25-video-3.webp',
+    poster: 'https://resp.wan2video.com/wan2ai/images/wan-25-video-3.webp',
     title: 'Magical Transformation',
     description: 'A magical girl transformation in vibrant anime style, rendered with Wan 2.5 for dynamic motion and particle effects.',
     tags: ['Anime', 'Transformation', 'Effects']
   },
   {
     url: 'https://resp.wan2video.com/wan2ai/video/wan-25-video-4.mp4',
-    poster: 'https://resp.wan2video.com/wan2ai/ceshi/wan-25-video-4.webp',
+    poster: 'https://resp.wan2video.com/wan2ai/images/wan-25-video-4.webp',
     title: 'Athlete Portrait',
     description: 'A muscular athlete after training, shot with high-contrast lighting. Wan 2.5 enhances realism and detail.',
     tags: ['Portrait', 'Realism', 'Lighting']
   },
   {
     url: 'https://resp.wan2video.com/wan2ai/video/wan-25-video-6.mp4',
-    poster: 'https://resp.wan2video.com/wan2ai/ceshi/wan-25-video-6.webp',
+    poster: 'https://resp.wan2video.com/wan2ai/images/wan-25-video-6.webp',
     title: 'Times Square Announcement',
     description: 'A young woman in Times Square announces: "Yo, Wan2.5 just dropped on FLUXContext.org — sound and texture are next level, try it right now!" showcasing viral UGC style with saturated colors.',
     tags: ['UGC', 'Viral', 'Announcement']
   },
   {
     url: 'https://resp.wan2video.com/wan2ai/video/wan-25-video-8.mp4',
-    poster: 'https://resp.wan2video.com/wan2ai/ceshi/wan-25-video-8.webp',
+    poster: 'https://resp.wan2video.com/wan2ai/images/wan-25-video-8.webp',
     title: 'Sunset Portrait',
     description: 'A red-haired girl on a rooftop at sunset, captured with soft hues and natural style by Wan 2.5.',
     tags: ['Portrait', 'Sunset', 'Natural']
