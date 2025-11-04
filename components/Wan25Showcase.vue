@@ -31,19 +31,41 @@
           :class="`hover:border-${getCardColor(index)}-200`"
         >
           <div class="relative aspect-video bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden">
+            <!-- 封面图片 -->
+            <img 
+              v-if="!playingStates[index]"
+              :src="video.poster"
+              :alt="video.title"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+            <!-- 视频元素（懒加载） -->
             <video 
+              v-if="playingStates[index]"
               :src="video.url"
-              :poster="video.poster"
               controls
               playsinline
               webkit-playsinline
+              autoplay
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              preload="none"
+              @loadeddata="onVideoLoaded"
             >
               <source :src="video.url" type="video/mp4">
               Your browser does not support video playback
             </video>
-            <div class="absolute top-4 left-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+            <!-- 播放按钮覆盖层 -->
+            <div 
+              v-if="!playingStates[index]"
+              @click="playVideo(index)"
+              class="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30 transition-all duration-300 cursor-pointer group/play"
+            >
+              <div class="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-2xl transform group-hover/play:scale-110 transition-transform duration-300">
+                <svg class="w-10 h-10 text-purple-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="absolute top-4 left-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg z-10">
               <span class="flex items-center">
                 <span class="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></span>
                 Wan 2.5
@@ -124,6 +146,72 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
+
+// 视频数据
+const videos = ref([
+  {
+    url: 'https://resp.wan2video.com/wan2ai/video/wan-25-video-1.mp4',
+    poster: 'https://resp.wan2video.com/wan2ai/ceshi/wan-25-video-1.webp',
+    title: 'Confident Speaker',
+    description: 'A confident woman in her 40s speaks on stage with synchronized lip movements and gestures.',
+    tags: ['Speaking', 'Professional', 'Lip Sync']
+  },
+  {
+    url: 'https://resp.wan2video.com/wan2ai/video/wan-25-video-2.mp4',
+    poster: 'https://resp.wan2video.com/wan2ai/ceshi/wan-25-video-2.webp',
+    title: 'Subway Scene',
+    description: 'A young man sits on a subway train while blurred figures move rapidly, showing Wan 2.5\'s cinematic depth.',
+    tags: ['Cinematic', 'Motion Blur', 'Depth']
+  },
+  {
+    url: 'https://resp.wan2video.com/wan2ai/video/wan-25-video-3.mp4',
+    poster: 'https://resp.wan2video.com/wan2ai/ceshi/wan-25-video-3.webp',
+    title: 'Magical Transformation',
+    description: 'A magical girl transformation in vibrant anime style, rendered with Wan 2.5 for dynamic motion and particle effects.',
+    tags: ['Anime', 'Transformation', 'Effects']
+  },
+  {
+    url: 'https://resp.wan2video.com/wan2ai/video/wan-25-video-4.mp4',
+    poster: 'https://resp.wan2video.com/wan2ai/ceshi/wan-25-video-4.webp',
+    title: 'Athlete Portrait',
+    description: 'A muscular athlete after training, shot with high-contrast lighting. Wan 2.5 enhances realism and detail.',
+    tags: ['Portrait', 'Realism', 'Lighting']
+  },
+  {
+    url: 'https://resp.wan2video.com/wan2ai/video/wan-25-video-6.mp4',
+    poster: 'https://resp.wan2video.com/wan2ai/ceshi/wan-25-video-6.webp',
+    title: 'Times Square Announcement',
+    description: 'A young woman in Times Square announces: "Yo, Wan2.5 just dropped on FLUXContext.org — sound and texture are next level, try it right now!" showcasing viral UGC style with saturated colors.',
+    tags: ['UGC', 'Viral', 'Announcement']
+  },
+  {
+    url: 'https://resp.wan2video.com/wan2ai/video/wan-25-video-8.mp4',
+    poster: 'https://resp.wan2video.com/wan2ai/ceshi/wan-25-video-8.webp',
+    title: 'Sunset Portrait',
+    description: 'A red-haired girl on a rooftop at sunset, captured with soft hues and natural style by Wan 2.5.',
+    tags: ['Portrait', 'Sunset', 'Natural']
+  }
+])
+
+// 播放状态管理
+const playingStates = ref<boolean[]>([])
+
+// 初始化播放状态数组
+onMounted(() => {
+  playingStates.value = new Array(videos.value.length).fill(false)
+})
+
+// 播放视频
+const playVideo = (index: number) => {
+  playingStates.value[index] = true
+}
+
+// 视频加载完成回调
+const onVideoLoaded = () => {
+  // 视频加载完成后的处理逻辑（如需要）
+}
+
 // 工具函数
 const getCardColor = (index: number) => {
   const colors = ['blue', 'purple', 'teal', 'green', 'pink', 'orange']
@@ -141,49 +229,4 @@ const getTagStyle = (index: number) => {
   ]
   return styles[index % styles.length]
 }
-
-const videos = ref([
-  {
-    url: 'https://resp.wan2video.com/wan2ai/video/wan-25-video-1.mp4',
-    poster: '',
-    title: 'Confident Speaker',
-    description: 'A confident woman in her 40s speaks on stage with synchronized lip movements and gestures.',
-    tags: ['Speaking', 'Professional', 'Lip Sync']
-  },
-  {
-    url: 'https://resp.wan2video.com/wan2ai/video/wan-25-video-2.mp4',
-    poster: '',
-    title: 'Subway Scene',
-    description: 'A young man sits on a subway train while blurred figures move rapidly, showing Wan 2.5\'s cinematic depth.',
-    tags: ['Cinematic', 'Motion Blur', 'Depth']
-  },
-  {
-    url: 'https://resp.wan2video.com/wan2ai/video/wan-25-video-3.mp4',
-    poster: '',
-    title: 'Magical Transformation',
-    description: 'A magical girl transformation in vibrant anime style, rendered with Wan 2.5 for dynamic motion and particle effects.',
-    tags: ['Anime', 'Transformation', 'Effects']
-  },
-  {
-    url: 'https://resp.wan2video.com/wan2ai/video/wan-25-video-4.mp4',
-    poster: '',
-    title: 'Athlete Portrait',
-    description: 'A muscular athlete after training, shot with high-contrast lighting. Wan 2.5 enhances realism and detail.',
-    tags: ['Portrait', 'Realism', 'Lighting']
-  },
-  {
-    url: 'https://resp.wan2video.com/wan2ai/video/wan-25-video-6.mp4',
-    poster: '',
-    title: 'Times Square Announcement',
-    description: 'A young woman in Times Square announces: "Yo, Wan2.5 just dropped on FLUXContext.org — sound and texture are next level, try it right now!" showcasing viral UGC style with saturated colors.',
-    tags: ['UGC', 'Viral', 'Announcement']
-  },
-  {
-    url: 'https://resp.wan2video.com/wan2ai/video/wan-25-video-8.mp4',
-    poster: '',
-    title: 'Sunset Portrait',
-    description: 'A red-haired girl on a rooftop at sunset, captured with soft hues and natural style by Wan 2.5.',
-    tags: ['Portrait', 'Sunset', 'Natural']
-  }
-])
 </script>

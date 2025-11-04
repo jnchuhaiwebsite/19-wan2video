@@ -28,22 +28,40 @@
           :key="index"
           class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
         >
-          <div class="relative aspect-video bg-black">
+          <div class="relative aspect-video bg-black cursor-pointer group" @click="playVideo(index)">
+            <!-- 封面图片（懒加载） -->
+            <img 
+              v-if="!playingVideos[index]"
+              :src="useCase.posterUrl"
+              :alt="useCase.title"
+              loading="lazy"
+              class="w-full h-full object-cover"
+            />
+            <!-- 视频播放器（点击后加载） -->
             <video 
+              v-if="playingVideos[index]"
               :src="useCase.videoUrl"
-              :poster="useCase.posterUrl"
               controls
-              muted
+              autoplay
               playsinline
               webkit-playsinline
               class="w-full h-full object-cover"
-              preload="metadata"
               @error="handleVideoError"
-              @loadstart="handleVideoLoadStart"
             >
-              <source :src="useCase.videoUrl" type="video/mp4">
+              <source :src="useCase.videoUrl" type="video/webm">
               Your browser does not support video playback
             </video>
+            <!-- 播放按钮覆盖层 -->
+            <div 
+              v-if="!playingVideos[index]"
+              class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 group-hover:bg-opacity-40 transition-all"
+            >
+              <div class="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center shadow-lg group-hover:bg-opacity-100 transition-all">
+                <svg class="w-8 h-8 text-emerald-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
             <div class="absolute top-4 left-4 bg-black bg-opacity-75 text-white px-3 py-1 rounded-full text-sm font-medium">
               {{ useCase.category }}
             </div>
@@ -140,6 +158,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+
 const useCases = ref([
   {
     title: 'Film & Short Video Production',
@@ -190,4 +210,17 @@ const useCases = ref([
     tags: ['Multilingual', 'Cross-Platform', 'Global']
   }
 ])
+
+// 跟踪每个视频的播放状态
+const playingVideos = ref<Record<number, boolean>>({})
+
+// 播放视频
+const playVideo = (index: number) => {
+  playingVideos.value[index] = true
+}
+
+// 视频错误处理
+const handleVideoError = (event: Event) => {
+  console.error('视频加载失败:', event)
+}
 </script>
