@@ -38,7 +38,7 @@
               playsinline
               webkit-playsinline
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              preload="metadata"
+              preload="none"
             >
               <source :src="video.url" type="video/mp4">
               Your browser does not support video playback
