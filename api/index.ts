@@ -42,6 +42,7 @@ export const urlList = {
   statistics: baseUrl + '/api/statistics/pvuv', // 删除用户作品列表
   previewGenvideo: baseUrl + '/api/task/wan2ai/preview/genvideo', // 预览生成视频
   checkTaskStatus: baseUrl + '/api/task/wan2ai/check_task_status', // 检查任务状态
+  BlogStatistics: baseUrl + '/api/cms/statistics', // 统计
 }
 
 /**
@@ -116,6 +117,14 @@ export const createTaskImgVideo = async (data: any) => {
     console.error('创建任务失败:', error);
     throw error;
   }
+}
+
+/**
+ * 获取博客统计信息
+ * @returns 博客统计信息
+ */
+export const getBlogStatistics = async (url:string) => {
+  return apiRequest(urlList.BlogStatistics+'?url='+url, 'GET', undefined, false);
 }
 
 /**
