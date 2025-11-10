@@ -61,7 +61,7 @@ export default defineNuxtConfig({
     }
   },
   routeRules: {
-    '/blog': { isr: true, prerender: true },
+    // '/blog': { isr: true, prerender: true },
     '/blog/**': { isr: 60 },
   },
   nitro: {
@@ -115,23 +115,14 @@ export default defineNuxtConfig({
             return '_nuxt/assets/[hash][extname]';
           },
           // 优化代码分割 - Rolldown 需要函数格式
-          manualChunks: (id) => {
+           // 优化代码分割
+           manualChunks: {
             // 将 Vue 相关代码分离
-            if (id.includes('vue') || id.includes('vue-router')) {
-              return 'vue-vendor';
-            }
+            'vue-vendor': ['vue', 'vue-router'],
             // 将 UI 组件分离
-            if (id.includes('@heroicons/vue')) {
-              return 'ui-components';
-            }
+            'ui-components': ['@heroicons/vue'],
             // 将工具库分离
-            if (id.includes('pinia') || id.includes('exifr')) {
-              return 'utils';
-            }
-            // 将 node_modules 中的其他大型依赖分离
-            if (id.includes('node_modules')) {
-              return 'vendor';
-            }
+            'utils': ['pinia', 'exifr']
           }
         }
       },
@@ -142,7 +133,7 @@ export default defineNuxtConfig({
           drop_console: true, // 移除 console 语句
           drop_debugger: true, // 移除 debugger 语句
           pure_funcs: ['console.log', 'console.info', 'console.warn', 'console.error'], // 移除特定的函数调用
-          passes: 3, // 增加压缩次数
+          passes: 2, // 增加压缩次数
           dead_code: true, // 移除未使用的代码
           global_defs: {
             'process.env.NODE_ENV': '"production"' // 定义全局变量

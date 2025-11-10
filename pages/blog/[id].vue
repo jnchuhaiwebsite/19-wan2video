@@ -90,7 +90,7 @@
 import { computed, ref, onMounted, type Ref, onBeforeUnmount } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useSeo } from '~/composables/useSeo';
-import { getBlogCategoryList, getBlogList, type BlogCategory, type BlogPost } from '~/api';
+import { getBlogCategoryList, getBlogList, getBlogStatistics, type BlogCategory, type BlogPost } from '~/api';
 
 // 定义类型
 interface BlogData {
@@ -196,6 +196,8 @@ const post = computed(() => {
     return null;
   }
 });
+
+getBlogStatistics(post.value?.url)
 
 // 处理Markdown内容为HTML
 const processedContent = computed(() => {
