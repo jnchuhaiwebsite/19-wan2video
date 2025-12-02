@@ -75,9 +75,12 @@
             font-size: 3.4rem;
             margin-bottom: 18px;
             text-shadow: 0 4px 12px rgba(0,0,0,0.55);
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
           "
         >
-          Christmas Greeting Video Ideas
+        Christmas Video Greetings Ideas
         </h1>
   
         <p
@@ -87,10 +90,12 @@
             line-height: 1.7;
             margin-bottom: 42px;
             text-shadow: 0 2px 6px rgba(0,0,0,0.55);
+            margin-left: auto;
+            margin-right: auto;
           "
         >
-          Upload your photo, and let Santa do the magic! A free,<br />
-          personalized video is just one click away
+          <span style="display: block; max-width: 650px; margin: 0 auto; font-size: 1.3rem;">Upload your photo, and let Santa do the magic! A free,</span>
+          <span style="display: block; max-width: 450px; margin: 0 auto; font-size: 1.25rem;">personalized video is just one click away</span>
         </p>
   
         <!-- CTA 按钮 -->
@@ -113,7 +118,7 @@
         >
           Create the same video
         </a>
-  
+
         <!-- 三个视频 -->
         <div
           style="
@@ -133,6 +138,8 @@
               overflow: hidden;
               background: black;
               box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+              align-self: flex-start;
+              margin-top: 0;
             "
           >
             <video autoplay loop muted playsinline controls style="width:100%;height:100%;object-fit:cover;">
@@ -180,6 +187,12 @@
   
   <script setup lang="ts">
   import { useHead } from 'nuxt/app'
+  
+  // 设置使用圣诞布局（不包含 Footer）
+  definePageMeta({
+    layout: 'christmas'
+  })
+  
   // 引入字体
   useHead({
     title: 'Christmas Greeting Video Ideas',
