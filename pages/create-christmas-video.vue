@@ -1,16 +1,18 @@
 <template>
   <main>
-    <ChristmasHomePc class="pc-content" />
-    <ChristmasHomeMobile class="mobile-content" />
+    <!-- PC 端组件 -->
+      <CreateChristmasVideoPc class="pc-content" />
+
+      <CreateChristmasVideoMobile class="mobile-content" />
   </main>
 </template>
   
   
 <script setup lang="ts">
-import ChristmasHomePc from '~/components/christmas/ChristmasHomePc.vue'
-import ChristmasHomeMobile from '~/components/christmas/ChristmasHomeMobile.vue'
-import { useHead } from 'nuxt/app'
-
+import CreateChristmasVideoPc from '~/components/christmas/CreateChristmasVideoPc.vue'
+import CreateChristmasVideoMobile from '~/components/christmas/CreateChristmasVideoMobile.vue'
+import { useHead } from 'nuxt/app'    
+    
 // 设置使用圣诞布局（不包含 Footer）
 // @ts-ignore: Nuxt macro function
 definePageMeta({
@@ -19,7 +21,7 @@ definePageMeta({
 
 // 引入字体
 useHead({
-  title: 'Christmas Greeting Video Ideas',
+  title: 'Create Christmas Video',
   link: [
     { 
       rel: 'stylesheet', 
