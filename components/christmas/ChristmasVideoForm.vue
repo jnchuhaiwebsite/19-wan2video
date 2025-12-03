@@ -492,8 +492,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useNuxtApp } from 'nuxt/app';
+import { useRoute } from 'vue-router';
 import { previewGenvideo, checkTaskStatusVideo, checkTask } from '~/api';
 
 interface TemplateItem {
@@ -877,6 +878,30 @@ const shareTo = (platform: 'facebook' | 'twitter' | 'pinterest' | 'whatsapp') =>
     window.open(shareUrl, '_blank', 'noopener,noreferrer');
   }
 };
+
+// 检查 URL 参数，如果有 taskId 则自动开始轮询
+onMounted(() => {
+  const route = useRoute()
+  const taskId = route.query.taskId as string
+  const templateIndex = route.query.templateIndex as string
+  
+  if (taskId) {
+    // 如果有模板索引，设置对应的模板和提示词
+    if (templateIndex) {
+      const index = parseInt(templateIndex)
+      if (index >= 0 && index < templates.length) {
+        const template = templates[index]
+        selectedTemplateKey.value = template.key
+        prompt.value = template.prompt
+      }
+    }
+    
+    // 开始轮询任务状态
+    isGenerating.value = true
+    statusMessage.value = '正在生成视频...'
+    startPollingStatus(taskId)
+  }
+})
 </script>
 
 <style scoped>

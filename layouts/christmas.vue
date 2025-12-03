@@ -13,3 +13,5 @@ import ChritmasNavbar from '~/components/ChritmasNavbar.vue'
 const BackToTop = defineAsyncComponent(() => import('~/components/BackToTop.vue'))
 </script>
 
+
+
