@@ -44,8 +44,8 @@ import Wan26Faq from '~/components/wan26/Faq.vue';
 
 import { useSeo } from '~/composables/useSeo';
 useSeo({
-  title: 'Wan 2.6 — Next-Gen AI Video Generator for Multi-Shot Storytelling',
-  description: 'Create stunning 1080p videos with Wan 2.6, the next-gen AI video generator for multi-shot storytelling. Enjoy cinematic quality, character consistency, and seamless scene transitions.',
+  title: 'Wan 2.6 — AI Video Generator for Multi-Shot Storytelling',
+  description: 'Create 1080p videos with Wan 2.6, a next-gen AI video generator built for multi-shot storytelling, cinematic quality, and consistent character performance.',
 })
 </script>
 

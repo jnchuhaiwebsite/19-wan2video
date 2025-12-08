@@ -1,46 +1,47 @@
 <template>
-  <section class="py-24 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 relative overflow-hidden">
-    <!-- 背景装饰 -->
-    <div class="absolute inset-0 opacity-15">
-      <div class="absolute top-1/3 left-1/4 w-96 h-96 bg-gradient-to-br from-emerald-200 to-teal-200 rounded-full blur-3xl"></div>
-      <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-to-tr from-teal-200 to-cyan-200 rounded-full blur-3xl"></div>
+  <section class="relative py-24 bg-gradient-to-br from-white via-[#f5f3ff] to-white text-slate-900 overflow-hidden">
+    <!-- 背景纹理与光晕 -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute inset-0 opacity-15 bg-[radial-gradient(circle_at_1px_1px,#e5e7eb_1px,transparent_0)] [background-size:46px_46px]"></div>
+      <div class="absolute -top-16 -left-10 w-96 h-96 bg-gradient-to-br from-purple-300/25 via-indigo-300/20 to-cyan-200/25 blur-3xl"></div>
+      <div class="absolute bottom-[-180px] right-[-120px] w-[520px] h-[520px] bg-gradient-to-tr from-indigo-200/20 via-fuchsia-200/18 to-amber-200/18 blur-[110px]"></div>
     </div>
     
     <div class="max-w-7xl mx-auto px-6 relative z-10">
-      <div class="text-center mb-20">
-        <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-emerald-100 to-teal-100 rounded-full text-sm font-medium text-emerald-800 mb-6 shadow-sm">
-          <span class="w-2 h-2 bg-emerald-500 rounded-full mr-2 animate-pulse"></span>
+      <div class="text-center mb-16">
+        <div class="inline-flex items-center px-4 py-2 rounded-full bg-purple-500/10 border border-purple-200/60 text-sm font-medium text-purple-700 shadow-[0_10px_30px_-18px_rgba(126,34,206,0.35)] backdrop-blur">
+          <span class="w-2 h-2 bg-purple-500 rounded-full mr-2 animate-pulse"></span>
           Use Cases
         </div>
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent mb-8 leading-tight">
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight bg-gradient-to-r from-indigo-700 via-purple-700 to-fuchsia-600 bg-clip-text text-transparent mt-6">
           Use Cases of Wan 2.6
         </h2>
       </div>
 
-      <!-- Use Cases Grid -->
-      <div class="grid md:grid-cols-2 gap-8">
+      <div class="grid md:grid-cols-2 gap-8 md:gap-10">
         <div 
           v-for="(useCase, index) in useCases" 
           :key="index"
-          class="bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
+          class="usecase-card group"
+          :class="index % 2 === 1 ? 'md:translate-y-8' : ''"
           @mouseenter="handleMouseEnter(index)"
           @mouseleave="handleMouseLeave(index)"
           @click="handleClick(index)"
         >
-          <div class="relative aspect-video bg-black cursor-pointer group">
+          <div class="relative aspect-[16/9] bg-slate-900 overflow-hidden rounded-3xl border border-slate-200/60 shadow-[0_24px_70px_-40px_rgba(15,23,42,0.35)]">
             <!-- 封面图片 -->
             <img 
               v-if="!playingStates[index] && !loadingStates[index]"
               :src="useCase.poster"
               :alt="useCase.title"
               loading="lazy"
-              class="w-full h-full object-cover"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
             />
             
             <!-- Loading 状态 -->
             <div 
               v-if="loadingStates[index]"
-              class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-80 z-20"
+              class="absolute inset-0 flex items-center justify-center bg-slate-950/70 z-20"
             >
               <div class="text-center">
                 <div class="animate-spin rounded-full h-12 w-12 border-4 border-white border-t-transparent mx-auto mb-3"></div>
@@ -67,23 +68,33 @@
             <!-- 播放按钮覆盖层 -->
             <div 
               v-if="!playingStates[index] && !loadingStates[index]"
-              class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 group-hover:bg-opacity-40 transition-all z-10"
+              class="absolute inset-0 flex items-center justify-center bg-slate-950/25 group-hover:bg-slate-950/40 transition-all z-10"
             >
-              <div class="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center shadow-lg group-hover:bg-opacity-100 transition-all">
-                <svg class="w-8 h-8 text-emerald-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
+              <div class="play-btn">
+                <svg class="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z"/>
                 </svg>
               </div>
             </div>
           </div>
           
-          <div class="p-8">
-            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+          <div class="copy-card">
+            <p class="text-xs uppercase tracking-[0.18em] text-slate-500 mb-2">Use Case</p>
+            <h3 class="text-2xl font-bold text-slate-900 mb-3">
               {{ useCase.title }}
             </h3>
-            <p class="text-gray-700 leading-relaxed">
+            <p class="text-slate-700 leading-relaxed mb-4 line-clamp-3">
               {{ useCase.description }}
             </p>
+            <div class="flex flex-wrap gap-2">
+              <span
+                v-for="tag in useCase.tags"
+                :key="tag"
+                class="tag-chip"
+              >
+                {{ tag }}
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -98,27 +109,31 @@ import { ref, onMounted, onUnmounted } from 'vue'
 const useCases = ref([
   {
     title: 'Social Media Creation with Wan 2.6',
-    description: 'Wan 2.6 makes it effortless to produce viral-ready TikToks, Reels, and YouTube Shorts. Its AI video generator creates polished 9:16 vertical videos complete with personalized voiceovers, music, and synchronized performance. Simply describe your idea, and Wan 2.6 transforms it into engaging, platform-optimized content.',
+    description: 'Generate viral-ready 9:16 clips for TikTok & Reels with one prompt—voice, music, pacing aligned.',
     videoUrl: 'https://resp.wan2video.com/wan2ai/wan26/wan-2-6_use-cases_social-media-creation.mp4',
-    poster: 'https://resp.wan2video.com/wan2ai/wan26/wan-2-6_use-cases_social-media-creation.webp'
+    poster: 'https://resp.wan2video.com/wan2ai/wan26/wan-2-6_use-cases_social-media-creation.webp',
+    tags: ['#VerticalVideo', '#TikTok', '#Reels', '#9x16']
   },
   {
     title: 'Powering Modern Marketing Teams',
-    description: 'Marketers can instantly turn campaign concepts into high-impact promotional videos. Wan 2.6 generates product showcases, brand explainers, and ad-ready visuals featuring cinematic lighting, dynamic camera movement, and perfect audio-visual sync. All output includes full commercial usage rights, making it ideal for professional campaigns.',
+    description: 'Turn campaign ideas into ad-ready videos with cinematic lighting, motion, and precise A/V sync.',
     videoUrl: 'https://resp.wan2video.com/wan2ai/wan26/wan-2-6_use-cases_modern-marketing-teams.mp4',
-    poster: 'https://resp.wan2video.com/wan2ai/wan26/wan-2-6_use-cases_modern-marketing-teams.webp'
+    poster: 'https://resp.wan2video.com/wan2ai/wan26/wan-2-6_use-cases_modern-marketing-teams.webp',
+    tags: ['#Marketing', '#Ads', '#Brand', '#AVSync']
   },
   {
     title: 'A Creative Engine for Filmmakers',
-    description: 'Directors and filmmakers use Wan 2.6 to storyboard ideas, produce concept trailers, and create short films with consistent characters. Its advanced motion engine delivers smooth transitions, accurate frame-to-frame detail, and realistic multi-shot sequences. Script-to-video workflows become faster and far more accessible with Wan 2.6.',
+    description: 'Storyboard, previz, and short films with consistent characters and smooth multi-shot motion.',
     videoUrl: 'https://resp.wan2video.com/wan2ai/wan26/wan-2-6_use-cases_filmmaker-creative-engine.mp4',
-    poster: 'https://resp.wan2video.com/wan2ai/wan26/wan-2-6_use-cases_filmmaker-creative-engine.webp'
+    poster: 'https://resp.wan2video.com/wan2ai/wan26/wan-2-6_use-cases_filmmaker-creative-engine.webp',
+    tags: ['#Filmmaking', '#Storyboard', '#Previz', '#MultiShot']
   },
   {
     title: 'Scaling E-commerce Video Production',
-    description: 'Wan 2.6 enables brands to generate hundreds of product videos without photo shoots or complex setups. Simply describe your item, and the system produces promotional clips, 360-degree rotations, lifestyle scenes, or vertical product features—tailored to any aspect ratio. Scale catalog content effortlessly with Wan 2.6.',
+    description: 'Generate product promos, 360 spins, and lifestyle clips at scale—no shoots required.',
     videoUrl: 'https://resp.wan2video.com/wan2ai/wan26/wan-2-6_use-cases_ecommerce-video-production.mp4',
-    poster: 'https://resp.wan2video.com/wan2ai/wan26/wan-2-6_use-cases_ecommerce-video-production.webp'
+    poster: 'https://resp.wan2video.com/wan2ai/wan26/wan-2-6_use-cases_ecommerce-video-production.webp',
+    tags: ['#Ecommerce', '#Catalog', '#4K', '#Automation']
   }
 ])
 
@@ -202,6 +217,65 @@ const handleVideoError = (index: number) => {
 </script>
 
 <style scoped>
-/* Additional styles if needed */
+.usecase-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 22px 60px -40px rgba(15, 23, 42, 0.28);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.usecase-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(129, 140, 248, 0.45);
+  box-shadow: 0 28px 80px -46px rgba(99, 102, 241, 0.32);
+}
+
+.copy-card {
+  background: linear-gradient(155deg, #f9fafb, #f4f6fb);
+  border-top: 1px solid #e5e7eb;
+  padding: 22px;
+}
+
+.tag-chip {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(129, 140, 248, 0.14), rgba(236, 72, 153, 0.12));
+  border: 1px solid rgba(129, 140, 248, 0.25);
+  color: #5b21b6;
+  font-size: 0.85rem;
+}
+
+.play-btn {
+  width: 70px;
+  height: 70px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.34);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow:
+    0 14px 36px -18px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.usecase-card:hover .play-btn {
+  transform: scale(1.08);
+  box-shadow:
+    0 18px 44px -18px rgba(129, 140, 248, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 </style>
 
