@@ -20,6 +20,7 @@ export const mainRoutes: RouteItem[] = [
   { id: "pricing", name: "Pricing", icon: "TagIcon", href: "/pricing" },
   { id: "blog", name: "Blog", href: "/blog", icon: "BookOpenIcon" },
   { id: "mobile-app", name: "Mobile App", href: "/wan-mobile-app", icon: "PhoneIcon" },
+  // { id: "christmas", name: "christmas", href: "/christmas", icon: "christmas" },
   // { id: "image-generate", name: "Image Generate", href: "/ai-image-generator", icon: "image" },
   // { id: "pricing", name: "Pricing", href: "/pricing", icon: "tag" },
 ]
