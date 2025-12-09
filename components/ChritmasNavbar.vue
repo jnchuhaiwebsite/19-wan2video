@@ -18,7 +18,7 @@
               <template v-for="(section, index) in sections" :key="index">
                 <NuxtLink
                   :to="section.href || `/#${section.id}`"
-                  class="relative text-blue-navtext hover:text-blue-dark transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:shadow-lg whitespace-nowrap flex items-center gap-2" 
+                  class="relative text-white hover:text-white/80 transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:shadow-lg whitespace-nowrap flex items-center gap-2" 
                 >
                   {{ section.name }}
                 </NuxtLink>
@@ -37,7 +37,7 @@
           <!-- 移动端菜单按钮 -->
           <button
             @click="isOpen = !isOpen"
-            class="lg:hidden text-blue-dark p-2 rounded-md hover:bg-blue-medium/20 transition-colors"
+            class="lg:hidden text-white p-2 rounded-md hover:bg-white/20 transition-colors"
           >
             <svg
               v-if="!isOpen"
@@ -75,12 +75,12 @@
       <Transition name="slide-fade">
         <div
           v-if="isOpen"
-          class="lg:hidden fixed top-0 left-0 w-full h-screen overflow-y-auto bg-blue-pale/95 backdrop-blur-sm z-[100]"
+          class="lg:hidden fixed top-0 left-0 w-full h-screen overflow-y-auto bg-white/95 backdrop-blur-sm z-[100]"
         >
           <!-- 关闭按钮 -->
           <button
             @click="isOpen = false"
-            class="fixed top-4 right-4 text-blue-dark p-2 rounded-full hover:bg-blue-medium/20 transition-colors z-[101]"
+            class="fixed top-4 right-4 text-gray-800 p-2 rounded-full hover:bg-gray-200/50 transition-colors z-[101]"
           >
             <svg
               class="w-6 h-6"
@@ -105,7 +105,7 @@
                 <NuxtLink
                   :to="section.href || `/#${section.id}`"
                   @click="isOpen = false"
-                  class="relative block text-blue-navtext hover:text-blue-dark text-base transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:bg-blue-medium/10 hover:shadow-lg hover:shadow-blue-medium/20 whitespace-nowrap mt-3 flex items-center gap-3"
+                  class="relative block text-gray-900 hover:text-gray-700 text-base transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:bg-gray-100 hover:shadow-md whitespace-nowrap mt-3 flex items-center gap-3 font-medium"
                 >
                   {{ section.name }}
                 </NuxtLink>
