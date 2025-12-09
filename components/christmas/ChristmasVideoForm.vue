@@ -745,7 +745,7 @@ const onFileChange = (e: Event) => {
     const url = ev.target?.result as string;
     previewUrl.value = url;
 
-    // 计算图片宽高，判断是否为 9:16
+    // 计算图片宽高，判断横版或竖版
     const img = new Image();
     img.onload = () => {
       const width = img.width;
@@ -753,12 +753,9 @@ const onFileChange = (e: Event) => {
       if (!height) return;
 
       const r = width / height;
-      const targetRatio = 9 / 16; // 9:16
-      const diff = Math.abs(r - targetRatio);
-
-      // 允许一定误差，比如 0.03
-      const is916 = diff < 0.03;
-      isVertical.value = is916;
+      
+      // 宽高比 >= 1 显示横版，< 1 显示竖版
+      isVertical.value = r < 1;
 
       ratioInfo.value = `${width} × ${height}（${(r).toFixed(3)}）`;
     };
