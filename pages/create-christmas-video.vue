@@ -2,6 +2,7 @@
   <main>
     <!-- PC 端组件 -->
       <CreateChristmasVideoPc class="pc-content" />
+      <!-- <CreateChristmasVideoPc class="pc-content" /> -->
 
       <CreateChristmasVideoMobile class="mobile-content" />
   </main>
