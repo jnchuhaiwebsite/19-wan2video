@@ -428,62 +428,114 @@
         <!-- 生成完成后的操作按钮 -->
         <div
           v-if="generatedVideoUrl && !isGenerating"
-          class="mt-4 w-full max-w-xl flex flex-col items-center gap-3"
+          class="mt-4 w-full max-w-xl flex flex-col items-center gap-4"
         >
-          <!-- 下载 & 复制链接 -->
-          <div class="flex flex-wrap justify-center gap-3">
+          <!-- 两个主按钮 -->
+          <div class="flex flex-col sm:flex-row gap-3 w-full">
+            <!-- 下载按钮（主色调） -->
             <button
               type="button"
-              class="inline-flex items-center px-4 py-2 rounded-full text-xs sm:text-sm font-medium bg-emerald-500 hover:bg-emerald-400 text-white shadow"
+              class="flex-1 inline-flex items-center justify-center px-6 py-3 rounded-xl text-base font-semibold bg-emerald-500 hover:bg-emerald-400 text-white shadow-lg hover:shadow-xl transition-all duration-200"
               @click="downloadGeneratedVideo"
             >
-              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
               </svg>
-              Download
+              Download Video
             </button>
-            <button
-              type="button"
-              class="inline-flex items-center px-4 py-2 rounded-full text-xs sm:text-sm font-medium bg-slate-700 hover:bg-slate-600 text-white shadow"
-              @click="copyShareLink"
-            >
-              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16h8M8 12h8m-6-8h6a2 2 0 012 2v12a2 2 0 01-2 2h-6m-4-4H6a2 2 0 01-2-2V6a2 2 0 012-2h2" />
-              </svg>
-              Copy link
-            </button>
-          </div>
+            
+            <!-- 分享按钮（次级色调，带菜单） -->
+            <div ref="shareMenuRef" class="relative flex-1">
+              <button
+                type="button"
+                class="w-full inline-flex items-center justify-center px-6 py-3 rounded-xl text-base font-semibold bg-white/10 hover:bg-white/20 border border-white/30 text-white shadow-lg hover:shadow-xl transition-all duration-200 backdrop-blur-sm"
+                @click.stop="toggleShareMenu"
+              >
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                </svg>
+                Share...
+                <svg 
+                  class="w-4 h-4 ml-2 transition-transform duration-200"
+                  :class="{ 'rotate-180': showShareMenu }"
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
 
-          <!-- 分享按钮 -->
-          <div class="flex flex-wrap justify-center gap-2 text-xs sm:text-sm">
-            <button
-              type="button"
-              class="inline-flex items-center px-3 py-1.5 rounded-full bg-[#1877F2]/90 hover:bg-[#1877F2] text-white"
-              @click="shareTo('facebook')"
-            >
-              <span class="font-semibold mr-1">f</span> Facebook
-            </button>
-            <button
-              type="button"
-              class="inline-flex items-center px-3 py-1.5 rounded-full bg-[#1DA1F2]/90 hover:bg-[#1DA1F2] text-white"
-              @click="shareTo('twitter')"
-            >
-              <span class="font-semibold mr-1">X</span> Twitter
-            </button>
-            <button
-              type="button"
-              class="inline-flex items-center px-3 py-1.5 rounded-full bg-[#E60023]/90 hover:bg-[#E60023] text-white"
-              @click="shareTo('pinterest')"
-            >
-              <span class="font-semibold mr-1">P</span> Pinterest
-            </button>
-            <button
-              type="button"
-              class="inline-flex items-center px-3 py-1.5 rounded-full bg-[#25D366]/90 hover:bg-[#25D366] text-white"
-              @click="shareTo('whatsapp')"
-            >
-              <span class="font-semibold mr-1">WA</span> WhatsApp
-            </button>
+              <!-- 分享菜单（Popover / Bottom Sheet） -->
+              <Transition
+                enter-active-class="transition ease-out duration-200"
+                enter-from-class="opacity-0 scale-95"
+                enter-to-class="opacity-100 scale-100"
+                leave-active-class="transition ease-in duration-150"
+                leave-from-class="opacity-100 scale-100"
+                leave-to-class="opacity-0 scale-95"
+              >
+                <div
+                  v-if="showShareMenu"
+                  class="absolute z-50 mt-2 w-full sm:w-80 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 overflow-hidden"
+                  :class="isMobile ? 'bottom-full mb-2 left-0' : 'top-full left-0'"
+                  @click.stop
+                >
+                  <div class="p-4 space-y-2">
+                    <!-- 复制链接 -->
+                    <button
+                      type="button"
+                      class="w-full flex items-center px-4 py-3 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium transition-colors"
+                      @click="handleCopyLink"
+                    >
+                      <svg class="w-5 h-5 mr-3 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16h8M8 12h8m-6-8h6a2 2 0 012 2v12a2 2 0 01-2 2h-6m-4-4H6a2 2 0 01-2-2V6a2 2 0 012-2h2" />
+                      </svg>
+                      Copy Link
+                    </button>
+
+                    <!-- 分隔线 -->
+                    <div class="h-px bg-slate-200 my-2"></div>
+
+                    <!-- 社交媒体分享 -->
+                    <div class="grid grid-cols-2 gap-2">
+                      <button
+                        type="button"
+                        class="flex items-center justify-center px-4 py-3 rounded-xl bg-[#1877F2] hover:bg-[#166FE5] text-white font-medium transition-colors"
+                        @click="handleShare('facebook')"
+                      >
+                        <span class="font-bold mr-2">f</span>
+                        Facebook
+                      </button>
+                      <button
+                        type="button"
+                        class="flex items-center justify-center px-4 py-3 rounded-xl bg-[#1DA1F2] hover:bg-[#1A91DA] text-white font-medium transition-colors"
+                        @click="handleShare('twitter')"
+                      >
+                        <span class="font-bold mr-2">X</span>
+                        Twitter
+                      </button>
+                      <button
+                        type="button"
+                        class="flex items-center justify-center px-4 py-3 rounded-xl bg-[#E60023] hover:bg-[#D1001F] text-white font-medium transition-colors"
+                        @click="handleShare('pinterest')"
+                      >
+                        <span class="font-bold mr-2">P</span>
+                        Pinterest
+                      </button>
+                      <button
+                        type="button"
+                        class="flex items-center justify-center px-4 py-3 rounded-xl bg-[#25D366] hover:bg-[#20BA5A] text-white font-medium transition-colors"
+                        @click="handleShare('whatsapp')"
+                      >
+                        <span class="font-bold mr-2">WA</span>
+                        WhatsApp
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </Transition>
+            </div>
           </div>
         </div>
       </div>
@@ -492,7 +544,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useNuxtApp } from 'nuxt/app';
 import { useRoute } from 'vue-router';
 import { previewGenvideo, checkTaskStatusVideo, checkTask } from '~/api';
@@ -565,6 +617,10 @@ const isGenerating = ref(false);
 const currentTaskId = ref<string | null>(null);
 const generatedVideoUrl = ref<string | null>(null);
 const statusMessage = ref<string>('');
+
+// 分享菜单状态
+const showShareMenu = ref(false);
+const shareMenuRef = ref<HTMLElement | null>(null);
 
 const { $toast } = useNuxtApp() as any;
 
@@ -838,6 +894,36 @@ const copyShareLink = async () => {
   }
 };
 
+// 切换分享菜单
+const toggleShareMenu = () => {
+  showShareMenu.value = !showShareMenu.value;
+};
+
+// 处理复制链接（关闭菜单）
+const handleCopyLink = async () => {
+  await copyShareLink();
+  showShareMenu.value = false;
+};
+
+// 处理分享（关闭菜单）
+const handleShare = (platform: 'facebook' | 'twitter' | 'pinterest' | 'whatsapp') => {
+  shareTo(platform);
+  showShareMenu.value = false;
+};
+
+// 检测移动端
+const isMobile = computed(() => {
+  if (typeof window === 'undefined') return false;
+  return window.innerWidth < 640;
+});
+
+// 点击外部关闭菜单
+const handleClickOutside = (event: MouseEvent) => {
+  if (shareMenuRef.value && !shareMenuRef.value.contains(event.target as Node)) {
+    showShareMenu.value = false;
+  }
+};
+
 const downloadGeneratedVideo = async () => {
   if (!generatedVideoUrl.value) return;
   try {
@@ -900,6 +986,17 @@ onMounted(() => {
     isGenerating.value = true
     statusMessage.value = '正在生成视频...'
     startPollingStatus(taskId)
+  }
+
+  // 监听点击外部关闭分享菜单
+  if (typeof window !== 'undefined') {
+    document.addEventListener('click', handleClickOutside)
+  }
+})
+
+onUnmounted(() => {
+  if (typeof window !== 'undefined') {
+    document.removeEventListener('click', handleClickOutside)
   }
 })
 </script>
