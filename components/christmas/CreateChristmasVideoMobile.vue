@@ -114,14 +114,14 @@
         </button>
 
         <!-- 测试生成按钮：跳过 previewGenvideo，直接用固定 task_id 走 checkTask -->
-        <button
+        <!-- <button
           type="button"
           class="mt-1 inline-flex items-center justify-center px-4 py-1.5 rounded-full text-[11px] font-medium bg-slate-700/80 hover:bg-slate-600 text-slate-100 transition-colors"
           :disabled="isGenerating"
           @click="onTestGenerate"
         >
           Test Generate (mock task)
-        </button>
+        </button> -->
       </div>
     </div>
 
