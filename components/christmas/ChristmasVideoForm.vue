@@ -274,19 +274,7 @@
                 <!-- 加载状态：旋转雪花 -->
                 <template v-if="isGenerating">
                   <div class="flex flex-col items-center justify-center gap-3 text-center px-4">
-                    <svg
-                      class="w-10 h-10 text-emerald-200 animate-spin-slow"
-                      viewBox="0 0 64 64"
-                      fill="none"
-                    >
-                      <path
-                        d="M32 4v56M12 12l40 40M4 32h56M12 52l40-40"
-                        stroke="currentColor"
-                        stroke-width="3"
-                        stroke-linecap="round"
-                      />
-                      <circle cx="32" cy="32" r="6" fill="currentColor" />
-                    </svg>
+                    <svg t="1765265099439"       class="w-10 h-10 animate-spin-slow icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10181" width="200" height="200"><path d="M496 30.4L472 72v880l24 41.6 24-41.6V72z" fill="#59C2E0" p-id="10182"></path><path d="M496 240l-96-64v-48l96 64zM496 336L368 256v-48l128 80zM496 240l96-64v-48l-96 64zM496 336l128-80v-48L496 288zM496 784l-96 64v48l96-64zM496 688L368 768v48l128-80zM496 784l96 64v48l-96-64zM496 688l128 80v48L496 736z" fill="#59C2E0" p-id="10183"></path><path d="M79.2 752.8h48l761.6-440 24-41.6h-48l-761.6 440z" fill="#59C2E0" p-id="10184"></path><path d="M260 648l-7.2 115.2-41.6 24 7.2-115.2zM343.2 600l-5.6 151.2-41.6 24 5.6-151.2z" fill="#59C2E0" p-id="10185"></path><path d="M260 648l-103.2-51.2-41.6 24L218.4 672zM343.2 600l-133.6-70.4-41.6 24L301.6 624zM731.2 376l103.2 51.2 41.6-24L772.8 352zM648 424l133.6 71.2 41.6-24L689.6 400z" fill="#59C2E0" p-id="10186"></path><path d="M731.2 376l7.2-115.2 41.6-24-7.2 115.2zM648 424l5.6-150.4 41.6-24-5.6 150.4z" fill="#59C2E0" p-id="10187"></path><path d="M912.8 752.8h-48l-761.6-440-24-41.6h48l761.6 440z" fill="#59C2E0" p-id="10188"></path><path d="M732 648l7.2 115.2 41.6 24-7.2-115.2zM648.8 600l5.6 151.2 41.6 24-5.6-151.2z" fill="#59C2E0" p-id="10189"></path><path d="M732 648l103.2-51.2 41.6 24L773.6 672zM648.8 600l133.6-70.4 41.6 24L690.4 624zM260.8 376l-103.2 51.2-41.6-24L219.2 352zM344 424l-133.6 71.2-41.6-24L302.4 400zM260.8 376l-7.2-115.2-41.6-24 7.2 115.2z" fill="#59C2E0" p-id="10190"></path><path d="M344 424l-5.6-150.4-41.6-24 5.6 150.4z" fill="#59C2E0" p-id="10191"></path><path d="M496 663.2l-131.2-75.2V436.8L496 360.8l131.2 75.2v151.2L496 663.2zM404.8 564.8L496 616.8l91.2-52.8v-104L496 407.2l-91.2 52.8v104.8z" fill="#59C2E0" p-id="10192"></path></svg>
                     <p class="text-xs sm:text-sm text-emerald-50 font-medium">
                       Santa's Elves are crafting your video...
                     </p>
@@ -624,6 +612,8 @@ const shareMenuRef = ref<HTMLElement | null>(null);
 
 const { $toast } = useNuxtApp() as any;
 
+const shareChristmasUrl = "https://cfsource.wan2video.com/wan2video/christmas/christmas.html?video=";
+
 const SHARE_TEXT =
   "Check out my personalized Christmas video made with Wan2Video! 🎄 #Christmas #Greetings #MerryChristmas";
 
@@ -855,14 +845,14 @@ const onTestGenerate = () => {
   isGenerating.value = true;
   generatedVideoUrl.value = null;
   statusMessage.value = 'Running test task...';
-  $toast?.info?.('Start test generation task...');
+  // $toast?.info?.('Start test generation task...');
 
   setTimeout(async () => {
     try {
       const res: any = await checkTask(testTaskId);
       const data = res?.data;
       if (data && data.status === 1 && data.url) {
-        generatedVideoUrl.value = data.url;
+        generatedVideoUrl.value =  data.url;
         statusMessage.value = 'Video generated successfully!';
         $toast?.success?.('Test video fetched successfully!');
       } else {
@@ -884,7 +874,7 @@ const onTestGenerate = () => {
 const copyShareLink = async () => {
   if (!generatedVideoUrl.value) return;
   try {
-    await navigator.clipboard.writeText(generatedVideoUrl.value);
+    await navigator.clipboard.writeText(shareChristmasUrl + generatedVideoUrl.value);
     $toast?.success?.('Link copied to clipboard!');
   } catch {
     $toast?.error?.('Failed to copy link. Please copy it manually.');
@@ -943,7 +933,7 @@ const downloadGeneratedVideo = async () => {
 
 const shareTo = (platform: 'facebook' | 'twitter' | 'pinterest' | 'whatsapp') => {
   if (!generatedVideoUrl.value) return;
-  const url = encodeURIComponent(generatedVideoUrl.value);
+  const url = encodeURIComponent(shareChristmasUrl + generatedVideoUrl.value);
   const text = encodeURIComponent(SHARE_TEXT);
 
   let shareUrl = '';

@@ -52,7 +52,7 @@ export const urlList = {
  */
 export const setUserInfo = async (data: any) => {
   try {
-    console.log('setUser2o', data);
+    // console.log('setUser2o', data);
     // 如果已有有效Token，直接返回缓存的用户信息
     const token = getValidToken();
     if (token) {

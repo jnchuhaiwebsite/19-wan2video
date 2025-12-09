@@ -135,19 +135,7 @@
       >
         <div class="flex flex-col items-center justify-center gap-6 px-6 text-center">
           <!-- 旋转雪花动画 -->
-          <svg
-            class="w-16 h-16 text-emerald-200 animate-spin-slow"
-            viewBox="0 0 64 64"
-            fill="none"
-          >
-            <path
-              d="M32 4v56M12 12l40 40M4 32h56M12 52l40-40"
-              stroke="currentColor"
-              stroke-width="3"
-              stroke-linecap="round"
-            />
-            <circle cx="32" cy="32" r="6" fill="currentColor" />
-          </svg>
+          <svg t="1765265099439"       class="w-10 h-10 animate-spin-slow icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10181" width="200" height="200"><path d="M496 30.4L472 72v880l24 41.6 24-41.6V72z" fill="#59C2E0" p-id="10182"></path><path d="M496 240l-96-64v-48l96 64zM496 336L368 256v-48l128 80zM496 240l96-64v-48l-96 64zM496 336l128-80v-48L496 288zM496 784l-96 64v48l96-64zM496 688L368 768v48l128-80zM496 784l96 64v48l-96-64zM496 688l128 80v48L496 736z" fill="#59C2E0" p-id="10183"></path><path d="M79.2 752.8h48l761.6-440 24-41.6h-48l-761.6 440z" fill="#59C2E0" p-id="10184"></path><path d="M260 648l-7.2 115.2-41.6 24 7.2-115.2zM343.2 600l-5.6 151.2-41.6 24 5.6-151.2z" fill="#59C2E0" p-id="10185"></path><path d="M260 648l-103.2-51.2-41.6 24L218.4 672zM343.2 600l-133.6-70.4-41.6 24L301.6 624zM731.2 376l103.2 51.2 41.6-24L772.8 352zM648 424l133.6 71.2 41.6-24L689.6 400z" fill="#59C2E0" p-id="10186"></path><path d="M731.2 376l7.2-115.2 41.6-24-7.2 115.2zM648 424l5.6-150.4 41.6-24-5.6 150.4z" fill="#59C2E0" p-id="10187"></path><path d="M912.8 752.8h-48l-761.6-440-24-41.6h48l761.6 440z" fill="#59C2E0" p-id="10188"></path><path d="M732 648l7.2 115.2 41.6 24-7.2-115.2zM648.8 600l5.6 151.2 41.6 24-5.6-151.2z" fill="#59C2E0" p-id="10189"></path><path d="M732 648l103.2-51.2 41.6 24L773.6 672zM648.8 600l133.6-70.4 41.6 24L690.4 624zM260.8 376l-103.2 51.2-41.6-24L219.2 352zM344 424l-133.6 71.2-41.6-24L302.4 400zM260.8 376l-7.2-115.2-41.6-24 7.2 115.2z" fill="#59C2E0" p-id="10190"></path><path d="M344 424l-5.6-150.4-41.6-24 5.6 150.4z" fill="#59C2E0" p-id="10191"></path><path d="M496 663.2l-131.2-75.2V436.8L496 360.8l131.2 75.2v151.2L496 663.2zM404.8 564.8L496 616.8l91.2-52.8v-104L496 407.2l-91.2 52.8v104.8z" fill="#59C2E0" p-id="10192"></path></svg>
           
           <div class="flex flex-col gap-2">
             <p class="text-lg font-semibold text-emerald-50">
@@ -275,9 +263,9 @@
                 @click="handleShare('twitter')"
                 title="Twitter"
               >
-                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" fill="#ffffff"/>
+</svg>
               </button>
               <button
                 class="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-[#E60023] hover:bg-[#D1001F] text-white transition-colors"
@@ -326,7 +314,7 @@ const { $toast } = useNuxtApp() as any
 const isGenerating = ref(false)
 const showResult = ref(false)
 const generatedVideoUrl = ref<string | null>(null)
-const statusMessage = ref('正在生成视频...')
+const statusMessage = ref('Creating video...')
 const currentTaskId = ref<string | null>(null)
 const showShareMenu = ref(false)
 
@@ -350,6 +338,7 @@ const getFormData = () => {
   return { imageFile, prompt, audioFile }
 }
 
+const shareChristmasUrl = "https://cfsource.wan2video.com/wan2video/christmas/christmas.html?video=";
 // 轮询检查任务状态
 const startPollingStatus = (taskId: string) => {
   currentTaskId.value = taskId
@@ -368,9 +357,9 @@ const startPollingStatus = (taskId: string) => {
       if (status === 1 && url) {
         // 生成成功
         isGenerating.value = false
-        generatedVideoUrl.value = url
+        generatedVideoUrl.value = shareUrl + url
         showResult.value = true
-        statusMessage.value = 'Video generated successfully!'
+        statusMessage.value = 'Video created successfully!'
         $toast?.success?.('Video generated successfully!')
       } else if (status <= -1) {
         // 生成失败
@@ -463,7 +452,7 @@ const onTestGenerate = () => {
   showResult.value = false
   generatedVideoUrl.value = null
   statusMessage.value = 'Running test task...'
-  $toast?.info?.('Start test generation task...')
+  // $toast?.info?.('Start test generation task...')
 
   setTimeout(async () => {
     try {
@@ -532,7 +521,7 @@ const closeShareMenu = () => {
 const handleCopyLink = async () => {
   if (!generatedVideoUrl.value) return
   try {
-    await navigator.clipboard.writeText(generatedVideoUrl.value)
+    await navigator.clipboard.writeText(shareChristmasUrl + generatedVideoUrl.value)
     $toast?.success?.('Link copied to clipboard!')
     closeShareMenu()
   } catch {
@@ -545,7 +534,7 @@ const SHARE_TEXT = 'Check out my personalized Christmas video made with Wan2Vide
 
 const handleShare = (platform: 'facebook' | 'twitter' | 'pinterest' | 'whatsapp') => {
   if (!generatedVideoUrl.value) return
-  const url = encodeURIComponent(generatedVideoUrl.value)
+  const url = encodeURIComponent(shareChristmasUrl + generatedVideoUrl.value)
   const text = encodeURIComponent(SHARE_TEXT)
 
   let shareUrl = ''
