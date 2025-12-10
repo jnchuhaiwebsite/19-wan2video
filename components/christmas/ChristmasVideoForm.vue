@@ -32,6 +32,7 @@
                 type="file"
                 accept="image/*"
                 class="hidden"
+                @click="checkLoginStatus"
                 @change="onFileChange"
               />
 
@@ -132,6 +133,7 @@
             rows="4"
             class="w-full rounded-lg bg-black/30 border border-yellow-400/50 px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/70 focus:border-yellow-400 transition-colors"
             placeholder="Describe your Christmas greeting video, e.g. Santa is delivering gifts to my family in a snowy night..."
+            @click="checkLoginStatus"
           />
         </div>
 
@@ -874,6 +876,29 @@ const onAudioEnded = () => {
   // 可以选择是否清除 playingAudioUrl，或者保留以便用户知道哪个音频刚播放完
   // playingAudioUrl.value = null;
 };
+import { useUserStore } from '~/stores/user';
+const userStore = useUserStore();
+const userInfo = computed(() => userStore.userInfo);
+
+// 检查是否已登录
+const isLoggedIn = (): boolean => {
+  if (!userInfo.value) {
+    return false;
+  }
+  return true;
+};
+
+const checkLoginStatus = async (event: Event) => {
+  if (!isLoggedIn()) {
+    event?.preventDefault()
+    const loginButton = document.getElementById('bindLogin')
+    if (loginButton) {
+      loginButton.click()
+    }
+  }
+};
+    
+
 
 const removeAudio = () => {
   if (audioPreview.value && audioPreview.value.startsWith('blob:')) {
