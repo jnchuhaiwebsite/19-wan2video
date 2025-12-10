@@ -20,7 +20,7 @@
       >
         <!-- 图片上传预览 -->
         <div class="flex flex-col gap-3">
-          <label class="text-sm text-gray-200">Upload photo</label>
+          <label class="text-xl text-gray-200">Upload photo</label>
 
           <div class="relative">
             <div
@@ -47,25 +47,20 @@
               <!-- 无图片时提示 -->
               <div v-else class="flex flex-col items-center justify-center p-4 text-center">
                 <svg
-                  class="w-10 h-10 text-emerald-300 mb-3 group-hover:scale-110 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+                  t="1765334222491"
+                  class="icon w-10 h-10 text-emerald-300 mb-3 group-hover:scale-110 transition-transform"
+                  viewBox="0 0 1024 1024"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  p-id="2815"
+                  width="200"
+                  height="200"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.8"
-                    d="M4 7a2 2 0 0 1 2-2h2.172a2 2 0 0 0 1.414-.586l.828-.828A2 2 0 0 1 11.828 3h4.344a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 19.828 5H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7z"
-                  />
-                  <circle
-                    cx="12"
-                    cy="13"
-                    r="4"
-                    stroke-width="1.8"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
+                    d="M269.44 256l23.296-75.381333A74.666667 74.666667 0 0 1 364.074667 128h295.850666a74.666667 74.666667 0 0 1 71.338667 52.618667L754.56 256H821.333333c64.8 0 117.333333 52.533333 117.333334 117.333333v426.666667c0 64.8-52.533333 117.333333-117.333334 117.333333H202.666667c-64.8 0-117.333333-52.533333-117.333334-117.333333V373.333333c0-64.8 52.533333-117.333333 117.333334-117.333333h66.773333z m23.605333 64H202.666667a53.333333 53.333333 0 0 0-53.333334 53.333333v426.666667a53.333333 53.333333 0 0 0 53.333334 53.333333h618.666666a53.333333 53.333333 0 0 0 53.333334-53.333333V373.333333a53.333333 53.333333 0 0 0-53.333334-53.333333h-90.378666a32 32 0 0 1-30.570667-22.549333l-30.272-97.930667a10.666667 10.666667 0 0 0-10.186667-7.52H364.074667a10.666667 10.666667 0 0 0-10.186667 7.52l-30.272 97.92A32 32 0 0 1 293.045333 320zM512 725.333333c-88.362667 0-160-71.637333-160-160 0-88.362667 71.637333-160 160-160 88.362667 0 160 71.637333 160 160 0 88.362667-71.637333 160-160 160z m0-64a96 96 0 1 0 0-192 96 96 0 0 0 0 192z"
+                    fill="currentColor"
+                    p-id="2816"
+                  ></path>
                 </svg>
                 <p class="text-emerald-100 font-medium mb-1 text-sm">
                   Click to upload your Christmas photo
@@ -90,16 +85,6 @@
           </div>
         </div>
 
-        <!-- 提示词输入 -->
-        <div class="flex flex-col gap-2">
-          <label class="text-sm text-gray-200">Prompt</label>
-          <textarea
-            v-model="prompt"
-            rows="4"
-            class="w-full rounded-lg bg-black/30 border border-gray-600/70 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400/70"
-            placeholder="Describe your Christmas greeting video, e.g. Santa is delivering gifts to my family in a snowy night..."
-          />
-        </div>
 
         <!-- 模版选择 -->
         <div class="flex flex-col gap-3">
@@ -112,14 +97,14 @@
               type="button"
               @click="handleSelectTemplate(tpl)"
               :class="[
-                'flex flex-col rounded-xl overflow-hidden bg-black/30 border transition-all duration-200 text-left',
+                'flex flex-col rounded-xl overflow-hidden bg-transparent border transition-all duration-200 text-left',
                 selectedTemplateKey === tpl.key
-                  ? 'border-emerald-400 ring-2 ring-emerald-400/40 shadow-lg'
+                  ? 'border-white ring-2 ring-white/40 shadow-lg'
                   : 'border-emerald-300/20 hover:border-emerald-200/70 hover:bg-black/40'
               ]"
             >
-              <div class="w-full bg-black/60 relative">
-                <div class="w-full aspect-[194/104]">
+              <div class="w-full relative">
+                <div class="w-full aspect-[194/104] overflow-hidden rounded-t-xl">
                   <img
                     :src="tpl.thumb"
                     :alt="tpl.name"
@@ -138,6 +123,18 @@
             </button>
           </div>
         </div>
+
+        <!-- 提示词输入 -->
+        <div class="flex flex-col gap-2">
+          <label class="text-sm text-gray-200">Prompt</label>
+          <textarea
+            v-model="prompt"
+            rows="4"
+            class="w-full rounded-lg bg-black/30 border border-gray-600/70 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400/70"
+            placeholder="Describe your Christmas greeting video, e.g. Santa is delivering gifts to my family in a snowy night..."
+          />
+        </div>
+
 
         <!-- 音频上传 -->
         <div class="flex flex-col gap-2">
@@ -247,7 +244,7 @@
           'lg:sticky lg:top-[100px]'
         ]"
       >
-        <div class="flex flex-col items-center justify-start">
+        <div class="flex flex-col items-center" :class="isVertical ? 'justify-center py-40' : 'justify-start'">
           <!-- 横版预览 -->
           <div v-if="!isVertical" class="w-full max-w-xl flex justify-center">
             <div class="relative w-full aspect-[914/724]">
@@ -258,7 +255,7 @@
               />
               <div
                 class="absolute flex items-center justify-center z-10"
-                style="left: 3.1%; top: 4.3%; width: 94.9%; height: 67%;"
+                style="left: 0%; top: 0%; width: 100%; height: 86%;border-radius: 45px;"
               >
                 <div class="w-full h-full rounded-lg overflow-hidden bg-black/80 flex items-center justify-center">
                   <template v-if="isGenerating">
@@ -337,7 +334,7 @@
           </div>
 
           <!-- 竖版预览 -->
-          <div v-else class="w-full max-w-xs flex justify-center">
+          <div v-else class="w-full max-w-xs flex justify-center" style="transform: scale(1.25); transform-origin: center;">
             <div class="relative w-full aspect-[9/16]">
               <img
                 src="https://cfsource.wan2video.com/wan2video/christmas/template/images/phone.png"
@@ -346,9 +343,9 @@
               />
               <div
                 class="absolute flex items-center justify-center z-10 overflow-hidden"
-                style="left: 6%; top: 1%; width: 87%; height: 98%;border-radius: 45px;"
+                style="left: 6%; top: 0; width: 87%; height: 100%;border-radius: 45px;"
               >
-                <div class="w-full h-full rounded-xl overflow-hidden bg-black/80 flex items-center justify-center">
+                <!-- <div class="w-full h-full rounded-xl overflow-hidden bg-black/80 flex items-center justify-center"> -->
                   <template v-if="isGenerating">
                     <div class="flex flex-col items-center justify-center gap-3 text-center px-4">
                       <svg
@@ -374,8 +371,7 @@
                     <video
                       v-if="generatedVideoUrl"
                       :src="generatedVideoUrl"
-                      class="max-w-full max-h-full"
-                      :style="videoStyle"
+                      class="w-full h-full object-cover"
                       controls
                       playsinline
                       @loadedmetadata="onVideoMetadata"
@@ -384,8 +380,7 @@
                       <video
                         v-if="selectedTemplate && currentPreviewVideo"
                         :src="currentPreviewVideo"
-                        class="max-w-full max-h-full"
-                        :style="videoStyle"
+                        class="w-full h-full object-cover"
                         autoplay
                         loop
                         muted
@@ -409,7 +404,7 @@
                       </template>
                     </template>
                   </template>
-                </div>
+                <!-- </div> -->
               </div>
             </div>
           </div>

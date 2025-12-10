@@ -65,7 +65,8 @@
         style="
           font-family: 'Playfair Display', serif;
           font-size: 3.4rem;
-          margin-bottom: 18px;
+          letter-spacing: 1px;
+          margin-bottom: 36px;
           text-shadow: 0 4px 12px rgba(0,0,0,0.55);
           max-width: 900px;
           margin-left: auto;
