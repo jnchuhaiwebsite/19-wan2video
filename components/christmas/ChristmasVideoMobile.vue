@@ -16,7 +16,7 @@
       :src="currentBackgroundVideo"
       autoplay
       loop
-      muted
+      :muted="isBackgroundVideoMuted"
       playsinline
       style="
         position: fixed;
@@ -28,6 +28,53 @@
         z-index: -3;
       "
     ></video>
+
+    <!-- 背景视频音频控制按钮 -->
+    <button
+      v-if="!showForm"
+      class="fixed top-24 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm border border-white/20 transition-all duration-200 z-[60] shadow-lg"
+      @click="toggleBackgroundVideoMute"
+      title="Toggle audio"
+    >
+      <!-- 播放声音图标 -->
+      <svg
+        v-if="!isBackgroundVideoMuted"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="w-5 h-5 text-white"
+        aria-hidden="true"
+      >
+        <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path>
+        <path d="M16 9a5 5 0 0 1 0 6"></path>
+        <path d="M19.364 18.364a9 9 0 0 0 0-12.728"></path>
+      </svg>
+      <!-- 关闭声音图标 -->
+      <svg
+        v-else
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="w-5 h-5 text-white"
+        aria-hidden="true"
+      >
+        <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path>
+        <line x1="22" x2="16" y1="9" y2="15"></line>
+        <line x1="16" x2="22" y1="9" y2="15"></line>
+      </svg>
+    </button>
 
     <!-- 全屏透明玻璃层（关键） -->
     <div
@@ -430,6 +477,7 @@ const formRef = ref<InstanceType<typeof ChristmasVideoFormMobile> | null>(null)
 const formSection = ref<HTMLElement | null>(null)
 const previewSection = ref<HTMLElement | null>(null)
 const showForm = ref(false)
+const isBackgroundVideoMuted = ref(true) // 背景视频默认静音
 const { $toast } = useNuxtApp() as any
 
 // 下滑关闭手势相关
@@ -591,12 +639,16 @@ const handleCloseForm = () => {
   isDragging.value = false
   dragOffset.value = 0
   
-  // 重置transform样式
-  if (formSection.value) {
-    formSection.value.style.transform = ''
-  }
-  
+  // 关闭表单，触发动画
   showForm.value = false
+  
+  // 等待动画完成后重置transform样式
+  setTimeout(() => {
+    if (formSection.value) {
+      formSection.value.style.transform = ''
+    }
+  }, 300) // 300ms 对应动画时长
+  
   // 滚动回预览区域
   if (previewSection.value) {
     previewSection.value.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -680,8 +732,17 @@ const updateBackgroundVideo = (templateKey: string) => {
     // 更新背景视频
     if (backgroundVideo.value) {
       backgroundVideo.value.src = selectedTemplate.videoV
+      backgroundVideo.value.muted = isBackgroundVideoMuted.value
       backgroundVideo.value.load()
     }
+  }
+}
+
+// 切换背景视频静音状态
+const toggleBackgroundVideoMute = () => {
+  isBackgroundVideoMuted.value = !isBackgroundVideoMuted.value
+  if (backgroundVideo.value) {
+    backgroundVideo.value.muted = isBackgroundVideoMuted.value
   }
 }
 
