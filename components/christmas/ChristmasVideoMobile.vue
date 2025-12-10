@@ -204,6 +204,7 @@
         @touchstart="handleTouchStart"
         @touchmove="handleTouchMove"
         @touchend="handleTouchEnd"
+        class="form-container"
         style="
           position: fixed;
           top: 30vh;
@@ -330,11 +331,13 @@
           <!-- 视频展示 -->
           <div class="w-full rounded-2xl overflow-hidden bg-black/50 border border-white/20 shadow-2xl">
             <video
+              ref="resultVideo"
               :src="generatedVideoUrl"
               class="w-full h-auto"
               controls
               playsinline
               autoplay
+              @play="onResultVideoPlay"
             ></video>
           </div>
 
@@ -509,6 +512,7 @@ const templates: TemplateItem[] = [
 // 默认使用模版1的videoV
 const currentBackgroundVideo = ref(templates[0].videoV)
 const backgroundVideo = ref<HTMLVideoElement | null>(null)
+const resultVideo = ref<HTMLVideoElement | null>(null)
 const formRef = ref<InstanceType<typeof ChristmasVideoFormMobile> | null>(null)
 const formSection = ref<HTMLElement | null>(null)
 const previewSection = ref<HTMLElement | null>(null)
@@ -776,11 +780,47 @@ const updateBackgroundVideo = (templateKey: string) => {
 
 // 切换背景视频静音状态
 const toggleBackgroundVideoMute = () => {
+  // 如果取消静音，需要停止音频播放
+  if (isBackgroundVideoMuted.value) {
+    // 停止音频库音频播放
+    if (formRef.value?.stopAudio) {
+      formRef.value.stopAudio()
+    }
+  }
+  
   isBackgroundVideoMuted.value = !isBackgroundVideoMuted.value
   if (backgroundVideo.value) {
     backgroundVideo.value.muted = isBackgroundVideoMuted.value
   }
 }
+
+// 结果视频播放时，停止音频并静音背景视频
+const onResultVideoPlay = () => {
+  // 停止音频库音频播放
+  if (formRef.value?.stopAudio) {
+    formRef.value.stopAudio()
+  }
+  
+  // 静音背景视频
+  isBackgroundVideoMuted.value = true
+  if (backgroundVideo.value) {
+    backgroundVideo.value.muted = true
+  }
+}
+
+// 监听音频播放状态，当音频播放时静音所有视频
+watch(() => formRef.value?.isAudioPlaying, (isPlaying) => {
+  if (isPlaying) {
+    // 音频播放时，静音背景视频和结果视频
+    isBackgroundVideoMuted.value = true
+    if (backgroundVideo.value) {
+      backgroundVideo.value.muted = true
+    }
+    if (resultVideo.value) {
+      resultVideo.value.muted = true
+    }
+  }
+})
 
 // 监听模版选择变化，更新背景视频
 // 使用 watchEffect 监听表单组件的 selectedTemplateKey 变化
@@ -871,6 +911,16 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* 隐藏表单容器的滚动条 */
+.form-container {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.form-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
 /* 旋转动画 */
 .animate-spin-slow {
   animation: spin 2.5s linear infinite;

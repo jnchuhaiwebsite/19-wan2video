@@ -93,43 +93,15 @@
         <span style="display: block; max-width: 450px; margin: 0 auto; font-size: 1.25rem;">personalized video is just one click away</span>
       </p>
 
-      <!-- CTA 按钮 -->
-      <a
-        href="/create-christmas-video"
-        class="cta-btn"
-        style="
-          display: inline-block;
-          padding: 14px 48px;
-          border-radius: 999px;
-          background: linear-gradient(to bottom, #ff6b6b, #c0392b);
-          border: 1px solid rgba(255,255,255,0.3);
-          color: white;
-          font-size: 1.05rem;
-          font-weight: 600;
-          letter-spacing: 0.5px;
-          box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4),
-                      0 0 0 2px rgba(255, 255, 255, 0.1) inset,
-                      0 0 15px rgba(255, 75, 75, 0.6);
-          transition: all 0.3s ease;
-          margin-bottom: 30px;
-          text-decoration: none;
-          position: relative;
-          overflow: hidden;
-        "
-      >
-        <span style="display: inline-flex; align-items: center; gap: 8px;">
-          ✨ Create My Magic Video
-        </span>
-      </a>
-
-      <!-- 三个视频 -->
+      <!-- 三个视频包裹按钮 -->
       <div
         style="
           display: flex;
           justify-content: center;
-          align-items: flex-end;
+          align-items: flex-start;
           gap: 28px;
           flex-wrap: wrap;
+          position: relative;
         "
       >
         <!-- 左 (3:4) -->
@@ -140,8 +112,6 @@
             overflow: hidden;
             background: black;
             box-shadow: 0 18px 40px rgba(0,0,0,0.55);
-            align-self: flex-start;
-            margin-top: 0;
           "
         >
           <video autoplay loop muted playsinline controls style="width:100%;height:100%;object-fit:cover;">
@@ -149,20 +119,59 @@
           </video>
         </div>
 
-        <!-- 中 (16:9) -->
+        <!-- 中 (16:9) - 按钮在上，视频在下 -->
         <div
           style="
             width: 480px;
-            aspect-ratio: 16/9;
-            overflow: hidden;
-            background: black;
-            border: 1px solid rgba(255,255,255,0.25);
-            box-shadow: 0 22px 60px rgba(0,0,0,0.65);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
           "
         >
-          <video autoplay loop muted playsinline controls style="width:100%;height:100%;object-fit:cover;">
-            <source :src="assets.videoMiddle" type="video/mp4" />
-          </video>
+          <!-- CTA 按钮 -->
+          <a
+            href="/create-christmas-video"
+            class="cta-btn"
+            style="
+              display: inline-block;
+              padding: 10px 32px;
+              border-radius: 999px;
+              background: linear-gradient(to bottom, #ff6b6b, #c0392b);
+              border: 1px solid rgba(255,255,255,0.3);
+              color: white;
+              font-size: 0.9rem;
+              font-weight: 600;
+              letter-spacing: 0.3px;
+              box-shadow: 0 3px 10px rgba(220, 20, 60, 0.3),
+                          0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+                          0 0 10px rgba(255, 75, 75, 0.4);
+              transition: all 0.3s ease;
+              text-decoration: none;
+              position: relative;
+              overflow: hidden;
+            "
+          >
+            <span style="display: inline-flex; align-items: center; gap: 6px;">
+              ✨ Create My Magic Video
+            </span>
+          </a>
+          
+          <!-- 中间视频 -->
+          <div
+            style="
+              width: 100%;
+              aspect-ratio: 16/9;
+              overflow: hidden;
+              background: black;
+              border: 1px solid rgba(255,255,255,0.25);
+              box-shadow: 0 22px 60px rgba(0,0,0,0.65);
+            "
+          >
+            <video autoplay loop muted playsinline controls style="width:100%;height:100%;object-fit:cover;">
+              <source :src="assets.videoMiddle" type="video/mp4" />
+            </video>
+          </div>
         </div>
 
         <!-- 右 (9:16) -->

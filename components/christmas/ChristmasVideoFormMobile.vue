@@ -481,6 +481,15 @@ const selectAudioFromLibrary = async (audio: AudioItem) => {
   }
 };
 
+const stopAudio = () => {
+  const player = audioPlayerHidden.value || audioPlayer.value;
+  if (player && isAudioPlaying.value) {
+    player.pause();
+    player.currentTime = 0;
+    isAudioPlaying.value = false;
+  }
+};
+
 const onAudioPlay = () => {
   isAudioPlaying.value = true;
 };
@@ -536,7 +545,9 @@ defineExpose({
   selectedAudioFromLibrary,
   uploadedImageFile,
   prompt,
-  audioFile
+  audioFile,
+  isAudioPlaying,
+  stopAudio
 })
 </script>
 

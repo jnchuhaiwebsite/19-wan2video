@@ -89,7 +89,7 @@
 
         <!-- 模版选择 -->
         <div class="flex flex-col gap-3">
-          <label class="text-sm text-gray-200">Template</label>
+          <label class="text-xl text-gray-200">Template</label>
 
           <div class="grid grid-cols-2 gap-3">
             <button
@@ -100,8 +100,8 @@
               :class="[
                 'flex flex-col rounded-xl overflow-hidden bg-transparent border transition-all duration-200 text-left',
                 selectedTemplateKey === tpl.key
-                  ? 'border-white ring-2 ring-white/40 shadow-lg'
-                  : 'border-emerald-300/20 hover:border-emerald-200/70 hover:bg-black/40'
+                  ? 'border-yellow-400 ring-2 ring-yellow-400/40 shadow-lg'
+                  : 'border-yellow-400/30 hover:border-yellow-400/50 hover:bg-black/40'
               ]"
             >
               <div class="w-full relative">
@@ -312,7 +312,7 @@
               >
                 <!-- 音频控制按钮（横版） -->
                 <button
-                  v-if="selectedTemplate && currentPreviewVideo && !isGenerating && !generatedVideoUrl"
+                  v-if="currentPreviewVideo && !isGenerating && !generatedVideoUrl"
                   type="button"
                   @click="toggleVideoMute"
                   class="absolute top-4 right-6 z-30 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm border border-white/20 transition-all duration-200"
@@ -391,17 +391,20 @@
                   <template v-else>
                     <video
                       v-if="generatedVideoUrl"
+                      ref="resultVideoHorizontal"
                       :src="generatedVideoUrl"
                       class="max-w-full max-h-full"
                       :style="videoStyle"
+                      :muted="isVideoMuted"
                       controls
                       playsinline
                       @loadedmetadata="onVideoMetadata"
+                      @play="onResultVideoPlay"
                     ></video>
 
                     <template v-else>
                       <video
-                        v-if="selectedTemplate && currentPreviewVideo"
+                        v-if="currentPreviewVideo"
                         ref="previewVideoHorizontal"
                         :src="currentPreviewVideo"
                         class="max-w-full max-h-full"
@@ -412,6 +415,7 @@
                         controls
                         playsinline
                         @loadedmetadata="onVideoMetadata"
+                        @play="onPreviewVideoPlay"
                       ></video>
                       <template v-else>
                         <img
@@ -448,7 +452,7 @@
               >
                 <!-- 音频控制按钮（竖版） -->
                 <button
-                  v-if="selectedTemplate && currentPreviewVideo && !isGenerating && !generatedVideoUrl"
+                  v-if="currentPreviewVideo && !isGenerating && !generatedVideoUrl"
                   type="button"
                   @click="toggleVideoMute"
                   class="absolute top-2 right-2 z-30 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm border border-white/20 transition-all duration-200"
@@ -527,15 +531,18 @@
                   <template v-else>
                     <video
                       v-if="generatedVideoUrl"
+                      ref="resultVideoVertical"
                       :src="generatedVideoUrl"
                       class="w-full h-full object-cover"
+                      :muted="isVideoMuted"
                       controls
                       playsinline
                       @loadedmetadata="onVideoMetadata"
+                      @play="onResultVideoPlay"
                     ></video>
                     <template v-else>
                       <video
-                        v-if="selectedTemplate && currentPreviewVideo"
+                        v-if="currentPreviewVideo"
                         ref="previewVideoVertical"
                         :src="currentPreviewVideo"
                         class="w-full h-full object-cover"
@@ -545,6 +552,7 @@
                         controls
                         playsinline
                         @loadedmetadata="onVideoMetadata"
+                        @play="onPreviewVideoPlay"
                       ></video>
                       <template v-else>
                         <img
@@ -738,6 +746,8 @@ const audioPlayer = ref<HTMLAudioElement | null>(null);
 const audioPlayerHidden = ref<HTMLAudioElement | null>(null);
 const previewVideoHorizontal = ref<HTMLVideoElement | null>(null);
 const previewVideoVertical = ref<HTMLVideoElement | null>(null);
+const resultVideoHorizontal = ref<HTMLVideoElement | null>(null);
+const resultVideoVertical = ref<HTMLVideoElement | null>(null);
 
 const previewUrl = ref<string | null>(null);
 const uploadedImageFile = ref<File | null>(null);
@@ -840,7 +850,12 @@ const selectedTemplate = computed<TemplateItem | null>(() => {
 
 const currentPreviewVideo = computed(() => {
   if (generatedVideoUrl.value) return generatedVideoUrl.value;
-  if (!selectedTemplate.value) return '';
+  if (!selectedTemplate.value) {
+    // 默认预览视频
+    return isVertical.value 
+      ? 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-s.mp4'
+      : 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-h.mp4';
+  }
   return isVertical.value ? selectedTemplate.value.videoV : selectedTemplate.value.videoH;
 });
 
@@ -869,11 +884,66 @@ const onVideoMetadata = (e: Event) => {
 };
 
 const toggleVideoMute = () => {
+  // 如果取消静音，需要停止音频播放
+  if (isVideoMuted.value) {
+    // 停止音频库音频播放
+    const player = audioPlayerHidden.value || audioPlayer.value;
+    if (player && isAudioPlaying.value) {
+      player.pause();
+      player.currentTime = 0;
+      isAudioPlaying.value = false;
+    }
+  }
+  
   isVideoMuted.value = !isVideoMuted.value;
-  // 同步更新视频元素的静音状态（由于使用了 :muted 绑定，这主要是为了确保立即生效）
-  const video = isVertical.value ? previewVideoVertical.value : previewVideoHorizontal.value;
-  if (video) {
-    video.muted = isVideoMuted.value;
+  // 同步更新预览视频的静音状态
+  const previewVideo = isVertical.value ? previewVideoVertical.value : previewVideoHorizontal.value;
+  if (previewVideo) {
+    previewVideo.muted = isVideoMuted.value;
+  }
+  
+  // 更新结果视频的静音状态
+  const resultVideo = isVertical.value ? resultVideoVertical.value : resultVideoHorizontal.value;
+  if (resultVideo) {
+    resultVideo.muted = isVideoMuted.value;
+  }
+};
+
+// 预览视频播放时，停止音频
+const onPreviewVideoPlay = () => {
+  if (!isVideoMuted.value) {
+    // 如果视频取消静音播放，停止音频
+    const player = audioPlayerHidden.value || audioPlayer.value;
+    if (player && isAudioPlaying.value) {
+      player.pause();
+      player.currentTime = 0;
+      isAudioPlaying.value = false;
+    }
+  }
+};
+
+// 结果视频播放时，停止音频并静音预览视频
+const onResultVideoPlay = () => {
+  // 停止音频库音频播放
+  const player = audioPlayerHidden.value || audioPlayer.value;
+  if (player && isAudioPlaying.value) {
+    player.pause();
+    player.currentTime = 0;
+    isAudioPlaying.value = false;
+  }
+  
+  // 静音预览视频
+  const previewVideo = isVertical.value ? previewVideoVertical.value : previewVideoHorizontal.value;
+  if (previewVideo) {
+    previewVideo.muted = true;
+  }
+  
+  // 如果结果视频取消静音，确保其他视频静音
+  const resultVideo = isVertical.value ? resultVideoVertical.value : resultVideoHorizontal.value;
+  if (resultVideo && !resultVideo.muted) {
+    if (previewVideo) {
+      previewVideo.muted = true;
+    }
   }
 };
 
@@ -966,6 +1036,17 @@ const selectAudioFromLibrary = async (audio: AudioItem) => {
 
 const onAudioPlay = () => {
   isAudioPlaying.value = true;
+  // 音频播放时，静音所有视频
+  isVideoMuted.value = true;
+  const previewVideo = isVertical.value ? previewVideoVertical.value : previewVideoHorizontal.value;
+  if (previewVideo) {
+    previewVideo.muted = true;
+  }
+  // 静音结果视频
+  const resultVideo = isVertical.value ? resultVideoVertical.value : resultVideoHorizontal.value;
+  if (resultVideo) {
+    resultVideo.muted = true;
+  }
 };
 
 const onAudioPause = () => {

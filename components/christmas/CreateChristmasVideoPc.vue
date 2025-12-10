@@ -62,6 +62,7 @@
       "
     >
       <h1
+        class="main-title"
         style="
           font-family: 'Playfair Display', serif;
           font-size: 3.4rem;
@@ -71,6 +72,7 @@
           max-width: 900px;
           margin-left: auto;
           margin-right: auto;
+          white-space: nowrap;
         "
       >
         Christmas Video Greetings Ideas
@@ -97,16 +99,37 @@
     </div>
 
     <!-- 制作表单组件 -->
-    <ChristmasVideoForm />
+    <ChristmasVideoForm ref="formRef" />
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, nextTick } from 'vue'
 import ChristmasVideoForm from './ChristmasVideoForm.vue'
 
 // 资源配置
 const assets = {
   bg: 'https://cfsource.wan2video.com/wan2video/christmas/template/home/wan2video-christmas-background.jpg'
 }
+
+const formRef = ref<InstanceType<typeof ChristmasVideoForm> | null>(null)
+
+// 默认选择第一个模版
+onMounted(() => {
+  nextTick(() => {
+    if (formRef.value && formRef.value.templates && formRef.value.templates.length > 0) {
+      formRef.value.handleSelectTemplate(formRef.value.templates[0])
+    }
+  })
+})
 </script>
 
+<style scoped>
+/* 4K分辨率下标题适配 */
+@media (min-width: 2560px) {
+  .main-title {
+    font-size: 4.4rem !important; /* 3.4rem + 3rem = 6.4rem */
+    max-width: 1700px !important; /* 900px * (6.4/3.4) ≈ 1700px，保持比例 */
+  }
+}
+</style>
