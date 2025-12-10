@@ -4,14 +4,14 @@
       <CreateChristmasVideoPc class="pc-content" />
       <!-- <CreateChristmasVideoPc class="pc-content" /> -->
 
-      <CreateChristmasVideoMobile class="mobile-content" />
+      <ChristmasVideoMobile class="mobile-content" />
   </main>
 </template>
   
   
 <script setup lang="ts">
 import CreateChristmasVideoPc from '~/components/christmas/CreateChristmasVideoPc.vue'
-import CreateChristmasVideoMobile from '~/components/christmas/CreateChristmasVideoMobile.vue'
+import ChristmasVideoMobile from '~/components/christmas/ChristmasVideoMobile.vue'
 import { useHead } from 'nuxt/app'    
 import { useSeo } from '~/composables/useSeo'
     

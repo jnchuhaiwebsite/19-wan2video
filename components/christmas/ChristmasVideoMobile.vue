@@ -55,7 +55,7 @@
       "
     ></div>
 
-    <!-- 初始展示区域：视频预览和制作按钮 -->
+    <!-- 初始展示区域：视频预览 -->
     <div
       v-if="!showForm"
       ref="previewSection"
@@ -64,44 +64,26 @@
         z-index: 1;
         width: 100%;
         min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
       "
     >
-      <!-- 视频预览区域 -->
-      <div
-        style="
-          width: 100%;
-          max-width: 300px;
-          aspect-ratio: 9/16;
-          border-radius: 20px;
-          overflow: hidden;
-          background: rgba(0, 0, 0, 0.3);
-          backdrop-filter: blur(10px);
-          border: 2px solid rgba(255, 255, 255, 0.2);
-          margin-bottom: 40px;
-        "
-      >
-        <video
-          :src="currentBackgroundVideo"
-          autoplay
-          loop
-          muted
-          playsinline
-          style="
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-          "
-        ></video>
-      </div>
+    </div>
 
-      <!-- 制作按钮 -->
+    <!-- 固定在底部的制作按钮 -->
+    <div
+      v-if="!showForm"
+      style="
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        padding: 16px;
+        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        backdrop-filter: blur(10px);
+      "
+    >
       <button
-        class="px-8 py-4 rounded-full text-base font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3"
+        class="w-full px-8 py-4 rounded-full text-base font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3"
         :style="{ backgroundColor: '#B41F21', color: 'white' }"
         @click="handleStartCreate"
       >
@@ -116,7 +98,7 @@
           />
         </svg>
 
-        <span>开始制作</span>
+        <span>Customize</span>
 
         <!-- 右侧星星图标 -->
         <svg
@@ -132,30 +114,53 @@
     </div>
 
     <!-- 页面内容：表单部分 -->
-    <div
-      ref="formSection"
-      style="
-        position: relative;
-        z-index: 1;
-        width: 100%;
-        padding: 100px 16px 20px;
-      "
-    >
-      <!-- 使用表单组件，隐藏右侧预览 -->
-      <div class="mobile-form-container">
-        <ChristmasVideoForm ref="formRef" />
+    <Transition name="slide-down">
+      <div
+        v-if="showForm"
+        ref="formSection"
+        @touchstart="handleTouchStart"
+        @touchmove="handleTouchMove"
+        @touchend="handleTouchEnd"
+        style="
+          position: fixed;
+          top: 30vh;
+          left: 0;
+          right: 0;
+          bottom: 80px;
+          z-index: 100;
+          width: 100%;
+          background: transparent;
+          overflow-y: auto;
+          padding: 0;
+          transition: transform 0.2s ease-out;
+        "
+      >
+        <!-- 关闭按钮 - 右上角 -->
+        <button
+          class="fixed top-[calc(30vh+1rem)] right-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-colors z-[110] shadow-lg"
+          @click="handleCloseForm"
+        >
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <!-- 使用移动端表单组件 -->
+        <div class="w-full">
+          <ChristmasVideoFormMobile ref="formRef" />
+        </div>
       </div>
-    </div>
+    </Transition>
 
     <!-- 悬浮在底部的生成按钮 -->
     <div
-      v-if="!showResult"
+      v-if="!showResult && showForm"
       style="
         position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
-        z-index: 50;
+        z-index: 101;
         padding: 16px;
         background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
         backdrop-filter: blur(10px);
@@ -193,16 +198,6 @@
             />
           </svg>
         </button>
-
-        <!-- 测试生成按钮：跳过 previewGenvideo，直接用固定 task_id 走 checkTask -->
-        <!-- <button
-          type="button"
-          class="mt-1 inline-flex items-center justify-center px-4 py-1.5 rounded-full text-[11px] font-medium bg-slate-700/80 hover:bg-slate-600 text-slate-100 transition-colors"
-          :disabled="isGenerating"
-          @click="onTestGenerate"
-        >
-          Test Generate (mock task)
-        </button> -->
       </div>
     </div>
 
@@ -216,7 +211,7 @@
       >
         <div class="flex flex-col items-center justify-center gap-6 px-6 text-center">
           <!-- 旋转雪花动画 -->
-          <svg t="1765265099439"       class="w-10 h-10 animate-spin-slow icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10181" width="200" height="200"><path d="M496 30.4L472 72v880l24 41.6 24-41.6V72z" fill="#59C2E0" p-id="10182"></path><path d="M496 240l-96-64v-48l96 64zM496 336L368 256v-48l128 80zM496 240l96-64v-48l-96 64zM496 336l128-80v-48L496 288zM496 784l-96 64v48l96-64zM496 688L368 768v48l128-80zM496 784l96 64v48l-96-64zM496 688l128 80v48L496 736z" fill="#59C2E0" p-id="10183"></path><path d="M79.2 752.8h48l761.6-440 24-41.6h-48l-761.6 440z" fill="#59C2E0" p-id="10184"></path><path d="M260 648l-7.2 115.2-41.6 24 7.2-115.2zM343.2 600l-5.6 151.2-41.6 24 5.6-151.2z" fill="#59C2E0" p-id="10185"></path><path d="M260 648l-103.2-51.2-41.6 24L218.4 672zM343.2 600l-133.6-70.4-41.6 24L301.6 624zM731.2 376l103.2 51.2 41.6-24L772.8 352zM648 424l133.6 71.2 41.6-24L689.6 400z" fill="#59C2E0" p-id="10186"></path><path d="M731.2 376l7.2-115.2 41.6-24-7.2 115.2zM648 424l5.6-150.4 41.6-24-5.6 150.4z" fill="#59C2E0" p-id="10187"></path><path d="M912.8 752.8h-48l-761.6-440-24-41.6h48l761.6 440z" fill="#59C2E0" p-id="10188"></path><path d="M732 648l7.2 115.2 41.6 24-7.2-115.2zM648.8 600l5.6 151.2 41.6 24-5.6-151.2z" fill="#59C2E0" p-id="10189"></path><path d="M732 648l103.2-51.2 41.6 24L773.6 672zM648.8 600l133.6-70.4 41.6 24L690.4 624zM260.8 376l-103.2 51.2-41.6-24L219.2 352zM344 424l-133.6 71.2-41.6-24L302.4 400zM260.8 376l-7.2-115.2-41.6-24 7.2 115.2z" fill="#59C2E0" p-id="10190"></path><path d="M344 424l-5.6-150.4-41.6-24 5.6 150.4z" fill="#59C2E0" p-id="10191"></path><path d="M496 663.2l-131.2-75.2V436.8L496 360.8l131.2 75.2v151.2L496 663.2zM404.8 564.8L496 616.8l91.2-52.8v-104L496 407.2l-91.2 52.8v104.8z" fill="#59C2E0" p-id="10192"></path></svg>
+          <svg t="1765265099439" class="w-10 h-10 animate-spin-slow icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10181" width="200" height="200"><path d="M496 30.4L472 72v880l24 41.6 24-41.6V72z" fill="#59C2E0" p-id="10182"></path><path d="M496 240l-96-64v-48l96 64zM496 336L368 256v-48l128 80zM496 240l96-64v-48l-96 64zM496 336l128-80v-48L496 288zM496 784l-96 64v48l96-64zM496 688L368 768v48l128-80zM496 784l96 64v48l-96-64zM496 688l128 80v48L496 736z" fill="#59C2E0" p-id="10183"></path><path d="M79.2 752.8h48l761.6-440 24-41.6h-48l-761.6 440z" fill="#59C2E0" p-id="10184"></path><path d="M260 648l-7.2 115.2-41.6 24 7.2-115.2zM343.2 600l-5.6 151.2-41.6 24 5.6-151.2z" fill="#59C2E0" p-id="10185"></path><path d="M260 648l-103.2-51.2-41.6 24L218.4 672zM343.2 600l-133.6-70.4-41.6 24L301.6 624zM731.2 376l103.2 51.2 41.6-24L772.8 352zM648 424l133.6 71.2 41.6-24L689.6 400z" fill="#59C2E0" p-id="10186"></path><path d="M731.2 376l7.2-115.2 41.6-24-7.2 115.2zM648 424l5.6-150.4 41.6-24-5.6 150.4z" fill="#59C2E0" p-id="10187"></path><path d="M912.8 752.8h-48l-761.6-440-24-41.6h48l761.6 440z" fill="#59C2E0" p-id="10188"></path><path d="M732 648l7.2 115.2 41.6 24-7.2-115.2zM648.8 600l5.6 151.2 41.6 24-5.6-151.2z" fill="#59C2E0" p-id="10189"></path><path d="M732 648l103.2-51.2 41.6 24L773.6 672zM648.8 600l133.6-70.4 41.6 24L690.4 624zM260.8 376l-103.2 51.2-41.6-24L219.2 352zM344 424l-133.6 71.2-41.6-24L302.4 400zM260.8 376l-7.2-115.2-41.6-24 7.2 115.2z" fill="#59C2E0" p-id="10190"></path><path d="M344 424l-5.6-150.4-41.6-24 5.6 150.4z" fill="#59C2E0" p-id="10191"></path><path d="M496 663.2l-131.2-75.2V436.8L496 360.8l131.2 75.2v151.2L496 663.2zM404.8 564.8L496 616.8l91.2-52.8v-104L496 407.2l-91.2 52.8v104.8z" fill="#59C2E0" p-id="10192"></path></svg>
           
           <div class="flex flex-col gap-2">
             <p class="text-lg font-semibold text-emerald-50">
@@ -230,7 +225,7 @@
       </div>
     </Transition>
 
-    <!-- 结果展示蒙层 -->
+    <!-- 结果展示弹窗 -->
     <Transition name="fade">
       <div
         v-if="showResult && generatedVideoUrl"
@@ -238,10 +233,10 @@
         style="background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(12px);"
         @click.self="closeResult"
       >
-        <div class="w-full max-w-md flex flex-col gap-6">
-          <!-- 关闭按钮 -->
+        <div class="w-full max-w-md flex flex-col gap-6 relative">
+          <!-- 关闭按钮 - 右上角 -->
           <button
-            class="self-end w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+            class="absolute -top-2 -right-2 w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-colors z-10 shadow-lg"
             @click="closeResult"
           >
             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -378,9 +373,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick, watch, watchEffect } from 'vue'
 import { useNuxtApp } from 'nuxt/app'
-import ChristmasVideoForm from './ChristmasVideoForm.vue'
+import ChristmasVideoFormMobile from './ChristmasVideoFormMobile.vue'
 import { previewGenvideo, checkTaskStatusVideo, checkTask } from '~/api'
 
 // 模版数据（与表单组件保持一致）
@@ -431,38 +426,31 @@ const templates: TemplateItem[] = [
 // 默认使用模版1的videoV
 const currentBackgroundVideo = ref(templates[0].videoV)
 const backgroundVideo = ref<HTMLVideoElement | null>(null)
-const formRef = ref<InstanceType<typeof ChristmasVideoForm> | null>(null)
+const formRef = ref<InstanceType<typeof ChristmasVideoFormMobile> | null>(null)
 const formSection = ref<HTMLElement | null>(null)
 const previewSection = ref<HTMLElement | null>(null)
 const showForm = ref(false)
 const { $toast } = useNuxtApp() as any
 
-// 生成状态
-const isGenerating = ref(false)
-const showResult = ref(false)
-const generatedVideoUrl = ref<string | null>(null)
-const statusMessage = ref('Creating video...')
-const currentTaskId = ref<string | null>(null)
-const showShareMenu = ref(false)
+// 下滑关闭手势相关
+const touchStartY = ref(0)
+const touchStartTime = ref(0)
+const isDragging = ref(false)
+const dragOffset = ref(0)
+const SWIPE_THRESHOLD = 100 // 下滑超过100px触发关闭
+const SWIPE_VELOCITY_THRESHOLD = 0.3 // 滑动速度阈值
 
 // 从表单组件获取数据
 const getFormData = () => {
-  const formContainer = document.querySelector('.mobile-form-container')
-  if (!formContainer) return null
+  if (!formRef.value) return null
 
-  // 获取图片文件
-  const fileInput = formContainer.querySelector('input[type="file"][accept="image/*"]') as HTMLInputElement
-  const imageFile = fileInput?.files?.[0] || null
+  // 直接访问暴露的属性（它们已经是响应式引用的值）
+  const imageFile = formRef.value.uploadedImageFile || null
+  const prompt = formRef.value.prompt || ''
+  const audioFile = formRef.value.audioFile || null
+  const selectedAudioFromLibrary = formRef.value.selectedAudioFromLibrary || null
 
-  // 获取提示词
-  const textarea = formContainer.querySelector('textarea') as HTMLTextAreaElement
-  const prompt = textarea?.value || ''
-
-  // 获取音频文件
-  const audioInput = formContainer.querySelector('input[type="file"][accept*="audio"]') as HTMLInputElement
-  const audioFile = audioInput?.files?.[0] || null
-
-  return { imageFile, prompt, audioFile }
+  return { imageFile, prompt, audioFile, selectedAudioFromLibrary }
 }
 
 const shareChristmasUrl = "https://cfsource.wan2video.com/wan2video/christmas/christmas.html?video=";
@@ -519,7 +507,7 @@ const handleGenerate = async () => {
     return
   }
 
-  const { imageFile, prompt, audioFile } = formData
+  const { imageFile, prompt, audioFile, selectedAudioFromLibrary } = formData
 
   if (!imageFile) {
     $toast?.error?.('Please upload a photo first')
@@ -546,8 +534,11 @@ const handleGenerate = async () => {
       resolution: '720P'
     }
 
+    // 优先使用上传的音频文件，否则如果选择了音频库的音频，将音频 URL 传给 audio_url
     if (audioFile) {
       payload.audio = audioFile
+    } else if (selectedAudioFromLibrary?.url) {
+      payload.audio_url = selectedAudioFromLibrary.url
     }
 
     const res: any = await previewGenvideo(payload)
@@ -571,41 +562,137 @@ const handleGenerate = async () => {
   }
 }
 
-// 测试生成：跳过 previewGenvideo，5 秒后直接调用 checkTask 固定 ID
-const onTestGenerate = () => {
-  const testTaskId = '56033c04-359f-4183-b9d7-f0b45fc67964'
+// 生成状态
+const isGenerating = ref(false)
+const showResult = ref(false)
+const generatedVideoUrl = ref<string | null>(null)
+const statusMessage = ref('Creating video...')
+const currentTaskId = ref<string | null>(null)
+const showShareMenu = ref(false)
 
-  isGenerating.value = true
-  showResult.value = false
-  generatedVideoUrl.value = null
-  statusMessage.value = 'Running test task...'
-  // $toast?.info?.('Start test generation task...')
-
-  setTimeout(async () => {
-    try {
-      const res: any = await checkTask(testTaskId)
-      const data = res?.data
-      if (data && data.status === 1 && data.url) {
-        isGenerating.value = false
-        generatedVideoUrl.value = data.url
-        showResult.value = true
-        statusMessage.value = 'Video generated successfully!'
-        $toast?.success?.('Test video fetched successfully!')
-      } else {
-        isGenerating.value = false
-        const msg = data?.status_msg || res?.msg || 'Test task has not completed yet'
-        statusMessage.value = msg
-        $toast?.error?.(msg)
-      }
-    } catch (err: any) {
-      console.error('checkTask test error', err)
-      isGenerating.value = false
-      const msg = err?.msg || 'Failed to run test task'
-      statusMessage.value = msg
-      $toast?.error?.(msg)
+// 开始制作：滚动到表单区域并选中模版1
+const handleStartCreate = () => {
+  showForm.value = true
+  
+  nextTick(() => {
+    // 选中模版1
+    if (formRef.value && formRef.value.handleSelectTemplate) {
+      formRef.value.handleSelectTemplate(templates[0])
     }
-  }, 5000)
+    
+    // 滚动到顶部
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  })
 }
+
+// 关闭表单
+const handleCloseForm = () => {
+  // 重置拖拽状态
+  isDragging.value = false
+  dragOffset.value = 0
+  
+  // 重置transform样式
+  if (formSection.value) {
+    formSection.value.style.transform = ''
+  }
+  
+  showForm.value = false
+  // 滚动回预览区域
+  if (previewSection.value) {
+    previewSection.value.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+}
+
+// 触摸开始
+const handleTouchStart = (e: TouchEvent) => {
+  if (!showForm.value) return
+  
+  const formElement = formSection.value
+  if (!formElement) return
+  
+  // 如果滚动位置不在顶部，不处理下滑关闭
+  if (formElement.scrollTop > 10) {
+    isDragging.value = false
+    return
+  }
+  
+  touchStartY.value = e.touches[0].clientY
+  touchStartTime.value = Date.now()
+  isDragging.value = true
+  dragOffset.value = 0
+}
+
+// 触摸移动
+const handleTouchMove = (e: TouchEvent) => {
+  if (!isDragging.value || !showForm.value) return
+  
+  const formElement = formSection.value
+  if (!formElement) return
+  
+  // 如果滚动位置不在顶部，取消拖拽
+  if (formElement.scrollTop > 10) {
+    isDragging.value = false
+    dragOffset.value = 0
+    formElement.style.transform = ''
+    return
+  }
+  
+  const currentY = e.touches[0].clientY
+  const deltaY = currentY - touchStartY.value
+  
+  // 只处理向下滑动
+  if (deltaY > 0) {
+    dragOffset.value = deltaY
+    // 实时更新位置
+    formElement.style.transform = `translateY(${deltaY}px)`
+    // 防止页面滚动
+    e.preventDefault()
+  }
+}
+
+// 触摸结束
+const handleTouchEnd = () => {
+  if (!isDragging.value || !showForm.value) return
+  
+  const formElement = formSection.value
+  if (!formElement) return
+  
+  const deltaY = dragOffset.value
+  const deltaTime = Date.now() - touchStartTime.value
+  const velocity = deltaTime > 0 ? deltaY / deltaTime : 0
+  
+  // 判断是否触发关闭：下滑距离超过阈值 或 滑动速度超过阈值
+  if (deltaY > SWIPE_THRESHOLD || (deltaY > 50 && velocity > SWIPE_VELOCITY_THRESHOLD)) {
+    handleCloseForm()
+  } else {
+    // 重置样式
+    formElement.style.transform = ''
+    isDragging.value = false
+    dragOffset.value = 0
+  }
+}
+
+// 更新背景视频
+const updateBackgroundVideo = (templateKey: string) => {
+  const selectedTemplate = templates.find(t => t.key === templateKey)
+  if (selectedTemplate) {
+    currentBackgroundVideo.value = selectedTemplate.videoV
+    // 更新背景视频
+    if (backgroundVideo.value) {
+      backgroundVideo.value.src = selectedTemplate.videoV
+      backgroundVideo.value.load()
+    }
+  }
+}
+
+// 监听模版选择变化，更新背景视频
+// 使用 watchEffect 监听表单组件的 selectedTemplateKey 变化
+watchEffect(() => {
+  const templateKey = formRef.value?.selectedTemplateKey
+  if (templateKey) {
+    updateBackgroundVideo(templateKey)
+  }
+})
 
 // 关闭结果展示
 const closeResult = () => {
@@ -681,120 +768,12 @@ const handleShare = (platform: 'facebook' | 'twitter' | 'pinterest' | 'whatsapp'
   closeShareMenu()
 }
 
-
-// 开始制作：滚动到表单区域并选中模版1
-const handleStartCreate = () => {
-  showForm.value = true
-  
-  nextTick(() => {
-    // 选中模版1
-    if (formRef.value && formRef.value.handleSelectTemplate) {
-      formRef.value.handleSelectTemplate(templates[0])
-    }
-    
-    // 滚动到表单区域
-    if (formSection.value) {
-      formSection.value.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
-  })
-}
-
-// 更新背景视频
-const updateBackgroundVideo = (templateKey: string) => {
-  const selectedTemplate = templates.find(t => t.key === templateKey)
-  if (selectedTemplate) {
-    currentBackgroundVideo.value = selectedTemplate.videoV
-    // 更新背景视频
-    if (backgroundVideo.value) {
-      backgroundVideo.value.src = selectedTemplate.videoV
-      backgroundVideo.value.load()
-    }
-  }
-}
-
-// 监听模版选择变化，更新背景视频
-const watchTemplateChange = () => {
-  if (!formRef.value) return
-  
-  // 监听模版选择按钮的点击事件
-  const formContainer = document.querySelector('.mobile-form-container')
-  if (formContainer) {
-    // 使用事件委托监听模版按钮点击
-    formContainer.addEventListener('click', (e) => {
-      const target = e.target as HTMLElement
-      // 查找最近的模版按钮
-      const templateButton = target.closest('button[type="button"]')
-      if (templateButton) {
-        // 检查是否是模版选择按钮（通过检查父元素是否有模版相关的类）
-        const gridContainer = templateButton.closest('.grid.grid-cols-2')
-        if (gridContainer) {
-          // 延迟执行，等待表单组件更新
-          setTimeout(() => {
-            if (formRef.value && formRef.value.selectedTemplateKey) {
-              updateBackgroundVideo(formRef.value.selectedTemplateKey)
-            }
-          }, 100)
-        }
-      }
-    })
-  }
-  
-  // 也使用定时器作为备用方案
-  let lastTemplateKey: string | null = null
-  const checkTemplateChange = () => {
-    if (formRef.value && formRef.value.selectedTemplateKey) {
-      const currentKey = formRef.value.selectedTemplateKey
-      if (currentKey !== lastTemplateKey) {
-        lastTemplateKey = currentKey
-        updateBackgroundVideo(currentKey)
-      }
-    }
-    setTimeout(checkTemplateChange, 500)
-  }
-  checkTemplateChange()
-}
-
 onMounted(() => {
-  // 使用 nextTick 确保 DOM 已渲染
-  nextTick(() => {
-    // 隐藏表单组件中的生成按钮区域和右侧预览区域
-    const formContainer = document.querySelector('.mobile-form-container')
-    if (formContainer) {
-      // 隐藏生成按钮区域
-      const generateButtonArea = formContainer.querySelector('.mt-4.flex.flex-col.items-center.gap-2')
-      if (generateButtonArea) {
-        ;(generateButtonArea as HTMLElement).style.display = 'none'
-      }
-      
-      // 隐藏右侧预览区域（第二个子元素）
-      const container = formContainer.querySelector('.w-full.max-w-6xl.flex')
-      if (container && container.children.length > 1) {
-        const previewArea = container.children[1] as HTMLElement
-        if (previewArea) {
-          previewArea.style.display = 'none'
-        }
-      }
-    }
-    
-    // 开始监听模版变化
-    watchTemplateChange()
-  })
+  // watch 会自动监听模版变化，无需额外操作
 })
 </script>
 
 <style scoped>
-.mobile-form-container :deep(.w-full.max-w-6xl) {
-  flex-direction: column !important;
-}
-
-.mobile-form-container :deep(.w-full.max-w-6xl > div:last-child) {
-  display: none !important;
-}
-
-.mobile-form-container :deep(.mt-4.flex.flex-col.items-center.gap-2) {
-  display: none !important;
-}
-
 /* 旋转动画 */
 .animate-spin-slow {
   animation: spin 2.5s linear infinite;
@@ -842,6 +821,35 @@ onMounted(() => {
 }
 
 .slide-up-leave-to > div:last-child {
+  transform: translateY(100%);
+}
+
+/* 上滑关闭动画 */
+.slide-down-enter-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-down-leave-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.slide-down-enter-from {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.slide-down-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-down-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-down-leave-to {
+  opacity: 0;
   transform: translateY(100%);
 }
 

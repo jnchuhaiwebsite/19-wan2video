@@ -1230,6 +1230,14 @@ onUnmounted(() => {
     document.removeEventListener('click', handleClickOutside)
   }
 })
+
+// 暴露方法和数据供父组件使用
+defineExpose({
+  handleSelectTemplate,
+  selectedTemplateKey,
+  templates,
+  selectedAudioFromLibrary
+})
 </script>
 
 <style scoped>
