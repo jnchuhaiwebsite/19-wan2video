@@ -20,11 +20,11 @@
       >
         <!-- 图片上传预览 -->
         <div class="flex flex-col gap-3">
-          <label class="text-sm text-gray-200">Upload photo</label>
+          <label class="text-xl text-gray-200">Upload photo</label>
 
           <div class="relative">
             <div
-              class="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-emerald-300/70 rounded-2xl cursor-pointer hover:border-emerald-300 transition-colors bg-black/30 overflow-hidden group"
+              class="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-yellow-400/50 rounded-2xl cursor-pointer hover:border-yellow-400 transition-colors bg-black/30 overflow-hidden group"
               @click="triggerFileInput"
             >
               <input
@@ -32,6 +32,7 @@
                 type="file"
                 accept="image/*"
                 class="hidden"
+                @click="checkLoginStatus"
                 @change="onFileChange"
               />
 
@@ -47,30 +48,25 @@
               <!-- 无图片时提示 -->
               <div v-else class="flex flex-col items-center justify-center p-4 text-center">
                 <svg
-                  class="w-10 h-10 text-emerald-300 mb-3 group-hover:scale-110 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+                  t="1765334222491"
+                  class="icon w-10 h-10 text-yellow-400 mb-3 group-hover:scale-110 transition-transform"
+                  viewBox="0 0 1024 1024"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  p-id="2815"
+                  width="200"
+                  height="200"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.8"
-                    d="M4 7a2 2 0 0 1 2-2h2.172a2 2 0 0 0 1.414-.586l.828-.828A2 2 0 0 1 11.828 3h4.344a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 19.828 5H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7z"
-                  />
-                  <circle
-                    cx="12"
-                    cy="13"
-                    r="4"
-                    stroke-width="1.8"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
+                    d="M269.44 256l23.296-75.381333A74.666667 74.666667 0 0 1 364.074667 128h295.850666a74.666667 74.666667 0 0 1 71.338667 52.618667L754.56 256H821.333333c64.8 0 117.333333 52.533333 117.333334 117.333333v426.666667c0 64.8-52.533333 117.333333-117.333334 117.333333H202.666667c-64.8 0-117.333333-52.533333-117.333334-117.333333V373.333333c0-64.8 52.533333-117.333333 117.333334-117.333333h66.773333z m23.605333 64H202.666667a53.333333 53.333333 0 0 0-53.333334 53.333333v426.666667a53.333333 53.333333 0 0 0 53.333334 53.333333h618.666666a53.333333 53.333333 0 0 0 53.333334-53.333333V373.333333a53.333333 53.333333 0 0 0-53.333334-53.333333h-90.378666a32 32 0 0 1-30.570667-22.549333l-30.272-97.930667a10.666667 10.666667 0 0 0-10.186667-7.52H364.074667a10.666667 10.666667 0 0 0-10.186667 7.52l-30.272 97.92A32 32 0 0 1 293.045333 320zM512 725.333333c-88.362667 0-160-71.637333-160-160 0-88.362667 71.637333-160 160-160 88.362667 0 160 71.637333 160 160 0 88.362667-71.637333 160-160 160z m0-64a96 96 0 1 0 0-192 96 96 0 0 0 0 192z"
+                    fill="currentColor"
+                    p-id="2816"
+                  ></path>
                 </svg>
-                <p class="text-emerald-100 font-medium mb-1 text-sm">
+                <p class="text-yellow-100 font-medium mb-1 text-sm">
                   Click to upload your Christmas photo
                 </p>
-                <p class="text-xs text-emerald-100/70">
+                <p class="text-xs text-yellow-100/70">
                   Upload JPG or PNG (up to 10MB) in a clear 9:16 format for best results.
                 </p>
               </div>
@@ -90,16 +86,6 @@
           </div>
         </div>
 
-        <!-- 提示词输入 -->
-        <div class="flex flex-col gap-2">
-          <label class="text-sm text-gray-200">Prompt</label>
-          <textarea
-            v-model="prompt"
-            rows="4"
-            class="w-full rounded-lg bg-black/30 border border-gray-600/70 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400/70"
-            placeholder="Describe your Christmas greeting video, e.g. Santa is delivering gifts to my family in a snowy night..."
-          />
-        </div>
 
         <!-- 模版选择 -->
         <div class="flex flex-col gap-3">
@@ -112,14 +98,14 @@
               type="button"
               @click="handleSelectTemplate(tpl)"
               :class="[
-                'flex flex-col rounded-xl overflow-hidden bg-black/30 border transition-all duration-200 text-left',
+                'flex flex-col rounded-xl overflow-hidden bg-transparent border transition-all duration-200 text-left',
                 selectedTemplateKey === tpl.key
-                  ? 'border-emerald-400 ring-2 ring-emerald-400/40 shadow-lg'
+                  ? 'border-white ring-2 ring-white/40 shadow-lg'
                   : 'border-emerald-300/20 hover:border-emerald-200/70 hover:bg-black/40'
               ]"
             >
-              <div class="w-full bg-black/60 relative">
-                <div class="w-full aspect-[194/104]">
+              <div class="w-full relative">
+                <div class="w-full aspect-[194/104] overflow-hidden rounded-t-xl">
                   <img
                     :src="tpl.thumb"
                     :alt="tpl.name"
@@ -139,62 +125,126 @@
           </div>
         </div>
 
-        <!-- 音频上传 -->
+        <!-- 提示词输入 -->
         <div class="flex flex-col gap-2">
-          <label class="text-sm text-gray-200">
-            Audio File <span class="text-gray-400 text-xs">(Optional)</span>
-          </label>
-          <div class="relative">
-            <label
-              for="christmas-audio-upload"
-              class="flex items-center justify-center w-full h-16 border-2 border-dashed border-emerald-300/70 rounded-xl cursor-pointer hover:border-emerald-300 transition-colors bg-black/30"
-            >
-              <div class="flex items-center space-x-3">
-                <svg class="w-5 h-5 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.8"
-                    d="M9 4.5v11a3 3 0 006 0v-11M12 19.5a4.5 4.5 0 01-4.5-4.5m9 0A4.5 4.5 0 0112 19.5m0 0V22"
-                  />
-                </svg>
-                <span v-if="!uploadedAudio" class="text-emerald-100 text-sm font-medium">
-                  Click to upload background audio (MP3 / WAV)
-                </span>
-                <span v-else class="text-emerald-100 text-sm font-medium truncate max-w-[220px]">
-                  {{ uploadedAudio.name }}
-                </span>
-              </div>
-            </label>
-            <input
-              id="christmas-audio-upload"
-              ref="audioInput"
-              type="file"
-              class="hidden"
-              accept="audio/wav,audio/mp3,audio/mpeg"
-              @change="handleAudioChange"
-            />
-          </div>
+          <label class="text-sm text-gray-200">Prompt</label>
+          <textarea
+            v-model="prompt"
+            rows="4"
+            class="w-full rounded-lg bg-black/30 border border-yellow-400/50 px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/70 focus:border-yellow-400 transition-colors"
+            placeholder="Describe your Christmas greeting video, e.g. Santa is delivering gifts to my family in a snowy night..."
+            @click="checkLoginStatus"
+          />
+        </div>
 
-          <div v-if="audioPreview" class="mt-2 p-2 bg-black/30 rounded-lg border border-emerald-300/30">
-            <div class="flex items-center justify-between mb-1">
-              <span class="text-xs font-medium text-emerald-50">Audio Preview</span>
+
+        <!-- 音频上传 -->
+        <div class="flex flex-col gap-3">
+          <!-- 标题和分类按钮在同一行 -->
+          <div class="flex items-center justify-between gap-2 flex-nowrap">
+            <label class="text-base sm:text-lg text-gray-200 font-medium whitespace-nowrap flex-shrink-0">Choose music</label>
+            <!-- 分类按钮 -->
+            <div class="flex gap-1.5 sm:gap-2 flex-shrink-0">
               <button
+                v-for="category in audioCategories"
+                :key="category.key"
                 type="button"
-                class="w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
-                @click="removeAudio"
+                @click="selectedCategory = category.key"
+                :class="[
+                  'px-2 sm:px-4 py-1 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-medium transition-all whitespace-nowrap',
+                  selectedCategory === category.key
+                    ? 'bg-yellow-500/90 text-white border-2 border-yellow-400 shadow-lg'
+                    : 'bg-black/40 text-gray-300 hover:bg-black/60 border border-yellow-400/30'
+                ]"
               >
-                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                {{ category.displayName }}
               </button>
             </div>
-            <audio :src="audioPreview" controls class="w-full h-8">
-              Your browser does not support audio playback.
-            </audio>
+          </div>
+          
+          <!-- 音频选择区域 -->
+          <div class="relative">
+
+            <!-- 音频列表（横向滚动，包含 Upload Audio 按钮） -->
+            <div class="overflow-x-auto pb-2 audio-scroll-container" style="scroll-behavior: smooth; -webkit-overflow-scrolling: touch;">
+              <div class="flex gap-3 min-w-max px-1">
+                <!-- Upload Audio 按钮 -->
+                <label
+                  for="christmas-audio-upload"
+                  :class="[
+                    'flex items-center gap-2 px-4 py-3 rounded-lg cursor-pointer transition-all whitespace-nowrap border-2 border-dashed min-w-[140px] justify-center',
+                    uploadedAudio && !selectedAudioFromLibrary
+                      ? 'bg-yellow-500/20 border-yellow-400 text-white shadow-lg'
+                      : 'bg-black/30 border-yellow-400/50 text-white hover:border-yellow-400/80 hover:bg-black/40'
+                  ]"
+                >
+                  <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                  </svg>
+                  <span class="text-sm font-medium">
+                    {{ uploadedAudio?.name || 'Upload Audio' }}
+                  </span>
+                </label>
+                <input
+                  id="christmas-audio-upload"
+                  ref="audioInput"
+                  type="file"
+                  class="hidden"
+                  accept="audio/wav,audio/mp3,audio/mpeg"
+                  @change="handleAudioChange"
+                />
+
+                <!-- 音频库音频项 -->
+                <button
+                  v-for="audio in currentCategoryAudios"
+                  :key="audio.url"
+                  type="button"
+                  @click="selectAudioFromLibrary(audio)"
+                  :class="[
+                    'flex items-center gap-2 px-4 py-3 rounded-lg transition-all whitespace-nowrap border-2 min-w-[180px]',
+                    selectedAudioFromLibrary?.url === audio.url
+                      ? 'bg-yellow-500/20 border-yellow-400 text-white shadow-lg'
+                      : 'bg-black/30 border-yellow-400/30 text-white hover:border-yellow-400/60 hover:bg-black/40'
+                  ]"
+                >
+                  <!-- 播放/暂停图标 -->
+                  <svg v-if="playingAudioUrl === audio.url && isAudioPlaying" class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                    <!-- 暂停图标 -->
+                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                  </svg>
+                  <svg v-else class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                    <!-- 播放图标 -->
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                  <span class="text-sm font-medium truncate">{{ audio.name }}</span>
+                </button>
+              </div>
+            </div>
           </div>
 
-          <p class="text-[11px] text-emerald-100/70 mt-1">
+          <!-- 隐藏的音频播放器（用于上传音频，不显示控件） -->
+          <audio 
+            v-if="audioPreview && uploadedAudio" 
+            ref="audioPlayer" 
+            :src="audioPreview" 
+            @ended="onAudioEnded"
+            class="hidden"
+          >
+          </audio>
+
+          <!-- 隐藏的音频播放器（用于音频库音频，不显示控件） -->
+          <audio 
+            v-if="audioPreview && selectedAudioFromLibrary && !uploadedAudio" 
+            ref="audioPlayerHidden" 
+            :src="audioPreview" 
+            @play="onAudioPlay"
+            @pause="onAudioPause"
+            @ended="onAudioEnded"
+            class="hidden"
+          >
+          </audio>
+
+          <p class="text-[11px] text-gray-100 mt-1">
             Supports WAV, MP3 format, 3-30 seconds, max 15MB
           </p>
         </div>
@@ -247,7 +297,7 @@
           'lg:sticky lg:top-[100px]'
         ]"
       >
-        <div class="flex flex-col items-center justify-start">
+        <div class="flex flex-col items-center" :class="isVertical ? 'justify-center py-40' : 'justify-start'">
           <!-- 横版预览 -->
           <div v-if="!isVertical" class="w-full max-w-xl flex justify-center">
             <div class="relative w-full aspect-[914/724]">
@@ -258,8 +308,24 @@
               />
               <div
                 class="absolute flex items-center justify-center z-10"
-                style="left: 3.1%; top: 4.3%; width: 94.9%; height: 67%;"
+                style="left: 0%; top: 0%; width: 100%; height: 86%;border-radius: 45px;"
               >
+                <!-- 音频控制按钮（横版） -->
+                <button
+                  v-if="selectedTemplate && currentPreviewVideo && !isGenerating && !generatedVideoUrl"
+                  type="button"
+                  @click="toggleVideoMute"
+                  class="absolute top-4 right-6 z-30 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm border border-white/20 transition-all duration-200"
+                  title="Toggle audio"
+                >
+                  <svg v-if="isVideoMuted" class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <svg v-else class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                  </svg>
+                </button>
                 <div class="w-full h-full rounded-lg overflow-hidden bg-black/80 flex items-center justify-center">
                   <template v-if="isGenerating">
                     <div class="flex flex-col items-center justify-center gap-3 text-center px-4">
@@ -305,12 +371,13 @@
                     <template v-else>
                       <video
                         v-if="selectedTemplate && currentPreviewVideo"
+                        ref="previewVideoHorizontal"
                         :src="currentPreviewVideo"
                         class="max-w-full max-h-full"
                         :style="videoStyle"
                         autoplay
                         loop
-                        muted
+                        :muted="isVideoMuted"
                         controls
                         playsinline
                         @loadedmetadata="onVideoMetadata"
@@ -337,7 +404,7 @@
           </div>
 
           <!-- 竖版预览 -->
-          <div v-else class="w-full max-w-xs flex justify-center">
+          <div v-else class="w-full max-w-xs flex justify-center mb-8" style="transform: scale(1.25); transform-origin: center;">
             <div class="relative w-full aspect-[9/16]">
               <img
                 src="https://cfsource.wan2video.com/wan2video/christmas/template/images/phone.png"
@@ -346,23 +413,48 @@
               />
               <div
                 class="absolute flex items-center justify-center z-10 overflow-hidden"
-                style="left: 6%; top: 1%; width: 87%; height: 98%;border-radius: 45px;"
+                style="left: 6%; top: 0; width: 87%; height: 100%;border-radius: 45px;"
               >
-                <div class="w-full h-full rounded-xl overflow-hidden bg-black/80 flex items-center justify-center">
+                <!-- 音频控制按钮（竖版） -->
+                <button
+                  v-if="selectedTemplate && currentPreviewVideo && !isGenerating && !generatedVideoUrl"
+                  type="button"
+                  @click="toggleVideoMute"
+                  class="absolute top-2 right-2 z-30 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm border border-white/20 transition-all duration-200"
+                  title="Toggle audio"
+                >
+                  <svg v-if="isVideoMuted" class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <svg v-else class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                  </svg>
+                </button>
+                <!-- <div class="w-full h-full rounded-xl overflow-hidden bg-black/80 flex items-center justify-center"> -->
                   <template v-if="isGenerating">
                     <div class="flex flex-col items-center justify-center gap-3 text-center px-4">
                       <svg
-                        class="w-10 h-10 text-emerald-200 animate-spin-slow"
-                        viewBox="0 0 64 64"
-                        fill="none"
+                        t="1765265099439"
+                        class="w-10 h-10 animate-spin-slow icon"
+                        viewBox="0 0 1024 1024"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        p-id="10181"
+                        width="200"
+                        height="200"
                       >
-                        <path
-                          d="M32 4v56M12 12l40 40M4 32h56M12 52l40-40"
-                          stroke="currentColor"
-                          stroke-width="3"
-                          stroke-linecap="round"
-                        />
-                        <circle cx="32" cy="32" r="6" fill="currentColor" />
+                        <path d="M496 30.4L472 72v880l24 41.6 24-41.6V72z" fill="#59C2E0" p-id="10182"></path>
+                        <path d="M496 240l-96-64v-48l96 64zM496 336L368 256v-48l128 80zM496 240l96-64v-48l-96 64zM496 336l128-80v-48L496 288zM496 784l-96 64v48l96-64zM496 688L368 768v48l128-80zM496 784l96 64v48l-96-64zM496 688l128 80v48L496 736z" fill="#59C2E0" p-id="10183"></path>
+                        <path d="M79.2 752.8h48l761.6-440 24-41.6h-48l-761.6 440z" fill="#59C2E0" p-id="10184"></path>
+                        <path d="M260 648l-7.2 115.2-41.6 24 7.2-115.2zM343.2 600l-5.6 151.2-41.6 24 5.6-151.2z" fill="#59C2E0" p-id="10185"></path>
+                        <path d="M260 648l-103.2-51.2-41.6 24L218.4 672zM343.2 600l-133.6-70.4-41.6 24L301.6 624zM731.2 376l103.2 51.2 41.6-24L772.8 352zM648 424l133.6 71.2 41.6-24L689.6 400z" fill="#59C2E0" p-id="10186"></path>
+                        <path d="M731.2 376l7.2-115.2 41.6-24-7.2 115.2zM648 424l5.6-150.4 41.6-24-5.6 150.4z" fill="#59C2E0" p-id="10187"></path>
+                        <path d="M912.8 752.8h-48l-761.6-440-24-41.6h48l761.6 440z" fill="#59C2E0" p-id="10188"></path>
+                        <path d="M732 648l7.2 115.2 41.6 24-7.2-115.2zM648.8 600l5.6 151.2 41.6 24-5.6-151.2z" fill="#59C2E0" p-id="10189"></path>
+                        <path d="M732 648l103.2-51.2 41.6 24L773.6 672zM648.8 600l133.6-70.4 41.6 24L690.4 624zM260.8 376l-103.2 51.2-41.6-24L219.2 352zM344 424l-133.6 71.2-41.6-24L302.4 400zM260.8 376l-7.2-115.2-41.6-24 7.2 115.2z" fill="#59C2E0" p-id="10190"></path>
+                        <path d="M344 424l-5.6-150.4-41.6-24 5.6 150.4z" fill="#59C2E0" p-id="10191"></path>
+                        <path d="M496 663.2l-131.2-75.2V436.8L496 360.8l131.2 75.2v151.2L496 663.2zM404.8 564.8L496 616.8l91.2-52.8v-104L496 407.2l-91.2 52.8v104.8z" fill="#59C2E0" p-id="10192"></path>
                       </svg>
                       <p class="text-xs sm:text-sm text-emerald-50 font-medium">
                         Santa's Elves are crafting your video...
@@ -374,8 +466,7 @@
                     <video
                       v-if="generatedVideoUrl"
                       :src="generatedVideoUrl"
-                      class="max-w-full max-h-full"
-                      :style="videoStyle"
+                      class="w-full h-full object-cover"
                       controls
                       playsinline
                       @loadedmetadata="onVideoMetadata"
@@ -383,12 +474,12 @@
                     <template v-else>
                       <video
                         v-if="selectedTemplate && currentPreviewVideo"
+                        ref="previewVideoVertical"
                         :src="currentPreviewVideo"
-                        class="max-w-full max-h-full"
-                        :style="videoStyle"
+                        class="w-full h-full object-cover"
                         autoplay
                         loop
-                        muted
+                        :muted="isVideoMuted"
                         controls
                         playsinline
                         @loadedmetadata="onVideoMetadata"
@@ -409,7 +500,7 @@
                       </template>
                     </template>
                   </template>
-                </div>
+                <!-- </div> -->
               </div>
             </div>
           </div>
@@ -417,7 +508,10 @@
           <!-- 生成完成后的操作按钮 -->
           <div
             v-if="generatedVideoUrl && !isGenerating"
-            class="mt-4 w-full max-w-xl flex flex-col items-center gap-4"
+            :class="[
+              'w-full max-w-xl flex flex-col items-center gap-4 relative z-20',
+              isVertical ? 'mt-16' : 'mt-4'
+            ]"
           >
             <div class="flex flex-col sm:flex-row gap-3 w-full">
               <button
@@ -527,10 +621,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
 import { useNuxtApp } from 'nuxt/app';
 import { useRoute } from 'vue-router';
-import { previewGenvideo, checkTaskStatusVideo, checkTask } from '~/api';
+import { createChristmasVideo, checkTaskStatusVideo, checkTask } from '~/api';
 
 interface TemplateItem {
   key: string;
@@ -548,8 +642,7 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-snowy-christmas-cabin-scene.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-s.mp4',
-    prompt:
-      "The Christmas sky is snowing, surrounded by pine trees adorned with colorful lights. The Christmas tree is covered in snow, and the roof and windowsill of the small wooden house are covered with a thick layer of white snow. There is a flower wreath made of pine cones and red berries hanging at the door. The character is wearing a Christmas sweater and a red Christmas hat, standing next to a small wooden house. The character width accounts for 70% of the page. About 70% of the page is occupied by height, holding a Christmas card and saying to a friend with a straight face, \"Happy Holidays, Catching up so to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome\". Make people instantly feel the lively, excited, and energetic atmosphere of the festival night."
+    prompt:"  The Christmas sky is snowing, surrounded by pine trees adorned with colorful lights. The Christmas tree is covered in snow, and the roof and windowsill of the small wooden house are covered with a thick layer of white snow. There is a flower wreath made of pine cones and red berries hanging at the door. The character is wearing a Christmas sweater and a red Christmas hat, standing next to a small wooden house. The character width accounts for 70% of the page. About 70% of the page is occupied by height, holding a Christmas card and saying to a friend with a straight face, \"Happy Holidays, Catching up so to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome\"。Make people instantly feel the lively, excited, and energetic atmosphere of the festival night."
   },
   {
     key: 'christmas-tree',
@@ -557,8 +650,7 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-living-room-pine-tree-scene.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-s.mp4',
-    prompt:
-      "On Christmas Eve, there is a huge and lush real pine tree in the center of the living room! It is covered with various retro glass ball ornaments, with warm yellow white string lights on. The heavy snow outside the window gives a feeling of the night. Six thick red or green Christmas stockings are neatly placed on the fireplace rack, creating a warm atmosphere inside the house. The soft yellow color scheme places the characters inside, wearing Christmas hats and standing at the front. The character width accounts for 70% of the page. About 70% of the page is high, wearing an ugly Christmas sweater, holding a Christmas card, and saying to friends with a straight face, \"Happy Holidays, Catching up so to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome.\""
+    prompt:"  On Christmas Eve, there is a huge and lush real pine tree in the center of the living room! It is covered with various retro glass ball ornaments, with warm yellow white string lights on. The heavy snow outside the window gives a feeling of the night. Six thick red or green Christmas stockings are neatly placed on the fireplace rack, creating a warm atmosphere inside the house. The soft yellow color scheme places the characters inside, wearing Christmas hats and standing at the front. The character width accounts for 70% of the page. About 70% of the page is high, wearing an ugly Christmas sweater, holding a Christmas card, and saying to friends with a straight face, \"Happy Holidays, Catching up so to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome.\""
   },
   {
     key: 'church',
@@ -566,8 +658,7 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-church-holiday-interior.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-church-holiday-interior-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-church-holiday-interior-s.mp4',
-    prompt:
-      "The interior of the Christmas church is decorated with a large number of green holly branches and red potted poinsettias in the night background. The main lighting comes from chandeliers and lit candles. The character is in the center of the video, wearing a red Christmas hat, and the width of the character accounts for 70% of the page. The height accounts for about 70% of the page, wearing an ugly Christmas sweater, making people instantly feel the lively, excited, and energetic atmosphere of the holiday night. Say to your friend with a straight face, \"Happy Holidays, Catching up soon to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome!\""
+    prompt:"  The interior of the Christmas church is decorated with a large number of green holly branches and red potted poinsettias in the night background. The main lighting comes from chandeliers and lit candles. The character is in the center of the video, wearing a red Christmas hat, and the width of the character accounts for 70% of the page. The height accounts for about 70% of the page, wearing an ugly Christmas sweater, making people instantly feel the lively, excited, and energetic atmosphere of the holiday night. Say to your friend with a straight face, 'Happy Holidays, Catching up soon to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome!'."
   },
   {
     key: 'pine-forest',
@@ -575,13 +666,16 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-snowy-pine-forest-lights.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-pine-forest-lights-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-pine-forest-lights-s.mp4',
-    prompt:
-      "A pine forest in the outskirts, with thick snow on the ground, and yellow lights shining from the windows of the farm's wooden houses, warm and romantic. Most importantly, there are countless warm light strings wrapped around the pine trees in the forest, only white or amber in color. The contours of the pine trees are outlined like Christmas trees. There are elk running through the forest, and as dusk falls and the lights begin to dominate the view, the entire scene becomes poetic and romantic. The sky is snowing, and the character is wearing a Christmas sweater and a red Christmas hat. The character's width accounts for 70% of the page. The proportion of height on the page is about 70%, making people instantly feel the lively, excited, and energetic atmosphere of the festival night. Say to your friend with a straight face, \"Happy Holidays, Catching up soon to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome!\""
+    prompt:"  A pine forest in the outskirts, with thick snow on the ground, and yellow lights shining from the windows of the farm's wooden houses, warm and romantic. Most importantly, there are countless warm light strings wrapped around the pine trees in the forest, only white or amber in color. The contours of the pine trees are outlined like Christmas trees. There are elk running through the forest, and as dusk falls and the lights begin to dominate the view, the entire scene becomes poetic and romantic. The sky is snowing, and the character is wearing a Christmas sweater and a red Christmas hat. The character's width accounts for 70% of the page. The proportion of height on the page is about 70%, making people instantly feel the lively, excited, and energetic atmosphere of the festival night. Say to your friend with a straight face, 'Happy Holidays, Catching up soon to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome!'."
   }
 ];
 
 const fileInput = ref<HTMLInputElement | null>(null);
 const audioInput = ref<HTMLInputElement | null>(null);
+const audioPlayer = ref<HTMLAudioElement | null>(null);
+const audioPlayerHidden = ref<HTMLAudioElement | null>(null);
+const previewVideoHorizontal = ref<HTMLVideoElement | null>(null);
+const previewVideoVertical = ref<HTMLVideoElement | null>(null);
 
 const previewUrl = ref<string | null>(null);
 const uploadedImageFile = ref<File | null>(null);
@@ -594,6 +688,73 @@ const selectedTemplateKey = ref<string | null>(null);
 const uploadedAudio = ref<{ name: string; size: number } | null>(null);
 const audioPreview = ref<string | null>(null);
 const audioFile = ref<File | null>(null);
+const selectedAudioFromLibrary = ref<{ name: string; url: string } | null>(null);
+const isAudioPlaying = ref(false);
+const playingAudioUrl = ref<string | null>(null);
+const isVideoMuted = ref(true); // 视频静音状态，默认静音
+
+// 音频库数据结构
+interface AudioItem {
+  name: string;
+  url: string;
+}
+
+interface AudioCategory {
+  key: string;
+  name: string;
+  displayName: string;
+  audios: AudioItem[];
+}
+
+const audioCategories: AudioCategory[] = [
+  {
+    key: 'all',
+    name: 'all',
+    displayName: 'All',
+    audios: [
+      { name: 'All I Want For Christmas', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/all-i-want-for-christmas-is-you.mp3' },
+      { name: 'Fairytale At Christmas', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/fairytale-at-christmas.mp3' },
+      { name: 'Feliz Navidad', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/feliz-navidad.mp3' },
+      { name: 'Last Christmas', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/last-christmas.mp3' },
+      { name: 'Mistletoe', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/mistletoe.mp3' },
+      { name: 'Santa Tell Me', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/santa-tell-me.mp3' },
+      { name: 'Snowman', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/snowman.mp3' },
+      { name: 'Friends (Male)', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/friend.mp3' },
+      { name: 'Colleagues (Male)', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/colleague.mp3' },
+      { name: 'Family (Male)', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/family-members.mp3' },
+      { name: 'Friends (Female)', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/friend.mp3' },
+      { name: 'Colleagues (Female)', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/colleague.mp3' },
+      { name: 'Family (Female)', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/family-members.mp3' }
+    ]
+  },
+  {
+    key: 'male',
+    name: 'male',
+    displayName: 'Male',
+    audios: [
+      { name: 'Friends', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/friend.mp3' },
+      { name: 'Colleagues', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/colleague.mp3' },
+      { name: 'Family', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/family-members.mp3' }
+    ]
+  },
+  {
+    key: 'female',
+    name: 'female',
+    displayName: 'Female',
+    audios: [
+      { name: 'Friends', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/friend.mp3' },
+      { name: 'Colleagues', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/colleague.mp3' },
+      { name: 'Family', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/family-members.mp3' }
+    ]
+  }
+];
+
+const selectedCategory = ref<string>('all');
+
+const currentCategoryAudios = computed(() => {
+  const category = audioCategories.find(cat => cat.key === selectedCategory.value);
+  return category ? category.audios : [];
+});
 
 const isGenerating = ref(false);
 const currentTaskId = ref<string | null>(null);
@@ -645,6 +806,15 @@ const onVideoMetadata = (e: Event) => {
   }
 };
 
+const toggleVideoMute = () => {
+  isVideoMuted.value = !isVideoMuted.value;
+  // 同步更新视频元素的静音状态（由于使用了 :muted 绑定，这主要是为了确保立即生效）
+  const video = isVertical.value ? previewVideoVertical.value : previewVideoHorizontal.value;
+  if (video) {
+    video.muted = isVideoMuted.value;
+  }
+};
+
 const triggerFileInput = () => {
   if (fileInput.value) {
     fileInput.value.click();
@@ -672,6 +842,7 @@ const handleAudioChange = (e: Event) => {
   };
 
   audioFile.value = file;
+  selectedAudioFromLibrary.value = null; // 清除音频库选择
 
   if (audioPreview.value) {
     URL.revokeObjectURL(audioPreview.value);
@@ -679,15 +850,120 @@ const handleAudioChange = (e: Event) => {
   audioPreview.value = URL.createObjectURL(file);
 };
 
+const selectAudioFromLibrary = async (audio: AudioItem) => {
+  const isSameAudio = selectedAudioFromLibrary.value?.url === audio.url;
+  
+  // 如果点击的是同一个音频，切换播放/暂停
+  if (isSameAudio && playingAudioUrl.value === audio.url) {
+    const player = audioPlayerHidden.value || audioPlayer.value;
+    if (player) {
+      if (isAudioPlaying.value) {
+        player.pause();
+      } else {
+        player.play().catch(err => {
+          console.error('Failed to play audio:', err);
+        });
+      }
+    }
+    return;
+  }
+  
+  // 停止当前播放的音频
+  const currentPlayer = audioPlayerHidden.value || audioPlayer.value;
+  if (currentPlayer && isAudioPlaying.value) {
+    currentPlayer.pause();
+    currentPlayer.currentTime = 0;
+  }
+  
+  selectedAudioFromLibrary.value = audio;
+  uploadedAudio.value = null; // 清除上传的音频
+  audioFile.value = null; // 清除文件引用
+
+  // 清除之前的上传音频预览
+  if (audioPreview.value && audioPreview.value.startsWith('blob:')) {
+    URL.revokeObjectURL(audioPreview.value);
+  }
+
+  // 设置音频库音频的预览
+  audioPreview.value = audio.url;
+  playingAudioUrl.value = audio.url;
+  isAudioPlaying.value = false; // 重置播放状态，等待播放事件触发
+
+  // 等待下一个 tick 确保 audio 元素已更新
+  await nextTick();
+
+  // 自动播放音频（使用隐藏的播放器，不显示控件）
+  const player = audioPlayerHidden.value || audioPlayer.value;
+  if (player) {
+    player.currentTime = 0;
+    player.play().catch(err => {
+      console.error('Failed to play audio:', err);
+    });
+  }
+};
+
+const onAudioPlay = () => {
+  isAudioPlaying.value = true;
+};
+
+const onAudioPause = () => {
+  isAudioPlaying.value = false;
+};
+
+const onAudioEnded = () => {
+  // 播放结束后自动暂停
+  const player = audioPlayerHidden.value || audioPlayer.value;
+  if (player) {
+    player.pause();
+    player.currentTime = 0;
+  }
+  isAudioPlaying.value = false;
+  // 可以选择是否清除 playingAudioUrl，或者保留以便用户知道哪个音频刚播放完
+  // playingAudioUrl.value = null;
+};
+import { useUserStore } from '~/stores/user';
+const userStore = useUserStore();
+const userInfo = computed(() => userStore.userInfo);
+
+// 检查是否已登录
+const isLoggedIn = (): boolean => {
+  if (!userInfo.value) {
+    return false;
+  }
+  return true;
+};
+
+const checkLoginStatus = async (event: Event) => {
+  if (!isLoggedIn()) {
+    event?.preventDefault()
+    const loginButton = document.getElementById('bindLogin')
+    if (loginButton) {
+      loginButton.click()
+    }
+  }
+};
+    
+
+
 const removeAudio = () => {
-  if (audioPreview.value) {
+  if (audioPreview.value && audioPreview.value.startsWith('blob:')) {
     URL.revokeObjectURL(audioPreview.value);
   }
   audioPreview.value = null;
   uploadedAudio.value = null;
+  selectedAudioFromLibrary.value = null;
+  audioFile.value = null;
+  isAudioPlaying.value = false;
+  playingAudioUrl.value = null;
 
   if (audioInput.value) {
     audioInput.value.value = '';
+  }
+
+  const player = audioPlayerHidden.value || audioPlayer.value;
+  if (player) {
+    player.pause();
+    player.currentTime = 0;
   }
 };
 
@@ -791,11 +1067,15 @@ const onGenerate = async () => {
       resolution: '720P'
     };
 
+    // 优先使用上传的音频文件，否则如果选择了音频库的音频，将音频 URL 传给 audio_url
     if (audioFile.value) {
       payload.audio = audioFile.value;
+    } else if (selectedAudioFromLibrary.value?.url) {
+      // 如果选择了音频模板，将模板音频的地址传给 audio_url
+      payload.audio_url = selectedAudioFromLibrary.value.url;
     }
 
-    const res: any = await previewGenvideo(payload);
+    const res: any = await createChristmasVideo(payload);
 
     if (res?.success && res.data?.task_id) {
       $toast?.success?.('Preview task created, generating video...');
@@ -964,5 +1244,30 @@ onUnmounted(() => {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* 音频滚动容器样式 */
+.audio-scroll-container {
+  scrollbar-width: thin;  /* Firefox */
+  scrollbar-color: rgba(234, 179, 8, 0.5) rgba(0, 0, 0, 0.3);  /* Firefox: thumb and track */
+}
+
+.audio-scroll-container::-webkit-scrollbar {
+  height: 8px;  /* Chrome, Safari and Opera */
+}
+
+.audio-scroll-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.audio-scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(234, 179, 8, 0.5);
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.audio-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(234, 179, 8, 0.7);
 }
 </style>

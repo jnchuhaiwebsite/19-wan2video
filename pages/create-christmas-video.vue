@@ -13,6 +13,7 @@
 import CreateChristmasVideoPc from '~/components/christmas/CreateChristmasVideoPc.vue'
 import CreateChristmasVideoMobile from '~/components/christmas/CreateChristmasVideoMobile.vue'
 import { useHead } from 'nuxt/app'    
+import { useSeo } from '~/composables/useSeo'
     
 // 设置使用圣诞布局（不包含 Footer）
 // @ts-ignore: Nuxt macro function
@@ -20,9 +21,14 @@ definePageMeta({
   layout: 'christmas'
 })
 
+
+useSeo({
+  title: 'Christmas Video Maker & Personalized Christmas Greetings Ideas',
+  description: 'Create personalized Christmas greeting videos with our Christmas video maker. Explore creative Christmas greetings and unique holiday video ideas for family and friends.'
+})
+
 // 引入字体
 useHead({
-  title: 'Create Christmas Video',
   link: [
     { 
       rel: 'stylesheet', 
