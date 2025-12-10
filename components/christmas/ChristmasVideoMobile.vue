@@ -111,8 +111,44 @@
         z-index: 1;
         width: 100%;
         min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 120px 20px 100px;
+        text-align: center;
       "
     >
+      <!-- H1 标题 -->
+      <h1
+        style="
+          font-family: 'Playfair Display', serif;
+          font-size: 2rem;
+          margin-bottom: 24px;
+          letter-spacing: 0.5px;
+          text-shadow: 0 4px 12px rgba(0,0,0,0.55);
+          max-width: 100%;
+          line-height: 1.3;
+          color: #fde047;
+        "
+      >
+        Christmas Video Greetings Ideas
+      </h1>
+
+      <!-- 副标题 -->
+      <p
+        style="
+          font-size: 1rem;
+          opacity: 0.95;
+          line-height: 1.6;
+          margin-bottom: 0;
+          text-shadow: 0 2px 6px rgba(0,0,0,0.55);
+          max-width: 100%;
+        "
+      >
+        <span style="display: block; margin-bottom: 8px;">Upload your photo, and let Santa do the magic!</span>
+        <span style="display: block;">A free, personalized video is just one click away</span>
+      </p>
     </div>
 
     <!-- 固定在底部的制作按钮 -->
