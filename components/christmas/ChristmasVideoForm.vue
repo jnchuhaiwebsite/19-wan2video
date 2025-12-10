@@ -24,7 +24,7 @@
 
           <div class="relative">
             <div
-              class="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-emerald-300/70 rounded-2xl cursor-pointer hover:border-emerald-300 transition-colors bg-black/30 overflow-hidden group"
+              class="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-yellow-400/50 rounded-2xl cursor-pointer hover:border-yellow-400 transition-colors bg-black/30 overflow-hidden group"
               @click="triggerFileInput"
             >
               <input
@@ -48,7 +48,7 @@
               <div v-else class="flex flex-col items-center justify-center p-4 text-center">
                 <svg
                   t="1765334222491"
-                  class="icon w-10 h-10 text-emerald-300 mb-3 group-hover:scale-110 transition-transform"
+                  class="icon w-10 h-10 text-yellow-400 mb-3 group-hover:scale-110 transition-transform"
                   viewBox="0 0 1024 1024"
                   version="1.1"
                   xmlns="http://www.w3.org/2000/svg"
@@ -62,10 +62,10 @@
                     p-id="2816"
                   ></path>
                 </svg>
-                <p class="text-emerald-100 font-medium mb-1 text-sm">
+                <p class="text-yellow-100 font-medium mb-1 text-sm">
                   Click to upload your Christmas photo
                 </p>
-                <p class="text-xs text-emerald-100/70">
+                <p class="text-xs text-yellow-100/70">
                   Upload JPG or PNG (up to 10MB) in a clear 9:16 format for best results.
                 </p>
               </div>
@@ -130,52 +130,100 @@
           <textarea
             v-model="prompt"
             rows="4"
-            class="w-full rounded-lg bg-black/30 border border-gray-600/70 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400/70"
+            class="w-full rounded-lg bg-black/30 border border-yellow-400/50 px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/70 focus:border-yellow-400 transition-colors"
             placeholder="Describe your Christmas greeting video, e.g. Santa is delivering gifts to my family in a snowy night..."
           />
         </div>
 
 
         <!-- 音频上传 -->
-        <div class="flex flex-col gap-2">
-          <label class="text-sm text-gray-200">
-            Audio File <span class="text-gray-400 text-xs">(Optional)</span>
-          </label>
+        <div class="flex flex-col gap-3">
+          <!-- 标题和分类按钮在同一行 -->
+          <div class="flex items-center justify-between gap-2 flex-nowrap">
+            <label class="text-base sm:text-lg text-gray-200 font-medium whitespace-nowrap flex-shrink-0">Choose music</label>
+            <!-- 分类按钮 -->
+            <div class="flex gap-1.5 sm:gap-2 flex-shrink-0">
+              <button
+                v-for="category in audioCategories"
+                :key="category.key"
+                type="button"
+                @click="selectedCategory = category.key"
+                :class="[
+                  'px-2 sm:px-4 py-1 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-medium transition-all whitespace-nowrap',
+                  selectedCategory === category.key
+                    ? 'bg-yellow-500/90 text-white border-2 border-yellow-400 shadow-lg'
+                    : 'bg-black/40 text-gray-300 hover:bg-black/60 border border-yellow-400/30'
+                ]"
+              >
+                {{ category.displayName }}
+              </button>
+            </div>
+          </div>
+          
+          <!-- 音频选择区域 -->
           <div class="relative">
-            <label
-              for="christmas-audio-upload"
-              class="flex items-center justify-center w-full h-16 border-2 border-dashed border-emerald-300/70 rounded-xl cursor-pointer hover:border-emerald-300 transition-colors bg-black/30"
-            >
-              <div class="flex items-center space-x-3">
-                <svg class="w-5 h-5 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="1.8"
-                    d="M9 4.5v11a3 3 0 006 0v-11M12 19.5a4.5 4.5 0 01-4.5-4.5m9 0A4.5 4.5 0 0112 19.5m0 0V22"
-                  />
-                </svg>
-                <span v-if="!uploadedAudio" class="text-emerald-100 text-sm font-medium">
-                  Click to upload background audio (MP3 / WAV)
-                </span>
-                <span v-else class="text-emerald-100 text-sm font-medium truncate max-w-[220px]">
-                  {{ uploadedAudio.name }}
-                </span>
+
+            <!-- 音频列表（横向滚动，包含 Upload Audio 按钮） -->
+            <div class="overflow-x-auto pb-2 audio-scroll-container" style="scroll-behavior: smooth; -webkit-overflow-scrolling: touch;">
+              <div class="flex gap-3 min-w-max px-1">
+                <!-- Upload Audio 按钮 -->
+                <label
+                  for="christmas-audio-upload"
+                  :class="[
+                    'flex items-center gap-2 px-4 py-3 rounded-lg cursor-pointer transition-all whitespace-nowrap border-2 border-dashed min-w-[140px] justify-center',
+                    uploadedAudio && !selectedAudioFromLibrary
+                      ? 'bg-yellow-500/20 border-yellow-400 text-white shadow-lg'
+                      : 'bg-black/30 border-yellow-400/50 text-white hover:border-yellow-400/80 hover:bg-black/40'
+                  ]"
+                >
+                  <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                  </svg>
+                  <span class="text-sm font-medium">
+                    {{ uploadedAudio?.name || 'Upload Audio' }}
+                  </span>
+                </label>
+                <input
+                  id="christmas-audio-upload"
+                  ref="audioInput"
+                  type="file"
+                  class="hidden"
+                  accept="audio/wav,audio/mp3,audio/mpeg"
+                  @change="handleAudioChange"
+                />
+
+                <!-- 音频库音频项 -->
+                <button
+                  v-for="audio in currentCategoryAudios"
+                  :key="audio.url"
+                  type="button"
+                  @click="selectAudioFromLibrary(audio)"
+                  :class="[
+                    'flex items-center gap-2 px-4 py-3 rounded-lg transition-all whitespace-nowrap border-2 min-w-[180px]',
+                    selectedAudioFromLibrary?.url === audio.url
+                      ? 'bg-yellow-500/20 border-yellow-400 text-white shadow-lg'
+                      : 'bg-black/30 border-yellow-400/30 text-white hover:border-yellow-400/60 hover:bg-black/40'
+                  ]"
+                >
+                  <!-- 播放/暂停图标 -->
+                  <svg v-if="playingAudioUrl === audio.url && isAudioPlaying" class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                    <!-- 暂停图标 -->
+                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                  </svg>
+                  <svg v-else class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                    <!-- 播放图标 -->
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                  <span class="text-sm font-medium truncate">{{ audio.name }}</span>
+                </button>
               </div>
-            </label>
-            <input
-              id="christmas-audio-upload"
-              ref="audioInput"
-              type="file"
-              class="hidden"
-              accept="audio/wav,audio/mp3,audio/mpeg"
-              @change="handleAudioChange"
-            />
+            </div>
           </div>
 
-          <div v-if="audioPreview" class="mt-2 p-2 bg-black/30 rounded-lg border border-emerald-300/30">
-            <div class="flex items-center justify-between mb-1">
-              <span class="text-xs font-medium text-emerald-50">Audio Preview</span>
+          <!-- 音频预览（仅在上传音频时显示控件） -->
+          <div v-if="audioPreview && uploadedAudio" class="mt-2 p-3 bg-black/30 rounded-lg border border-yellow-400/30">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-medium text-gray-200">Audio Preview</span>
               <button
                 type="button"
                 class="w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
@@ -186,12 +234,24 @@
                 </svg>
               </button>
             </div>
-            <audio :src="audioPreview" controls class="w-full h-8">
+            <audio ref="audioPlayer" :src="audioPreview" controls class="w-full h-8" @ended="onAudioEnded">
               Your browser does not support audio playback.
             </audio>
           </div>
 
-          <p class="text-[11px] text-emerald-100/70 mt-1">
+          <!-- 隐藏的音频播放器（用于音频库音频，不显示控件） -->
+          <audio 
+            v-if="audioPreview && selectedAudioFromLibrary && !uploadedAudio" 
+            ref="audioPlayerHidden" 
+            :src="audioPreview" 
+            @play="onAudioPlay"
+            @pause="onAudioPause"
+            @ended="onAudioEnded"
+            class="hidden"
+          >
+          </audio>
+
+          <p class="text-[11px] text-gray-100 mt-1">
             Supports WAV, MP3 format, 3-30 seconds, max 15MB
           </p>
         </div>
@@ -522,7 +582,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
 import { useNuxtApp } from 'nuxt/app';
 import { useRoute } from 'vue-router';
 import { previewGenvideo, checkTaskStatusVideo, checkTask } from '~/api';
@@ -577,6 +637,8 @@ const templates: TemplateItem[] = [
 
 const fileInput = ref<HTMLInputElement | null>(null);
 const audioInput = ref<HTMLInputElement | null>(null);
+const audioPlayer = ref<HTMLAudioElement | null>(null);
+const audioPlayerHidden = ref<HTMLAudioElement | null>(null);
 
 const previewUrl = ref<string | null>(null);
 const uploadedImageFile = ref<File | null>(null);
@@ -589,6 +651,72 @@ const selectedTemplateKey = ref<string | null>(null);
 const uploadedAudio = ref<{ name: string; size: number } | null>(null);
 const audioPreview = ref<string | null>(null);
 const audioFile = ref<File | null>(null);
+const selectedAudioFromLibrary = ref<{ name: string; url: string } | null>(null);
+const isAudioPlaying = ref(false);
+const playingAudioUrl = ref<string | null>(null);
+
+// 音频库数据结构
+interface AudioItem {
+  name: string;
+  url: string;
+}
+
+interface AudioCategory {
+  key: string;
+  name: string;
+  displayName: string;
+  audios: AudioItem[];
+}
+
+const audioCategories: AudioCategory[] = [
+  {
+    key: 'all',
+    name: 'all',
+    displayName: 'All',
+    audios: [
+      { name: 'All I Want For Christmas', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/all-i-want-for-christmas-is-you.mp3' },
+      { name: 'Fairytale At Christmas', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/fairytale-at-christmas.mp3' },
+      { name: 'Feliz Navidad', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/feliz-navidad.mp3' },
+      { name: 'Last Christmas', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/last-christmas.mp3' },
+      { name: 'Mistletoe', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/mistletoe.mp3' },
+      { name: 'Santa Tell Me', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/santa-tell-me.mp3' },
+      { name: 'Snowman', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/snowman.mp3' },
+      { name: 'Friends (Male)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/friend.mp3' },
+      { name: 'Colleagues (Male)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/colleague.mp3' },
+      { name: 'Family (Male)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/family-members.mp3' },
+      { name: 'Friends (Female)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/friend.mp3' },
+      { name: 'Colleagues (Female)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/colleague.mp3' },
+      { name: 'Family (Female)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/family-members.mp3' }
+    ]
+  },
+  {
+    key: 'male',
+    name: 'male',
+    displayName: 'Male',
+    audios: [
+      { name: 'Friends', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/friend.mp3' },
+      { name: 'Colleagues', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/colleague.mp3' },
+      { name: 'Family', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/family-members.mp3' }
+    ]
+  },
+  {
+    key: 'female',
+    name: 'female',
+    displayName: 'Female',
+    audios: [
+      { name: 'Friends', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/friend.mp3' },
+      { name: 'Colleagues', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/colleague.mp3' },
+      { name: 'Family', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/family-members.mp3' }
+    ]
+  }
+];
+
+const selectedCategory = ref<string>('all');
+
+const currentCategoryAudios = computed(() => {
+  const category = audioCategories.find(cat => cat.key === selectedCategory.value);
+  return category ? category.audios : [];
+});
 
 const isGenerating = ref(false);
 const currentTaskId = ref<string | null>(null);
@@ -667,6 +795,7 @@ const handleAudioChange = (e: Event) => {
   };
 
   audioFile.value = file;
+  selectedAudioFromLibrary.value = null; // 清除音频库选择
 
   if (audioPreview.value) {
     URL.revokeObjectURL(audioPreview.value);
@@ -674,15 +803,97 @@ const handleAudioChange = (e: Event) => {
   audioPreview.value = URL.createObjectURL(file);
 };
 
+const selectAudioFromLibrary = async (audio: AudioItem) => {
+  const isSameAudio = selectedAudioFromLibrary.value?.url === audio.url;
+  
+  // 如果点击的是同一个音频，切换播放/暂停
+  if (isSameAudio && playingAudioUrl.value === audio.url) {
+    const player = audioPlayerHidden.value || audioPlayer.value;
+    if (player) {
+      if (isAudioPlaying.value) {
+        player.pause();
+      } else {
+        player.play().catch(err => {
+          console.error('Failed to play audio:', err);
+        });
+      }
+    }
+    return;
+  }
+  
+  // 停止当前播放的音频
+  const currentPlayer = audioPlayerHidden.value || audioPlayer.value;
+  if (currentPlayer && isAudioPlaying.value) {
+    currentPlayer.pause();
+    currentPlayer.currentTime = 0;
+  }
+  
+  selectedAudioFromLibrary.value = audio;
+  uploadedAudio.value = null; // 清除上传的音频
+  audioFile.value = null; // 清除文件引用
+
+  // 清除之前的上传音频预览
+  if (audioPreview.value && audioPreview.value.startsWith('blob:')) {
+    URL.revokeObjectURL(audioPreview.value);
+  }
+
+  // 设置音频库音频的预览
+  audioPreview.value = audio.url;
+  playingAudioUrl.value = audio.url;
+  isAudioPlaying.value = false; // 重置播放状态，等待播放事件触发
+
+  // 等待下一个 tick 确保 audio 元素已更新
+  await nextTick();
+
+  // 自动播放音频（使用隐藏的播放器，不显示控件）
+  const player = audioPlayerHidden.value || audioPlayer.value;
+  if (player) {
+    player.currentTime = 0;
+    player.play().catch(err => {
+      console.error('Failed to play audio:', err);
+    });
+  }
+};
+
+const onAudioPlay = () => {
+  isAudioPlaying.value = true;
+};
+
+const onAudioPause = () => {
+  isAudioPlaying.value = false;
+};
+
+const onAudioEnded = () => {
+  // 播放结束后自动暂停
+  const player = audioPlayerHidden.value || audioPlayer.value;
+  if (player) {
+    player.pause();
+    player.currentTime = 0;
+  }
+  isAudioPlaying.value = false;
+  // 可以选择是否清除 playingAudioUrl，或者保留以便用户知道哪个音频刚播放完
+  // playingAudioUrl.value = null;
+};
+
 const removeAudio = () => {
-  if (audioPreview.value) {
+  if (audioPreview.value && audioPreview.value.startsWith('blob:')) {
     URL.revokeObjectURL(audioPreview.value);
   }
   audioPreview.value = null;
   uploadedAudio.value = null;
+  selectedAudioFromLibrary.value = null;
+  audioFile.value = null;
+  isAudioPlaying.value = false;
+  playingAudioUrl.value = null;
 
   if (audioInput.value) {
     audioInput.value.value = '';
+  }
+
+  const player = audioPlayerHidden.value || audioPlayer.value;
+  if (player) {
+    player.pause();
+    player.currentTime = 0;
   }
 };
 
@@ -786,8 +997,23 @@ const onGenerate = async () => {
       resolution: '720P'
     };
 
+    // 优先使用上传的音频文件，否则使用音频库选择的音频 URL
     if (audioFile.value) {
       payload.audio = audioFile.value;
+    } else if (selectedAudioFromLibrary.value?.url) {
+      // 如果选择了音频库的音频，需要先下载为文件
+      try {
+        const audioResponse = await fetch(selectedAudioFromLibrary.value.url);
+        const audioBlob = await audioResponse.blob();
+        const audioFileName = selectedAudioFromLibrary.value.url.split('/').pop() || 'audio.mp3';
+        const audioFileObj = new File([audioBlob], audioFileName, { type: audioBlob.type });
+        payload.audio = audioFileObj;
+      } catch (err) {
+        console.error('Failed to fetch audio from library:', err);
+        $toast?.error?.('Failed to load audio from library.');
+        isGenerating.value = false;
+        return;
+      }
     }
 
     const res: any = await previewGenvideo(payload);
@@ -959,5 +1185,30 @@ onUnmounted(() => {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* 音频滚动容器样式 */
+.audio-scroll-container {
+  scrollbar-width: thin;  /* Firefox */
+  scrollbar-color: rgba(234, 179, 8, 0.5) rgba(0, 0, 0, 0.3);  /* Firefox: thumb and track */
+}
+
+.audio-scroll-container::-webkit-scrollbar {
+  height: 8px;  /* Chrome, Safari and Opera */
+}
+
+.audio-scroll-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.audio-scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(234, 179, 8, 0.5);
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.audio-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(234, 179, 8, 0.7);
 }
 </style>
