@@ -10,6 +10,7 @@
 import ChristmasHomePc from '~/components/christmas/ChristmasHomePc.vue'
 import ChristmasHomeMobile from '~/components/christmas/ChristmasHomeMobile.vue'
 import { useHead } from 'nuxt/app'
+import { useSeo } from '~/composables/useSeo'
 
 // 设置使用圣诞布局（不包含 Footer）
 // @ts-ignore: Nuxt macro function
@@ -17,9 +18,12 @@ definePageMeta({
   layout: 'christmas'
 })
 
+useSeo({
+  title: 'Christmas Greeting Video Templates',
+  description: 'Discover 3 Christmas greeting video templates to create personalized holiday messages.'
+})
 // 引入字体
 useHead({
-  title: 'Christmas Greeting Video Ideas',
   link: [
     { 
       rel: 'stylesheet', 

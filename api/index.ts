@@ -41,6 +41,7 @@ export const urlList = {
   opusList: baseUrl + '/api/user/opus_list', // 获取用户作品列表
   statistics: baseUrl + '/api/statistics/pvuv', // 删除用户作品列表
   previewGenvideo: baseUrl + '/api/task/wan2ai/preview/genvideo', // 预览生成视频
+  createChristmasVideo: baseUrl + '/api/task/wan2ai/preview/genvideo', // 检查圣诞视频任务状态
   checkTaskStatus: baseUrl + '/api/task/wan2ai/check_task_status', // 检查任务状态
   BlogStatistics: baseUrl + '/api/cms/statistics', // 统计
 }
@@ -630,6 +631,15 @@ export const previewGenvideo = async (data: any) => {
   return apiRequest(urlList.previewGenvideo, 'POST', data, true);
 }
 
+
+/**
+   * 创建圣诞视频
+   * @param data 预览生成视频数据
+ * @returns 预览生成视频
+ */
+export const createChristmasVideo = async (data: any) => {
+  return apiRequest(urlList.createChristmasVideo, 'POST', data, true);
+}
 /**
  * 检查任务状态
  * @param data 检查任务状态数据
@@ -671,25 +681,25 @@ const apiRequest = async <T>(url: string, method: 'GET' | 'POST', data?: any, ne
       
       // 检查响应状态
       if (!responseData) {
-        throw new Error('响应数据为空');
+        throw new Error('The response data is empty.');
       }
       return responseData;
     } catch (fetchError: any) {
-      console.error(`请求失败 ${method} ${url}:`, fetchError);
+      console.error(`Request failed ${method} ${url}:`, fetchError);
       
       // 提取详细的错误信息
-      let errorMessage = '网络请求失败';
+      let errorMessage = 'Network request failed';
       let errorCode = -999;
       
       if (fetchError.response) {
         try {
           const errorData = await fetchError.response.json();
-          console.error('错误响应详情:', errorData);
-          errorMessage = errorData.msg || errorData.error || '服务器错误';
+          console.error('Error response details:', errorData);
+          errorMessage = errorData.msg || errorData.error || 'Server error';
           errorCode = errorData.code || errorData.status || -1;
         } catch (e) {
-          console.error('解析错误响应失败:', e);
-          errorMessage = fetchError.response.statusText || '服务器错误';
+          console.error('Parsing error response failed:', e);
+          errorMessage = fetchError.response.statusText || 'Server error';
           errorCode = fetchError.response.status || -1;
         }
       } else if (fetchError.msg) {

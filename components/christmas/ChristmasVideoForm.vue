@@ -222,24 +222,15 @@
             </div>
           </div>
 
-          <!-- 音频预览（仅在上传音频时显示控件） -->
-          <div v-if="audioPreview && uploadedAudio" class="mt-2 p-3 bg-black/30 rounded-lg border border-yellow-400/30">
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-xs font-medium text-gray-200">Audio Preview</span>
-              <button
-                type="button"
-                class="w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors"
-                @click="removeAudio"
-              >
-                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            <audio ref="audioPlayer" :src="audioPreview" controls class="w-full h-8" @ended="onAudioEnded">
-              Your browser does not support audio playback.
-            </audio>
-          </div>
+          <!-- 隐藏的音频播放器（用于上传音频，不显示控件） -->
+          <audio 
+            v-if="audioPreview && uploadedAudio" 
+            ref="audioPlayer" 
+            :src="audioPreview" 
+            @ended="onAudioEnded"
+            class="hidden"
+          >
+          </audio>
 
           <!-- 隐藏的音频播放器（用于音频库音频，不显示控件） -->
           <audio 
@@ -288,13 +279,13 @@
             </svg>
           </button>
 
-          <!-- <button
+          <button
             type="button"
             class="mt-1 inline-flex items-center px-4 py-1.5 rounded-full text-[11px] font-medium bg-slate-700/80 hover:bg-slate-600 text-slate-100"
             @click="onTestGenerate"
           >
             Test Generate (mock task)
-          </button> -->
+          </button>
         </div>
       </div>
 
@@ -319,6 +310,22 @@
                 class="absolute flex items-center justify-center z-10"
                 style="left: 0%; top: 0%; width: 100%; height: 86%;border-radius: 45px;"
               >
+                <!-- 音频控制按钮（横版） -->
+                <button
+                  v-if="selectedTemplate && currentPreviewVideo && !isGenerating && !generatedVideoUrl"
+                  type="button"
+                  @click="toggleVideoMute"
+                  class="absolute top-4 right-6 z-30 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm border border-white/20 transition-all duration-200"
+                  title="Toggle audio"
+                >
+                  <svg v-if="isVideoMuted" class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <svg v-else class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                  </svg>
+                </button>
                 <div class="w-full h-full rounded-lg overflow-hidden bg-black/80 flex items-center justify-center">
                   <template v-if="isGenerating">
                     <div class="flex flex-col items-center justify-center gap-3 text-center px-4">
@@ -364,12 +371,13 @@
                     <template v-else>
                       <video
                         v-if="selectedTemplate && currentPreviewVideo"
+                        ref="previewVideoHorizontal"
                         :src="currentPreviewVideo"
                         class="max-w-full max-h-full"
                         :style="videoStyle"
                         autoplay
                         loop
-                        muted
+                        :muted="isVideoMuted"
                         controls
                         playsinline
                         @loadedmetadata="onVideoMetadata"
@@ -396,7 +404,7 @@
           </div>
 
           <!-- 竖版预览 -->
-          <div v-else class="w-full max-w-xs flex justify-center" style="transform: scale(1.25); transform-origin: center;">
+          <div v-else class="w-full max-w-xs flex justify-center mb-8" style="transform: scale(1.25); transform-origin: center;">
             <div class="relative w-full aspect-[9/16]">
               <img
                 src="https://cfsource.wan2video.com/wan2video/christmas/template/images/phone.png"
@@ -407,21 +415,46 @@
                 class="absolute flex items-center justify-center z-10 overflow-hidden"
                 style="left: 6%; top: 0; width: 87%; height: 100%;border-radius: 45px;"
               >
+                <!-- 音频控制按钮（竖版） -->
+                <button
+                  v-if="selectedTemplate && currentPreviewVideo && !isGenerating && !generatedVideoUrl"
+                  type="button"
+                  @click="toggleVideoMute"
+                  class="absolute top-2 right-2 z-30 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm border border-white/20 transition-all duration-200"
+                  title="Toggle audio"
+                >
+                  <svg v-if="isVideoMuted" class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <svg v-else class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                  </svg>
+                </button>
                 <!-- <div class="w-full h-full rounded-xl overflow-hidden bg-black/80 flex items-center justify-center"> -->
                   <template v-if="isGenerating">
                     <div class="flex flex-col items-center justify-center gap-3 text-center px-4">
                       <svg
-                        class="w-10 h-10 text-emerald-200 animate-spin-slow"
-                        viewBox="0 0 64 64"
-                        fill="none"
+                        t="1765265099439"
+                        class="w-10 h-10 animate-spin-slow icon"
+                        viewBox="0 0 1024 1024"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        p-id="10181"
+                        width="200"
+                        height="200"
                       >
-                        <path
-                          d="M32 4v56M12 12l40 40M4 32h56M12 52l40-40"
-                          stroke="currentColor"
-                          stroke-width="3"
-                          stroke-linecap="round"
-                        />
-                        <circle cx="32" cy="32" r="6" fill="currentColor" />
+                        <path d="M496 30.4L472 72v880l24 41.6 24-41.6V72z" fill="#59C2E0" p-id="10182"></path>
+                        <path d="M496 240l-96-64v-48l96 64zM496 336L368 256v-48l128 80zM496 240l96-64v-48l-96 64zM496 336l128-80v-48L496 288zM496 784l-96 64v48l96-64zM496 688L368 768v48l128-80zM496 784l96 64v48l-96-64zM496 688l128 80v48L496 736z" fill="#59C2E0" p-id="10183"></path>
+                        <path d="M79.2 752.8h48l761.6-440 24-41.6h-48l-761.6 440z" fill="#59C2E0" p-id="10184"></path>
+                        <path d="M260 648l-7.2 115.2-41.6 24 7.2-115.2zM343.2 600l-5.6 151.2-41.6 24 5.6-151.2z" fill="#59C2E0" p-id="10185"></path>
+                        <path d="M260 648l-103.2-51.2-41.6 24L218.4 672zM343.2 600l-133.6-70.4-41.6 24L301.6 624zM731.2 376l103.2 51.2 41.6-24L772.8 352zM648 424l133.6 71.2 41.6-24L689.6 400z" fill="#59C2E0" p-id="10186"></path>
+                        <path d="M731.2 376l7.2-115.2 41.6-24-7.2 115.2zM648 424l5.6-150.4 41.6-24-5.6 150.4z" fill="#59C2E0" p-id="10187"></path>
+                        <path d="M912.8 752.8h-48l-761.6-440-24-41.6h48l761.6 440z" fill="#59C2E0" p-id="10188"></path>
+                        <path d="M732 648l7.2 115.2 41.6 24-7.2-115.2zM648.8 600l5.6 151.2 41.6 24-5.6-151.2z" fill="#59C2E0" p-id="10189"></path>
+                        <path d="M732 648l103.2-51.2 41.6 24L773.6 672zM648.8 600l133.6-70.4 41.6 24L690.4 624zM260.8 376l-103.2 51.2-41.6-24L219.2 352zM344 424l-133.6 71.2-41.6-24L302.4 400zM260.8 376l-7.2-115.2-41.6-24 7.2 115.2z" fill="#59C2E0" p-id="10190"></path>
+                        <path d="M344 424l-5.6-150.4-41.6-24 5.6 150.4z" fill="#59C2E0" p-id="10191"></path>
+                        <path d="M496 663.2l-131.2-75.2V436.8L496 360.8l131.2 75.2v151.2L496 663.2zM404.8 564.8L496 616.8l91.2-52.8v-104L496 407.2l-91.2 52.8v104.8z" fill="#59C2E0" p-id="10192"></path>
                       </svg>
                       <p class="text-xs sm:text-sm text-emerald-50 font-medium">
                         Santa's Elves are crafting your video...
@@ -441,11 +474,12 @@
                     <template v-else>
                       <video
                         v-if="selectedTemplate && currentPreviewVideo"
+                        ref="previewVideoVertical"
                         :src="currentPreviewVideo"
                         class="w-full h-full object-cover"
                         autoplay
                         loop
-                        muted
+                        :muted="isVideoMuted"
                         controls
                         playsinline
                         @loadedmetadata="onVideoMetadata"
@@ -474,7 +508,10 @@
           <!-- 生成完成后的操作按钮 -->
           <div
             v-if="generatedVideoUrl && !isGenerating"
-            class="mt-4 w-full max-w-xl flex flex-col items-center gap-4"
+            :class="[
+              'w-full max-w-xl flex flex-col items-center gap-4 relative z-20',
+              isVertical ? 'mt-16' : 'mt-4'
+            ]"
           >
             <div class="flex flex-col sm:flex-row gap-3 w-full">
               <button
@@ -587,7 +624,7 @@
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
 import { useNuxtApp } from 'nuxt/app';
 import { useRoute } from 'vue-router';
-import { previewGenvideo, checkTaskStatusVideo, checkTask } from '~/api';
+import { createChristmasVideo, checkTaskStatusVideo, checkTask } from '~/api';
 
 interface TemplateItem {
   key: string;
@@ -605,8 +642,7 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-snowy-christmas-cabin-scene.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-s.mp4',
-    prompt:
-      "The Christmas sky is snowing, surrounded by pine trees adorned with colorful lights. The Christmas tree is covered in snow, and the roof and windowsill of the small wooden house are covered with a thick layer of white snow. There is a flower wreath made of pine cones and red berries hanging at the door. The character is wearing a Christmas sweater and a red Christmas hat, standing next to a small wooden house. The character width accounts for 70% of the page. About 70% of the page is occupied by height, holding a Christmas card and saying to a friend with a straight face, \"Happy Holidays, Catching up so to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome\". Make people instantly feel the lively, excited, and energetic atmosphere of the festival night."
+    prompt:"  The Christmas sky is snowing, surrounded by pine trees adorned with colorful lights. The Christmas tree is covered in snow, and the roof and windowsill of the small wooden house are covered with a thick layer of white snow. There is a flower wreath made of pine cones and red berries hanging at the door. The character is wearing a Christmas sweater and a red Christmas hat, standing next to a small wooden house. The character width accounts for 70% of the page. About 70% of the page is occupied by height, holding a Christmas card and saying to a friend with a straight face, \"Happy Holidays, Catching up so to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome\"。Make people instantly feel the lively, excited, and energetic atmosphere of the festival night."
   },
   {
     key: 'christmas-tree',
@@ -614,8 +650,7 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-living-room-pine-tree-scene.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-s.mp4',
-    prompt:
-      "On Christmas Eve, there is a huge and lush real pine tree in the center of the living room! It is covered with various retro glass ball ornaments, with warm yellow white string lights on. The heavy snow outside the window gives a feeling of the night. Six thick red or green Christmas stockings are neatly placed on the fireplace rack, creating a warm atmosphere inside the house. The soft yellow color scheme places the characters inside, wearing Christmas hats and standing at the front. The character width accounts for 70% of the page. About 70% of the page is high, wearing an ugly Christmas sweater, holding a Christmas card, and saying to friends with a straight face, \"Happy Holidays, Catching up so to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome.\""
+    prompt:"  On Christmas Eve, there is a huge and lush real pine tree in the center of the living room! It is covered with various retro glass ball ornaments, with warm yellow white string lights on. The heavy snow outside the window gives a feeling of the night. Six thick red or green Christmas stockings are neatly placed on the fireplace rack, creating a warm atmosphere inside the house. The soft yellow color scheme places the characters inside, wearing Christmas hats and standing at the front. The character width accounts for 70% of the page. About 70% of the page is high, wearing an ugly Christmas sweater, holding a Christmas card, and saying to friends with a straight face, \"Happy Holidays, Catching up so to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome.\""
   },
   {
     key: 'church',
@@ -623,8 +658,7 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-church-holiday-interior.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-church-holiday-interior-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-church-holiday-interior-s.mp4',
-    prompt:
-      "The interior of the Christmas church is decorated with a large number of green holly branches and red potted poinsettias in the night background. The main lighting comes from chandeliers and lit candles. The character is in the center of the video, wearing a red Christmas hat, and the width of the character accounts for 70% of the page. The height accounts for about 70% of the page, wearing an ugly Christmas sweater, making people instantly feel the lively, excited, and energetic atmosphere of the holiday night. Say to your friend with a straight face, \"Happy Holidays, Catching up soon to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome!\""
+    prompt:"  The interior of the Christmas church is decorated with a large number of green holly branches and red potted poinsettias in the night background. The main lighting comes from chandeliers and lit candles. The character is in the center of the video, wearing a red Christmas hat, and the width of the character accounts for 70% of the page. The height accounts for about 70% of the page, wearing an ugly Christmas sweater, making people instantly feel the lively, excited, and energetic atmosphere of the holiday night. Say to your friend with a straight face, 'Happy Holidays, Catching up soon to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome!'."
   },
   {
     key: 'pine-forest',
@@ -632,8 +666,7 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-snowy-pine-forest-lights.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-pine-forest-lights-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-pine-forest-lights-s.mp4',
-    prompt:
-      "A pine forest in the outskirts, with thick snow on the ground, and yellow lights shining from the windows of the farm's wooden houses, warm and romantic. Most importantly, there are countless warm light strings wrapped around the pine trees in the forest, only white or amber in color. The contours of the pine trees are outlined like Christmas trees. There are elk running through the forest, and as dusk falls and the lights begin to dominate the view, the entire scene becomes poetic and romantic. The sky is snowing, and the character is wearing a Christmas sweater and a red Christmas hat. The character's width accounts for 70% of the page. The proportion of height on the page is about 70%, making people instantly feel the lively, excited, and energetic atmosphere of the festival night. Say to your friend with a straight face, \"Happy Holidays, Catching up soon to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome!\""
+    prompt:"  A pine forest in the outskirts, with thick snow on the ground, and yellow lights shining from the windows of the farm's wooden houses, warm and romantic. Most importantly, there are countless warm light strings wrapped around the pine trees in the forest, only white or amber in color. The contours of the pine trees are outlined like Christmas trees. There are elk running through the forest, and as dusk falls and the lights begin to dominate the view, the entire scene becomes poetic and romantic. The sky is snowing, and the character is wearing a Christmas sweater and a red Christmas hat. The character's width accounts for 70% of the page. The proportion of height on the page is about 70%, making people instantly feel the lively, excited, and energetic atmosphere of the festival night. Say to your friend with a straight face, 'Happy Holidays, Catching up soon to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome!'."
   }
 ];
 
@@ -641,6 +674,8 @@ const fileInput = ref<HTMLInputElement | null>(null);
 const audioInput = ref<HTMLInputElement | null>(null);
 const audioPlayer = ref<HTMLAudioElement | null>(null);
 const audioPlayerHidden = ref<HTMLAudioElement | null>(null);
+const previewVideoHorizontal = ref<HTMLVideoElement | null>(null);
+const previewVideoVertical = ref<HTMLVideoElement | null>(null);
 
 const previewUrl = ref<string | null>(null);
 const uploadedImageFile = ref<File | null>(null);
@@ -656,6 +691,7 @@ const audioFile = ref<File | null>(null);
 const selectedAudioFromLibrary = ref<{ name: string; url: string } | null>(null);
 const isAudioPlaying = ref(false);
 const playingAudioUrl = ref<string | null>(null);
+const isVideoMuted = ref(true); // 视频静音状态，默认静音
 
 // 音频库数据结构
 interface AudioItem {
@@ -676,19 +712,19 @@ const audioCategories: AudioCategory[] = [
     name: 'all',
     displayName: 'All',
     audios: [
-      { name: 'All I Want For Christmas', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/all-i-want-for-christmas-is-you.mp3' },
-      { name: 'Fairytale At Christmas', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/fairytale-at-christmas.mp3' },
-      { name: 'Feliz Navidad', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/feliz-navidad.mp3' },
-      { name: 'Last Christmas', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/last-christmas.mp3' },
-      { name: 'Mistletoe', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/mistletoe.mp3' },
-      { name: 'Santa Tell Me', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/santa-tell-me.mp3' },
-      { name: 'Snowman', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/snowman.mp3' },
-      { name: 'Friends (Male)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/friend.mp3' },
-      { name: 'Colleagues (Male)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/colleague.mp3' },
-      { name: 'Family (Male)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/family-members.mp3' },
-      { name: 'Friends (Female)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/friend.mp3' },
-      { name: 'Colleagues (Female)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/colleague.mp3' },
-      { name: 'Family (Female)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/family-members.mp3' }
+      { name: 'All I Want For Christmas', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/all-i-want-for-christmas-is-you.mp3' },
+      { name: 'Fairytale At Christmas', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/fairytale-at-christmas.mp3' },
+      { name: 'Feliz Navidad', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/feliz-navidad.mp3' },
+      { name: 'Last Christmas', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/last-christmas.mp3' },
+      { name: 'Mistletoe', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/mistletoe.mp3' },
+      { name: 'Santa Tell Me', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/santa-tell-me.mp3' },
+      { name: 'Snowman', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/snowman.mp3' },
+      { name: 'Friends (Male)', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/friend.mp3' },
+      { name: 'Colleagues (Male)', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/colleague.mp3' },
+      { name: 'Family (Male)', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/family-members.mp3' },
+      { name: 'Friends (Female)', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/friend.mp3' },
+      { name: 'Colleagues (Female)', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/colleague.mp3' },
+      { name: 'Family (Female)', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/family-members.mp3' }
     ]
   },
   {
@@ -696,9 +732,9 @@ const audioCategories: AudioCategory[] = [
     name: 'male',
     displayName: 'Male',
     audios: [
-      { name: 'Friends', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/friend.mp3' },
-      { name: 'Colleagues', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/colleague.mp3' },
-      { name: 'Family', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/family-members.mp3' }
+      { name: 'Friends', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/friend.mp3' },
+      { name: 'Colleagues', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/colleague.mp3' },
+      { name: 'Family', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/family-members.mp3' }
     ]
   },
   {
@@ -706,9 +742,9 @@ const audioCategories: AudioCategory[] = [
     name: 'female',
     displayName: 'Female',
     audios: [
-      { name: 'Friends', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/friend.mp3' },
-      { name: 'Colleagues', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/colleague.mp3' },
-      { name: 'Family', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/family-members.mp3' }
+      { name: 'Friends', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/friend.mp3' },
+      { name: 'Colleagues', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/colleague.mp3' },
+      { name: 'Family', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/family-members.mp3' }
     ]
   }
 ];
@@ -767,6 +803,15 @@ const onVideoMetadata = (e: Event) => {
       width: 'auto',
       height: '100%'
     };
+  }
+};
+
+const toggleVideoMute = () => {
+  isVideoMuted.value = !isVideoMuted.value;
+  // 同步更新视频元素的静音状态（由于使用了 :muted 绑定，这主要是为了确保立即生效）
+  const video = isVertical.value ? previewVideoVertical.value : previewVideoHorizontal.value;
+  if (video) {
+    video.muted = isVideoMuted.value;
   }
 };
 
@@ -1022,26 +1067,15 @@ const onGenerate = async () => {
       resolution: '720P'
     };
 
-    // 优先使用上传的音频文件，否则使用音频库选择的音频 URL
+    // 优先使用上传的音频文件，否则如果选择了音频库的音频，将音频 URL 传给 audio_url
     if (audioFile.value) {
       payload.audio = audioFile.value;
     } else if (selectedAudioFromLibrary.value?.url) {
-      // 如果选择了音频库的音频，需要先下载为文件
-      try {
-        const audioResponse = await fetch(selectedAudioFromLibrary.value.url);
-        const audioBlob = await audioResponse.blob();
-        const audioFileName = selectedAudioFromLibrary.value.url.split('/').pop() || 'audio.mp3';
-        const audioFileObj = new File([audioBlob], audioFileName, { type: audioBlob.type });
-        payload.audio = audioFileObj;
-      } catch (err) {
-        console.error('Failed to fetch audio from library:', err);
-        $toast?.error?.('Failed to load audio from library.');
-        isGenerating.value = false;
-        return;
-      }
+      // 如果选择了音频模板，将模板音频的地址传给 audio_url
+      payload.audio_url = selectedAudioFromLibrary.value.url;
     }
 
-    const res: any = await previewGenvideo(payload);
+    const res: any = await createChristmasVideo(payload);
 
     if (res?.success && res.data?.task_id) {
       $toast?.success?.('Preview task created, generating video...');
