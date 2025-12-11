@@ -2,16 +2,18 @@
   <main>
     <!-- PC 端组件 -->
       <CreateChristmasVideoPc class="pc-content" />
+      <CreateChristmasVideoPc4K class="pc4K-content" />
       <!-- <CreateChristmasVideoPc class="pc-content" /> -->
 
-      <CreateChristmasVideoMobile class="mobile-content" />
+      <ChristmasVideoMobile class="mobile-content" />
   </main>
 </template>
   
   
 <script setup lang="ts">
 import CreateChristmasVideoPc from '~/components/christmas/CreateChristmasVideoPc.vue'
-import CreateChristmasVideoMobile from '~/components/christmas/CreateChristmasVideoMobile.vue'
+import ChristmasVideoMobile from '~/components/christmas/ChristmasVideoMobile.vue'
+import CreateChristmasVideoPc4K from '~/components/christmas/CreateChristmasVideoPc4K.vue'
 import { useHead } from 'nuxt/app'    
 import { useSeo } from '~/composables/useSeo'
     
@@ -43,13 +45,23 @@ useHead({
   display: none;
 }
 
+.pc4K-content {
+  display: none;
+}
+
 .mobile-content {
   display: none;
 }
 
 /* PC 端：大于 1024px 的屏幕 */
-@media (min-width: 1024px) {
+@media (min-width: 1024px) and (max-width: 2559px) {
   .pc-content {
+    display: block;
+  }
+}
+
+@media (min-width: 2560px) {
+  .pc4K-content {
     display: block;
   }
 }
