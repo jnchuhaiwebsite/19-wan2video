@@ -285,7 +285,7 @@
           </button>
           <!-- 积分消耗角标 -->
           <span class="absolute -top-2 -right-2 px-2 py-0.5 bg-yellow-400 text-yellow-900 text-xs font-bold rounded-full shadow-md border-2 border-white">
-            400
+            {{ generateBadgeText }}
           </span>
         </div>
       </div>
@@ -465,10 +465,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, nextTick, watch, watchEffect } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick, watch, watchEffect } from 'vue'
 import { useNuxtApp } from 'nuxt/app'
 import ChristmasVideoFormMobile from './ChristmasVideoFormMobile.vue'
 import { previewGenvideo, checkTaskStatusVideo, checkTask } from '~/api'
+import { useUserStore } from '~/stores/user'
 
 // 模版数据（与表单组件保持一致）
 interface TemplateItem {
@@ -663,6 +664,9 @@ const generatedVideoUrl = ref<string | null>(null)
 const statusMessage = ref('Creating video...')
 const currentTaskId = ref<string | null>(null)
 const showShareMenu = ref(false)
+const userStore = useUserStore()
+const freeTimes = computed(() => userStore.userInfo?.free_times || 0)
+const generateBadgeText = computed(() => freeTimes.value > 0 ? 'Free' : '400')
 
 // 开始制作：滚动到表单区域并选中模版1
 const handleStartCreate = () => {

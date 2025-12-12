@@ -281,7 +281,7 @@
             </button>
             <!-- 积分消耗角标 -->
             <span class="absolute -top-2 -right-2 px-2 py-0.5 bg-yellow-400 text-yellow-900 text-xs font-bold rounded-full shadow-md border-2 border-white">
-              400
+              {{ generateBadgeText }}
             </span>
           </div>
 
@@ -701,6 +701,7 @@ import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
 import { useNuxtApp } from 'nuxt/app';
 import { useRoute } from 'vue-router';
 import { createChristmasVideo, checkTaskStatusVideo, checkTask } from '~/api';
+import { useUserStore } from '~/stores/user';
 
 interface TemplateItem {
   key: string;
@@ -1070,9 +1071,10 @@ const onAudioEnded = () => {
   // 可以选择是否清除 playingAudioUrl，或者保留以便用户知道哪个音频刚播放完
   // playingAudioUrl.value = null;
 };
-import { useUserStore } from '~/stores/user';
 const userStore = useUserStore();
 const userInfo = computed(() => userStore.userInfo);
+const freeTimes = computed(() => userInfo.value?.free_times || 0);
+const generateBadgeText = computed(() => freeTimes.value > 0 ? 'Free' : '400');
 
 // 检查是否已登录
 const isLoggedIn = (): boolean => {
