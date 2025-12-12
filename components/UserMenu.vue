@@ -110,10 +110,9 @@
       <!-- 登录按钮 -->
       <SignInButton mode="modal">
         <button id="bindLogin"
-          :disabled="isAuthLoading"
           class="px-4 py-2 rounded-lg bg-blue-button  text-white hover:opacity-90 transition-all text-sm font-medium disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center shadow-md hover:shadow-lg"
         >
-          {{ isAuthLoading ? 'Loading...' : 'Log in / Sign up' }}
+        Login
         </button>
       </SignInButton>
     </template>
@@ -210,21 +209,20 @@
     <!-- 移动端登录按钮 -->
     <SignInButton v-else mode="modal">
       <button id="bindLogin"
-        :disabled="isAuthLoading"
         class="mt-6 w-full py-4 rounded-xl bg-gradient-to-r bg-blue-button active:scale-[0.98] text-white transition-all text-base font-semibold disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center shadow-lg hover:shadow-xl border border-blue-400/20"
       >
         <div v-if="!isAuthLoading" class="flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
           </svg>
-          <span>Log in / Sign up</span>
+          <span>Login</span>
         </div>
         <div v-else class="flex items-center gap-2">
           <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
-          <span>Loading...</span>
+          <span>Login</span>
         </div>
       </button>
     </SignInButton>
