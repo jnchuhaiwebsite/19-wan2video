@@ -28,7 +28,16 @@ useHead({
     { 
       rel: 'stylesheet', 
       href: 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400&display=swap' 
-    }
+    },
+    // 预加载圣诞页面资源
+    { rel: 'preload', as: 'image', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/home/wan2video-christmas-background.jpg' },
+    { rel: 'preload', as: 'video', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/home/wan2video-christmas-home-left.mp4', type: 'video/mp4' },
+    { rel: 'preload', as: 'video', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/home/wan2video-christmas-home-middle.mp4', type: 'video/mp4' },
+    { rel: 'preload', as: 'video', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/home/wan2video-christmas-home-right.mp4', type: 'video/mp4' },
+    { rel: 'preload', as: 'video', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-s.mp4', type: 'video/mp4' },
+    { rel: 'preload', as: 'video', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-s.mp4', type: 'video/mp4' },
+    { rel: 'preload', as: 'video', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-church-holiday-interior-s.mp4', type: 'video/mp4' },
+    { rel: 'preload', as: 'video', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-pine-forest-lights-s.mp4', type: 'video/mp4' }
   ]
 })
 </script>
