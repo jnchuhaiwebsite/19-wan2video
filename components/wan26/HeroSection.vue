@@ -44,7 +44,7 @@
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
           <!-- 主按钮 - 增强 hover 阴影和位移，统一高度 -->
           <button 
-            @click="handleStartCreating"
+          disabled="true"
             class="group relative h-14 px-8 bg-gradient-to-r from-purple-600 via-pink-600 to-red-500 text-white font-semibold text-lg rounded-xl shadow-lg hover:shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 hover:from-purple-500 hover:via-pink-500 hover:to-red-400 overflow-hidden"
           >
             <span class="relative z-10 flex items-center gap-2">
@@ -227,7 +227,7 @@ const handleVideoError = () => {
 // CTA 按钮处理函数
 const handleStartCreating = () => {
   // 跳转到首页的生成器部分，或者跳转到定价页面
-  router.push('/')
+  // router.push('/')
   // 如果首页有生成器区域，可以滚动到那里
   setTimeout(() => {
     const generatorSection = document.getElementById('hero')
