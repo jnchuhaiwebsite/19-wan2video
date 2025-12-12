@@ -47,7 +47,7 @@ export default defineNuxtConfig({
         { name: 'twitter:description', content: 'Transform your static images into stunning video clips with our premier wan2.2 video generator. From art to cinematic motion in seconds.' },
         { name: 'twitter:image', content: '/favicon.ico' },
         // Keywords
-        { name: 'keywords', content: 'wan2.2 video generator, image to video, AI video creation, static to motion, cinematic video, AI animation' },
+        { name: 'keywords', content: '' },
         { name: 'author', content: 'wan2.2 Video Generator Team' },
         { name: 'application-name', content: 'wan2.2 Video Generator' },
       ],
