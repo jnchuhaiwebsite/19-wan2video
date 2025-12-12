@@ -85,13 +85,15 @@
           
           <!-- 毛玻璃容器 -->
           <div class="relative bg-white/20 backdrop-blur-md rounded-3xl p-1 shadow-2xl group-hover:shadow-purple-500/20 transition-shadow duration-500">
-            <div class="relative rounded-2xl overflow-hidden bg-slate-900/5">
+            <div class="relative rounded-2xl overflow-hidden bg-slate-900/5" style="width: 1920px; max-width: 100%; aspect-ratio: 1920/950; min-height: 0;">
               <!-- 默认图片 -->
               <img 
                 v-if="!videoLoaded"
                 :src="imageUrl"
                 alt="Wan 2.6 Preview"
-                class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                loading="eager"
+                @load="handleImageLoad"
               />
               
               <!-- 视频元素 -->
@@ -99,7 +101,7 @@
                 v-if="videoLoaded"
                 ref="videoRef"
                 :src="videoUrl"
-                class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                 autoplay
                 muted
                 controls
@@ -205,6 +207,11 @@ const handleClick = () => {
     // PC端点击也触发视频加载
     startLoadingVideo()
   }
+}
+
+// 图片加载完成
+const handleImageLoad = () => {
+  // 图片加载完成，确保布局稳定
 }
 
 // 视频加载完成
