@@ -141,12 +141,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-const imageUrl = 'https://cfsource.wan2video.com/wan2video/26/Wan-2-6.webp'
+// 根据屏幕宽度动态切换图片URL
+const imageUrl = computed(() => {
+  return isMobile.value 
+    ? 'https://cfsource.wan2video.com/wan2video/26/Wan-2-6_mobile.webp'
+    : 'https://cfsource.wan2video.com/wan2video/26/Wan-2-6.webp'
+})
 const videoUrl = 'https://cfsource.wan2video.com/wan2video/26/Wan-2-6.mp4'
 
 const videoRef = ref<HTMLVideoElement | null>(null)
