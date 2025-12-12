@@ -41,7 +41,7 @@ export const urlList = {
   opusList: baseUrl + '/api/user/opus_list', // 获取用户作品列表
   statistics: baseUrl + '/api/statistics/pvuv', // 删除用户作品列表
   previewGenvideo: baseUrl + '/api/task/wan2ai/preview/genvideo', // 预览生成视频
-  createChristmasVideo: baseUrl + '/api/task/wan2ai/preview/genvideo', // 检查圣诞视频任务状态
+  createChristmasVideo: baseUrl + '/api/task/wan25/genvideo', // 创建圣诞视频任务状态
   checkTaskStatus: baseUrl + '/api/task/wan2ai/check_task_status', // 检查任务状态
   BlogStatistics: baseUrl + '/api/cms/statistics', // 统计
 }

@@ -50,19 +50,19 @@ useHead({
     { rel: 'preload', as: 'image', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-church-holiday-interior.png' },
     { rel: 'preload', as: 'image', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-living-room-pine-tree-scene.png' },
     { rel: 'preload', as: 'image', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-snowy-christmas-cabin-scene.png' },
-    { rel: 'preload', as: 'audio', href: 'https://resp.wan2video.com/wan2ai/christmas/template/music/all-i-want-for-christmas-is-you.mp3', type: 'audio/mpeg' },
-    { rel: 'preload', as: 'audio', href: 'https://resp.wan2video.com/wan2ai/christmas/template/music/fairytale-at-christmas.mp3', type: 'audio/mpeg' },
-    { rel: 'preload', as: 'audio', href: 'https://resp.wan2video.com/wan2ai/christmas/template/music/feliz-navidad.mp3', type: 'audio/mpeg' },
-    { rel: 'preload', as: 'audio', href: 'https://resp.wan2video.com/wan2ai/christmas/template/music/last-christmas.mp3', type: 'audio/mpeg' },
-    { rel: 'preload', as: 'audio', href: 'https://resp.wan2video.com/wan2ai/christmas/template/music/mistletoe.mp3', type: 'audio/mpeg' },
-    { rel: 'preload', as: 'audio', href: 'https://resp.wan2video.com/wan2ai/christmas/template/music/santa-tell-me.mp3', type: 'audio/mpeg' },
-    { rel: 'preload', as: 'audio', href: 'https://resp.wan2video.com/wan2ai/christmas/template/music/snowman.mp3', type: 'audio/mpeg' },
-    { rel: 'preload', as: 'audio', href: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/friend.mp3', type: 'audio/mpeg' },
-    { rel: 'preload', as: 'audio', href: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/colleague.mp3', type: 'audio/mpeg' },
-    { rel: 'preload', as: 'audio', href: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/family-members.mp3', type: 'audio/mpeg' },
-    { rel: 'preload', as: 'audio', href: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/friend.mp3', type: 'audio/mpeg' },
-    { rel: 'preload', as: 'audio', href: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/colleague.mp3', type: 'audio/mpeg' },
-    { rel: 'preload', as: 'audio', href: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/family-members.mp3', type: 'audio/mpeg' }
+    { rel: 'preload', as: 'audio', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/all-i-want-for-christmas-is-you.mp3', type: 'audio/mpeg' },
+    { rel: 'preload', as: 'audio', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/fairytale-at-christmas.mp3', type: 'audio/mpeg' },
+    { rel: 'preload', as: 'audio', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/feliz-navidad.mp3', type: 'audio/mpeg' },
+    { rel: 'preload', as: 'audio', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/last-christmas.mp3', type: 'audio/mpeg' },
+    { rel: 'preload', as: 'audio', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/mistletoe.mp3', type: 'audio/mpeg' },
+    { rel: 'preload', as: 'audio', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/santa-tell-me.mp3', type: 'audio/mpeg' },
+    { rel: 'preload', as: 'audio', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/snowman.mp3', type: 'audio/mpeg' },
+    { rel: 'preload', as: 'audio', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/friend.mp3', type: 'audio/mpeg' },
+    { rel: 'preload', as: 'audio', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/colleague.mp3', type: 'audio/mpeg' },
+    { rel: 'preload', as: 'audio', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/family-members.mp3', type: 'audio/mpeg' },
+    { rel: 'preload', as: 'audio', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/friend.mp3', type: 'audio/mpeg' },
+    { rel: 'preload', as: 'audio', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/colleague.mp3', type: 'audio/mpeg' },
+    { rel: 'preload', as: 'audio', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/family-members.mp3', type: 'audio/mpeg' }
   ]
 })
 </script>

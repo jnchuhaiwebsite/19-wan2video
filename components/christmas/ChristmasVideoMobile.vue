@@ -468,9 +468,9 @@
 import { ref, computed, onMounted, onUnmounted, nextTick, watch, watchEffect } from 'vue'
 import { useNuxtApp } from 'nuxt/app'
 import ChristmasVideoFormMobile from './ChristmasVideoFormMobile.vue'
-import { previewGenvideo, checkTaskStatusVideo, checkTask } from '~/api'
+import { createChristmasVideo, checkTaskStatusVideo, checkTask } from '~/api'
 import { useUserStore } from '~/stores/user'
-
+import { useRouter } from 'vue-router'
 // 模版数据（与表单组件保持一致）
 interface TemplateItem {
   key: string;
@@ -526,7 +526,7 @@ const previewSection = ref<HTMLElement | null>(null)
 const showForm = ref(false)
 const isBackgroundVideoMuted = ref(true) // 背景视频默认静音
 const { $toast } = useNuxtApp() as any
-
+const router = useRouter();
 // 下滑关闭手势相关
 const touchStartY = ref(0)
 const touchStartTime = ref(0)
@@ -636,22 +636,29 @@ const handleGenerate = async () => {
       payload.audio_url = selectedAudioFromLibrary.url
     }
 
-    const res: any = await previewGenvideo(payload)
+    const res: any = await createChristmasVideo(payload)
 
     if (res?.success && res.data?.task_id) {
       $toast?.success?.('Task created successfully, generating video...')
       statusMessage.value = 'Generating video...'
       startPollingStatus(res.data.task_id)
     } else {
+
       isGenerating.value = false
       const msg = res?.msg || 'Failed to create task'
       statusMessage.value = msg
       $toast?.error?.(msg)
+      if(msg ==='Credits is insufficient, Please recharge'){
+        router.push('/pricing')
+        return;
+      }
+
     }
   } catch (err: any) {
-    console.error('previewGenvideo error', err)
+    console.error('createChristmasVideo error', err)
     isGenerating.value = false
     const msg = err?.msg || 'An error occurred while generating video'
+    alert(msg)
     statusMessage.value = msg
     $toast?.error?.(msg)
   }
@@ -1013,6 +1020,15 @@ onMounted(() => {
 /* 安全区域底部间距 */
 .pb-safe-area {
   padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+:global(.Vue-Toastification__toast-container) {
+  z-index: 9999 !important;
+}
+:global(.Vue-Toastification__toast-container--top-right),
+:global(.Vue-Toastification__toast-container--top-left),
+:global(.Vue-Toastification__toast-container--top-center) {
+  top: 88px !important; /* 下移到导航下方，导航高度约80px */
 }
 </style>
 

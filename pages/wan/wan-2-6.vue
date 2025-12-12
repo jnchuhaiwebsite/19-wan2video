@@ -44,8 +44,8 @@ import Wan26Faq from '~/components/wan26/Faq.vue';
 import { useHead } from 'nuxt/app';
 import { useSeo } from '~/composables/useSeo';
 useSeo({
-  title: 'Wan 2.6 — AI Video Generator for Multi-Shot Storytelling',
-  description: 'Create 1080p videos with Wan 2.6, a next-gen AI video generator built for multi-shot storytelling, cinematic quality, and consistent character performance.',
+  title: 'Wan 2.6: Native AI Music & Video Generator',
+  description: 'Wan 2.6 is a multimodal AI video generation tool with native audio, precise lip-sync, and high-quality text-to-video and image-to-video content for AI animation',
 })
 
 const jsonLD ={
@@ -55,7 +55,7 @@ const jsonLD ={
       "@type": "WebPage", // 当前二级页的网页实体
       "@id": "https://www.wan2video.com/wan/wan-2-6#webpage", // WebPage 唯一 ID
       "url": "https://www.wan2video.com/wan/wan-2-6", // 页面 URL
-      "name": "Wan 2.6 — AI Video Generator for Multi-Shot Storytelling", // 页面标题
+      "name": "Wan 2.6: Native AI Music & Video Generator", // 页面标题
       "isPartOf": { // 归属网站
         "@id": "https://www.wan2video.com/#website" // 指向 WebSite
       },

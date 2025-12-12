@@ -328,19 +328,19 @@ const audioCategories: AudioCategory[] = [
     name: 'all',
     displayName: 'All',
     audios: [
-      { name: 'All I Want For Christmas', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/all-i-want-for-christmas-is-you.mp3' },
-      { name: 'Fairytale At Christmas', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/fairytale-at-christmas.mp3' },
-      { name: 'Feliz Navidad', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/feliz-navidad.mp3' },
-      { name: 'Last Christmas', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/last-christmas.mp3' },
-      { name: 'Mistletoe', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/mistletoe.mp3' },
-      { name: 'Santa Tell Me', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/santa-tell-me.mp3' },
-      { name: 'Snowman', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/snowman.mp3' },
-      { name: 'Friends (Male)', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/friend.mp3' },
-      { name: 'Colleagues (Male)', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/colleague.mp3' },
-      { name: 'Family (Male)', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/family-members.mp3' },
-      { name: 'Friends (Female)', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/friend.mp3' },
-      { name: 'Colleagues (Female)', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/colleague.mp3' },
-      { name: 'Family (Female)', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/family-members.mp3' }
+      { name: 'All I Want For Christmas', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/all-i-want-for-christmas-is-you.mp3' },
+      { name: 'Fairytale At Christmas', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/fairytale-at-christmas.mp3' },
+      { name: 'Feliz Navidad', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/feliz-navidad.mp3' },
+      { name: 'Last Christmas', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/last-christmas.mp3' },
+      { name: 'Mistletoe', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/mistletoe.mp3' },
+      { name: 'Santa Tell Me', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/santa-tell-me.mp3' },
+      { name: 'Snowman', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/snowman.mp3' },
+      { name: 'Friends (Male)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/friend.mp3' },
+      { name: 'Colleagues (Male)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/colleague.mp3' },
+      { name: 'Family (Male)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/family-members.mp3' },
+      { name: 'Friends (Female)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/friend.mp3' },
+      { name: 'Colleagues (Female)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/colleague.mp3' },
+      { name: 'Family (Female)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/family-members.mp3' }
     ]
   },
   {
@@ -348,9 +348,9 @@ const audioCategories: AudioCategory[] = [
     name: 'male',
     displayName: 'Male',
     audios: [
-      { name: 'Friends', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/friend.mp3' },
-      { name: 'Colleagues', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/colleague.mp3' },
-      { name: 'Family', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/male/family-members.mp3' }
+      { name: 'Friends', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/friend.mp3' },
+      { name: 'Colleagues', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/colleague.mp3' },
+      { name: 'Family', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/family-members.mp3' }
     ]
   },
   {
@@ -358,9 +358,9 @@ const audioCategories: AudioCategory[] = [
     name: 'female',
     displayName: 'Female',
     audios: [
-      { name: 'Friends', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/friend.mp3' },
-      { name: 'Colleagues', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/colleague.mp3' },
-      { name: 'Family', url: 'https://resp.wan2video.com/wan2ai/christmas/template/music/female/family-members.mp3' }
+      { name: 'Friends', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/friend.mp3' },
+      { name: 'Colleagues', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/colleague.mp3' },
+      { name: 'Family', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/family-members.mp3' }
     ]
   }
 ];
