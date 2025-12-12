@@ -144,8 +144,8 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-const imageUrl = 'https://resp.wan2video.com/wan2ai/wan26/Wan 2.6-top.webp'
-const videoUrl = 'https://resp.wan2video.com/wan2ai/wan26/Wan 2.6-top.mp4'
+const imageUrl = 'https://cfsource.wan2video.com/wan2video/26/Wan-2-6.webp'
+const videoUrl = 'https://cfsource.wan2video.com/wan2video/26/Wan-2-6.mp4'
 
 const videoRef = ref<HTMLVideoElement | null>(null)
 const isLoading = ref(false)
