@@ -798,13 +798,13 @@ const handleGenerate = async () => {
     return
   }
 
-  if (userCredits.value < currentCreditCost.value) {
-    $toast.error(`Insufficient credits. This operation requires ${currentCreditCost.value} credits, but you only have ${userCredits.value} credits`)
+  // if (userCredits.value < currentCreditCost.value) {
+  //   $toast.error(`Insufficient credits. This operation requires ${currentCreditCost.value} credits, but you only have ${userCredits.value} credits`)
     
-    // 使用 handleNavClick 滑动到价格部分
-    handleNavClick('pricing')
-    return
-  }
+  //   // 使用 handleNavClick 滑动到价格部分
+  //   handleNavClick('pricing')
+  //   return
+  // }
 
   if (!validatePrompt()) {
     return
@@ -886,12 +886,20 @@ const handleGenerate = async () => {
     } else {
       $toast.error(response?.msg || 'Generation failed. Please try again.')
       isGenerating.value = false
+      if(response?.msg ==='insufficient user usage limit'){
+        handleNavClick('pricing')
+        return
+    }
     }
   } catch (error: any) {
     stopProgress()
     console.error('Generation error:', error)
     $toast.error(error?.msg || 'Generation failed. Please try again.')
     isGenerating.value = false
+    if(error?.msg ==='insufficient user usage limit'){
+        handleNavClick('pricing')
+        return
+    }
   }
 }
 

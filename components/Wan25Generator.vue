@@ -470,7 +470,8 @@ import { useNuxtApp } from 'nuxt/app'
 import { useClerkAuth } from '~/utils/authHelper'
 import { useUserStore } from '~/stores/user'
 import { useUiStore } from '~/stores/ui'
-
+import { useRouter } from 'vue-router'
+const router = useRouter()
 // Toast 通知
 const { $toast } = useNuxtApp() as any
 const { isSignedIn } = useClerkAuth()
@@ -758,10 +759,10 @@ const handleGenerate = async () => {
   if (!canGenerate.value) return
   
   // 检查积分是否充足
-  if (userCredits.value < requiredCredits.value) {
-    $toast.error(`Insufficient credits. This operation requires ${requiredCredits.value} credits, but you only have ${userCredits.value} credits`)
-    return
-  }
+  // if (userCredits.value < requiredCredits.value) {
+  //   $toast.error(`Insufficient credits. This operation requires ${requiredCredits.value} credits, but you only have ${userCredits.value} credits`)
+  //   return
+  // }
   
   // 检查音频文件时长
   if (uploadedAudio.value) {
@@ -797,16 +798,28 @@ const handleGenerate = async () => {
       // 开始轮询检查任务状态
       startPolling()
     } else {
-      console.log(response)
+      // console.log(response)
+
       throw new Error(response.msg || 'Failed to create task')
     }
   } catch (error: any) {
     console.log('Generation failed:', error)
+
     taskStatus.value = 'failed'
     statusMessage.value = error || 'Generation failed, please try again'
     $toast.error(statusMessage.value)
+    console.log(statusMessage.value)
+
     isGenerating.value = false
-    stopProgressAnimation()
+        
+    if(statusMessage.value.includes('insufficient user usage limit')){
+      stopProgressAnimation()
+      router.push('/pricing')
+      return
+    }else{
+      stopProgressAnimation()
+    }
+
   }
 }
 

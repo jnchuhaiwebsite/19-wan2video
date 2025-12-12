@@ -251,37 +251,43 @@
       "
     >
       <div class="flex flex-col gap-2">
-        <button
-          ref="generateButton"
-          class="w-full px-8 py-4 rounded-full text-base font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3"
-          :style="{ backgroundColor: '#B41F21', color: 'white' }"
-          :disabled="isGenerating"
-          @click="handleGenerate"
-        >
-          <!-- 左侧星星图标 -->
-          <svg
-            class="w-5 h-5 text-yellow-300 drop-shadow"
-            fill="currentColor"
-            viewBox="0 0 20 20"
+        <div class="relative w-full">
+          <button
+            ref="generateButton"
+            class="w-full px-8 py-4 rounded-full text-base font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3"
+            :style="{ backgroundColor: '#B41F21', color: 'white' }"
+            :disabled="isGenerating"
+            @click="handleGenerate"
           >
-            <path
-              d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.803 2.037a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118L10.5 14.347a1 1 0 00-1.175 0l-2.87 2.147c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.82 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.229-3.293z"
-            />
-          </svg>
+            <!-- 左侧星星图标 -->
+            <svg
+              class="w-5 h-5 text-yellow-300 drop-shadow"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.803 2.037a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118L10.5 14.347a1 1 0 00-1.175 0l-2.87 2.147c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.82 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.229-3.293z"
+              />
+            </svg>
 
-          <span>{{ isGenerating ? 'Generating...' : 'Create Magic Video' }}</span>
+            <span>{{ isGenerating ? 'Generating...' : 'Create Magic Video' }}</span>
 
-          <!-- 右侧星星图标 -->
-          <svg
-            class="w-5 h-5 text-yellow-300 drop-shadow"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.803 2.037a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118L10.5 14.347a1 1 0 00-1.175 0l-2.87 2.147c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.82 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.229-3.293z"
-            />
-          </svg>
-        </button>
+            <!-- 右侧星星图标 -->
+            <svg
+              class="w-5 h-5 text-yellow-300 drop-shadow"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.803 2.037a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118L10.5 14.347a1 1 0 00-1.175 0l-2.87 2.147c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.82 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.229-3.293z"
+              />
+            </svg>
+          </button>
+          <!-- 积分消耗角标 -->
+          <span class="absolute -top-2 -right-2 px-2 py-0.5 bg-yellow-400 text-yellow-900 text-xs font-bold rounded-full shadow-md border-2 border-white">
+            {{ generateBadgeText }}
+          </span>
+        </div>
       </div>
     </div>
 
@@ -459,11 +465,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, nextTick, watch, watchEffect } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick, watch, watchEffect } from 'vue'
 import { useNuxtApp } from 'nuxt/app'
 import ChristmasVideoFormMobile from './ChristmasVideoFormMobile.vue'
-import { previewGenvideo, checkTaskStatusVideo, checkTask } from '~/api'
-
+import { createChristmasVideo, checkTaskStatusVideo, checkTask } from '~/api'
+import { useUserStore } from '~/stores/user'
+import { useRouter } from 'vue-router'
 // 模版数据（与表单组件保持一致）
 interface TemplateItem {
   key: string;
@@ -519,7 +526,7 @@ const previewSection = ref<HTMLElement | null>(null)
 const showForm = ref(false)
 const isBackgroundVideoMuted = ref(true) // 背景视频默认静音
 const { $toast } = useNuxtApp() as any
-
+const router = useRouter();
 // 下滑关闭手势相关
 const touchStartY = ref(0)
 const touchStartTime = ref(0)
@@ -629,22 +636,29 @@ const handleGenerate = async () => {
       payload.audio_url = selectedAudioFromLibrary.url
     }
 
-    const res: any = await previewGenvideo(payload)
+    const res: any = await createChristmasVideo(payload)
 
     if (res?.success && res.data?.task_id) {
       $toast?.success?.('Task created successfully, generating video...')
       statusMessage.value = 'Generating video...'
       startPollingStatus(res.data.task_id)
     } else {
+
       isGenerating.value = false
       const msg = res?.msg || 'Failed to create task'
       statusMessage.value = msg
       $toast?.error?.(msg)
+      if(msg ==='Credits is insufficient, Please recharge'){
+        router.push('/pricing')
+        return;
+      }
+
     }
   } catch (err: any) {
-    console.error('previewGenvideo error', err)
+    console.error('createChristmasVideo error', err)
     isGenerating.value = false
     const msg = err?.msg || 'An error occurred while generating video'
+    alert(msg)
     statusMessage.value = msg
     $toast?.error?.(msg)
   }
@@ -657,6 +671,9 @@ const generatedVideoUrl = ref<string | null>(null)
 const statusMessage = ref('Creating video...')
 const currentTaskId = ref<string | null>(null)
 const showShareMenu = ref(false)
+const userStore = useUserStore()
+const freeTimes = computed(() => userStore.userInfo?.free_times || 0)
+const generateBadgeText = computed(() => freeTimes.value > 0 ? 'Free' : '400')
 
 // 开始制作：滚动到表单区域并选中模版1
 const handleStartCreate = () => {
@@ -1003,6 +1020,15 @@ onMounted(() => {
 /* 安全区域底部间距 */
 .pb-safe-area {
   padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+:global(.Vue-Toastification__toast-container) {
+  z-index: 9999 !important;
+}
+:global(.Vue-Toastification__toast-container--top-right),
+:global(.Vue-Toastification__toast-container--top-left),
+:global(.Vue-Toastification__toast-container--top-center) {
+  top: 88px !important; /* 下移到导航下方，导航高度约80px */
 }
 </style>
 
