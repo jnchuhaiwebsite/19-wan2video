@@ -106,16 +106,17 @@
                 muted
                 controls
                 playsinline
+                preload="none"
                 @loadeddata="handleVideoLoaded"
                 @error="handleVideoError"
               />
               
-              <!-- 播放按钮覆盖层（仅在图片显示时）- 增强毛玻璃效果 -->
+              <!-- 播放按钮（仅在图片显示时） -->
               <div 
                 v-if="!videoLoaded && !isLoading"
-                class="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/20 backdrop-blur-[2px] transition-all duration-300"
+                class="absolute inset-0 flex items-center justify-center pointer-events-none"
               >
-                <div class="w-20 h-20 bg-white/95 backdrop-blur-md rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:shadow-purple-500/50 transition-all duration-300 border border-white/50">
+                <div class="w-20 h-20 bg-white/95 backdrop-blur-md rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:shadow-purple-500/50 transition-all duration-300 border border-white/50 pointer-events-auto">
                   <svg class="w-10 h-10 text-purple-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z" />
                   </svg>
