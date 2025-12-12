@@ -28,46 +28,82 @@
 
           <!-- 用户信息区域 - PC端 -->
           <div class="hidden lg:flex items-center space-x-4 flex-shrink-0">
+            <!-- 体验卷角标 -->
+            <div
+              v-if="isSignedIn && freeTimes > 0"
+              class="group flex items-center gap-1.5 rounded-full border border-blue-200/70 bg-gradient-to-r from-blue-500/20 via-indigo-400/15 to-cyan-400/20 px-3 py-1 font-semibold text-blue-50 shadow-[0_0_0_1px_rgba(15,23,42,0.55),0_10px_24px_rgba(15,23,42,0.65)] text-[11px]"
+              title="Trial vouchers"
+            >
+              <div class="relative flex items-center justify-center">
+                <div class="absolute inset-0 rounded-full bg-blue-300/25 blur-[8px] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ticket-percent relative drop-shadow-sm h-4 w-4" aria-hidden="true" style="color:#00e6e8">
+                  <path d="M2 9a3 3 0 1 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path>
+                  <path d="M9 9h.01"></path>
+                  <path d="m15 9-6 6"></path>
+                  <path d="M15 15h.01"></path>
+                </svg>
+              </div>
+              <span class="ml-0.5 rounded-full bg-slate-950/80 px-2 py-0.5 leading-none border border-blue-200/70 shadow-sm">{{ freeTimes }} Free</span>
+            </div>
             <!-- 用户头像区域 -->
             <div>
               <UserMenu />
             </div>
           </div>
 
-          <!-- 移动端菜单按钮 -->
-          <button
-            @click="isOpen = !isOpen"
-            class="lg:hidden text-blue-dark p-2 rounded-md hover:bg-blue-medium/20 transition-colors"
-          >
-            <svg
-              v-if="!isOpen"
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          <!-- 移动端体验卷 + 菜单按钮 -->
+          <div class="flex items-center lg:hidden gap-3">
+            <div
+              v-if="isSignedIn && freeTimes > 0"
+              class="group flex items-center gap-1.5 rounded-full border border-blue-200/70 bg-gradient-to-r from-blue-500/20 via-indigo-400/15 to-cyan-400/20 px-2.5 py-0.5 font-semibold text-blue-50 shadow-[0_0_0_1px_rgba(15,23,42,0.55),0_8px_18px_rgba(15,23,42,0.6)] text-[10px]"
+              title="Trial vouchers"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-            <svg
-              v-else
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+              <div class="relative flex items-center justify-center">
+                <div class="absolute inset-0 rounded-full bg-blue-300/25 blur-[6px] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ticket-percent relative drop-shadow-sm h-4 w-4" aria-hidden="true" style="color:#00e6e8">
+                  <path d="M2 9a3 3 0 1 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path>
+                  <path d="M9 9h.01"></path>
+                  <path d="m15 9-6 6"></path>
+                  <path d="M15 15h.01"></path>
+                </svg>
+              </div>
+              <span class="ml-0.5 rounded-full bg-slate-950/80 px-2 py-0.5 leading-none border border-blue-200/70 shadow-sm">{{ freeTimes }} Free</span>
+            </div>
+
+            <button
+              @click="isOpen = !isOpen"
+              class="lg:hidden text-blue-dark p-2 rounded-md hover:bg-blue-medium/20 transition-colors"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
+              <svg
+                v-if="!isOpen"
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+              <svg
+                v-else
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -151,6 +187,7 @@ const router = useRouter();
 const route = useRoute();
 const userStore = useUserStore();
 const credits = ref(0);
+const freeTimes = ref(0);
 
 // 图标映射
 const iconMap = {
@@ -171,8 +208,10 @@ const getIconComponent = (iconName: string) => {
 watch(() => userStore.userInfo, (newUserInfo) => {
   if (newUserInfo) {
     credits.value = newUserInfo.free_limit + newUserInfo.remaining_limit || 0;
+    freeTimes.value = newUserInfo.free_times || 0;
   } else {
     credits.value = 0;
+    freeTimes.value = 0;
   }
 }, { immediate: true });
 
@@ -182,6 +221,7 @@ const getUserInfo = async () => {
     const userData = await userStore.fetchUserInfo();
     if (userData) {
       credits.value = userData.free_limit + userData.remaining_limit || 0;
+      freeTimes.value = userData.free_times || 0;
     }
   } catch (error) {
     console.error("获取用户信息失败:", error);
