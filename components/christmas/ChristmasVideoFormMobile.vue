@@ -107,7 +107,7 @@
               </div>
 
               <div
-                class="absolute left-1.5 bottom-1.5 px-2 py-0.5 rounded-md bg-black/65 backdrop-blur-sm max-w-[80%]"
+                class="absolute left-1.5 bottom-1.5 px-2 py-0.5 rounded-md backdrop-blur-sm max-w-[80%]"
               >
                 <p class="text-[11px] font-semibold text-emerald-50 truncate leading-tight">
                   {{ tpl.name }}
