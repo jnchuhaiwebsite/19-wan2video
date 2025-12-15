@@ -16,10 +16,10 @@
     <div class="max-w-7xl mx-auto px-6 relative z-10">
       <div class="text-center mb-20">
         <!-- 优化的顶部标签 - 增强毛玻璃效果 -->
-        <div class="inline-flex items-center px-5 py-2.5 bg-white/60 backdrop-blur-md rounded-full text-sm font-semibold text-slate-700 mb-6 shadow-lg border border-slate-200/50">
+        <!-- <div class="inline-flex items-center px-5 py-2.5 bg-white/60 backdrop-blur-md rounded-full text-sm font-semibold text-slate-700 mb-6 shadow-lg border border-slate-200/50">
           <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
           Next-Generation AI Video Model
-        </div>
+        </div> -->
         
         <!-- 优化的标题 - 使用 font-black 和 tracking-tight -->
         <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight mb-6 leading-[1.08]">

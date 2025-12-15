@@ -12,9 +12,9 @@
       <Wan26HeroSection />
     </section>
     <!-- Generator -->
-    <!-- <section class="relative" id="generator">
+    <section class="relative" id="generator">
       <Wan26Generator />
-    </section> -->
+    </section>
 
     <!-- Why Wan 2.6 Matters -->
     <section class="relative">

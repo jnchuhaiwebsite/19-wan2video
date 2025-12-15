@@ -26,7 +26,7 @@ export const urlList = {
   getScore: baseUrl + '/api/mj/score', // 获取积分
   getUserOpus: baseUrl + '/api/mj/show', // 查询用户作品展示列表
   getShareInfo: baseUrl + '/api/mj/get_share_info', // 获取用户作品展示详情
-  upload: baseUrl + '/api/common/upload', // 上传图片获取url
+  upload: baseUrl + '/api/task/wan2ai/upload', // 上传图片获取url
   getTimesLog: baseUrl + '/api/user/times_log', // 获取使用次数日志、消费记录
   loginAuth: baseUrl + '/api/user/auth1', // 登录认证
   blogCategoryList: baseUrl + '/api/cms/blogCategoryList', // 获取博客分类列表
@@ -44,6 +44,9 @@ export const urlList = {
   createChristmasVideo: baseUrl + '/api/task/wan25/genvideo', // 创建圣诞视频任务状态
   checkTaskStatus: baseUrl + '/api/task/wan/check_task_status', // 检查任务状态
   BlogStatistics: baseUrl + '/api/cms/statistics', // 统计
+
+  createTasksWan26: baseUrl + '/api/task/wan26/v2v', // 创建任务-Wan 2.6
+  checkTaskWan26: baseUrl + '/api/task/wan26/check_task_status', // 检查任务-Wan 2.6
 }
 
 /**
@@ -271,6 +274,16 @@ export const statistics = async (data: any) => {
  */
 export const checkTask = async (task_id:string) => {
   return apiRequest(urlList.checkTask+'?task_id='+task_id, 'GET', undefined, true);
+}
+
+
+/**
+ * 检查任务
+ * @param task_id 任务id
+ * @returns 任务结果
+ */
+export const checkTaskWan26 = async (task_id:string) => {
+  return apiRequest(urlList.checkTaskWan26+'?task_id='+task_id, 'GET', undefined, true);
 }
 
 /**
@@ -629,6 +642,15 @@ export const upload = async (data: any) => {
  */
 export const previewGenvideo = async (data: any) => {
   return apiRequest(urlList.previewGenvideo, 'POST', data, true);
+}
+
+/**
+ * 预览生成视频
+ * @param data 预览生成视频数据
+ * @returns 预览生成视频
+ */
+export const createTasksWan26 = async (data: any) => {
+  return apiRequest(urlList.createTasksWan26, 'POST', data, true);
 }
 
 
