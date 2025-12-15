@@ -236,7 +236,8 @@
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" v-if="works.length > 0">
         <div v-for="work in works" :key="work.task_id" class="work-item">
           <div class="relative aspect-square rounded-lg overflow-hidden group shadow-lg hover:shadow-xl transition-shadow">
-            <template v-if="isVideoType(work.task_type)">
+            <!-- 视频类型：currentTab === 1 时优先展示 generate_image -->
+            <template v-if="isVideoType(work.task_type) && (currentTab !== 1 || work.generate_image)">
               <div class="relative w-full h-full">
                 <video 
                   :src="work.generate_image" 
@@ -601,7 +602,7 @@ const notificationStore = useNotificationStore()
 
 // 判断是否为视频类型
 const isVideoType = (taskType: number) => {
-  return taskType === 3 || taskType === 4
+  return taskType === 3 || taskType === 4 || taskType === 5
 }
 
 // 判断是否为图片类型
