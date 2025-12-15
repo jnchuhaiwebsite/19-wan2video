@@ -26,7 +26,7 @@
     />
 
     <!-- 全屏透明玻璃层（关键） -->
-    <div
+    <!-- <div
       style="
         position: fixed;
         inset: 0;
@@ -49,7 +49,7 @@
           inset 0 6px 20px rgba(255,255,255,0.15);
         border: 1px solid rgba(255,255,255,0.25);
       "
-    ></div>
+    ></div> -->
 
     <!-- 页面内容：贴在玻璃外侧 -->
     <div
