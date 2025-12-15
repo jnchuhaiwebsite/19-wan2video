@@ -241,7 +241,7 @@
         <div class="relative w-full">
           <button
             ref="generateButton"
-            class="w-full px-8 py-4 rounded-full text-base font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3"
+            class="w-full px-8 py-3 rounded-full text-base font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3"
             :style="{ backgroundColor: '#B41F21', color: 'white' }"
             :disabled="isGenerating"
             @click="handleGenerate"
@@ -511,7 +511,7 @@ const formRef = ref<InstanceType<typeof ChristmasVideoFormMobile> | null>(null)
 const formSection = ref<HTMLElement | null>(null)
 const previewSection = ref<HTMLElement | null>(null)
 const showForm = ref(false)
-const isBackgroundVideoMuted = ref(true) // 背景视频默认静音
+const isBackgroundVideoMuted = ref(false) // 背景视频默认静音
 const { $toast } = useNuxtApp() as any
 const router = useRouter();
 // 下滑关闭手势相关
@@ -660,7 +660,7 @@ const currentTaskId = ref<string | null>(null)
 const showShareMenu = ref(false)
 const userStore = useUserStore()
 const freeTimes = computed(() => userStore.userInfo?.free_times || 0)
-const generateBadgeText = computed(() => freeTimes.value > 0 ? 'Free' : '400')
+const generateBadgeText = computed(() => freeTimes.value > 0 ? freeTimes.value + ' Free' : '400 Credits')
 
 // 开始制作：滚动到表单区域并选中模版1
 const handleStartCreate = () => {
