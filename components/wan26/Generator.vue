@@ -640,6 +640,14 @@
                   <span>{{ creditCostLabel }}</span>
                 </span>
               </button>
+              <!-- 测试生成按钮 -->
+              <!-- <button
+                type="button"
+                class="w-full py-3 bg-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-300 transition-all duration-300 text-sm"
+                @click="handleTestGenerate"
+              >
+                🧪 Test Generate (Skip API)
+              </button> -->
               <p class="text-[11px] text-gray-500 text-center leading-snug">
                 Wan 2.6 pricing: credits are consumed based on resolution and duration. Multi-Shot uses the same tier.
               </p>
@@ -649,12 +657,13 @@
 
         <!-- 右侧预览区域 -->
         <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/50 min-h-[520px] flex flex-col">
-          <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">Preview</h3>
+          <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">Your generated video will appear here.</h3>
 
           <!-- 模拟预览内容 -->
           <div class="flex-1 flex flex-col space-y-6">
             <!-- 视频占位图 / 默认示例视频 -->
             <div
+              ref="previewContainerRef"
               class="relative flex-1 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden flex items-center justify-center"
             >
               <div class="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_top,_#38bdf8_0,_transparent_50%),_radial-gradient(circle_at_bottom,_#a855f7_0,_transparent_55%)]" />
@@ -664,15 +673,19 @@
                 class="absolute inset-0 z-20 bg-black flex flex-col items-center justify-center space-y-3"
               >
                 <div class="w-10 h-10 border-4 border-white/40 border-t-white rounded-full animate-spin" />
-                <p class="text-xs text-slate-100/90">generating video, please wait..</p>
+                <p class="text-xs text-slate-100/90 text-center">Your video is being generated.<br/>
+                    You can check the result in your dashboard in about 5 minutes</p>
               </div>
 
               <!-- 生成结果视频 -->
-              <div v-if="videoUrl" class="relative z-10 w-full h-full flex items-center justify-center">
+              <div v-if="videoUrl" class="relative z-10 w-full flex items-center justify-center overflow-hidden">
                 <video
+                  ref="generatedVideoRef"
                   :src="videoUrl"
                   controls
-                  class="w-full h-full bg-black object-contain"
+                  :style="videoStyle"
+                  class="bg-black"
+                  @loadedmetadata="onVideoLoaded"
                 >
                   Your browser does not support video playback.
                 </video>
@@ -762,7 +775,7 @@
               </div>
 
               <div class="flex items-center justify-between text-xs text-gray-500">
-                <div class="flex items-center space-x-2">
+                <!-- <div class="flex items-center space-x-2">
                   <span
                     class="inline-flex items-center px-2 py-1 rounded-full bg-blue-50 text-blue-600 font-medium text-[11px]"
                   >
@@ -792,23 +805,23 @@
                         : 'Off'
                     }}
                   </span>
-                </div>
-                <span>
+                </div> -->
+                <!-- <span>
                   <span v-if="errorMessage" class="text-red-500">{{ errorMessage }}</span>
                   <span v-else-if="isLoading" class="text-blue-500">Generating video...</span>
                   <span v-else-if="videoUrl">Generation completed. You can preview and download the video.</span>
                   <span v-else>Generated results will be previewed here</span>
-                </span>
+                </span> -->
               </div>
 
               <!-- 下载按钮 -->
-              <div v-if="videoUrl" class="flex justify-end mt-2">
+              <div v-if="videoUrl" class="flex justify-center mt-2">
                 <button
                   type="button"
                   class="inline-flex items-center px-4 py-2 rounded-lg text-xs font-medium bg-slate-900 text-white hover:bg-slate-800 transition-colors shadow-sm"
                   @click="downloadVideo"
                 >
-                  Download video
+                  Download Video
                 </button>
               </div>
             </div>
@@ -881,12 +894,20 @@ const errorMessage = ref<string | null>(null)
 const currentTaskId = ref<string | null>(null)
 let pollTimer: number | null = null
 
+// 测试模式：使用固定的测试task_id（可以修改为实际的task_id进行测试）
+const TEST_TASK_ID = '9c4cbc2f-c5e5-49d4-83d5-23d05761c083'
+
 // 默认示例视频（封面 + 视频）
 const defaultPoster = 'https://cfsource.wan2video.com/wan2video/26/Wan-2-6.webp'
 const defaultVideoSrc = 'https://cfsource.wan2video.com/wan2video/26/Wan-2-6.mp4'
 const showDefaultVideo = ref(false)
 const isDefaultLoading = ref(false)
 const defaultVideoRef = ref<HTMLVideoElement | null>(null)
+
+// 视频缩放相关
+const previewContainerRef = ref<HTMLElement | null>(null)
+const generatedVideoRef = ref<HTMLVideoElement | null>(null)
+const videoStyle = ref<{ width?: string; height?: string; maxWidth?: string; maxHeight?: string }>({})
 
 const { $toast } = useNuxtApp() as any
 
@@ -1150,6 +1171,85 @@ const onDefaultVideoLoaded = () => {
   }
 }
 
+// 根据预览框高度智能缩放视频
+const calculateVideoSize = () => {
+  if (!generatedVideoRef.value || !previewContainerRef.value || !videoUrl.value) {
+    return
+  }
+
+  const video = generatedVideoRef.value
+  const container = previewContainerRef.value
+
+  // 等待视频元数据加载完成
+  if (video.readyState < 1) {
+    return
+  }
+
+  const videoWidth = video.videoWidth
+  const videoHeight = video.videoHeight
+
+  if (!videoWidth || !videoHeight) {
+    return
+  }
+
+  // 获取容器尺寸
+  const containerRect = container.getBoundingClientRect()
+  const containerWidth = containerRect.width
+  
+  // 最大高度限制为400px
+  const maxHeight = 400
+
+  // 计算视频宽高比
+  const videoAspectRatio = videoWidth / videoHeight
+
+  // 根据最大高度400px计算宽度（保持视频宽高比）
+  let targetHeight = maxHeight
+  let targetWidth = targetHeight * videoAspectRatio
+
+  // 如果计算出的宽度超过容器宽度，则以容器宽度为准重新计算高度
+  if (targetWidth > containerWidth) {
+    targetWidth = containerWidth
+    targetHeight = targetWidth / videoAspectRatio
+  }
+
+  // 最终确保不超过容器宽度和最大高度限制（双重保险）
+  targetWidth = Math.min(targetWidth, containerWidth)
+  targetHeight = Math.min(targetHeight, maxHeight)
+
+  // 应用样式，使用 maxWidth 和 maxHeight 作为额外限制
+  videoStyle.value = {
+    width: `${targetWidth}px`,
+    height: `${targetHeight}px`,
+    maxWidth: `${containerWidth}px`,
+    maxHeight: `${maxHeight}px`
+  }
+}
+
+// 视频元数据加载完成时计算尺寸
+const onVideoLoaded = () => {
+  // 使用 nextTick 确保 DOM 已更新
+  setTimeout(() => {
+    calculateVideoSize()
+  }, 100)
+}
+
+// 监听窗口大小变化，重新计算视频尺寸
+let resizeTimer: number | null = null
+const handleResize = () => {
+  if (resizeTimer) {
+    clearTimeout(resizeTimer)
+  }
+  resizeTimer = window.setTimeout(() => {
+    if (videoUrl.value) {
+      calculateVideoSize()
+    }
+  }, 200)
+}
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('resize', handleResize)
+}
+
 const getSizeByConfig = (resolution: string, aspect?: string) => {
   const map: Record<string, Record<string, string>> = {
     '480P': {
@@ -1251,6 +1351,10 @@ const startPolling = (taskId: string) => {
         isLoading.value = false
         errorMessage.value = null
         stopPolling()
+        // 视频加载后重新计算尺寸
+        setTimeout(() => {
+          calculateVideoSize()
+        }, 300)
         return
       }
 
@@ -1265,6 +1369,28 @@ const startPolling = (taskId: string) => {
       isLoading.value = false
       errorMessage.value = 'Failed to query task status.'
       stopPolling()
+    }
+  }, 5000)
+}
+
+// 测试生成函数：跳过创建任务API，直接开启loading，5秒后查询checkTaskWan26
+const handleTestGenerate = async () => {
+  // 检查登录状态
+  if (!checkLoginStatus()) {
+    return
+  }
+
+  // 直接开启loading状态
+  isLoading.value = true
+  videoUrl.value = null
+  errorMessage.value = null
+  currentTaskId.value = TEST_TASK_ID
+  stopPolling()
+
+  // 5秒后开始查询任务状态
+  setTimeout(() => {
+    if (currentTaskId.value) {
+      startPolling(currentTaskId.value)
     }
   }, 5000)
 }
@@ -1347,6 +1473,7 @@ const handleSubmit = async () => {
 
     if (res?.code === 200 && taskId) {
       currentTaskId.value = taskId
+      $toast?.success?.('Video generation task created successfully!')
       startPolling(taskId)
     } else {
       isLoading.value = false
@@ -1395,6 +1522,13 @@ const downloadVideo = async () => {
 
 onBeforeUnmount(() => {
   stopPolling()
+  // 清理 resize 监听器
+  if (typeof window !== 'undefined') {
+    if (resizeTimer) {
+      clearTimeout(resizeTimer)
+    }
+    window.removeEventListener('resize', handleResize)
+  }
 })
 </script>
 
