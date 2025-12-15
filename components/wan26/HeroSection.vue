@@ -117,7 +117,7 @@
             @click="handleStartCreating"
           >
             <span class="relative z-10 flex items-center gap-2">
-              Start Creating
+              Try Wan 2.6 Now
               <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
