@@ -82,23 +82,16 @@
         position: fixed;
         inset: 0;
         z-index: -2;
-        background: rgba(255, 255, 255, 0.02);
-        background-image:
-          linear-gradient(
-            to bottom,
-            rgba(255,255,255,0.15) 0%,
-            rgba(255,255,255,0.03) 20%,
-            rgba(255,255,255,0) 40%
-          ),
-          linear-gradient(
-            to top,
-            rgba(255,255,255,0.08) 0%,
-            rgba(255,255,255,0) 30%
-          );
-        box-shadow:
-          inset 0 0 80px rgba(0, 0, 0, 0.25),
-          inset 0 6px 20px rgba(255,255,255,0.15);
-        border: 1px solid rgba(255,255,255,0.25);
+        pointer-events: none;
+        background: linear-gradient(
+  to bottom,
+  rgba(0, 0, 0, 0) 0%,      /* 顶部：透明 */
+  rgba(0, 0, 0, 0) 40%,     /* 前40%的高度：保持透明（保护人脸） */
+  rgba(0, 0, 0, 0.6) 80%,   /* 字出现的地方：变黑 */
+  rgba(0, 0, 0, 0.8) 100%   /* 最底部：最黑 */
+);
+        box-shadow: inset 0 0 100px rgba(0,0,0,0.35);
+        border: none;
       "
     ></div>
 
@@ -124,15 +117,17 @@
         style="
           font-family: 'Playfair Display', serif;
           font-size: 2rem;
-          margin-bottom: 24px;
+          margin-bottom: 32px;
           letter-spacing: 0.5px;
-          text-shadow: 0 4px 12px rgba(0,0,0,0.55);
+          text-shadow:
+            0 2px 4px rgba(0,0,0,0.55),
+            0 6px 14px rgba(0,0,0,0.35);
           max-width: 100%;
           line-height: 1.3;
           color: #fde047;
         "
       >
-        Christmas Video Greetings Ideas
+        Merry Christmas AI video Maker
       </h1>
 
       <!-- 副标题 -->
@@ -140,14 +135,16 @@
         style="
           font-size: 1rem;
           opacity: 0.95;
-          line-height: 1.6;
-          margin-bottom: 0;
+          line-height: 1.8;
+          margin: 0 auto;
           text-shadow: 0 2px 6px rgba(0,0,0,0.55);
-          max-width: 100%;
+          max-width: 360px;
         "
       >
-        <span style="display: block; margin-bottom: 8px;">Upload your photo, and let Santa do the magic!</span>
-        <span style="display: block;">A free, personalized video is just one click away</span>
+        <!-- <span style="display: block; margin-bottom: 8px;">Upload your photo, and let Santa do the magic!</span>
+        
+        <span style="display: block;">A free, personalized video is just one click away</span> -->
+        <span style="display: block; margin-bottom: 8px;">Create Christmas videos in minutes with AI. Just pick a template and click to generate, let wan2video handle the scenes, media, voiceovers, and sound effects. Instantly delivers free Christmas video clips with music</span>
       </p>
     </div>
 
@@ -160,13 +157,13 @@
         left: 0;
         right: 0;
         z-index: 10;
-        padding: 16px;
+        padding: 12px 14px;
         background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
         backdrop-filter: blur(10px);
       "
     >
       <button
-        class="w-full px-8 py-4 rounded-full text-base font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3"
+        class="w-full px-7 py-3 rounded-full text-base font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3"
         :style="{ backgroundColor: '#B41F21', color: 'white' }"
         @click="handleStartCreate"
       >
@@ -215,23 +212,13 @@
           width: 100%;
           background: transparent;
           overflow-y: auto;
-          padding: 0;
+          padding: 16px 16px 0 16px;
           transition: transform 0.2s ease-out;
         "
       >
-        <!-- 关闭按钮 - 右上角 -->
-        <button
-          class="fixed top-[calc(30vh+1rem)] right-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-colors z-[110] shadow-lg"
-          @click="handleCloseForm"
-        >
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-
         <!-- 使用移动端表单组件 -->
         <div class="w-full">
-          <ChristmasVideoFormMobile ref="formRef" />
+          <ChristmasVideoFormMobile ref="formRef" @close="handleCloseForm" />
         </div>
       </div>
     </Transition>

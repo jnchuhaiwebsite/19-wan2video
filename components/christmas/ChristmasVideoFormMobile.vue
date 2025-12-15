@@ -14,7 +14,20 @@
     >
       <!-- 图片上传预览 -->
       <div class="flex flex-col gap-3">
-        <label class="text-xl text-gray-200">Upload photo <span class="text-red-500">*</span></label>
+        <div class="flex items-center justify-between">
+          <label class="text-xl text-gray-200">
+            Upload photo <span class="text-red-500">*</span>
+          </label>
+          <button
+            class="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-colors shadow-lg"
+            @click="emit('close')"
+            type="button"
+          >
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
 
         <div class="relative">
           <div
@@ -247,6 +260,10 @@
 import { ref, computed, nextTick } from 'vue';
 import { useNuxtApp } from 'nuxt/app';
 import { useUserStore } from '~/stores/user';
+
+const emit = defineEmits<{
+  (e: 'close'): void;
+}>();
 
 interface TemplateItem {
   key: string;

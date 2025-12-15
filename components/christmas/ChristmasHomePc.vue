@@ -75,7 +75,7 @@
           margin-right: auto;
         "
       >
-      Christmas Video Greetings Ideas
+      Merry Christmas AI video Maker
       </h1>
 
       <p

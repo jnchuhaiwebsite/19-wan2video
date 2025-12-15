@@ -75,27 +75,13 @@
           white-space: nowrap;
         "
       >
-        Christmas Video Greetings Ideas
+        Merry Christmas AI video Maker
       </h1>
 
-      <p
-        style="
-          font-size: 1.5rem;
-          opacity: 0.95;
-          line-height: 1.7;
-          margin-bottom: 56px;
-          text-shadow: 0 3px 8px rgba(0,0,0,0.55);
-          margin-left: auto;
-          margin-right: auto;
-        "
-      >
-        <span style="display: block; max-width: 870px; margin: 0 auto; font-size: 1.75rem;"
-          >Upload your photo, and let Santa do the magic! A free,</span
-        >
-        <span style="display: block; max-width: 600px; margin: 0 auto; font-size: 1.7rem;"
-          >personalized video is just one click away</span
-        >
-      </p>
+<!-- 去掉了内部的 span，结构更干净，样式由 class 控制 -->
+<p class="hero-desc-4k">
+  Create Christmas videos in minutes with AI. Just pick a template and click to generate, let <strong>Wan2Video</strong> handle the scenes, media, voiceovers, and sound effects. Instantly delivers free Christmas video clips with music.
+</p>
     </div>
 
     <!-- 制作表单组件 -->
@@ -125,5 +111,40 @@ onMounted(() => {
 </script>
 
 <style scoped>
+  /* --- 基础样式 (默认适配 1080P 及笔记本) --- */
+.hero-desc-4k {
+  /* 布局与间距 */
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 42px;
+  
+  /* 1080P 下的黄金尺寸 */
+  max-width: 650px;       /* 您原本的宽度，在1080P上很合适 */
+  font-size: 1.25rem;     /* 综合了您原本 p 和 span 的大小 (约 20px) */
+  line-height: 1.7;       /* 保持良好的行间距 */
+  
+  /* 视觉效果 */
+  color: #ffffff;         /* 确保文字是白色的 */
+  opacity: 0.95;
+  text-align: center;     /* 确保文字居中对齐 */
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.65); /* 稍微加重一点阴影，防背景干扰 */
+}
+
+/* 重点词高亮 (可选，让 wan2video 更显眼) */
+.hero-desc-4k strong {
+  font-weight: 600;
+  color: #fff;            /* 或者改成淡金色 #ffeebb */
+}
+
+/* --- 2K 屏幕适配 (宽度大于 1920px) --- */
+@media screen and (min-width: 2561px) {
+    .hero-desc-4k {
+      font-size: 2.2rem;    /* 放大到约 35px */
+      max-width: 1300px;    /* 显著放宽 */
+      line-height: 1.8;
+      margin-bottom: 90px;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+    }
+  }
 </style>
 
