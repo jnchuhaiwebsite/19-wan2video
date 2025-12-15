@@ -497,7 +497,7 @@
                   v-model="form.reference.prompt"
                   rows="3"
                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 resize-none transition-colors bg-white"
-                  placeholder="Describe how you want to transform the reference videos — characters, scene, pacing, or camera language..."
+                  placeholder="Use character1, character2 to refer to your videos (e.g., 'character1 singing, character2 dancing'). Always use character1 for the first video."
                   maxlength="2000"
                 />
                 <div class="flex justify-between items-center mt-2 text-xs text-gray-500">
@@ -650,18 +650,18 @@
 
           <!-- 模拟预览内容 -->
           <div class="flex-1 flex flex-col space-y-6">
-            <!-- 视频占位图 -->
+            <!-- 视频占位图 / 默认示例视频 -->
             <div
               class="relative flex-1 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden flex items-center justify-center"
             >
               <div class="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_top,_#38bdf8_0,_transparent_50%),_radial-gradient(circle_at_bottom,_#a855f7_0,_transparent_55%)]" />
-              <!-- 加载中遮罩 -->
+              <!-- 加载中遮罩（任务生成或默认预览加载） -->
               <div
-                v-if="isLoading"
+                v-if="isLoading || isDefaultLoading"
                 class="absolute inset-0 z-20 bg-black flex flex-col items-center justify-center space-y-3"
               >
                 <div class="w-10 h-10 border-4 border-white/40 border-t-white rounded-full animate-spin" />
-                <p class="text-xs text-slate-100/90">Generating video, please wait...</p>
+                <p class="text-xs text-slate-100/90">Loading video, please wait...</p>
               </div>
 
               <!-- 生成结果视频 -->
@@ -675,11 +675,34 @@
                 </video>
               </div>
 
-              <!-- 默认占位内容 -->
-              <div v-else class="relative z-10 flex flex-col items-center">
+              <!-- 默认示例视频 -->
+              <div
+                v-else-if="showDefaultVideo"
+                class="relative z-10 w-full h-full flex items-center justify-center"
+              >
+                <video
+                  ref="defaultVideoRef"
+                  :src="defaultVideoSrc"
+                  :poster="defaultPoster"
+                  controls
+                  class="w-full h-full bg-black object-contain"
+                  @loadeddata="onDefaultVideoLoaded"
+                >
+                  Your browser does not support video playback.
+                </video>
+              </div>
+
+              <!-- 默认封面 + 播放按钮 -->
+              <div v-else class="relative z-10 w-full h-full flex items-center justify-center">
+                <img
+                  :src="defaultPoster"
+                  alt="Wan 2.6 default preview"
+                  class="w-full h-full object-cover opacity-80"
+                />
                 <button
                   type="button"
-                  class="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-xl mb-4"
+                  class="absolute w-16 h-16 rounded-full bg-white/95 flex items-center justify-center shadow-2xl hover:scale-105 transition-transform"
+                  @click="handleDefaultPlay"
                 >
                   <svg class="w-7 h-7 text-slate-900" fill="currentColor" viewBox="0 0 24 24">
                     <path
@@ -687,12 +710,6 @@
                     />
                   </svg>
                 </button>
-                <p class="text-sm text-slate-100/90 mb-1">
-                  {{ previewTitle }}
-                </p>
-                <p class="text-xs text-slate-300/80">
-                  {{ previewMeta }}
-                </p>
               </div>
             </div>
 
@@ -858,6 +875,13 @@ const errorMessage = ref<string | null>(null)
 const currentTaskId = ref<string | null>(null)
 let pollTimer: number | null = null
 
+// 默认示例视频（封面 + 视频）
+const defaultPoster = 'https://cfsource.wan2video.com/wan2video/26/Wan-2-6.webp'
+const defaultVideoSrc = 'https://cfsource.wan2video.com/wan2video/26/Wan-2-6.mp4'
+const showDefaultVideo = ref(false)
+const isDefaultLoading = ref(false)
+const defaultVideoRef = ref<HTMLVideoElement | null>(null)
+
 const { $toast } = useNuxtApp() as any
 
 const isAspectDisabled = (value: string) => {
@@ -919,6 +943,12 @@ const previewMeta = computed(() => {
 
   return `${resolution} · ${duration} · ${aspect}`
 })
+
+const handleDefaultPlay = () => {
+  if (videoUrl.value) return
+  showDefaultVideo.value = true
+  isDefaultLoading.value = true
+}
 
 // 计算当前配置对应的积分消耗
 const creditCostLabel = computed(() => {
@@ -1084,6 +1114,17 @@ const clearRefVideo2 = () => {
   }
 }
 
+const onDefaultVideoLoaded = () => {
+  isDefaultLoading.value = false
+  if (defaultVideoRef.value) {
+    defaultVideoRef.value
+      .play()
+      .catch(() => {
+        // ignore autoplay errors
+      })
+  }
+}
+
 const getSizeByConfig = (resolution: string, aspect?: string) => {
   const map: Record<string, Record<string, string>> = {
     '480P': {
@@ -1173,7 +1214,7 @@ const startPolling = (taskId: string) => {
   stopPolling()
 
   pollTimer = window.setInterval(async () => {
-    attempts += 1
+    // attempts += 1
     try {
       const res: any = await checkTaskWan26(taskId)
       const data = res?.data || {}
@@ -1189,11 +1230,11 @@ const startPolling = (taskId: string) => {
       }
 
       // 超时保护：最多轮询约 2 分钟
-      if (attempts >= 24) {
-        isLoading.value = false
-        errorMessage.value = 'Task timeout, please try again later.'
-        stopPolling()
-      }
+    //   if (attempts >= 24) {
+    //     isLoading.value = false
+    //     errorMessage.value = 'Task timeout, please try again later.'
+    //     stopPolling()
+    //   }
     } catch (e) {
       console.error('checkTaskWan26 error', e)
       isLoading.value = false
