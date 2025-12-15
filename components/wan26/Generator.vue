@@ -12,7 +12,7 @@
           <h2
             class="text-3xl md:text-4xl font-normal bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 bg-clip-text text-transparent mb-4 leading-tight"
           >
-            Wan 2.6 — AI Video Generator for Multi-Shot Storytelling
+          Wan 2.6 AI Video Generator
           </h2>
           <p class="text-base md:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed font-light">
             Transform text prompts or images into cohesive multi-shot videos with smooth scene transitions,
