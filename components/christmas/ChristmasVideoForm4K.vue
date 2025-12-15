@@ -590,7 +590,7 @@
             v-if="generatedVideoUrl && !isGenerating"
             :class="[
               'w-full max-w-xl flex flex-col items-center gap-4 relative z-20',
-              isVertical ? 'mt-16' : 'mt-4'
+              isVertical ? 'mt-20 py-10' : 'mt-4'
             ]"
           >
             <div class="flex flex-col sm:flex-row gap-3 w-full">

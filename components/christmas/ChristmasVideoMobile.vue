@@ -270,6 +270,7 @@
               />
             </svg>
           </button>
+          
           <!-- 积分消耗角标 -->
           <span class="absolute -top-2 -right-2 px-2 py-0.5 bg-yellow-400 text-yellow-900 text-xs font-bold rounded-full shadow-md border-2 border-white">
             {{ generateBadgeText }}
