@@ -58,7 +58,7 @@ export const uploadImages = async (files: File[]): Promise<UploadResponse[]> => 
 export const validateImageFile = (file: File): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/bmp', 'image/webp']
-    const maxSize = 10 * 1024 * 1024 // 10MB
+    const maxSize = 5 * 1024 * 1024 // 5MB
     
     // 检查文件类型
     if (!allowedTypes.includes(file.type)) {
@@ -80,7 +80,7 @@ export const validateImageFile = (file: File): Promise<boolean> => {
       
       // 检查分辨率范围 [360, 2000]
       if (width < 360 || width > 2000 || height < 360 || height > 2000) {
-        reject(new Error('Image resolution must be between 360x360 and 2000x2000 pixels'))
+        reject(new Error('Image resolution must be between 360px and 2000px on both sides'))
         return
       }
       
@@ -113,6 +113,45 @@ export const validateImageFile = (file: File): Promise<boolean> => {
     }
     
     img.src = URL.createObjectURL(file)
+  })
+}
+
+/**
+ * 校验视频文件（MP4 / MOV，2-30s，小于30MB）
+ */
+export const validateVideoFile = (file: File): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    const allowedTypes = ['video/mp4', 'video/quicktime']
+    const maxSize = 30 * 1024 * 1024 // 30MB
+
+    if (!allowedTypes.includes(file.type)) {
+      reject(new Error('Unsupported video type. Please upload MP4 or MOV.'))
+      return
+    }
+
+    if (file.size > maxSize) {
+      reject(new Error('Video file size must be less than 30MB.'))
+      return
+    }
+
+    const video = document.createElement('video')
+    video.preload = 'metadata'
+
+    video.onloadedmetadata = () => {
+      window.URL.revokeObjectURL(video.src)
+      const duration = video.duration
+      if (duration < 2 || duration > 30) {
+        reject(new Error('Video duration must be between 2 and 30 seconds.'))
+        return
+      }
+      resolve(true)
+    }
+
+    video.onerror = () => {
+      reject(new Error('Failed to read video file, please ensure the file format is correct.'))
+    }
+
+    video.src = URL.createObjectURL(file)
   })
 }
 
