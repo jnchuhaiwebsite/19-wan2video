@@ -674,7 +674,7 @@
               >
                 <div class="w-10 h-10 border-4 border-white/40 border-t-white rounded-full animate-spin" />
                 <p class="text-xs text-slate-100/90 text-center">Your video is being generated.<br/>
-                    You can check the result in your dashboard in about 5 minutes</p>
+                    You can check the result in your <a href="/profile" class="text-blue-500 hover:underline">dashboard</a> in about 5 minutes</p>
               </div>
 
               <!-- 生成结果视频 -->
