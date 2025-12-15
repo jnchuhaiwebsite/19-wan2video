@@ -11,11 +11,16 @@
     <section class="relative">
       <Wan26HeroSection />
     </section>
+    <!-- Generator -->
+    <!-- <section class="relative" id="generator">
+      <Wan26Generator />
+    </section> -->
 
     <!-- Why Wan 2.6 Matters -->
     <section class="relative">
       <Wan26WhyMatters />
     </section>
+
 
     <!-- Key Features & Advantages -->
     <section class="relative">
@@ -38,6 +43,7 @@
 <script setup lang="ts">
 import Wan26HeroSection from '~/components/wan26/HeroSection.vue';
 import Wan26WhyMatters from '~/components/wan26/WhyMatters.vue';
+import Wan26Generator from '~/components/wan26/Generator.vue';
 import Wan26KeyFeatures from '~/components/wan26/KeyFeatures.vue';
 import Wan26UseCases from '~/components/wan26/UseCases.vue';
 import Wan26Faq from '~/components/wan26/Faq.vue';

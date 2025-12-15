@@ -23,7 +23,7 @@
 
       <div class="space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Feature 1: Breakthrough Multimodal Architecture -->
+          <!-- Feature 1: Multi-Shot Storytelling with Intelligent Scene Planning -->
           <div
             class="feature-card"
             style="--glow-from:#a855f7; --glow-to:#22d3ee; --glow-shadow:rgba(99,102,241,0.28); --card-shadow:rgba(124,58,237,0.15); --icon-bg:linear-gradient(135deg,#f3e8ff,#e0f2fe); --icon-color:#7c3aed;"
@@ -33,23 +33,34 @@
                 <div class="icon-shell">
                   <span class="icon-plate"></span>
                   <svg class="relative w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                   </svg>
                 </div>
                 <div>
-                  <p class="text-xs uppercase tracking-[0.2em] text-slate-500 mb-2">Core Architecture</p>
-                  <h3 class="text-2xl md:text-3xl font-bold text-slate-900 leading-snug">Breakthrough Multimodal Architecture</h3>
+                  <p class="text-xs uppercase tracking-[0.2em] text-slate-500 mb-2">Story Engine</p>
+                  <h3 class="text-2xl md:text-3xl font-bold text-slate-900 leading-snug">
+                    Multi-Shot Storytelling with Intelligent Scene Planning
+                  </h3>
                 </div>
               </div>
               <ul class="feature-list">
-                <li><span class="dot from-cyan-400 to-fuchsia-400"></span><strong>Unified stack</strong> handles text / image / video / audio in one network.</li>
-                <li><span class="dot from-indigo-400 to-cyan-300"></span><strong>Synchronized output</strong> aligned pacing for multi-shot stories and formats.</li>
-                <li><span class="dot from-fuchsia-400 to-amber-300"></span><strong>Production scale</strong> flexes from lightweight drafts to enterprise pipelines.</li>
+                <li>
+                  <span class="dot from-pink-400 to-purple-400"></span>
+                  Generate <strong>coherent multi-shot videos</strong> that tell complete stories with linked scenes.
+                </li>
+                <li>
+                  <span class="dot from-violet-400 to-cyan-300"></span>
+                  <strong>Automatic shot breakdown</strong> from simple text prompts, with planned scenes and smooth transitions.
+                </li>
+                <li>
+                  <span class="dot from-amber-300 to-rose-400"></span>
+                  Maintain <strong>consistent characters, objects, and visual details</strong> across every shot in the sequence.
+                </li>
               </ul>
             </div>
           </div>
 
-          <!-- Feature 2: Multi-Shot Narrative Intelligence -->
+          <!-- Feature 2: Reference-Based Video Generation (Video-to-Video) -->
           <div
             class="feature-card"
             style="--glow-from:#7c3aed; --glow-to:#ec4899; --glow-shadow:rgba(236,72,153,0.28); --card-shadow:rgba(147,51,234,0.15); --icon-bg:linear-gradient(135deg,#f3e8ff,#ffe4f3); --icon-color:#7c3aed;"
@@ -64,46 +75,34 @@
                 </div>
                 <div>
                   <p class="text-xs uppercase tracking-[0.2em] text-slate-500 mb-2">Story Engine</p>
-                  <h3 class="text-2xl md:text-3xl font-bold text-slate-900 leading-snug">Multi-Shot Narrative Intelligence</h3>
+                  <h3 class="text-2xl md:text-3xl font-bold text-slate-900 leading-snug">
+                    Reference-Based Video Generation (Video-to-Video)
+                  </h3>
                 </div>
               </div>
               <ul class="feature-list">
-                <li><span class="dot from-pink-400 to-purple-400"></span><strong>Shot-level semantics</strong> scene understanding plus camera blocking.</li>
-                <li><span class="dot from-violet-400 to-cyan-300"></span><strong>Parallel & sequential arcs</strong> smooth transitions with controlled pace.</li>
-                <li><span class="dot from-amber-300 to-rose-400"></span><strong>Cinematic motion</strong> pans, tilts, dollies parametrized for story beats.</li>
+                <li>
+                  <span class="dot from-pink-400 to-purple-400"></span>
+                  Create new videos from <strong>reference footage</strong> while preserving appearance, motion style, and voice characteristics.
+                </li>
+                <li>
+                  <span class="dot from-violet-400 to-cyan-300"></span>
+                  Works with <strong>humans or any objects</strong> as main subjects, including single-person and two-person collaborative scenes.
+                </li>
+                <li>
+                  <span class="dot from-amber-300 to-rose-400"></span>
+                  Use <strong>natural language prompts</strong> to precisely control how the reference is transformed or extended.
+                </li>
               </ul>
             </div>
           </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 auto-rows-[1fr] gap-6">
-          <!-- Feature 3: 5B & 14B Model Variants -->
+          <!-- Feature 3: Extended 15-Second Video Generation for Richer Narratives -->
           <div
             class="feature-card"
             style="--glow-from:#6366f1; --glow-to:#22d3ee; --glow-shadow:rgba(34,211,238,0.22); --card-shadow:rgba(99,102,241,0.12); --icon-bg:linear-gradient(135deg,#eef2ff,#e0f2fe); --icon-color:#4f46e5;"
-          >
-            <div class="feature-inner">
-              <div class="flex items-start gap-4 mb-4">
-                <div class="icon-shell">
-                  <span class="icon-plate"></span>
-                  <svg class="relative w-11 h-11" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
-                </div>
-                <h3 class="text-xl font-semibold text-slate-900 leading-snug">5B & 14B Model Variants</h3>
-              </div>
-              <ul class="feature-list">
-                <li><span class="dot from-indigo-400 to-cyan-300"></span>5B for fast drafts on standard GPUs and live previews.</li>
-                <li><span class="dot from-fuchsia-400 to-indigo-400"></span>14B for maximum fidelity and studio-grade delivery.</li>
-                <li><span class="dot from-emerald-300 to-cyan-300"></span>Switch instantly inside one workflow to balance cost/quality.</li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Feature 4: Enhanced Quality & Longer Durations -->
-          <div
-            class="feature-card"
-            style="--glow-from:#14b8a6; --glow-to:#8b5cf6; --glow-shadow:rgba(20,184,166,0.2); --card-shadow:rgba(13,148,136,0.12); --icon-bg:linear-gradient(135deg,#ecfeff,#ede9fe); --icon-color:#0f766e;"
           >
             <div class="feature-inner">
               <div class="flex items-start gap-4 mb-4">
@@ -114,17 +113,28 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                   </svg>
                 </div>
-                <h3 class="text-xl font-semibold text-slate-900 leading-snug">Enhanced Quality & Longer Durations</h3>
+                <h3 class="text-xl font-semibold text-slate-900 leading-snug">
+                  Extended 15-Second Video Generation for Richer Narratives
+                </h3>
               </div>
               <ul class="feature-list">
-                <li><span class="dot from-teal-300 to-cyan-300"></span>1080p · 24fps with stronger temporal stability.</li>
-                <li><span class="dot from-indigo-400 to-emerald-300"></span>Extended-duration support to avoid heavy slicing.</li>
-                <li><span class="dot from-amber-300 to-teal-300"></span>Detail preservation plus anti-shake for ready-to-ship cuts.</li>
+                <li>
+                  <span class="dot from-teal-300 to-cyan-300"></span>
+                  Generate videos up to <strong>15 seconds</strong>, significantly increasing temporal and visual content capacity.
+                </li>
+                <li>
+                  <span class="dot from-indigo-400 to-emerald-300"></span>
+                  Enable <strong>richer narratives</strong> with more complete scene continuity, motion consistency, and story beats.
+                </li>
+                <li>
+                  <span class="dot from-amber-300 to-teal-300"></span>
+                  Keep sequences feeling <strong>natural from start to finish</strong>, even with complex camera motion and staging.
+                </li>
               </ul>
             </div>
           </div>
 
-          <!-- Feature 5: Native Audio-Visual Synchronization -->
+          <!-- Feature 6: Native Audio-Visual Synchronization -->
           <div
             class="feature-card"
             style="--glow-from:#ec4899; --glow-to:#8b5cf6; --glow-shadow:rgba(236,72,153,0.22); --card-shadow:rgba(236,72,153,0.14); --icon-bg:linear-gradient(135deg,#fde7f3,#ede9fe); --icon-color:#be185d;"
@@ -147,7 +157,7 @@
             </div>
           </div>
 
-          <!-- Feature 6: Audio-Driven Video Generation -->
+          <!-- Feature 7: Audio-Driven Video Generation -->
           <div
             class="feature-card"
             style="--glow-from:#fb923c; --glow-to:#f472b6; --glow-shadow:rgba(244,114,182,0.22); --card-shadow:rgba(249,115,22,0.14); --icon-bg:linear-gradient(135deg,#fff7ed,#ffe4f3); --icon-color:#c2410c;"
@@ -170,7 +180,7 @@
             </div>
           </div>
 
-          <!-- Feature 7: Flexible Format Support -->
+          <!-- Feature 8: Flexible Format Support -->
           <div
             class="feature-card"
             style="--glow-from:#22d3ee; --glow-to:#818cf8; --glow-shadow:rgba(34,211,238,0.22); --card-shadow:rgba(59,130,246,0.12); --icon-bg:linear-gradient(135deg,#e0f2fe,#eef2ff); --icon-color:#2563eb;"
@@ -193,7 +203,7 @@
             </div>
           </div>
 
-          <!-- Feature 8: Full Commercial Rights -->
+          <!-- Feature 9: Full Commercial Rights -->
           <div
             class="feature-card"
             style="--glow-from:#22c55e; --glow-to:#10b981; --glow-shadow:rgba(34,197,94,0.2); --card-shadow:rgba(16,185,129,0.12); --icon-bg:linear-gradient(135deg,#ecfdf3,#d1fae5); --icon-color:#15803d;"

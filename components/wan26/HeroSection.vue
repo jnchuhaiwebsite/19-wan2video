@@ -44,8 +44,8 @@
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
           <!-- 主按钮 - 增强 hover 阴影和位移，统一高度 -->
           <button 
-          disabled="true"
             class="group relative h-14 px-8 bg-gradient-to-r from-purple-600 via-pink-600 to-red-500 text-white font-semibold text-lg rounded-xl shadow-lg hover:shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 hover:from-purple-500 hover:via-pink-500 hover:to-red-400 overflow-hidden"
+            @click="handleStartCreating"
           >
             <span class="relative z-10 flex items-center gap-2">
               Start Creating
@@ -240,20 +240,20 @@ const handleVideoError = () => {
 // CTA 按钮处理函数
 const handleStartCreating = () => {
   // 跳转到首页的生成器部分，或者跳转到定价页面
-  // router.push('/')
+  router.push('/wan/wan-2-6#generator')
   // 如果首页有生成器区域，可以滚动到那里
-  setTimeout(() => {
-    const generatorSection = document.getElementById('hero')
-    if (generatorSection) {
-      const offset = 80
-      const elementPosition = generatorSection.getBoundingClientRect().top
-      const offsetPosition = elementPosition + window.scrollY - offset
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      })
-    }
-  }, 100)
+  // setTimeout(() => {
+  //   const generatorSection = document.getElementById('generator')
+  //   if (generatorSection) {
+  //     const offset = 80
+  //     const elementPosition = generatorSection.getBoundingClientRect().top
+  //     const offsetPosition = elementPosition + window.scrollY - offset
+  //     window.scrollTo({
+  //       top: offsetPosition,
+  //       behavior: 'smooth'
+  //     })
+  //   }
+  // }, 100)
 }
 
 const handleWatchShowreel = () => {
