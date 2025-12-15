@@ -571,6 +571,9 @@ const totalWorksPages = ref(1)
 // 视频加载状态
 const videoLoadingStates = ref(new Map<string, boolean>())
 
+// 任务状态检查定时器
+const taskCheckTimers = ref(new Map<string, NodeJS.Timeout>())
+
 // 视频预览相关状态
 const showPreview = ref(false)
 const previewVideo = ref('')
@@ -678,17 +681,45 @@ const checkTaskStatus = async (taskId: string) => {
   try {
     const response = await checkTask(taskId) as any
     if (response.data?.status === 1) {
-      // 如果任务完成，从列表中移除该作品
+      // 如果任务完成，清除定时器并从列表中移除该作品
+      if (taskCheckTimers.value.has(taskId)) {
+        clearTimeout(taskCheckTimers.value.get(taskId))
+        taskCheckTimers.value.delete(taskId)
+      }
       works.value = works.value.filter(work => work.task_id !== taskId)
+      return
     }
 
     const responseCheckTaskWan26 = await checkTaskWan26(taskId) as any
     if (responseCheckTaskWan26.data?.status === 1) {
-      // 如果任务完成，从列表中移除该作品
+      // 如果任务完成，清除定时器并从列表中移除该作品
+      if (taskCheckTimers.value.has(taskId)) {
+        clearTimeout(taskCheckTimers.value.get(taskId))
+        taskCheckTimers.value.delete(taskId)
+      }
       works.value = works.value.filter(work => work.task_id !== taskId)
+      return
+    }
+
+    // 如果任务未完成，10秒后再次查询
+    // 避免重复设置定时器
+    if (!taskCheckTimers.value.has(taskId)) {
+      const timer = setTimeout(() => {
+        taskCheckTimers.value.delete(taskId)
+        checkTaskStatus(taskId)
+      }, 10000) // 10秒后再次查询
+      taskCheckTimers.value.set(taskId, timer)
     }
   } catch (error) {
     console.error('Failed to check task status:', error)
+    // 即使出错，也10秒后重试
+    if (!taskCheckTimers.value.has(taskId)) {
+      const timer = setTimeout(() => {
+        taskCheckTimers.value.delete(taskId)
+        checkTaskStatus(taskId)
+      }, 10000)
+      taskCheckTimers.value.set(taskId, timer)
+    }
   }
 }
 
@@ -941,6 +972,11 @@ onMounted(() => {
 onUnmounted(() => {
   // 确保组件卸载时恢复滚动
   document.body.style.overflow = ''
+  // 清理所有任务状态检查定时器
+  taskCheckTimers.value.forEach((timer) => {
+    clearTimeout(timer)
+  })
+  taskCheckTimers.value.clear()
 })
 </script>
 
