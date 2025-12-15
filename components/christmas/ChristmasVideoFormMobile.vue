@@ -14,7 +14,7 @@
     >
       <!-- 图片上传预览 -->
       <div class="flex flex-col gap-3">
-        <label class="text-xl text-gray-200">Upload photo</label>
+        <label class="text-xl text-gray-200">Upload photo <span class="text-red-500">*</span></label>
 
         <div class="relative">
           <div
@@ -82,7 +82,7 @@
 
       <!-- 模版选择 -->
       <div class="flex flex-col gap-3">
-        <label class="text-sm text-gray-200">Template</label>
+        <label class="text-sm text-gray-200">Template <span class="text-red-500">*</span></label>
 
         <div class="grid grid-cols-2 gap-3">
           <button
@@ -91,14 +91,14 @@
             type="button"
             @click="handleSelectTemplate(tpl)"
             :class="[
-              'flex flex-col rounded-xl overflow-hidden bg-transparent border transition-all duration-200 text-left',
+              'flex flex-col rounded-3xl overflow-hidden bg-transparent border transition-all duration-200 text-left',
               selectedTemplateKey === tpl.key
-                ? 'border-white ring-2 ring-white/40 shadow-lg'
-                : 'border-emerald-300/20 hover:border-emerald-200/70 hover:bg-black/40'
+                ? 'border-yellow-400 ring-2 ring-yellow-400/40 shadow-lg'
+                : 'border-yellow-400/30 hover:border-yellow-400/50 hover:bg-black/40'
             ]"
           >
             <div class="w-full relative">
-              <div class="w-full aspect-[194/104] overflow-hidden rounded-t-xl">
+              <div class="w-full aspect-[194/104] overflow-hidden rounded-t-3xl">
                 <img
                   :src="tpl.thumb"
                   :alt="tpl.name"
@@ -120,7 +120,7 @@
 
       <!-- 提示词输入 -->
       <div class="flex flex-col gap-2">
-        <label class="text-sm text-gray-200">Prompt</label>
+        <label class="text-sm text-yellow-400/50">Prompt(The prompt words can be modified)</label>
         <textarea
           v-model="prompt"
           rows="4"
