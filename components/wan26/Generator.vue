@@ -12,7 +12,7 @@
           <h2
             class="text-3xl md:text-4xl font-normal bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 bg-clip-text text-transparent mb-4 leading-tight"
           >
-            Wan 2.6 — AI Video Generator for Multi-Shot Storytelling
+          Wan 2.6 AI Video Generator
           </h2>
           <p class="text-base md:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed font-light">
             Transform text prompts or images into cohesive multi-shot videos with smooth scene transitions,
@@ -822,7 +822,7 @@
 <script setup lang="ts">
 import { computed, reactive, ref, onBeforeUnmount } from 'vue'
 import { useNuxtApp } from 'nuxt/app'
-import { createTasksWan26, checkTaskWan26, upload } from '~/api'
+import { createTasksWan26, createTasksWan26V2V, checkTaskWan26, upload } from '~/api'
 import { validateImageFile, validateVideoFile } from '~/utils/uploadAPI'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '~/stores/user';
@@ -1341,7 +1341,8 @@ const handleSubmit = async () => {
       }
     }
 
-    const res: any = await createTasksWan26(payload)
+    
+    const res: any = activeMode.value === 'reference' ? await createTasksWan26V2V(payload) : await createTasksWan26(payload);
     const taskId = res?.data?.task_id
 
     if (res?.code === 200 && taskId) {
