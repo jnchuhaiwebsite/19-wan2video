@@ -14,7 +14,20 @@
     >
       <!-- 图片上传预览 -->
       <div class="flex flex-col gap-3">
-        <label class="text-xl text-gray-200">Upload photo</label>
+        <div class="flex items-center justify-between">
+          <label class="text-xl text-gray-200">
+            Upload photo <span class="text-red-500">*</span>
+          </label>
+          <button
+            class="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-colors shadow-lg"
+            @click="emit('close')"
+            type="button"
+          >
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
 
         <div class="relative">
           <div
@@ -82,7 +95,7 @@
 
       <!-- 模版选择 -->
       <div class="flex flex-col gap-3">
-        <label class="text-sm text-gray-200">Template</label>
+        <label class="text-sm text-gray-200">Template <span class="text-red-500">*</span></label>
 
         <div class="grid grid-cols-2 gap-3">
           <button
@@ -91,14 +104,14 @@
             type="button"
             @click="handleSelectTemplate(tpl)"
             :class="[
-              'flex flex-col rounded-xl overflow-hidden bg-transparent border transition-all duration-200 text-left',
+              'flex flex-col rounded-3xl overflow-hidden bg-transparent border transition-all duration-200 text-left',
               selectedTemplateKey === tpl.key
-                ? 'border-white ring-2 ring-white/40 shadow-lg'
-                : 'border-emerald-300/20 hover:border-emerald-200/70 hover:bg-black/40'
+                ? 'border-yellow-400 ring-2 ring-yellow-400/40 shadow-lg'
+                : 'border-yellow-400/30 hover:border-yellow-400/50 hover:bg-black/40'
             ]"
           >
             <div class="w-full relative">
-              <div class="w-full aspect-[194/104] overflow-hidden rounded-t-xl">
+              <div class="w-full aspect-[194/104] overflow-hidden rounded-t-3xl">
                 <img
                   :src="tpl.thumb"
                   :alt="tpl.name"
@@ -107,7 +120,7 @@
               </div>
 
               <div
-                class="absolute left-1.5 bottom-1.5 px-2 py-0.5 rounded-md bg-black/65 backdrop-blur-sm max-w-[80%]"
+                class="absolute left-1.5 bottom-1.5 px-2 py-0.5 rounded-md backdrop-blur-sm max-w-[80%]"
               >
                 <p class="text-[11px] font-semibold text-emerald-50 truncate leading-tight">
                   {{ tpl.name }}
@@ -120,7 +133,7 @@
 
       <!-- 提示词输入 -->
       <div class="flex flex-col gap-2">
-        <label class="text-sm text-gray-200">Prompt</label>
+        <label class="text-sm text-yellow-400/50">Prompt(The prompt words can be modified)</label>
         <textarea
           v-model="prompt"
           rows="4"
@@ -248,6 +261,10 @@ import { ref, computed, nextTick } from 'vue';
 import { useNuxtApp } from 'nuxt/app';
 import { useUserStore } from '~/stores/user';
 
+const emit = defineEmits<{
+  (e: 'close'): void;
+}>();
+
 interface TemplateItem {
   key: string;
   name: string;
@@ -276,7 +293,7 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-snowy-christmas-cabin-scene.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-s.mp4',
-    prompt:"  The Christmas sky is snowing, surrounded by pine trees adorned with colorful lights. The Christmas tree is covered in snow, and the roof and windowsill of the small wooden house are covered with a thick layer of white snow. There is a flower wreath made of pine cones and red berries hanging at the door. The character is wearing a Christmas sweater and a red Christmas hat, standing next to a small wooden house. The character width accounts for 70% of the page. About 70% of the page is occupied by height, holding a Christmas card and saying to a friend with a straight face, \"Happy Holidays, Catching up so to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome\"。Make people instantly feel the lively, excited, and energetic atmosphere of the festival night."
+    prompt:"  Snow is falling under the Christmas sky, with pine trees adorned with colorful lights all around. The Christmas tree is covered in snow, and the roof and windowsills of the little cabin are blanketed in a thick layer of white snow. A wreath made of pine cones and red berries hangs at the door. The person is wearing a Christmas sweater and a red Santa hat, standing next to the cabin. The person occupies about 70% of the width and around 70% of the height of the page, facing the camera directly and saying: 'Happy Holidays, Catching up soon to celebrate. Hope you're chilling hard and getting all the best snacks/gifts. Stay awesome!' The scene instantly conveys a lively, excited, and energetic holiday night atmosphere."
   },
   {
     key: 'christmas-tree',
@@ -284,7 +301,7 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-living-room-pine-tree-scene.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-s.mp4',
-    prompt:"  On Christmas Eve, there is a huge and lush real pine tree in the center of the living room! It is covered with various retro glass ball ornaments, with warm yellow white string lights on. The heavy snow outside the window gives a feeling of the night. Six thick red or green Christmas stockings are neatly placed on the fireplace rack, creating a warm atmosphere inside the house. The soft yellow color scheme places the characters inside, wearing Christmas hats and standing at the front. The character width accounts for 70% of the page. About 70% of the page is high, wearing an ugly Christmas sweater, holding a Christmas card, and saying to friends with a straight face, \"Happy Holidays, Catching up so to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome.\""
+    prompt:"  On Christmas night, a huge, lush real pine tree stands in the center of the living room! It's adorned with various vintage glass ball ornaments, glowing with warm yellow and white string lights. Outside the window, snowflakes drift down, capturing the essence of a winter night. On the mantel, six thick red or green Christmas stockings are neatly arranged. The overall atmosphere in the room is cozy, with soft yellow tones. The person is inside the room, wearing a Christmas hat, standing at the front. They occupy about 70% of the width and around 70% of the height of the page, dressed in an ugly Christmas sweater, facing the camera and saying to their friend: 'Happy Holidays, Catching up soon to celebrate. Hope you're chilling hard and getting all the best snacks/gifts. Stay awesome!'"
   },
   {
     key: 'church',
@@ -335,6 +352,10 @@ const audioCategories: AudioCategory[] = [
       { name: 'Mistletoe', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/mistletoe.mp3' },
       { name: 'Santa Tell Me', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/santa-tell-me.mp3' },
       { name: 'Snowman', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/snowman.mp3' },
+      { name: 'Christmas Tree Farm', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/christmas-tree-farm.mp3' },
+      { name: 'Coming Home This Christmas', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/coming-home-this-christmas.mp3' },
+      { name: 'Jingle Bell Rock', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/jingle-bell-rock.mp3' },
+
       { name: 'Friends (Male)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/friend.mp3' },
       { name: 'Colleagues (Male)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/colleague.mp3' },
       { name: 'Family (Male)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/family-members.mp3' },

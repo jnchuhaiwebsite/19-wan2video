@@ -1,12 +1,13 @@
 <template>
   <main>
-    <ChristmasHomePc class="pc-content" />
-    <ChristmasHomeMobile class="mobile-content" />
+    <ChristmasHomePc v-if="!isMobile" class="pc-content" />
+    <ChristmasHomeMobile v-else class="mobile-content" />
   </main>
 </template>
   
   
 <script setup lang="ts">
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import ChristmasHomePc from '~/components/christmas/ChristmasHomePc.vue'
 import ChristmasHomeMobile from '~/components/christmas/ChristmasHomeMobile.vue'
 import { useHead } from 'nuxt/app'
@@ -39,6 +40,22 @@ useHead({
     { rel: 'preload', as: 'video', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-church-holiday-interior-s.mp4', type: 'video/mp4' },
     { rel: 'preload', as: 'video', href: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-pine-forest-lights-s.mp4', type: 'video/mp4' }
   ]
+})
+
+const isMobile = ref(false)
+
+const updateIsMobile = () => {
+  if (typeof window === 'undefined') return
+  isMobile.value = window.innerWidth <= 1023
+}
+
+onMounted(() => {
+  updateIsMobile()
+  window.addEventListener('resize', updateIsMobile)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateIsMobile)
 })
 </script>
   

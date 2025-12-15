@@ -32,7 +32,7 @@
     <!-- 背景视频音频控制按钮 -->
     <button
       v-if="!showForm"
-      class="fixed top-24 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm border border-white/20 transition-all duration-200 z-[60] shadow-lg"
+      class="fixed top-24 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm border border-white/20 transition-all duration-200 z-40 shadow-lg"
       @click="toggleBackgroundVideoMute"
       title="Toggle audio"
     >
@@ -82,23 +82,16 @@
         position: fixed;
         inset: 0;
         z-index: -2;
-        background: rgba(255, 255, 255, 0.02);
-        background-image:
-          linear-gradient(
-            to bottom,
-            rgba(255,255,255,0.15) 0%,
-            rgba(255,255,255,0.03) 20%,
-            rgba(255,255,255,0) 40%
-          ),
-          linear-gradient(
-            to top,
-            rgba(255,255,255,0.08) 0%,
-            rgba(255,255,255,0) 30%
-          );
-        box-shadow:
-          inset 0 0 80px rgba(0, 0, 0, 0.25),
-          inset 0 6px 20px rgba(255,255,255,0.15);
-        border: 1px solid rgba(255,255,255,0.25);
+        pointer-events: none;
+        background: linear-gradient(
+  to bottom,
+  rgba(0, 0, 0, 0) 0%,      /* 顶部：透明 */
+  rgba(0, 0, 0, 0) 40%,     /* 前40%的高度：保持透明（保护人脸） */
+  rgba(0, 0, 0, 0.6) 80%,   /* 字出现的地方：变黑 */
+  rgba(0, 0, 0, 0.8) 100%   /* 最底部：最黑 */
+);
+        box-shadow: inset 0 0 100px rgba(0,0,0,0.35);
+        border: none;
       "
     ></div>
 
@@ -124,15 +117,17 @@
         style="
           font-family: 'Playfair Display', serif;
           font-size: 2rem;
-          margin-bottom: 24px;
+          margin-bottom: 32px;
           letter-spacing: 0.5px;
-          text-shadow: 0 4px 12px rgba(0,0,0,0.55);
+          text-shadow:
+            0 2px 4px rgba(0,0,0,0.55),
+            0 6px 14px rgba(0,0,0,0.35);
           max-width: 100%;
           line-height: 1.3;
           color: #fde047;
         "
       >
-        Christmas Video Greetings Ideas
+        Merry Christmas AI video Maker
       </h1>
 
       <!-- 副标题 -->
@@ -140,14 +135,16 @@
         style="
           font-size: 1rem;
           opacity: 0.95;
-          line-height: 1.6;
-          margin-bottom: 0;
+          line-height: 1.8;
+          margin: 0 auto;
           text-shadow: 0 2px 6px rgba(0,0,0,0.55);
-          max-width: 100%;
+          max-width: 360px;
         "
       >
-        <span style="display: block; margin-bottom: 8px;">Upload your photo, and let Santa do the magic!</span>
-        <span style="display: block;">A free, personalized video is just one click away</span>
+        <!-- <span style="display: block; margin-bottom: 8px;">Upload your photo, and let Santa do the magic!</span>
+        
+        <span style="display: block;">A free, personalized video is just one click away</span> -->
+        <span style="display: block; margin-bottom: 8px;">Create Christmas videos in minutes with AI. Just pick a template and click to generate, let wan2video handle the scenes, media, voiceovers, and sound effects. Instantly delivers free Christmas video clips with music</span>
       </p>
     </div>
 
@@ -160,13 +157,13 @@
         left: 0;
         right: 0;
         z-index: 10;
-        padding: 16px;
+        padding: 12px 14px;
         background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
         backdrop-filter: blur(10px);
       "
     >
       <button
-        class="w-full px-8 py-4 rounded-full text-base font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3"
+        class="w-full px-7 py-3 rounded-full text-base font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3"
         :style="{ backgroundColor: '#B41F21', color: 'white' }"
         @click="handleStartCreate"
       >
@@ -215,23 +212,13 @@
           width: 100%;
           background: transparent;
           overflow-y: auto;
-          padding: 0;
+          padding: 16px 16px 0 16px;
           transition: transform 0.2s ease-out;
         "
       >
-        <!-- 关闭按钮 - 右上角 -->
-        <button
-          class="fixed top-[calc(30vh+1rem)] right-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-colors z-[110] shadow-lg"
-          @click="handleCloseForm"
-        >
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-
         <!-- 使用移动端表单组件 -->
         <div class="w-full">
-          <ChristmasVideoFormMobile ref="formRef" />
+          <ChristmasVideoFormMobile ref="formRef" @close="handleCloseForm" />
         </div>
       </div>
     </Transition>
@@ -254,7 +241,7 @@
         <div class="relative w-full">
           <button
             ref="generateButton"
-            class="w-full px-8 py-4 rounded-full text-base font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3"
+            class="w-full px-8 py-3 rounded-full text-base font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3"
             :style="{ backgroundColor: '#B41F21', color: 'white' }"
             :disabled="isGenerating"
             @click="handleGenerate"
@@ -488,7 +475,7 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-snowy-christmas-cabin-scene.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-s.mp4',
-    prompt: "  The Christmas sky is snowing, surrounded by pine trees adorned with colorful lights. The Christmas tree is covered in snow, and the roof and windowsill of the small wooden house are covered with a thick layer of white snow. There is a flower wreath made of pine cones and red berries hanging at the door. The character is wearing a Christmas sweater and a red Christmas hat, standing next to a small wooden house. The character width accounts for 70% of the page. About 70% of the page is occupied by height, holding a Christmas card and saying to a friend with a straight face, \"Happy Holidays, Catching up so to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome\"。Make people instantly feel the lively, excited, and energetic atmosphere of the festival night."
+    prompt: "  Snow is falling under the Christmas sky, with pine trees adorned with colorful lights all around. The Christmas tree is covered in snow, and the roof and windowsills of the little cabin are blanketed in a thick layer of white snow. A wreath made of pine cones and red berries hangs at the door. The person is wearing a Christmas sweater and a red Santa hat, standing next to the cabin. The person occupies about 70% of the width and around 70% of the height of the page, facing the camera directly and saying: 'Happy Holidays, Catching up soon to celebrate. Hope you're chilling hard and getting all the best snacks/gifts. Stay awesome!' The scene instantly conveys a lively, excited, and energetic holiday night atmosphere."
   },
   {
     key: 'christmas-tree',
@@ -496,7 +483,7 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-living-room-pine-tree-scene.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-s.mp4',
-    prompt: "  On Christmas Eve, there is a huge and lush real pine tree in the center of the living room! It is covered with various retro glass ball ornaments, with warm yellow white string lights on. The heavy snow outside the window gives a feeling of the night. Six thick red or green Christmas stockings are neatly placed on the fireplace rack, creating a warm atmosphere inside the house. The soft yellow color scheme places the characters inside, wearing Christmas hats and standing at the front. The character width accounts for 70% of the page. About 70% of the page is high, wearing an ugly Christmas sweater, holding a Christmas card, and saying to friends with a straight face, \"Happy Holidays, Catching up so to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome.\""
+    prompt: "  On Christmas night, a huge, lush real pine tree stands in the center of the living room! It's adorned with various vintage glass ball ornaments, glowing with warm yellow and white string lights. Outside the window, snowflakes drift down, capturing the essence of a winter night. On the mantel, six thick red or green Christmas stockings are neatly arranged. The overall atmosphere in the room is cozy, with soft yellow tones. The person is inside the room, wearing a Christmas hat, standing at the front. They occupy about 70% of the width and around 70% of the height of the page, dressed in an ugly Christmas sweater, facing the camera and saying to their friend: 'Happy Holidays, Catching up soon to celebrate. Hope you're chilling hard and getting all the best snacks/gifts. Stay awesome!'"
   },
   {
     key: 'church',
@@ -524,7 +511,7 @@ const formRef = ref<InstanceType<typeof ChristmasVideoFormMobile> | null>(null)
 const formSection = ref<HTMLElement | null>(null)
 const previewSection = ref<HTMLElement | null>(null)
 const showForm = ref(false)
-const isBackgroundVideoMuted = ref(true) // 背景视频默认静音
+const isBackgroundVideoMuted = ref(false) // 背景视频默认静音
 const { $toast } = useNuxtApp() as any
 const router = useRouter();
 // 下滑关闭手势相关
@@ -570,6 +557,7 @@ const startPollingStatus = (taskId: string) => {
         generatedVideoUrl.value = url
         showResult.value = true
         statusMessage.value = 'Video created successfully!'
+        await userStore.fetchUserInfo(true)
         $toast?.success?.('Video generated successfully!')
       } else if (status <= -1) {
         // 生成失败
@@ -673,7 +661,7 @@ const currentTaskId = ref<string | null>(null)
 const showShareMenu = ref(false)
 const userStore = useUserStore()
 const freeTimes = computed(() => userStore.userInfo?.free_times || 0)
-const generateBadgeText = computed(() => freeTimes.value > 0 ? 'Free' : '400')
+const generateBadgeText = computed(() => freeTimes.value > 0 ? freeTimes.value + ' Free' : '400 Credits')
 
 // 开始制作：滚动到表单区域并选中模版1
 const handleStartCreate = () => {

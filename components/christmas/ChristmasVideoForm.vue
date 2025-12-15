@@ -20,7 +20,7 @@
       >
         <!-- 图片上传预览 -->
         <div class="flex flex-col gap-3">
-          <label class="text-xl text-gray-200">Upload photo</label>
+          <label class="text-xl text-gray-200">Upload photo <span class="text-red-500">*</span></label>
 
           <div class="relative">
             <div
@@ -89,7 +89,7 @@
 
         <!-- 模版选择 -->
         <div class="flex flex-col gap-3">
-          <label class="text-xl text-gray-200">Template</label>
+          <label class="text-xl text-gray-200">Template <span class="text-red-500">*</span></label>
 
           <div class="grid grid-cols-2 gap-3">
             <button
@@ -98,14 +98,14 @@
               type="button"
               @click="handleSelectTemplate(tpl)"
               :class="[
-                'flex flex-col rounded-xl overflow-hidden bg-transparent border transition-all duration-200 text-left',
+                'flex flex-col rounded-3xl overflow-hidden bg-transparent border transition-all duration-200 text-left',
                 selectedTemplateKey === tpl.key
                   ? 'border-yellow-400 ring-2 ring-yellow-400/40 shadow-lg'
                   : 'border-yellow-400/30 hover:border-yellow-400/50 hover:bg-black/40'
               ]"
             >
               <div class="w-full relative">
-                <div class="w-full aspect-[194/104] overflow-hidden rounded-t-xl">
+                <div class="w-full aspect-[194/104] overflow-hidden rounded-t-3xl">
                   <img
                     :src="tpl.thumb"
                     :alt="tpl.name"
@@ -114,7 +114,7 @@
                 </div>
 
                 <div
-                  class="absolute left-1.5 bottom-1.5 px-2 py-0.5 rounded-md bg-black/65 backdrop-blur-sm max-w-[80%]"
+                  class="absolute left-1.5 bottom-1.5 px-2 py-0.5 rounded-md  backdrop-blur-sm max-w-[80%]"
                 >
                   <p class="text-[11px] font-semibold text-emerald-50 truncate leading-tight">
                     {{ tpl.name }}
@@ -127,7 +127,7 @@
 
         <!-- 提示词输入 -->
         <div class="flex flex-col gap-2">
-          <label class="text-sm text-gray-200">Prompt</label>
+          <label class="text-sm text-yellow-400/50">Prompt(The prompt can be modified.)</label>
           <textarea
             v-model="prompt"
             rows="4"
@@ -267,7 +267,7 @@
                 />
               </svg>
 
-              <span>Create Nagic Video</span>
+              <span>Create Magic Video</span>
 
               <svg
                 class="w-4 h-4 text-yellow-300 drop-shadow"
@@ -303,9 +303,14 @@
           'lg:sticky lg:top-[100px]'
         ]"
       >
-        <div class="flex flex-col items-center" :class="isVertical ? 'justify-center py-40' : 'justify-start'">
+      <!-- isVertical 竖版还是横版，前面的竖版后边的横版 -->
+        <div class="flex flex-col items-center" :class="isVertical ? 'justify-center py-32' : 'justify-start py-6 ml-4'">
           <!-- 横版预览 -->
-          <div v-if="!isVertical" class="w-full max-w-xl flex justify-center">
+          <div
+            v-if="!isVertical"
+            class="w-full max-w-2xl flex justify-center"
+            style="transform: scale(1.1); transform-origin: center;"
+          >
             <div class="relative w-full aspect-[914/724]">
               <img
                 src="https://cfsource.wan2video.com/wan2video/christmas/template/images/computer.png"
@@ -445,7 +450,11 @@
           </div>
 
           <!-- 竖版预览 -->
-          <div v-else class="w-full max-w-xs flex justify-center mb-8" style="transform: scale(1.25); transform-origin: center;">
+          <div
+            v-else
+            class="w-full max-w-sm flex justify-start mb-8"
+            style="transform: scale(1.35); transform-origin: center;"
+          >
             <div class="relative w-full aspect-[9/16]">
               <img
                 src="https://cfsource.wan2video.com/wan2video/christmas/template/images/phone.png"
@@ -454,7 +463,7 @@
               />
               <div
                 class="absolute flex items-center justify-center z-10 overflow-hidden"
-                style="left: 6%; top: 0; width: 87%; height: 100%;border-radius: 45px;"
+                style="left: 6%; top: 0; width: 87%; height: 100%; border-radius: 60px;"
               >
                 <!-- 音频控制按钮（竖版） -->
                 <button
@@ -720,7 +729,7 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-snowy-christmas-cabin-scene.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-s.mp4',
-    prompt:"  The Christmas sky is snowing, surrounded by pine trees adorned with colorful lights. The Christmas tree is covered in snow, and the roof and windowsill of the small wooden house are covered with a thick layer of white snow. There is a flower wreath made of pine cones and red berries hanging at the door. The character is wearing a Christmas sweater and a red Christmas hat, standing next to a small wooden house. The character width accounts for 70% of the page. About 70% of the page is occupied by height, holding a Christmas card and saying to a friend with a straight face, \"Happy Holidays, Catching up so to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome\"。Make people instantly feel the lively, excited, and energetic atmosphere of the festival night."
+    prompt:"  Snow is falling under the Christmas sky, with pine trees adorned with colorful lights all around. The Christmas tree is covered in snow, and the roof and windowsills of the little cabin are blanketed in a thick layer of white snow. A wreath made of pine cones and red berries hangs at the door. The person is wearing a Christmas sweater and a red Santa hat, standing next to the cabin. The person occupies about 70% of the width and around 70% of the height of the page, facing the camera directly and saying: 'Happy Holidays, Catching up soon to celebrate. Hope you're chilling hard and getting all the best snacks/gifts. Stay awesome!' The scene instantly conveys a lively, excited, and energetic holiday night atmosphere."
   },
   {
     key: 'christmas-tree',
@@ -728,7 +737,7 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-living-room-pine-tree-scene.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-s.mp4',
-    prompt:"  On Christmas Eve, there is a huge and lush real pine tree in the center of the living room! It is covered with various retro glass ball ornaments, with warm yellow white string lights on. The heavy snow outside the window gives a feeling of the night. Six thick red or green Christmas stockings are neatly placed on the fireplace rack, creating a warm atmosphere inside the house. The soft yellow color scheme places the characters inside, wearing Christmas hats and standing at the front. The character width accounts for 70% of the page. About 70% of the page is high, wearing an ugly Christmas sweater, holding a Christmas card, and saying to friends with a straight face, \"Happy Holidays, Catching up so to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome.\""
+    prompt:"  On Christmas night, a huge, lush real pine tree stands in the center of the living room! It's adorned with various vintage glass ball ornaments, glowing with warm yellow and white string lights. Outside the window, snowflakes drift down, capturing the essence of a winter night. On the mantel, six thick red or green Christmas stockings are neatly arranged. The overall atmosphere in the room is cozy, with soft yellow tones. The person is inside the room, wearing a Christmas hat, standing at the front. They occupy about 70% of the width and around 70% of the height of the page, dressed in an ugly Christmas sweater, facing the camera and saying to their friend: 'Happy Holidays, Catching up soon to celebrate. Hope you're chilling hard and getting all the best snacks/gifts. Stay awesome!'"
   },
   {
     key: 'church',
@@ -799,6 +808,10 @@ const audioCategories: AudioCategory[] = [
       { name: 'Mistletoe', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/mistletoe.mp3' },
       { name: 'Santa Tell Me', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/santa-tell-me.mp3' },
       { name: 'Snowman', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/snowman.mp3' },
+      { name: 'Christmas Tree Farm', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/christmas-tree-farm.mp3' },
+      { name: 'Coming Home This Christmas', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/coming-home-this-christmas.mp3' },
+      { name: 'Jingle Bell Rock', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/jingle-bell-rock.mp3' },
+
       { name: 'Friends (Male)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/friend.mp3' },
       { name: 'Colleagues (Male)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/colleague.mp3' },
       { name: 'Family (Male)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/family-members.mp3' },
@@ -1075,7 +1088,7 @@ const onAudioEnded = () => {
 const userStore = useUserStore();
 const userInfo = computed(() => userStore.userInfo);
 const freeTimes = computed(() => userInfo.value?.free_times || 0);
-const generateBadgeText = computed(() => freeTimes.value > 0 ? 'Free' : '400');
+const generateBadgeText = computed(() => freeTimes.value > 0 ? freeTimes.value + ' Free' : '400 Credits');
 
 // 检查是否已登录
 const isLoggedIn = (): boolean => {
@@ -1177,6 +1190,7 @@ const startPollingStatus = (taskId: string) => {
         isGenerating.value = false;
         generatedVideoUrl.value = url;
         statusMessage.value = 'Video generated successfully!';
+        await userStore.fetchUserInfo(true)
         $toast?.success?.('Video generated successfully!');
       } else if (status <= -1) {
         isGenerating.value = false;
