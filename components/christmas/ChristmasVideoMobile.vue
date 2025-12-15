@@ -32,7 +32,7 @@
     <!-- 背景视频音频控制按钮 -->
     <button
       v-if="!showForm"
-      class="fixed top-24 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm border border-white/20 transition-all duration-200 z-[60] shadow-lg"
+      class="fixed top-24 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm border border-white/20 transition-all duration-200 z-40 shadow-lg"
       @click="toggleBackgroundVideoMute"
       title="Toggle audio"
     >
