@@ -82,6 +82,7 @@
                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none transition-colors bg-white"
                   placeholder="Describe the video you want — scene, motion, camera, style (English or Chinese supported)..."
                   maxlength="2000"
+                  @click="checkLoginStatus($event)"
                 />
                 <div class="flex justify-between items-center mt-2 text-xs text-gray-500">
                   <span>Supports both English and Chinese prompts</span>
@@ -216,7 +217,7 @@
                 </label>
                 <div
                   class="relative flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-purple-300 rounded-2xl cursor-pointer hover:border-purple-400 transition-colors bg-purple-50/40 overflow-hidden group"
-                  @click="triggerImageUpload"
+                  @click="checkLoginStatus($event) && triggerImageUpload()"
                 >
                   <div v-if="imagePreview" class="w-full h-full flex items-center justify-center">
                     <img :src="imagePreview" alt="preview" class="max-w-full max-h-full object-contain rounded-xl" />
@@ -272,6 +273,7 @@
                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 resize-none transition-colors bg-white"
                   placeholder="Describe how the still image should animate — motion, camera moves, lighting changes..."
                   maxlength="2000"
+                  @click="checkLoginStatus($event)"
                 />
                 <div class="flex justify-between items-center mt-2 text-xs text-gray-500">
                   <span>Supports both English and Chinese prompts</span>
@@ -385,7 +387,7 @@
                   </label>
                   <div
                     class="relative flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-teal-300 rounded-2xl cursor-pointer hover:border-teal-400 transition-colors bg-teal-50/40 overflow-hidden group"
-                    @click="triggerRefVideo1Upload"
+                    @click="checkLoginStatus($event) && triggerRefVideo1Upload()"
                   >
                     <div v-if="refVideo1Url" class="w-full h-full flex items-center justify-center">
                       <video
@@ -438,7 +440,7 @@
                   <label class="block text-sm font-semibold text-gray-900 mb-3">Reference video 2 (optional)</label>
                   <div
                     class="relative flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-teal-200 rounded-2xl cursor-pointer hover:border-teal-400 transition-colors bg-teal-50/30 overflow-hidden group"
-                    @click="triggerRefVideo2Upload"
+                    @click="checkLoginStatus($event) && triggerRefVideo2Upload()"
                   >
                     <div v-if="refVideo2Url" class="w-full h-full flex items-center justify-center">
                       <video
@@ -499,6 +501,7 @@
                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 resize-none transition-colors bg-white"
                   placeholder="Use character1, character2 to refer to your videos (e.g., 'character1 singing, character2 dancing'). Always use character1 for the first video."
                   maxlength="2000"
+                  @click="checkLoginStatus($event)"
                 />
                 <div class="flex justify-between items-center mt-2 text-xs text-gray-500">
                   <span>Supports both English and Chinese prompts</span>
@@ -822,7 +825,10 @@ import { useNuxtApp } from 'nuxt/app'
 import { createTasksWan26, checkTaskWan26, upload } from '~/api'
 import { validateImageFile, validateVideoFile } from '~/utils/uploadAPI'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '~/stores/user';
 const router = useRouter()
+const userStore = useUserStore()
+const userInfo = computed(() => userStore.userInfo);
 
 type Mode = 'text' | 'image' | 'reference'
 
@@ -948,6 +954,22 @@ const handleDefaultPlay = () => {
   if (videoUrl.value) return
   showDefaultVideo.value = true
   isDefaultLoading.value = true
+}
+
+const isLoggedIn = (): boolean => {
+  return !!userInfo.value
+}
+
+const checkLoginStatus = (event?: Event): boolean => {
+  if (!isLoggedIn()) {
+    event?.preventDefault?.()
+    const loginButton = document.getElementById('bindLogin')
+    if (loginButton) {
+      loginButton.click()
+    }
+    return false
+  }
+  return true
 }
 
 // 计算当前配置对应的积分消耗
