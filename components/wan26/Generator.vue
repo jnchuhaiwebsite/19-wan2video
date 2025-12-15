@@ -822,7 +822,7 @@
 <script setup lang="ts">
 import { computed, reactive, ref, onBeforeUnmount } from 'vue'
 import { useNuxtApp } from 'nuxt/app'
-import { createTasksWan26, checkTaskWan26, upload } from '~/api'
+import { createTasksWan26, createTasksWan26V2V, checkTaskWan26, upload } from '~/api'
 import { validateImageFile, validateVideoFile } from '~/utils/uploadAPI'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '~/stores/user';
@@ -1341,7 +1341,8 @@ const handleSubmit = async () => {
       }
     }
 
-    const res: any = await createTasksWan26(payload)
+    
+    const res: any = activeMode.value === 'reference' ? await createTasksWan26V2V(payload) : await createTasksWan26(payload);
     const taskId = res?.data?.task_id
 
     if (res?.code === 200 && taskId) {
