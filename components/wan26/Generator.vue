@@ -892,9 +892,9 @@ const { $toast } = useNuxtApp() as any
 
 const isAspectDisabled = (value: string) => {
   // Reference To Video 模式下，4:3 和 3:4 始终禁用
-  if (activeMode.value === 'reference' && (value === '4:3' || value === '3:4')) {
-    return true
-  }
+//   if (activeMode.value === 'reference' && (value === '4:3' || value === '3:4')) {
+//     return true
+//   }
 
   // Text / Image 模式：480P 档位仅支持 16:9 / 9:16 / 1:1；
   // 720P 与 1080P 支持 16:9 / 9:16 / 1:1 / 4:3 / 3:4
@@ -957,8 +957,11 @@ const handleDefaultPlay = () => {
 }
 
 const isLoggedIn = (): boolean => {
-  return !!userInfo.value
-}
+  if (!userInfo.value) {
+    return false;
+  }
+  return true;
+};
 
 const checkLoginStatus = (event?: Event): boolean => {
   if (!isLoggedIn()) {
