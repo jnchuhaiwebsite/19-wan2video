@@ -664,7 +664,7 @@
                 class="absolute inset-0 z-20 bg-black flex flex-col items-center justify-center space-y-3"
               >
                 <div class="w-10 h-10 border-4 border-white/40 border-t-white rounded-full animate-spin" />
-                <p class="text-xs text-slate-100/90">Loading video, please wait...</p>
+                <p class="text-xs text-slate-100/90">generating video, please wait..</p>
               </div>
 
               <!-- 生成结果视频 -->
