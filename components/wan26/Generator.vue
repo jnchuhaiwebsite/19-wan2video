@@ -630,10 +630,12 @@
             <div class="pt-2 space-y-2">
               <button
                 type="submit"
-                class="w-full py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:via-purple-700 hover:to-teal-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-3"
+                :disabled="isLoading"
+                class="w-full py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:via-purple-700 hover:to-teal-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:transform-none"
               >
-                <span>🎬 Generate video</span>
+                <span>{{ isLoading ? 'Generating...' : '🎬 Generate Video' }}</span>
                 <span
+                  v-if="!isLoading"
                   class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-medium bg-white/10 border border-white/40"
                 >
                   <span class="w-1.5 h-1.5 rounded-full bg-amber-300 mr-1.5" />
@@ -674,7 +676,7 @@
               >
                 <div class="w-10 h-10 border-4 border-white/40 border-t-white rounded-full animate-spin" />
                 <p class="text-xs text-slate-100/90 text-center">Your video is being generated.<br/>
-                    You can check the result in your dashboard in about 5 minutes</p>
+                    You can check the result in your <a href="/profile" class="text-blue-500 hover:underline">dashboard</a> in about 5 minutes</p>
               </div>
 
               <!-- 生成结果视频 -->
