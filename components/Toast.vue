@@ -1,7 +1,7 @@
 <template>
   <Transition name="toast">
     <div v-if="show" :class="[
-      'fixed z-50',
+      'fixed z-[99999]',
       position === 'left' ? 'top-4 left-4' :
       position === 'center' ? 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' :
       'top-4 right-4'

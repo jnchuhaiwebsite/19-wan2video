@@ -1,22 +1,46 @@
 <template>
   <main>
-    <!-- PC 端组件 -->
-      <CreateChristmasVideoPc class="pc-content" />
-      <CreateChristmasVideoPc4K class="pc4K-content" />
-      <!-- <CreateChristmasVideoPc class="pc-content" /> -->
-
-      <ChristmasVideoMobile class="mobile-content" />
+    <!-- 根据屏幕宽度仅渲染对应端的组件，避免未展示端的媒体自动播放 -->
+    <CreateChristmasVideoPc v-if="deviceType === 'pc'" />
+    <CreateChristmasVideoPc4K v-else-if="deviceType === 'pc4k'" />
+    <ChristmasVideoMobile v-else />
   </main>
 </template>
   
   
 <script setup lang="ts">
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import CreateChristmasVideoPc from '~/components/christmas/CreateChristmasVideoPc.vue'
 import ChristmasVideoMobile from '~/components/christmas/ChristmasVideoMobile.vue'
 import CreateChristmasVideoPc4K from '~/components/christmas/CreateChristmasVideoPc4K.vue'
 import { useHead } from 'nuxt/app'    
 import { useSeo } from '~/composables/useSeo'
     
+type DeviceType = 'pc' | 'pc4k' | 'mobile'
+const deviceType = ref<DeviceType>('pc')
+
+const updateDeviceType = () => {
+  if (typeof window === 'undefined') return
+  const width = window.innerWidth
+  if (width <= 1023) {
+    deviceType.value = 'mobile'
+  } else if (width >= 2560) {
+    deviceType.value = 'pc4k'
+  } else {
+    deviceType.value = 'pc'
+  }
+}
+
+onMounted(() => {
+  updateDeviceType()
+  window.addEventListener('resize', updateDeviceType)
+})
+
+onBeforeUnmount(() => {
+  if (typeof window === 'undefined') return
+  window.removeEventListener('resize', updateDeviceType)
+})
+
 // 设置使用圣诞布局（不包含 Footer）
 // @ts-ignore: Nuxt macro function
 definePageMeta({
@@ -68,36 +92,5 @@ useHead({
 </script>
   
 <style scoped>
-.pc-content {
-  display: none;
-}
-
-.pc4K-content {
-  display: none;
-}
-
-.mobile-content {
-  display: none;
-}
-
-/* PC 端：大于 1024px 的屏幕 */
-@media (min-width: 1024px) and (max-width: 2559px) {
-  .pc-content {
-    display: block;
-  }
-}
-
-@media (min-width: 2560px) {
-  .pc4K-content {
-    display: block;
-  }
-}
-
-/* 移动端：小于等于 1023px 的屏幕 */
-@media (max-width: 1023px) {
-  .mobile-content {
-    display: block;
-  }
-}
 </style>
   

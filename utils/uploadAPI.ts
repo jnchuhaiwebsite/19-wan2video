@@ -33,7 +33,7 @@ export const uploadImage = async (file: File): Promise<UploadResponse> => {
           url: '',
           filename: '',
           size: 0,
-          message: '上传失败'
+          message: 'Upload failed'
         })
       }
     }, 1000) // 模拟1秒上传时间
@@ -62,13 +62,13 @@ export const validateImageFile = (file: File): Promise<boolean> => {
     
     // 检查文件类型
     if (!allowedTypes.includes(file.type)) {
-      reject(new Error('不支持的文件类型，请上传 JPEG、JPG、PNG、BMP 或 WebP 格式的图片'))
+      reject(new Error('Unsupported file type. Please upload an image in JPEG, JPG, PNG, BMP, or WebP format.'))
       return
     }
     
     // 检查文件大小
     if (file.size > maxSize) {
-      reject(new Error('文件大小不能超过 10MB'))
+      reject(new Error('Image file size cannot exceed 10MB'))
       return
     }
     
@@ -80,7 +80,7 @@ export const validateImageFile = (file: File): Promise<boolean> => {
       
       // 检查分辨率范围 [360, 2000]
       if (width < 360 || width > 2000 || height < 360 || height > 2000) {
-        reject(new Error('图像分辨率必须在 360x360 到 2000x2000 像素之间'))
+        reject(new Error('Image resolution must be between 360x360 and 2000x2000 pixels'))
         return
       }
       
@@ -98,7 +98,7 @@ export const validateImageFile = (file: File): Promise<boolean> => {
           // 检查是否有透明像素
           for (let i = 3; i < data.length; i += 4) {
             if (data[i] < 255) {
-              reject(new Error('PNG 格式不支持透明通道，请使用不透明的 PNG 图片'))
+              reject(new Error('PNG format does not support transparent channels, please use a non-transparent PNG image'))
               return
             }
           }
@@ -109,7 +109,7 @@ export const validateImageFile = (file: File): Promise<boolean> => {
     }
     
     img.onerror = () => {
-      reject(new Error('无法读取图像文件，请确保文件格式正确'))
+      reject(new Error('Failed to read image file, please ensure the file format is correct'))
     }
     
     img.src = URL.createObjectURL(file)

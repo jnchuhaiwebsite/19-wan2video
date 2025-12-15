@@ -303,9 +303,14 @@
           'lg:sticky lg:top-[100px]'
         ]"
       >
-        <div class="flex flex-col items-center" :class="isVertical ? 'justify-center py-40' : 'justify-start'">
+      <!-- isVertical 竖版还是横版，前面的竖版后边的横版 -->
+        <div class="flex flex-col items-center" :class="isVertical ? 'justify-center py-32' : 'justify-start py-6 ml-4'">
           <!-- 横版预览 -->
-          <div v-if="!isVertical" class="w-full max-w-xl flex justify-center">
+          <div
+            v-if="!isVertical"
+            class="w-full max-w-2xl flex justify-center"
+            style="transform: scale(1.1); transform-origin: center;"
+          >
             <div class="relative w-full aspect-[914/724]">
               <img
                 src="https://cfsource.wan2video.com/wan2video/christmas/template/images/computer.png"
@@ -445,7 +450,11 @@
           </div>
 
           <!-- 竖版预览 -->
-          <div v-else class="w-full max-w-xs flex justify-center mb-8" style="transform: scale(1.25); transform-origin: center;">
+          <div
+            v-else
+            class="w-full max-w-sm flex justify-start mb-8"
+            style="transform: scale(1.35); transform-origin: center;"
+          >
             <div class="relative w-full aspect-[9/16]">
               <img
                 src="https://cfsource.wan2video.com/wan2video/christmas/template/images/phone.png"
@@ -454,7 +463,7 @@
               />
               <div
                 class="absolute flex items-center justify-center z-10 overflow-hidden"
-                style="left: 6%; top: 0; width: 87%; height: 100%;border-radius: 45px;"
+                style="left: 6%; top: 0; width: 87%; height: 100%; border-radius: 60px;"
               >
                 <!-- 音频控制按钮（竖版） -->
                 <button
@@ -1075,7 +1084,7 @@ const onAudioEnded = () => {
 const userStore = useUserStore();
 const userInfo = computed(() => userStore.userInfo);
 const freeTimes = computed(() => userInfo.value?.free_times || 0);
-const generateBadgeText = computed(() => freeTimes.value > 0 ? 'Free' : '400');
+const generateBadgeText = computed(() => freeTimes.value > 0 ? freeTimes.value + ' Free' : '400 Credits');
 
 // 检查是否已登录
 const isLoggedIn = (): boolean => {
@@ -1177,6 +1186,7 @@ const startPollingStatus = (taskId: string) => {
         isGenerating.value = false;
         generatedVideoUrl.value = url;
         statusMessage.value = 'Video generated successfully!';
+        await userStore.fetchUserInfo(true)
         $toast?.success?.('Video generated successfully!');
       } else if (status <= -1) {
         isGenerating.value = false;

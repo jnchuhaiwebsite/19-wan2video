@@ -35,14 +35,14 @@ export const urlList = {
   createTasks: baseUrl + '/api/task/mj/create',  // 创建任务
 
   //wan2ai
-  text2video: baseUrl + '/api/task/wan2ai/text2video',  // 创建任务-文生视频
-  image2video: baseUrl + '/api/task/wan2ai/image2video',  // 创建任务-图生视频
-  checkTask: baseUrl + '/api/task/wan2ai/check_task_status', // 检查任务
+  text2video: baseUrl + '/api/task/wan22/genvideo',  // 创建任务-文生视频
+  image2video: baseUrl + '/api/task/wan22/genvideo',  // 创建任务-图生视频
+  checkTask: baseUrl + '/api/task/wan/check_task_status', // 检查任务
   opusList: baseUrl + '/api/user/opus_list', // 获取用户作品列表
   statistics: baseUrl + '/api/statistics/pvuv', // 删除用户作品列表
-  previewGenvideo: baseUrl + '/api/task/wan2ai/preview/genvideo', // 预览生成视频
+  previewGenvideo: baseUrl + '/api/task/wan25/genvideo', // 预览生成视频
   createChristmasVideo: baseUrl + '/api/task/wan25/genvideo', // 创建圣诞视频任务状态
-  checkTaskStatus: baseUrl + '/api/task/wan2ai/check_task_status', // 检查任务状态
+  checkTaskStatus: baseUrl + '/api/task/wan/check_task_status', // 检查任务状态
   BlogStatistics: baseUrl + '/api/cms/statistics', // 统计
 }
 

@@ -557,6 +557,7 @@ const startPollingStatus = (taskId: string) => {
         generatedVideoUrl.value = url
         showResult.value = true
         statusMessage.value = 'Video created successfully!'
+        await userStore.fetchUserInfo(true)
         $toast?.success?.('Video generated successfully!')
       } else if (status <= -1) {
         // 生成失败
