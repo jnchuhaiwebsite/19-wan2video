@@ -876,7 +876,7 @@ const form = reactive({
     inspiration: false,
     multiShot: true,
     resolution: '720P',
-    duration: '10s',
+    duration: '5s',
     aspect: '16:9'
   },
   image: {
@@ -884,14 +884,14 @@ const form = reactive({
     inspiration: false,
     multiShot: true,
     resolution: '720P',
-    duration: '10s'
+    duration: '5s'
   },
   reference: {
     prompt: '',
     inspiration: false,
     multiShot: true,
     resolution: '720P',
-    duration: '10s',
+    duration: '5s',
     aspect: '16:9'
   }
 })

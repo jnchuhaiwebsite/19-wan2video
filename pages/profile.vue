@@ -236,11 +236,11 @@
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" v-if="works.length > 0">
         <div v-for="work in works" :key="work.task_id" class="work-item">
           <div class="relative aspect-square rounded-lg overflow-hidden group shadow-lg hover:shadow-xl transition-shadow">
-            <!-- 视频类型：currentTab === 1 时优先展示 generate_image -->
-            <template v-if="isVideoType(work.task_type) && (currentTab !== 1 || work.generate_image)">
+            <!-- 视频类型：根据 generate_image / origin_image 后缀判断，currentTab === 1 时优先展示 generate_image -->
+            <template v-if="isVideoType(work.generate_image || work.origin_image) && (currentTab === 1 || work.generate_image)">
               <div class="relative w-full h-full">
                 <video 
-                  :src="work.generate_image" 
+                  :src="work.generate_image || work.origin_image" 
                   class="w-full h-full object-cover cursor-pointer"
                   loading="lazy"
                   muted
@@ -248,7 +248,7 @@
                   ref="videoRefs"
                   @mouseenter="handleVideoPlay($event)"
                   @mouseleave="handleVideoPause($event)"
-                  @click="openLightbox(work.generate_image)"
+                  @click="openLightbox(work.generate_image || work.origin_image)"
                   @loadstart="handleVideoLoadStart(work.task_id)"
                   @canplay="handleVideoCanPlay(work.task_id)"
                 />
@@ -262,7 +262,7 @@
               </div>
               <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
                 <button 
-                  @click="openLightbox(work.generate_image)"
+                  @click="openLightbox(work.generate_image || work.origin_image)"
                   class="bg-blue-button bg-opacity-80 p-2 rounded-full hover:bg-opacity-100 transition-all shadow-lg hover:shadow-xl"
                   title="View full size"
                 >
@@ -271,7 +271,7 @@
                   </svg>
                 </button>
                 <button 
-                  @click="handleDownload(work.generate_image)"
+                  @click="handleDownload(work.generate_image || work.origin_image)"
                   class="bg-blue-button bg-opacity-80 p-2 rounded-full hover:bg-opacity-100 transition-all shadow-lg hover:shadow-xl"
                   :disabled="isDownloading"
                   title="Download video"
@@ -285,14 +285,14 @@
                 </button>
               </div>
             </template>
-            <template v-else-if="isImageType(work.task_type)">
+            <template v-else-if="isImageType(work.generate_image || work.origin_image)  && (currentTab === 1 || work.generate_image)">
               <div class="relative w-full h-full">
                 <img 
-                  :src="work.generate_image" 
+                  :src="work.generate_image || work.origin_image" 
                   class="w-full h-full object-cover cursor-pointer"
                   loading="lazy"
                   alt="Generated image"
-                  @click="openImageLightbox(work.generate_image)"
+                  @click="openImageLightbox(work.generate_image || work.origin_image)"
                 />
               </div>
               <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
@@ -354,7 +354,7 @@
                   <div class="w-full h-full bg-blue-pale flex items-center justify-center">
                     <div class="text-center">
                       <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-light border-t-blue-button mb-2"></div>
-                      <p class="text-blue-h1 text-sm">Generating...</p>
+                      <p class="text-blue-h1 text-sm">Processing...</p>
                     </div>
                   </div>
                 </template>
@@ -600,22 +600,24 @@ const totalPages = ref(1)
 
 const notificationStore = useNotificationStore()
 
-// 判断是否为视频类型
-const isVideoType = (taskType: number) => {
-  return taskType === 3 || taskType === 4 || taskType === 5
-}
-
-// 判断是否为图片类型
-const isImageType = (taskType: number) => {
-  return taskType === 1 || taskType === 2
-}
-
 // 根据文件后缀判断是否为视频
 const isVideoFile = (url: string) => {
   if (!url) return false
   const videoExtensions = ['.mp4', '.mov', '.avi', '.webm', '.mkv', '.flv', '.wmv', '.m4v']
   const lowerUrl = url.toLowerCase()
   return videoExtensions.some(ext => lowerUrl.includes(ext))
+}
+
+// 判断是否为视频类型（根据 generate_image / origin_image 后缀）
+const isVideoType = (url?: string | null) => {
+  if (!url) return false
+  return isVideoFile(url)
+}
+
+// 判断是否为图片类型（根据 generate_image / origin_image 后缀）
+const isImageType = (url?: string | null) => {
+  if (!url) return false
+  return !isVideoFile(url)
 }
 
 // 视频播放控制

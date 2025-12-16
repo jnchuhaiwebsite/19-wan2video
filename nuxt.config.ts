@@ -48,8 +48,8 @@ export default defineNuxtConfig({
         { name: 'twitter:image', content: '/favicon.ico' },
         // Keywords
         { name: 'keywords', content: '' },
-        { name: 'author', content: 'wan2.2 Video Generator Team' },
-        { name: 'application-name', content: 'wan2.2 Video Generator' },
+        { name: 'author', content: 'Wan AI' },
+        { name: 'application-name', content: 'Wan2Video' },
       ],
       script: [
         { src: '/js/c6h.js', async: true } 
