@@ -43,6 +43,11 @@
       <Wan26UseCases />
     </section>
 
+    <!-- Video Examples -->
+    <section class="relative">
+      <Wan26VideoExamples />
+    </section>
+
     <!-- FAQ -->
     <section class="relative">
       <Wan26Faq />
@@ -59,6 +64,7 @@ import Wan26WhyMatters from '~/components/wan26/WhyMatters.vue';
 import Wan26Generator from '~/components/wan26/Generator.vue';
 import Wan26KeyFeatures from '~/components/wan26/KeyFeatures.vue';
 import Wan26UseCases from '~/components/wan26/UseCases.vue';
+import Wan26VideoExamples from '~/components/wan26/VideoExamples.vue';
 import Wan26Faq from '~/components/wan26/Faq.vue';
 import { useHead } from 'nuxt/app';
 import { useSeo } from '~/composables/useSeo';
