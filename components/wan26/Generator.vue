@@ -1019,14 +1019,14 @@ const creditCostLabel = computed(() => {
   // Wan 2.6 积分表
   const tableTextImage: Record<string, Record<number, number>> = {
     '480P': { 5: 100, 10: 200, 15: 300 },
-    '720P': { 5: 200, 10: 400, 15: 600 },
-    '1080P': { 5: 300, 10: 600, 15: 900 }
+    '720P': { 5: 170, 10: 340, 15: 510 },
+    '1080P': { 5: 285, 10: 570, 15: 855 }
   }
 
   const tableReference: Record<string, Record<number, number>> = {
     '480P': { 5: 100, 10: 200 },
-    '720P': { 5: 200, 10: 400 },
-    '1080P': { 5: 300, 10: 600 }
+    '720P': { 5: 170, 10: 340 },
+    '1080P': { 5: 285, 10: 570 }
   }
 
   const table = activeMode.value === 'reference' ? tableReference : tableTextImage

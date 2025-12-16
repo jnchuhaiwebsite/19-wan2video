@@ -691,16 +691,16 @@ const checkTaskStatus = async (taskId: string) => {
       return
     }
 
-    const responseCheckTaskWan26 = await checkTaskWan26(taskId) as any
-    if (responseCheckTaskWan26.data?.status === 1) {
-      // 如果任务完成，清除定时器并从列表中移除该作品
-      if (taskCheckTimers.value.has(taskId)) {
-        clearTimeout(taskCheckTimers.value.get(taskId))
-        taskCheckTimers.value.delete(taskId)
-      }
-      works.value = works.value.filter(work => work.task_id !== taskId)
-      return
-    }
+    // const responseCheckTaskWan26 = await checkTaskWan26(taskId) as any
+    // if (responseCheckTaskWan26.data?.status === 1) {
+    //   // 如果任务完成，清除定时器并从列表中移除该作品
+    //   if (taskCheckTimers.value.has(taskId)) {
+    //     clearTimeout(taskCheckTimers.value.get(taskId))
+    //     taskCheckTimers.value.delete(taskId)
+    //   }
+    //   works.value = works.value.filter(work => work.task_id !== taskId)
+    //   return
+    // }
 
     // 如果任务未完成，10秒后再次查询
     // 避免重复设置定时器
