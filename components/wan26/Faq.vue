@@ -12,9 +12,12 @@
           <span class="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse"></span>
           Frequently Asked Questions
         </div>
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mb-8 leading-tight">
-          Wan 2.6 Frequently Asked Questions
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4 leading-tight">
+          Frequently Asked Questions About Wan 2.6
         </h2>
+        <p class="text-base md:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+          Clear answers to common questions about Wan 2.6 features, multi-shot storytelling, reference control, and video generation limits.
+        </p>
       </div>
 
       <!-- FAQ Items -->
@@ -60,18 +63,62 @@
           </div>
         </div>
       </div>
+
+      <!-- CTA Section -->
+      <div
+        class="text-center bg-gradient-to-br from-white via-blue-50/30 to-indigo-50/30 rounded-3xl p-8 md:p-12 border border-blue-100/60 shadow-[0_20px_60px_-30px_rgba(59,130,246,0.25)] mt-16"
+      >
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">
+          Ready to Create with Wan 2.6?
+        </h2>
+        <p class="text-base md:text-lg text-slate-700 mb-8 max-w-2xl mx-auto leading-relaxed">
+          Turn your ideas into connected video stories with Wan 2.6. From multi-shot narratives to longer 15-second videos, it gives you more control over structure, consistency, and creative flow—without complicated setup.
+        </p>
+        <button
+          @click="handleStartCreating"
+          class="group relative h-14 px-8 bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 text-white font-semibold text-lg rounded-xl shadow-[0_10px_30px_rgba(59,130,246,0.45)] hover:shadow-[0_18px_45px_rgba(99,102,241,0.7)] transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 hover:from-blue-500 hover:via-indigo-400 hover:to-purple-400 overflow-hidden"
+        >
+          <span class="relative z-10 flex items-center gap-2">
+            Start Creating with Wan 2.6
+            <svg
+              class="w-5 h-5 transition-transform group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </span>
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"
+          ></div>
+        </button>
+      </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const faqs = ref([
   {
-    question: 'What is Wan 2.6?',
-    answer: 'Wan 2.6 is a next-generation multimodal AI platform for generating high-quality videos and images. It integrates text, images, audio, and video into one unified system, supporting text-to-video, image-to-video, and text-to-image creation. It produces 1080p videos at 24fps with native audio-visual synchronization and precise lip-sync.',
+    question: 'What is Wan 2.6 used for?',
+    answer: 'Wan 2.6 is used for creating AI-generated videos with multi-shot storytelling, longer duration, and better consistency across scenes.',
     isOpen: true
+  },
+  {
+    question: 'How is Wan 2.6 different from Wan 2.5?',
+    answer: 'Wan 2.6 improves narrative continuity, adds stronger video reference support, and enables up to 15-second video generation for richer storytelling.',
+    isOpen: false
+  },
+  {
+    question: 'Does Wan 2.6 support multi-shot video generation?',
+    answer: 'Yes, Wan 2.6 is designed for multi-shot generation, allowing connected shots to follow a clear narrative structure within one video.',
+    isOpen: false
   },
   {
     question: 'Does Wan 2.6 offer a free trial?',
@@ -84,28 +131,33 @@ const faqs = ref([
     isOpen: false
   },
   {
-    question: 'How does Wan 2.6 work?',
-    answer: 'Wan 2.6 functions as an advanced multimodal AI engine. Users enter natural language prompts and optionally upload images or audio. The system processes these inputs using the Wan 2.6 5B or 14B models to generate high-fidelity 1080p videos with native A/V sync, accurate lip-sync, and coherent motion across frames.',
-    isOpen: false
-  },
-  {
-    question: 'What are the key benefits of Wan 2.6?',
-    answer: 'Key benefits include:<br><br>• Native audio-visual synchronization and precise lip-sync<br>• Text-to-video, image-to-video, and text-to-image generation<br>• Choice of 5B or 14B model variants<br>• Multiple supported aspect ratios (16:9, 9:16, 1:1)<br>• Multilingual input support<br>• Full commercial rights for all generated content',
-    isOpen: false
-  },
-  {
     question: 'What makes Wan 2.6 unique compared to Sora 2?',
     answer: 'Wan 2.6 competes strongly with Sora 2 in reference-based generation, multi-shot storytelling, and overall quality. Its strengths include:<br><br>• Reference video generation for style and motion control<br>• Advanced multi-shot narrative capabilities<br>• Higher generation quality and extended durations<br>• Native A/V synchronization and precise lip-sync<br>• Flexible 5B and 14B model options',
     isOpen: false
   },
   {
-    question: 'Who is Wan 2.6 designed for?',
-    answer: 'Wan 2.6 is made for content creators, marketers, educators, social media managers, filmmakers, and e-commerce brands. Example use cases:<br><br>• Marketing teams producing consistent, professional campaigns<br>• Filmmakers prototyping scenes or building narrative sequences<br>• Educators creating multilingual lessons<br>• Social media creators generating daily short-form content<br>• E-commerce brands producing product showcases',
+    question: 'Can Wan 2.6 keep characters consistent across scenes?',
+    answer: 'Wan 2.6 maintains key visual details such as characters and objects across shots, reducing appearance drift between scenes.',
     isOpen: false
   },
   {
-    question: 'What resolutions and aspect ratios does Wan 2.6 support?',
-    answer: 'Wan 2.6 supports 480p, 720p, and 1080p at 24fps.<br><br>Available aspect ratios include 16:9 (landscape), 9:16 (vertical), and 1:1 (square).',
+    question: 'Does Wan 2.6 work with reference videos?',
+    answer: 'Wan 2.6 supports video reference inputs, enabling creators to guide visual appearance and sound based on existing videos.',
+    isOpen: false
+  },
+  {
+    question: 'What is the maximum video length in Wan 2.6?',
+    answer: 'Wan 2.6 supports video generation of up to 15 seconds per output, allowing more complete scenes and smoother transitions.',
+    isOpen: false
+  },
+  {
+    question: 'Is Wan 2.6 suitable for dual-character storytelling?',
+    answer: 'Yes, Wan 2.6 supports videos with one or two subjects and helps maintain consistent interaction across multiple shots.',
+    isOpen: false
+  },
+  {
+    question: 'Do I need complex prompts to use Wan 2.6?',
+    answer: 'No, Wan 2.6 works well with simple, natural-language prompts while still producing structured and coherent multi-shot videos.',
     isOpen: false
   }
 ])
@@ -118,6 +170,10 @@ const toggleFaq = (index: number) => {
 const formatAnswer = (answer: string) => {
   // 将换行符转换为 <br>
   return answer.replace(/\n/g, '<br>')
+}
+
+const handleStartCreating = () => {
+  router.push('/wan/wan-2-6#generator')
 }
 </script>
 
