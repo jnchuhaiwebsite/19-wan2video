@@ -170,15 +170,14 @@ const jsonLD ={
           "valueAddedTaxIncluded": false // 是否含税（不含）
         }
       },
-      "featureList": [ // 功能列表
-        "Breakthrough Multimodal Architecture", // 突破性多模态架构
-        "Multi-Shot Narrative Intelligence", // 多镜头叙事智能
-        "5B & 14B Model Variants", // 5B和14B模型变体
-        "Enhanced Quality & Longer Durations", // 增强质量和更长时长
-        "Native Audio-Visual Synchronization", // 原生音视频同步
-        "Audio-Driven Video Generation", // 音频驱动视频生成
-        "Flexible Format Support", // 灵活格式支持
-        "Full Commercial Rights" // 完整商业权利
+      "featureList": [ // 功能列表（同步 Wan26KeyFeatures）
+        "Multi-shot storytelling with intelligent scene planning",
+        "Reference-based video generation (video-to-video) for consistent style, motion, and voice",
+        "Extended 15-second video generation for richer narratives",
+        "Native audio-visual synchronization with precise lip-sync",
+        "Audio-driven video generation that follows rhythm and mood",
+        "Flexible format support for 16:9, 9:16, and 1:1 outputs",
+        "Full commercial rights for all generated content"
       ]
     },
     {
@@ -187,10 +186,26 @@ const jsonLD ={
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What is Wan 2.6?",
+          "name": "What is Wan 2.6 used for?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Wan 2.6 is a next-generation multimodal AI platform for generating high-quality videos and images. It integrates text, images, audio, and video into one unified system, supporting text-to-video, image-to-video, and text-to-image creation. It produces 1080p videos at 24fps with native audio-visual synchronization and precise lip-sync."
+            "text": "Wan 2.6 is used for creating AI-generated videos with multi-shot storytelling, longer duration, and better consistency across scenes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is Wan 2.6 different from Wan 2.5?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Wan 2.6 improves narrative continuity, adds stronger video reference support, and enables up to 15-second video generation for richer storytelling."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Wan 2.6 support multi-shot video generation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, Wan 2.6 is designed for multi-shot generation, allowing connected shots to follow a clear narrative structure within one video."
           }
         },
         {
@@ -211,22 +226,6 @@ const jsonLD ={
         },
         {
           "@type": "Question",
-          "name": "How does Wan 2.6 work?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Wan 2.6 functions as an advanced multimodal AI engine. Users enter natural language prompts and optionally upload images or audio. The system processes these inputs using the Wan 2.6 5B or 14B models to generate high-fidelity 1080p videos with native A/V sync, accurate lip-sync, and coherent motion across frames."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What are the key benefits of Wan 2.6?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Key benefits include: Native audio-visual synchronization and precise lip-sync; Text-to-video, image-to-video, and text-to-image generation; Choice of 5B or 14B model variants; Multiple supported aspect ratios (16:9, 9:16, 1:1); Multilingual input support; Full commercial rights for all generated content."
-          }
-        },
-        {
-          "@type": "Question",
           "name": "What makes Wan 2.6 unique compared to Sora 2?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -235,19 +234,71 @@ const jsonLD ={
         },
         {
           "@type": "Question",
-          "name": "Who is Wan 2.6 designed for?",
+          "name": "Can Wan 2.6 keep characters consistent across scenes?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Wan 2.6 is made for content creators, marketers, educators, social media managers, filmmakers, and e-commerce brands. Example use cases: Marketing teams producing consistent, professional campaigns; Filmmakers prototyping scenes or building narrative sequences; Educators creating multilingual lessons; Social media creators generating daily short-form content; E-commerce brands producing product showcases."
+            "text": "Wan 2.6 maintains key visual details such as characters and objects across shots, reducing appearance drift between scenes."
           }
         },
         {
           "@type": "Question",
-          "name": "What resolutions and aspect ratios does Wan 2.6 support?",
+          "name": "Does Wan 2.6 work with reference videos?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Wan 2.6 supports 480p, 720p, and 1080p at 24fps. Available aspect ratios include 16:9 (landscape), 9:16 (vertical), and 1:1 (square)."
+            "text": "Wan 2.6 supports video reference inputs, enabling creators to guide visual appearance and sound based on existing videos."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the maximum video length in Wan 2.6?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Wan 2.6 supports video generation of up to 15 seconds per output, allowing more complete scenes and smoother transitions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Wan 2.6 suitable for dual-character storytelling?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, Wan 2.6 supports videos with one or two subjects and helps maintain consistent interaction across multiple shots."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need complex prompts to use Wan 2.6?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, Wan 2.6 works well with simple, natural-language prompts while still producing structured and coherent multi-shot videos."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo", // 使用说明模块（同步 Wan26HowToUse）
+      "@id": "https://www.wan2video.com/wan/wan-2-6#how-to-use",
+      "name": "How to Use Wan 2.6",
+      "description": "Follow a simple four-step process to create coherent multi-shot videos using text prompts or video references.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Step 1: Choose Generation Mode",
+          "text": "Select Text to Video, Image to Video, or Reference to Video depending on your input. Reference mode lets you reuse visual or audio traits from existing videos."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Step 2: Provide Input and Write a Prompt",
+          "text": "Upload your input and describe what you want to create. You can provide text, images, or videos and explain the scene, motion, or result you expect."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Step 3: Configure Video Settings",
+          "text": "Choose resolution, duration, and aspect ratio. Enable Multi-Shot to allow intelligent shot splitting and better narrative flow."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Step 4: Generate and Review",
+          "text": "Click Generate Video to create your result. Preview the output and refine prompts or settings to improve consistency and pacing."
         }
       ]
     }
