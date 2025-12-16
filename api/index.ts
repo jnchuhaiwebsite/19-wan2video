@@ -47,7 +47,7 @@ export const urlList = {
 
   createTasksWan26: baseUrl + '/api/task/wan26/genvideo', // 创建任务-Wan 2.6
   createTasksWan26V2V: baseUrl + '/api/task/wan26/v2v', // 创建任务-Wan 2.6
-  checkTaskWan26: baseUrl + '/api/task/wan26/check_task_status', // 检查任务-Wan 2.6
+  checkTaskWan26: baseUrl + '/api/task/wan/check_task_status', // 检查任务-Wan 2.6
 }
 
 /**
