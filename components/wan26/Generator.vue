@@ -70,12 +70,36 @@
           <form class="space-y-6" @submit.prevent="handleSubmit">
             <!-- Text To Video -->
             <div v-if="activeMode === 'text'" class="space-y-6">
-              <!-- Prompt -->
+              <!-- Prompt + Inspiration Mode 开关 -->
               <div>
-                <label class="block text-sm font-semibold text-gray-900 mb-3">
-                  Prompt
-                  <span class="text-red-500 ml-0.5">*</span>
-                </label>
+                <div class="flex items-center justify-between mb-2 gap-3">
+                  <div>
+                    <p class="text-sm font-semibold text-gray-900">
+                      Prompt
+                      <span class="text-red-500 ml-0.5">*</span>
+                    </p>
+                    <p class="text-[11px] text-gray-500 mt-0.5">
+                      Describe the scene, motion, camera, and style you want.
+                    </p>
+                  </div>
+                  <div class="flex items-center gap-2 shrink-0">
+                    <div class="text-right">
+                      <p class="text-xs font-medium text-gray-900 leading-tight">Inspiration Mode</p>
+                      <p class="text-[11px] text-gray-500 leading-tight">More exploratory interpretation</p>
+                    </div>
+                    <button
+                      type="button"
+                      class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                      :class="form.text.inspiration ? 'bg-blue-600' : 'bg-gray-200'"
+                      @click="() => { form.text.inspiration = !form.text.inspiration; if (!form.text.inspiration) form.text.multiShot = false }"
+                    >
+                      <span
+                        class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
+                        :class="form.text.inspiration ? 'translate-x-6' : 'translate-x-1'"
+                      />
+                    </button>
+                  </div>
+                </div>
                 <textarea
                   v-model="form.text.prompt"
                   rows="4"
@@ -90,25 +114,8 @@
                 </div>
               </div>
 
-              <!-- 开关选项 -->
-              <div class="grid grid-cols-2 gap-4">
-                <div class="flex items-center justify-between px-4 py-3 bg-gray-50 rounded-2xl">
-                  <div>
-                    <p class="text-sm font-medium text-gray-900">Inspiration Mode</p>
-                    <p class="text-xs text-gray-500 mt-1">More exploratory, creative interpretation of your prompt</p>
-                  </div>
-                  <button
-                    type="button"
-                    class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    :class="form.text.inspiration ? 'bg-blue-600' : 'bg-gray-200'"
-                    @click="() => { form.text.inspiration = !form.text.inspiration; if (!form.text.inspiration) form.text.multiShot = false }"
-                  >
-                    <span
-                      class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
-                      :class="form.text.inspiration ? 'translate-x-6' : 'translate-x-1'"
-                    />
-                  </button>
-                </div>
+              <!-- 开关选项：Multi-Shot -->
+              <div class="grid grid-cols-1 gap-4">
                 <div class="flex items-center justify-between px-4 py-3 bg-gray-50 rounded-2xl">
                   <div>
                     <p class="text-sm font-medium text-gray-900">Multi-Shot</p>
@@ -261,12 +268,36 @@
                 />
               </div>
 
-              <!-- Prompt -->
+              <!-- Prompt + Inspiration Mode 开关 -->
               <div>
-                <label class="block text-sm font-semibold text-gray-900 mb-3">
-                  Prompt
-                  <span class="text-red-500 ml-0.5">*</span>
-                </label>
+                <div class="flex items-center justify-between mb-2 gap-3">
+                  <div>
+                    <p class="text-sm font-semibold text-gray-900">
+                      Prompt
+                      <span class="text-red-500 ml-0.5">*</span>
+                    </p>
+                    <p class="text-[11px] text-gray-500 mt-0.5">
+                      Describe how the still image should animate.
+                    </p>
+                  </div>
+                  <div class="flex items-center gap-2 shrink-0">
+                    <div class="text-right">
+                      <p class="text-xs font-medium text-gray-900 leading-tight">Inspiration Mode</p>
+                      <p class="text-[11px] text-gray-500 leading-tight">More imaginative variations</p>
+                    </div>
+                    <button
+                      type="button"
+                      class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                      :class="form.image.inspiration ? 'bg-blue-600' : 'bg-gray-200'"
+                      @click="() => { form.image.inspiration = !form.image.inspiration; if (!form.image.inspiration) form.image.multiShot = false }"
+                    >
+                      <span
+                        class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
+                        :class="form.image.inspiration ? 'translate-x-6' : 'translate-x-1'"
+                      />
+                    </button>
+                  </div>
+                </div>
                 <textarea
                   v-model="form.image.prompt"
                   rows="3"
@@ -281,25 +312,8 @@
                 </div>
               </div>
 
-              <!-- 开关选项 -->
-              <div class="grid grid-cols-2 gap-4">
-                <div class="flex items-center justify-between px-4 py-3 bg-gray-50 rounded-2xl">
-                  <div>
-                    <p class="text-sm font-medium text-gray-900">Inspiration Mode</p>
-                    <p class="text-xs text-gray-500 mt-1">More imaginative motion and lighting variations</p>
-                  </div>
-                  <button
-                    type="button"
-                    class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    :class="form.image.inspiration ? 'bg-blue-600' : 'bg-gray-200'"
-                    @click="() => { form.image.inspiration = !form.image.inspiration; if (!form.image.inspiration) form.image.multiShot = false }"
-                  >
-                    <span
-                      class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
-                      :class="form.image.inspiration ? 'translate-x-6' : 'translate-x-1'"
-                    />
-                  </button>
-                </div>
+              <!-- 开关选项：Multi-Shot -->
+              <div class="grid grid-cols-1 gap-4">
                 <div class="flex items-center justify-between px-4 py-3 bg-gray-50 rounded-2xl">
                   <div>
                     <p class="text-sm font-medium text-gray-900">Multi-Shot</p>
@@ -489,12 +503,36 @@
                 </div>
               </div>
 
-              <!-- Prompt -->
+              <!-- Prompt + Inspiration Mode 开关 -->
               <div>
-                <label class="block text-sm font-semibold text-gray-900 mb-3">
-                  Prompt
-                  <span class="text-red-500 ml-0.5">*</span>
-                </label>
+                <div class="flex items-center justify-between mb-2 gap-3">
+                  <div>
+                    <p class="text-sm font-semibold text-gray-900">
+                      Prompt
+                      <span class="text-red-500 ml-0.5">*</span>
+                    </p>
+                    <p class="text-[11px] text-gray-500 mt-0.5">
+                      Use character1, character2 to reference your uploaded videos.
+                    </p>
+                  </div>
+                  <div class="flex items-center gap-2 shrink-0">
+                    <div class="text-right">
+                      <p class="text-xs font-medium text-gray-900 leading-tight">Inspiration Mode</p>
+                      <p class="text-[11px] text-gray-500 leading-tight">Looser, more creative output</p>
+                    </div>
+                    <button
+                      type="button"
+                      class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                      :class="form.reference.inspiration ? 'bg-blue-600' : 'bg-gray-200'"
+                      @click="() => { form.reference.inspiration = !form.reference.inspiration; if (!form.reference.inspiration) form.reference.multiShot = false }"
+                    >
+                      <span
+                        class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
+                        :class="form.reference.inspiration ? 'translate-x-6' : 'translate-x-1'"
+                      />
+                    </button>
+                  </div>
+                </div>
                 <textarea
                   v-model="form.reference.prompt"
                   rows="3"
@@ -509,25 +547,8 @@
                 </div>
               </div>
 
-              <!-- 开关选项 -->
-              <div class="grid grid-cols-2 gap-4">
-                <div class="flex items-center justify-between px-4 py-3 bg-gray-50 rounded-2xl">
-                  <div>
-                    <p class="text-sm font-medium text-gray-900">Inspiration Mode</p>
-                    <p class="text-xs text-gray-500 mt-1">Looser, more creative variations on the reference</p>
-                  </div>
-                  <button
-                    type="button"
-                    class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    :class="form.reference.inspiration ? 'bg-blue-600' : 'bg-gray-200'"
-                    @click="() => { form.reference.inspiration = !form.reference.inspiration; if (!form.reference.inspiration) form.reference.multiShot = false }"
-                  >
-                    <span
-                      class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
-                      :class="form.reference.inspiration ? 'translate-x-6' : 'translate-x-1'"
-                    />
-                  </button>
-                </div>
+              <!-- 开关选项：Multi-Shot -->
+              <div class="grid grid-cols-1 gap-4">
                 <div class="flex items-center justify-between px-4 py-3 bg-gray-50 rounded-2xl">
                   <div>
                     <p class="text-sm font-medium text-gray-900">Multi-Shot</p>
