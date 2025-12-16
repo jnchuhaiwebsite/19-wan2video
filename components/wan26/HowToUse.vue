@@ -28,11 +28,20 @@
         </p>
       </div>
 
-      <!-- 步骤网格 -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-        <!-- Step 1 -->
-        <div class="step-card">
-          <div class="step-badge">Step 1</div>
+      <!-- 步骤流程：带时间轴与节点，移动端一列，桌面端一行四列 -->
+      <div class="relative pt-6 md:pt-10">
+        <!-- 顶部时间轴线条（桌面端显示） -->
+        <div
+          class="hidden md:block absolute left-[6%] right-[6%] top-3 md:top-4 h-px bg-gradient-to-r from-slate-200 via-indigo-200 to-slate-200 pointer-events-none"
+        ></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
+          <!-- Step 1 -->
+          <div class="step-card">
+            <!-- 时间轴节点（桌面端，使用步骤数字） -->
+            <div class="step-node hidden md:flex">
+              <span class="step-node-label">1</span>
+            </div>
           <h3 class="step-title">
             Choose Generation Mode
           </h3>
@@ -42,9 +51,11 @@
           </p>
         </div>
 
-        <!-- Step 2 -->
-        <div class="step-card">
-          <div class="step-badge">Step 2</div>
+          <!-- Step 2 -->
+          <div class="step-card">
+            <div class="step-node hidden md:flex">
+              <span class="step-node-label">2</span>
+            </div>
           <h3 class="step-title">
             Provide Input and Write a Prompt
           </h3>
@@ -54,9 +65,11 @@
           </p>
         </div>
 
-        <!-- Step 3 -->
-        <div class="step-card">
-          <div class="step-badge">Step 3</div>
+          <!-- Step 3 -->
+          <div class="step-card">
+            <div class="step-node hidden md:flex">
+              <span class="step-node-label">3</span>
+            </div>
           <h3 class="step-title">
             Configure Video Settings
           </h3>
@@ -66,9 +79,11 @@
           </p>
         </div>
 
-        <!-- Step 4 -->
-        <div class="step-card">
-          <div class="step-badge">Step 4</div>
+          <!-- Step 4 -->
+          <div class="step-card">
+            <div class="step-node hidden md:flex">
+              <span class="step-node-label">4</span>
+            </div>
           <h3 class="step-title">
             Generate and Review
           </h3>
@@ -76,6 +91,7 @@
             Click Generate Video to create your result. Preview the output and refine prompts or settings to improve
             consistency and pacing.
           </p>
+          </div>
         </div>
       </div>
     </div>
@@ -91,7 +107,7 @@
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.98));
   border-radius: 24px;
   border: 1px solid rgba(226, 232, 240, 1);
-  padding: 24px 24px 22px;
+  padding: 28px 24px 22px;
   box-shadow:
     0 12px 32px -22px rgba(15, 23, 42, 0.38),
     inset 0 1px 0 rgba(255, 255, 255, 0.96);
@@ -105,6 +121,46 @@
     0 22px 55px -26px rgba(79, 70, 229, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.98);
   background: linear-gradient(145deg, rgba(255, 255, 255, 1), rgba(239, 246, 255, 1));
+}
+
+.step-card::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -22px;
+  width: 32px;
+  border-top: 1px dashed rgba(148, 163, 184, 0.7);
+  transform: translateY(-50%);
+  display: none;
+}
+
+.step-card:last-child::after {
+  display: none;
+}
+
+.step-node {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  border: 2px solid rgba(79, 70, 229, 0.7);
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 0 2px rgba(239, 246, 255, 0.9),
+    0 8px 18px -10px rgba(79, 70, 229, 0.55);
+  z-index: 10;
+}
+
+.step-node-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #4f46e5;
 }
 
 .step-badge {
@@ -138,6 +194,10 @@
 }
 
 @media (min-width: 768px) {
+  .step-card::after {
+    display: block;
+  }
+
   .step-title {
     font-size: 1.3rem;
   }
