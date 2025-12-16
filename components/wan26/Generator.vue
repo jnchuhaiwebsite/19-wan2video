@@ -81,12 +81,12 @@
                   rows="4"
                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none transition-colors bg-white"
                   placeholder="Describe the video you want — scene, motion, camera, style (English or Chinese supported)..."
-                  maxlength="2000"
+                  maxlength="1500"
                   @click="checkLoginStatus($event)"
                 />
                 <div class="flex justify-between items-center mt-2 text-xs text-gray-500">
                   <span>Supports both English and Chinese prompts</span>
-                  <span>{{ form.text.prompt.length }}/2000</span>
+                  <span>{{ form.text.prompt.length }}/1500</span>
                 </div>
               </div>
 
@@ -272,12 +272,12 @@
                   rows="3"
                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 resize-none transition-colors bg-white"
                   placeholder="Describe how the still image should animate — motion, camera moves, lighting changes..."
-                  maxlength="2000"
+                  maxlength="1500"
                   @click="checkLoginStatus($event)"
                 />
                 <div class="flex justify-between items-center mt-2 text-xs text-gray-500">
                   <span>Supports both English and Chinese prompts</span>
-                  <span>{{ form.image.prompt.length }}/2000</span>
+                  <span>{{ form.image.prompt.length }}/1500</span>
                 </div>
               </div>
 
@@ -500,12 +500,12 @@
                   rows="3"
                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 resize-none transition-colors bg-white"
                   placeholder="Use character1, character2 to refer to your videos (e.g., 'character1 singing, character2 dancing'). Always use character1 for the first video."
-                  maxlength="2000"
+                  maxlength="1500"
                   @click="checkLoginStatus($event)"
                 />
                 <div class="flex justify-between items-center mt-2 text-xs text-gray-500">
                   <span>Supports both English and Chinese prompts</span>
-                  <span>{{ form.reference.prompt.length }}/2000</span>
+                  <span>{{ form.reference.prompt.length }}/1500</span>
                 </div>
               </div>
 
