@@ -211,7 +211,7 @@
       mode="modal"
       :redirect-url="signInReturnTo"
       :after-sign-in-url="signInReturnTo"
-      fallback-redirect-url="/"
+      :fallback-redirect-url="signInReturnTo"
     >
       <button
         id="bindLogin"
