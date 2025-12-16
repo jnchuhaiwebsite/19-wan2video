@@ -106,13 +106,20 @@
         </div>
       </div>
     </template>
+
     <template v-else>
-      <!-- 登录按钮 -->
-      <SignInButton mode="modal">
-        <button id="bindLogin"
-          class="px-4 py-2 rounded-lg bg-blue-button  text-white hover:opacity-90 transition-all text-sm font-medium disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center shadow-md hover:shadow-lg"
+      <!-- 登录按钮（最小修复：传回跳地址，避免移动端登录后默认回首页） -->
+      <SignInButton
+        mode="modal"
+        :redirect-url="signInReturnTo"
+        :after-sign-in-url="signInReturnTo"
+        :fallback-redirect-url="signInReturnTo"
+      >
+        <button
+          id="bindLogin"
+          class="px-4 py-2 rounded-lg bg-blue-button text-white hover:opacity-90 transition-all text-sm font-medium disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center shadow-md hover:shadow-lg"
         >
-        Login
+          Login
         </button>
       </SignInButton>
     </template>
@@ -138,14 +145,6 @@
           >
             {{ userDisplay?.email }}
           </p>
-          
-          <!-- VIP时间显示优化 -->
-          <!-- <div v-if="vipLastTime" class="mt-1">
-            <p class="text-xs text-gray-600">VIP过期时间:</p>
-            <p class="text-xs text-gray-500 font-mono">
-              {{ vipLastTime }}
-            </p>
-          </div> -->
         </div>
       </div>
 
@@ -183,9 +182,9 @@
       <SignOutButton>
         <button
           @click="() => console.log('👆 [UserMenu] 移动端退出按钮被点击')"
-          class="mt-6 w-full py-3 px-4 flex items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-red-50 to-pink-50 hover:from-red-100 hover:to-pink-100 active:scale-[0.98] transition-all duration-200 text-sm font-medium text-red-600 border border-red-100/50 shadow-sm">
+          class="mt-6 w-full py-3 px-4 flex items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-red-50 to-pink-50 hover:from-red-100 hover:to-pink-100 active:scale-[0.98] transition-all duration-200 text-sm font-medium text-red-600 border border-red-100/50 shadow-sm"
+        >
           <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
-            <!-- Heroicons: logout/arrow-right-on-rectangle -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -206,9 +205,16 @@
       </SignOutButton>
     </div>
 
-    <!-- 移动端登录按钮 -->
-    <SignInButton v-else mode="modal">
-      <button id="bindLogin"
+    <!-- 移动端登录按钮（最小修复：传回跳地址，避免移动端登录后默认回首页） -->
+    <SignInButton
+      v-else
+      mode="modal"
+      :redirect-url="signInReturnTo"
+      :after-sign-in-url="signInReturnTo"
+      :fallback-redirect-url="signInReturnTo"
+    >
+      <button
+        id="bindLogin"
         class="mt-6 w-full py-4 rounded-xl bg-gradient-to-r bg-blue-button active:scale-[0.98] text-white transition-all text-base font-semibold disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center shadow-lg hover:shadow-xl border border-blue-400/20"
       >
         <div v-if="!isAuthLoading" class="flex items-center gap-2">
@@ -231,9 +237,10 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
+import { useRoute } from "vue-router"; // ✅ 新增：用于拿当前页面地址
 import { useClerkAuth } from '~/utils/authHelper'
 import { useUserStore } from '~/stores/user';
-import { setUserInfo, loginAuth } from '~/api/index'
+import { setUserInfo } from '~/api/index'
 
 const props = defineProps({
   isMobile: {
@@ -246,9 +253,12 @@ const props = defineProps({
   }
 });
 
+// ✅ 新增：当前路由 & 登录回跳地址（最小修复核心）
+const route = useRoute();
+const signInReturnTo = computed(() => route.fullPath || "/");
+// alert(signInReturnTo.value)
 // 用户存储
 const userStore = useUserStore();
-// console.log('userStore初始化:', userStore);
 
 // 状态管理
 const vipLastTime = ref("");
@@ -259,16 +269,16 @@ const isAuthLoading = ref(true);
 const points = computed(() => {
   const userInfo = userStore.userInfo;
   if (!userInfo) return 0;
-  
+
   const freeLimit = userInfo.free_limit || 0;
   const remainingLimit = userInfo.remaining_limit || 0;
   return freeLimit + remainingLimit;
 });
 
 // 引入auth认证
-const { 
-  user, 
-  isSignedIn, 
+const {
+  user,
+  isSignedIn,
   initAuth,
   on,
   getToken,
@@ -281,9 +291,8 @@ const getUserInfo = async () => {
     console.log('准备调用fetchUserInfo')
     const userData = await userStore.fetchUserInfo();
     console.log('fetchUserInfo执行完成')
-    console.log('userData',userData)
+    console.log('userData', userData)
     if (userData) {
-      // 更新用户信息
       vipLastTime.value = userData.vipLastTime || "";
     }
   } catch (error) {
@@ -310,59 +319,50 @@ const userDisplay = computed<User | null>(() => {
 
 // 切换用户菜单
 const toggleUserMenu = async () => {
-
-  // 如果菜单关闭，在打开时刷新用户信息
   if (!showUserMenu.value) {
-    // 显示菜单
     showUserMenu.value = true;
-
-    // 刷新用户信息
     try {
       await getUserInfo();
     } catch (err) {
       console.error("Failed to refresh user info:", err);
     }
   } else {
-    // 关闭菜单 
     showUserMenu.value = false;
   }
 };
 
 onMounted(async () => {
   try {
-    // 初始化认证
     initAuth();
 
-    // 设置一个超时，确保loading状态不会永久存在
     setTimeout(() => {
       isAuthLoading.value = false;
     }, 5000);
-    
-    // 如果已经登录，立即获取用户信息
+
     if (isSignedIn.value) {
       await getUserInfo();
-    }   
+    }
+
     // 监听登录事件
     on('login', async (user: any) => {
       isAuthLoading.value = false;
-      
+
       let from_login = "email";
-      // 如果是github
       if (user.externalAccounts && user.externalAccounts[0]?.provider.includes("github")) {
         from_login = "github";
       } else if (user.externalAccounts && user.externalAccounts[0]?.provider.includes("google")) {
         from_login = "google";
       }
-      
+
       const email = user.emailAddresses && user.emailAddresses.length > 0
-          ? user.emailAddresses[0].emailAddress
-          : (user.externalAccounts && user.externalAccounts[0]?.emailAddress || '');
-        
-      const avatar = user.imageUrl || 
+        ? user.emailAddresses[0].emailAddress
+        : (user.externalAccounts && user.externalAccounts[0]?.emailAddress || '');
+
+      const avatar = user.imageUrl ||
         (user.externalAccounts && user.externalAccounts[0]?.imageUrl || '');
-      
-      const nickname = user.username || 
-        (user.externalAccounts && user.externalAccounts[0]?.username || '') || 
+
+      const nickname = user.username ||
+        (user.externalAccounts && user.externalAccounts[0]?.username || '') ||
         user.fullName || '';
 
       const token = await getToken.value();
@@ -381,11 +381,9 @@ onMounted(async () => {
         isAuthLoading.value = false;
       });
     });
-    
+
     on('logout', async () => {
       console.log('📺 [UserMenu] 收到logout事件')
-      // 清除用户界面状态
-      console.log('🧹 [UserMenu] 清除用户界面状态')
       document.cookie = `auth_token=; Path=/; max-age=0;`;
       document.cookie = `auth_token_expiry=; Path=/; max-age=0;`;
       console.log('清除cookie成功');
@@ -397,14 +395,11 @@ onMounted(async () => {
     // 监听Clerk加载完成事件，更新认证加载状态
     on('clerkLoaded', async (isSignedIn: boolean) => {
       isAuthLoading.value = false;
-      // 如果Clerk加载完成且用户已登录，获取用户信息
-      
       if (isSignedIn) {
         await getUserInfo();
       }
     });
-    
-    // 监听错误事件，确保用户界面不会一直处于加载状态
+
     on('error', (error: any) => {
       isAuthLoading.value = false;
       console.error("认证系统错误:", error);
@@ -413,7 +408,6 @@ onMounted(async () => {
     // 点击外部关闭用户菜单
     if (process.client) {
       document.addEventListener("click", (event: MouseEvent) => {
-        // 如果点击的不是用户菜单区域，则关闭菜单
         const target = event.target as HTMLElement;
         if (
           showUserMenu.value &&
@@ -429,4 +423,4 @@ onMounted(async () => {
     console.error("组件挂载时加载用户信息失败:", err);
   }
 });
-</script> 
+</script>
