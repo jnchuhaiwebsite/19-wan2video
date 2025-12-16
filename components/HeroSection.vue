@@ -123,10 +123,10 @@
                     class="w-full px-3 py-2 border border-blue-footerborder rounded-lg focus:ring-2 focus:ring-blue-dark focus:border-blue-dark transition-colors text-blue-maintext bg-blue-pale"
                   >
                     <option value="480p" class="text-blue-maintext">
-                      480P (20 Credits)
+                      480P (40 Credits)
                     </option>
                     <option value="1080p" class="text-blue-maintext">
-                      1080P (100 Credits)
+                      1080P (200 Credits)
                     </option>
                   </select>
                 </div>
@@ -216,14 +216,33 @@
             </div>
             
             <!-- Generate Button -->
-            <button 
-              type="submit" 
-              class="w-full py-3 bg-blue-button text-blue-buttontext font-medium rounded-lg hover:bg-blue-buttonhover transition-colors duration-200"
-              :disabled="isGenerating"
-            >
-              <span v-if="isGenerating">Generating...</span>
-              <span v-else>Generate ({{ currentCreditCost }} Credits)</span>
-            </button>
+            <div class="space-y-2">
+              <div class="flex items-center justify-between text-xs text-blue-secondarytext">
+                <span class="font-semibold text-blue-maintext">Cost</span>
+                <span
+                  :class="[
+                    'px-2 py-1 rounded-md font-semibold',
+                    selectedResolution === '1080p'
+                      ? 'bg-purple-100 text-purple-700'
+                      : freeTimes > 0
+                        ? 'bg-emerald-100 text-emerald-700'
+                        : 'bg-orange-100 text-orange-700'
+                  ]"
+                >
+                  <template v-if="selectedResolution === '1080p'">{{ currentCreditCost }} Credits</template>
+                  <template v-else-if="freeTimes > 0">{{ freeTimes }} Free</template>
+                  <template v-else>{{ currentCreditCost }} Credits</template>
+                </span>
+              </div>
+              <button 
+                type="submit" 
+                class="w-full py-3 bg-blue-button text-blue-buttontext font-medium rounded-lg hover:bg-blue-buttonhover transition-colors duration-200"
+                :disabled="isGenerating"
+              >
+                <span v-if="isGenerating">Generating...</span>
+                <span v-else>Generate ({{ generateCostLabel }})</span>
+              </button>
+            </div>
           </form>
         </div>
 
@@ -409,6 +428,7 @@ const userCredits = computed(() => {
   if (!userInfo) return 0
   return (userInfo.free_limit || 0) + (userInfo.remaining_limit || 0)
 })
+const freeTimes = computed(() => userStore.userInfo?.free_times || 0)
 
 // 分辨率积分配置
 const resolutionCreditConfig = {
@@ -420,6 +440,19 @@ const resolutionCreditConfig = {
 const currentCreditCost = computed(() => {
   const resolution = selectedResolution.value
   return resolutionCreditConfig[resolution as keyof typeof resolutionCreditConfig] || 20
+})
+
+// 展示的生成成本文案
+const generateCostLabel = computed(() => {
+  if (selectedResolution.value === '480p' && freeTimes.value > 0) {
+    return `${freeTimes.value} Free`
+  }
+  return `${currentCreditCost.value} Credits`
+})
+
+// 是否需要积分校验（1080p 或无免费次数）
+const needCreditCheck = computed(() => {
+  return selectedResolution.value === '1080p' || freeTimes.value === 0
 })
 
 // 检查登录状态
@@ -649,6 +682,7 @@ const pollTaskStatus = async () => {
           taskId: taskId.value
         }
         
+        await userStore.fetchUserInfo(true)
         $toast.success(statusMsg || 'Video generation completed!')
         console.log('Task completed:', response.data)
       } else if (status === 0 || statusMsg === 'Task in progress') {
@@ -798,10 +832,17 @@ const handleGenerate = async () => {
     return
   }
 
-  if (userCredits.value < currentCreditCost.value) {
-    $toast.error(`Insufficient credits. This operation requires ${currentCreditCost.value} credits, but you only have ${userCredits.value} credits`)
+  // if (userCredits.value < currentCreditCost.value) {
+  //   $toast.error(`Insufficient credits. This operation requires ${currentCreditCost.value} credits, but you only have ${userCredits.value} credits`)
     
-    // 使用 handleNavClick 滑动到价格部分
+  //   // 使用 handleNavClick 滑动到价格部分
+  //   handleNavClick('pricing')
+  //   return
+  // }
+
+  // 积分校验：1080P 或无免费次数时必须有足够积分
+  if (needCreditCheck.value && userCredits.value < currentCreditCost.value) {
+    $toast.error(`Insufficient credits. Need ${currentCreditCost.value}, available ${userCredits.value}`)
     handleNavClick('pricing')
     return
   }
@@ -824,6 +865,7 @@ const handleGenerate = async () => {
       const formData = {
         prompt: prompt.value,
         size: selectedAspectRatio.value,
+        resolution: selectedResolution.value?.toUpperCase() || '',
         prompt_extend: optimizePrompt.value ? 'true' : 'false',
         negative_prompt: showNegativePrompt.value ? negativePrompt.value : ''
       }
@@ -846,8 +888,8 @@ const handleGenerate = async () => {
           
           const formData = {
             prompt: prompt.value,
-            file_url: file_url,
-            resolution: selectedResolution.value,
+            image_url: file_url,
+            resolution: selectedResolution.value?.toUpperCase() || '',
             size: selectedAspectRatio.value,
             optimize_prompt: optimizePrompt.value ? 1 : 0,
             negative_prompt: showNegativePrompt.value ? negativePrompt.value : ''
@@ -886,12 +928,20 @@ const handleGenerate = async () => {
     } else {
       $toast.error(response?.msg || 'Generation failed. Please try again.')
       isGenerating.value = false
+      if(response?.msg ==='insufficient user usage limit'){
+        handleNavClick('pricing')
+        return
+    }
     }
   } catch (error: any) {
     stopProgress()
     console.error('Generation error:', error)
     $toast.error(error?.msg || 'Generation failed. Please try again.')
     isGenerating.value = false
+    if(error?.msg ==='insufficient user usage limit'){
+        handleNavClick('pricing')
+        return
+    }
   }
 }
 

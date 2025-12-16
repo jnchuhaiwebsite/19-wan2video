@@ -33,7 +33,7 @@ export const uploadImage = async (file: File): Promise<UploadResponse> => {
           url: '',
           filename: '',
           size: 0,
-          message: '上传失败'
+          message: 'Upload failed'
         })
       }
     }, 1000) // 模拟1秒上传时间
@@ -58,17 +58,17 @@ export const uploadImages = async (files: File[]): Promise<UploadResponse[]> => 
 export const validateImageFile = (file: File): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/bmp', 'image/webp']
-    const maxSize = 10 * 1024 * 1024 // 10MB
+    const maxSize = 5 * 1024 * 1024 // 5MB
     
     // 检查文件类型
     if (!allowedTypes.includes(file.type)) {
-      reject(new Error('不支持的文件类型，请上传 JPEG、JPG、PNG、BMP 或 WebP 格式的图片'))
+      reject(new Error('Unsupported file type. Please upload an image in JPEG, JPG, PNG, BMP, or WebP format.'))
       return
     }
     
     // 检查文件大小
     if (file.size > maxSize) {
-      reject(new Error('文件大小不能超过 10MB'))
+      reject(new Error('Image file size cannot exceed 10MB'))
       return
     }
     
@@ -80,7 +80,7 @@ export const validateImageFile = (file: File): Promise<boolean> => {
       
       // 检查分辨率范围 [360, 2000]
       if (width < 360 || width > 2000 || height < 360 || height > 2000) {
-        reject(new Error('图像分辨率必须在 360x360 到 2000x2000 像素之间'))
+        reject(new Error('Image resolution must be between 360px and 2000px on both sides'))
         return
       }
       
@@ -98,7 +98,7 @@ export const validateImageFile = (file: File): Promise<boolean> => {
           // 检查是否有透明像素
           for (let i = 3; i < data.length; i += 4) {
             if (data[i] < 255) {
-              reject(new Error('PNG 格式不支持透明通道，请使用不透明的 PNG 图片'))
+              reject(new Error('PNG format does not support transparent channels, please use a non-transparent PNG image'))
               return
             }
           }
@@ -109,10 +109,49 @@ export const validateImageFile = (file: File): Promise<boolean> => {
     }
     
     img.onerror = () => {
-      reject(new Error('无法读取图像文件，请确保文件格式正确'))
+      reject(new Error('Failed to read image file, please ensure the file format is correct'))
     }
     
     img.src = URL.createObjectURL(file)
+  })
+}
+
+/**
+ * 校验视频文件（MP4 / MOV，2-30s，小于30MB）
+ */
+export const validateVideoFile = (file: File): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    const allowedTypes = ['video/mp4', 'video/quicktime']
+    const maxSize = 30 * 1024 * 1024 // 30MB
+
+    if (!allowedTypes.includes(file.type)) {
+      reject(new Error('Unsupported video type. Please upload MP4 or MOV.'))
+      return
+    }
+
+    if (file.size > maxSize) {
+      reject(new Error('Video file size must be less than 30MB.'))
+      return
+    }
+
+    const video = document.createElement('video')
+    video.preload = 'metadata'
+
+    video.onloadedmetadata = () => {
+      window.URL.revokeObjectURL(video.src)
+      const duration = video.duration
+      if (duration < 2 || duration > 30) {
+        reject(new Error('Video duration must be between 2 and 30 seconds.'))
+        return
+      }
+      resolve(true)
+    }
+
+    video.onerror = () => {
+      reject(new Error('Failed to read video file, please ensure the file format is correct.'))
+    }
+
+    video.src = URL.createObjectURL(file)
   })
 }
 

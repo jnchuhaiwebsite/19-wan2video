@@ -101,7 +101,7 @@
                 'flex flex-col rounded-3xl overflow-hidden bg-transparent border transition-all duration-200 text-left',
                 selectedTemplateKey === tpl.key
                   ? 'border-yellow-400 ring-2 ring-yellow-400/40 shadow-lg'
-                  : 'border-yellow-400/30 hover:border-yellow-400/50 hover:bg-black/40'
+                  : 'border-yellow-400/50 hover:border-yellow-400/50 hover:bg-black/40'
               ]"
             >
               <div class="w-full relative">
@@ -127,7 +127,7 @@
 
         <!-- 提示词输入 -->
         <div class="flex flex-col gap-2">
-          <label class="text-sm text-yellow-400/50">Prompt(The prompt can be modified.)</label>
+          <label class="text-sm text-yellow-400/50">Prompt(The prompt words can be modified)</label>
           <textarea
             v-model="prompt"
             rows="4"
@@ -303,14 +303,9 @@
           'lg:sticky lg:top-[100px]'
         ]"
       >
-      <!-- isVertical 竖版还是横版，前面的竖版后边的横版 -->
-        <div class="flex flex-col items-center" :class="isVertical ? 'justify-center py-32' : 'justify-start py-6 ml-4'">
+        <div class="flex flex-col items-center" :class="isVertical ? 'justify-center py-36' : 'justify-start'">
           <!-- 横版预览 -->
-          <div
-            v-if="!isVertical"
-            class="w-full max-w-2xl flex justify-center"
-            style="transform: scale(1.1); transform-origin: center;"
-          >
+          <div v-if="!isVertical" class="w-full max-w-2xl flex justify-center">
             <div class="relative w-full aspect-[914/724]">
               <img
                 src="https://cfsource.wan2video.com/wan2video/christmas/template/images/computer.png"
@@ -452,8 +447,8 @@
           <!-- 竖版预览 -->
           <div
             v-else
-            class="w-full max-w-sm flex justify-start mb-8"
-            style="transform: scale(1.35); transform-origin: center;"
+            class="w-full max-w-sm flex justify-center mb-8"
+            style="transform: scale(1.4); transform-origin: center;"
           >
             <div class="relative w-full aspect-[9/16]">
               <img
@@ -463,7 +458,7 @@
               />
               <div
                 class="absolute flex items-center justify-center z-10 overflow-hidden"
-                style="left: 6%; top: 0; width: 87%; height: 100%; border-radius: 60px;"
+                style="left: 6%; top: 0; width: 87%; height: 100%;border-radius: 60px;"
               >
                 <!-- 音频控制按钮（竖版） -->
                 <button
@@ -595,7 +590,7 @@
             v-if="generatedVideoUrl && !isGenerating"
             :class="[
               'w-full max-w-xl flex flex-col items-center gap-4 relative z-20',
-              isVertical ? 'mt-20 py-10' : 'mt-8'
+              isVertical ? 'mt-20 py-10' : 'mt-4'
             ]"
           >
             <div class="flex flex-col sm:flex-row gap-3 w-full">
@@ -712,6 +707,7 @@ import { useRoute } from 'vue-router';
 import { createChristmasVideo, checkTaskStatusVideo, checkTask } from '~/api';
 import { useUserStore } from '~/stores/user';
 import { useRouter } from 'vue-router';
+
 const router = useRouter();
 interface TemplateItem {
   key: string;
@@ -1254,13 +1250,11 @@ const onGenerate = async () => {
         router.push('/pricing')
         return;
       }
-
     }
   } catch (err: any) {
     console.error('previewGenvideo error', err);
     isGenerating.value = false;
     const msg = err?.msg || 'An error occurred while creating preview video.';
-    
     $toast?.error?.(msg);
   }
 };

@@ -26,7 +26,7 @@ export const urlList = {
   getScore: baseUrl + '/api/mj/score', // 获取积分
   getUserOpus: baseUrl + '/api/mj/show', // 查询用户作品展示列表
   getShareInfo: baseUrl + '/api/mj/get_share_info', // 获取用户作品展示详情
-  upload: baseUrl + '/api/common/upload', // 上传图片获取url
+  upload: baseUrl + '/api/task/wan2ai/upload', // 上传图片获取url
   getTimesLog: baseUrl + '/api/user/times_log', // 获取使用次数日志、消费记录
   loginAuth: baseUrl + '/api/user/auth1', // 登录认证
   blogCategoryList: baseUrl + '/api/cms/blogCategoryList', // 获取博客分类列表
@@ -35,14 +35,19 @@ export const urlList = {
   createTasks: baseUrl + '/api/task/mj/create',  // 创建任务
 
   //wan2ai
-  text2video: baseUrl + '/api/task/wan2ai/text2video',  // 创建任务-文生视频
-  image2video: baseUrl + '/api/task/wan2ai/image2video',  // 创建任务-图生视频
-  checkTask: baseUrl + '/api/task/wan2ai/check_task_status', // 检查任务
+  text2video: baseUrl + '/api/task/wan22/genvideo',  // 创建任务-文生视频
+  image2video: baseUrl + '/api/task/wan22/genvideo',  // 创建任务-图生视频
+  checkTask: baseUrl + '/api/task/wan/check_task_status', // 检查任务
   opusList: baseUrl + '/api/user/opus_list', // 获取用户作品列表
   statistics: baseUrl + '/api/statistics/pvuv', // 删除用户作品列表
-  previewGenvideo: baseUrl + '/api/task/wan2ai/preview/genvideo', // 预览生成视频
-  checkTaskStatus: baseUrl + '/api/task/wan2ai/check_task_status', // 检查任务状态
+  previewGenvideo: baseUrl + '/api/task/wan25/genvideo', // 预览生成视频
+  createChristmasVideo: baseUrl + '/api/task/wan25/genvideo', // 创建圣诞视频任务状态
+  checkTaskStatus: baseUrl + '/api/task/wan/check_task_status', // 检查任务状态
   BlogStatistics: baseUrl + '/api/cms/statistics', // 统计
+
+  createTasksWan26: baseUrl + '/api/task/wan26/genvideo', // 创建任务-Wan 2.6
+  createTasksWan26V2V: baseUrl + '/api/task/wan26/v2v', // 创建任务-Wan 2.6
+  checkTaskWan26: baseUrl + '/api/task/wan26/check_task_status', // 检查任务-Wan 2.6
 }
 
 /**
@@ -270,6 +275,16 @@ export const statistics = async (data: any) => {
  */
 export const checkTask = async (task_id:string) => {
   return apiRequest(urlList.checkTask+'?task_id='+task_id, 'GET', undefined, true);
+}
+
+
+/**
+ * 检查任务
+ * @param task_id 任务id
+ * @returns 任务结果
+ */
+export const checkTaskWan26 = async (task_id:string) => {
+  return apiRequest(urlList.checkTaskWan26+'?task_id='+task_id, 'GET', undefined, true);
 }
 
 /**
@@ -631,6 +646,28 @@ export const previewGenvideo = async (data: any) => {
 }
 
 /**
+ * 预览生成视频
+ * @param data 预览生成视频数据
+ * @returns 预览生成视频
+ */
+export const createTasksWan26 = async (data: any) => {
+  return apiRequest(urlList.createTasksWan26, 'POST', data, true);
+}
+
+export const createTasksWan26V2V = async (data: any) => {
+  return apiRequest(urlList.createTasksWan26V2V, 'POST', data, true);
+}
+
+
+/**
+   * 创建圣诞视频
+   * @param data 预览生成视频数据
+ * @returns 预览生成视频
+ */
+export const createChristmasVideo = async (data: any) => {
+  return apiRequest(urlList.createChristmasVideo, 'POST', data, true);
+}
+/**
  * 检查任务状态
  * @param data 检查任务状态数据
  * @returns 检查任务状态
@@ -671,25 +708,25 @@ const apiRequest = async <T>(url: string, method: 'GET' | 'POST', data?: any, ne
       
       // 检查响应状态
       if (!responseData) {
-        throw new Error('响应数据为空');
+        throw new Error('The response data is empty.');
       }
       return responseData;
     } catch (fetchError: any) {
-      console.error(`请求失败 ${method} ${url}:`, fetchError);
+      console.error(`Request failed ${method} ${url}:`, fetchError);
       
       // 提取详细的错误信息
-      let errorMessage = '网络请求失败';
+      let errorMessage = 'Network request failed';
       let errorCode = -999;
       
       if (fetchError.response) {
         try {
           const errorData = await fetchError.response.json();
-          console.error('错误响应详情:', errorData);
-          errorMessage = errorData.msg || errorData.error || '服务器错误';
+          console.error('Error response details:', errorData);
+          errorMessage = errorData.msg || errorData.error || 'Server error';
           errorCode = errorData.code || errorData.status || -1;
         } catch (e) {
-          console.error('解析错误响应失败:', e);
-          errorMessage = fetchError.response.statusText || '服务器错误';
+          console.error('Parsing error response failed:', e);
+          errorMessage = fetchError.response.statusText || 'Server error';
           errorCode = fetchError.response.status || -1;
         }
       } else if (fetchError.msg) {

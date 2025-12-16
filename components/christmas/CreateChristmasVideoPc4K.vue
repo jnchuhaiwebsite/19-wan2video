@@ -44,9 +44,9 @@
             rgba(255,255,255,0) 30%
           );
         box-shadow:
-          inset 0 0 80px rgba(0, 0, 0, 0.25),
-          inset 0 6px 20px rgba(255,255,255,0.15);
-        border: 1px solid rgba(255,255,255,0.25);
+          inset 0 0 107px rgba(0, 0, 0, 0.25),
+          inset 0 8px 27px rgba(255,255,255,0.15);
+        border: 1.33px solid rgba(255,255,255,0.25);
       "
     ></div> -->
 
@@ -55,9 +55,9 @@
       style="
         position: relative;
         z-index: 1;
-        max-width: 1100px;
+        max-width: 1470px;
         margin: 0 auto;
-        padding: 150px 20px 40px;
+        padding: 200px 27px 53px;
         text-align: center;
       "
     >
@@ -65,11 +65,11 @@
         class="main-title"
         style="
           font-family: 'Playfair Display', serif;
-          font-size: 3.4rem;
-          letter-spacing: 1px;
-          margin-bottom: 36px;
-          text-shadow: 0 4px 12px rgba(0,0,0,0.55);
-          max-width: 900px;
+          font-size: 4.5rem;
+          letter-spacing: 1.3px;
+          margin-bottom: 48px;
+          text-shadow: 0 5px 16px rgba(0,0,0,0.55);
+          max-width: 1200px;
           margin-left: auto;
           margin-right: auto;
           white-space: nowrap;
@@ -79,26 +79,26 @@
       </h1>
 
 <!-- 去掉了内部的 span，结构更干净，样式由 class 控制 -->
-<p class="hero-desc">
+<p class="hero-desc-4k">
   Create Christmas videos in minutes with AI. Just pick a template and click to generate, let <strong>Wan2Video</strong> handle the scenes, media, voiceovers, and sound effects. Instantly delivers free Christmas video clips with music.
 </p>
     </div>
 
     <!-- 制作表单组件 -->
-    <ChristmasVideoForm ref="formRef" />
+    <ChristmasVideoForm4K ref="formRef" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, nextTick } from 'vue'
-import ChristmasVideoForm from './ChristmasVideoForm.vue'
+import ChristmasVideoForm4K from './ChristmasVideoForm4K.vue'
 
 // 资源配置
 const assets = {
   bg: 'https://cfsource.wan2video.com/wan2video/christmas/template/home/wan2video-christmas-background.jpg'
 }
 
-const formRef = ref<InstanceType<typeof ChristmasVideoForm> | null>(null)
+const formRef = ref<InstanceType<typeof ChristmasVideoForm4K> | null>(null)
 
 // 默认选择第一个模版
 onMounted(() => {
@@ -111,15 +111,8 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* 4K分辨率下标题适配 */
-@media (min-width: 2560px) {
-  .main-title {
-    font-size: 4.4rem !important; /* 3.4rem + 3rem = 6.4rem */
-    max-width: 1700px !important; /* 900px * (6.4/3.4) ≈ 1700px，保持比例 */
-  }
-}
-/* --- 基础样式 (默认适配 1080P 及笔记本) --- */
-.hero-desc {
+  /* --- 基础样式 (默认适配 1080P 及笔记本) --- */
+.hero-desc-4k {
   /* 布局与间距 */
   margin-left: auto;
   margin-right: auto;
@@ -138,19 +131,20 @@ onMounted(() => {
 }
 
 /* 重点词高亮 (可选，让 wan2video 更显眼) */
-.hero-desc strong {
+.hero-desc-4k strong {
   font-weight: 600;
   color: #fff;            /* 或者改成淡金色 #ffeebb */
 }
 
 /* --- 2K 屏幕适配 (宽度大于 1920px) --- */
-@media screen and (min-width: 1921px) {
-  .hero-desc {
-    /* 2K 屏幕像素更多，需要物理放大 */
-    max-width: 900px;     /* 宽度放宽，否则在2K屏上像细细的一条 */
-    font-size: 1.6rem;    /* 字号放大 (约 25-26px)，提升阅读体验 */
-    line-height: 1.8;     /* 行高再松一点，显得更高级 */
-    margin-bottom: 60px;  /* 底部间距按比例放大 */
+@media screen and (min-width: 2561px) {
+    .hero-desc-4k {
+      font-size: 2.2rem;    /* 放大到约 35px */
+      max-width: 1300px;    /* 显著放宽 */
+      line-height: 1.8;
+      margin-bottom: 90px;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+    }
   }
-}
 </style>
+

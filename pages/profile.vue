@@ -236,7 +236,8 @@
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" v-if="works.length > 0">
         <div v-for="work in works" :key="work.task_id" class="work-item">
           <div class="relative aspect-square rounded-lg overflow-hidden group shadow-lg hover:shadow-xl transition-shadow">
-            <template v-if="isVideoType(work.task_type)">
+            <!-- 视频类型：currentTab === 1 时优先展示 generate_image -->
+            <template v-if="isVideoType(work.task_type) && (currentTab !== 1 || work.generate_image)">
               <div class="relative w-full h-full">
                 <video 
                   :src="work.generate_image" 
@@ -322,17 +323,31 @@
             <template v-else>
               <div class="relative w-full h-full">
                 <template v-if="work.origin_image">
-                  <img 
-                    :src="work.origin_image" 
-                    class="w-full h-full object-cover"
-                    loading="lazy"
-                    alt="Processing image"
-                  />
-                  <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                                      <div class="text-center">
-                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-light border-t-blue-button mb-2"></div>
-                    <p class="text-white text-sm">Processing...</p>
-                  </div>
+                  <!-- 视频文件使用视频标签 -->
+                  <template v-if="isVideoFile(work.origin_image)">
+                    <video 
+                      :src="work.origin_image" 
+                      class="w-full h-full object-cover"
+                      controls
+                      muted
+                      playsinline
+                    />
+                  </template>
+                  <!-- 图片文件使用图片标签 -->
+                  <template v-else>
+                    <img 
+                      :src="work.origin_image" 
+                      class="w-full h-full object-cover"
+                      loading="lazy"
+                      alt="Processing image"
+                    />
+                  </template>
+                  <!-- 只在处理中时显示Processing遮罩 -->
+                  <div v-if="work.status !== 1" class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                    <div class="text-center">
+                      <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-blue-light border-t-blue-button mb-2"></div>
+                      <p class="text-white text-sm">Processing...</p>
+                    </div>
                   </div>
                 </template>
                 <template v-else>
@@ -481,7 +496,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, defineAsyncComponent, watch } from 'vue'
 import { useUserStore } from '~/stores/user'
-import { getOpusList, checkTask, getTimesLog } from '~/api'
+import { getOpusList, checkTask, getTimesLog ,checkTaskWan26} from '~/api'
 import { SparklesIcon } from '@heroicons/vue/24/outline'
 import { useNotificationStore } from '~/stores/notification'
 import { useNuxtApp } from 'nuxt/app'
@@ -557,6 +572,9 @@ const totalWorksPages = ref(1)
 // 视频加载状态
 const videoLoadingStates = ref(new Map<string, boolean>())
 
+// 任务状态检查定时器
+const taskCheckTimers = ref(new Map<string, NodeJS.Timeout>())
+
 // 视频预览相关状态
 const showPreview = ref(false)
 const previewVideo = ref('')
@@ -584,12 +602,20 @@ const notificationStore = useNotificationStore()
 
 // 判断是否为视频类型
 const isVideoType = (taskType: number) => {
-  return taskType === 3 || taskType === 4
+  return taskType === 3 || taskType === 4 || taskType === 5
 }
 
 // 判断是否为图片类型
 const isImageType = (taskType: number) => {
   return taskType === 1 || taskType === 2
+}
+
+// 根据文件后缀判断是否为视频
+const isVideoFile = (url: string) => {
+  if (!url) return false
+  const videoExtensions = ['.mp4', '.mov', '.avi', '.webm', '.mkv', '.flv', '.wmv', '.m4v']
+  const lowerUrl = url.toLowerCase()
+  return videoExtensions.some(ext => lowerUrl.includes(ext))
 }
 
 // 视频播放控制
@@ -656,11 +682,45 @@ const checkTaskStatus = async (taskId: string) => {
   try {
     const response = await checkTask(taskId) as any
     if (response.data?.status === 1) {
-      // 如果任务完成，从列表中移除该作品
+      // 如果任务完成，清除定时器并从列表中移除该作品
+      if (taskCheckTimers.value.has(taskId)) {
+        clearTimeout(taskCheckTimers.value.get(taskId))
+        taskCheckTimers.value.delete(taskId)
+      }
       works.value = works.value.filter(work => work.task_id !== taskId)
+      return
+    }
+
+    const responseCheckTaskWan26 = await checkTaskWan26(taskId) as any
+    if (responseCheckTaskWan26.data?.status === 1) {
+      // 如果任务完成，清除定时器并从列表中移除该作品
+      if (taskCheckTimers.value.has(taskId)) {
+        clearTimeout(taskCheckTimers.value.get(taskId))
+        taskCheckTimers.value.delete(taskId)
+      }
+      works.value = works.value.filter(work => work.task_id !== taskId)
+      return
+    }
+
+    // 如果任务未完成，10秒后再次查询
+    // 避免重复设置定时器
+    if (!taskCheckTimers.value.has(taskId)) {
+      const timer = setTimeout(() => {
+        taskCheckTimers.value.delete(taskId)
+        checkTaskStatus(taskId)
+      }, 10000) // 10秒后再次查询
+      taskCheckTimers.value.set(taskId, timer)
     }
   } catch (error) {
     console.error('Failed to check task status:', error)
+    // 即使出错，也10秒后重试
+    if (!taskCheckTimers.value.has(taskId)) {
+      const timer = setTimeout(() => {
+        taskCheckTimers.value.delete(taskId)
+        checkTaskStatus(taskId)
+      }, 10000)
+      taskCheckTimers.value.set(taskId, timer)
+    }
   }
 }
 
@@ -913,6 +973,11 @@ onMounted(() => {
 onUnmounted(() => {
   // 确保组件卸载时恢复滚动
   document.body.style.overflow = ''
+  // 清理所有任务状态检查定时器
+  taskCheckTimers.value.forEach((timer) => {
+    clearTimeout(timer)
+  })
+  taskCheckTimers.value.clear()
 })
 </script>
 

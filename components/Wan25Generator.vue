@@ -237,7 +237,7 @@
             <div>
               <label class="block text-sm font-semibold text-gray-900 mb-3">
                 Prompt <span v-if="activeMode === 'text-to-video'" class="text-red-500">*</span>
-                <span v-else class="text-gray-500">(Optional)</span>
+                <span v-else class="text-red-500">*</span>
               </label>
               <textarea 
                 v-model="formData.prompt"
@@ -375,8 +375,11 @@
               </button>
               
               <!-- Credit Badge -->
-              <div class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg">
-                {{ requiredCredits }} credits
+              <div
+                class="absolute -top-2 -right-2 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg"
+                :class="is1080PSelected ? 'bg-purple-600' : (freeTimes > 0 ? 'bg-emerald-500' : 'bg-orange-500')"
+              >
+                {{ generateBadgeText }}
               </div>
             </div>
           </form>
@@ -470,7 +473,8 @@ import { useNuxtApp } from 'nuxt/app'
 import { useClerkAuth } from '~/utils/authHelper'
 import { useUserStore } from '~/stores/user'
 import { useUiStore } from '~/stores/ui'
-
+import { useRouter } from 'vue-router'
+const router = useRouter()
 // Toast 通知
 const { $toast } = useNuxtApp() as any
 const { isSignedIn } = useClerkAuth()
@@ -546,12 +550,27 @@ const requiredCredits = computed(() => {
   return creditMap[resolution]?.[duration] || 0
 })
 
+// 免费次数与 1080P 消耗提示
+const freeTimes = computed(() => userStore.userInfo?.free_times || 0)
+const is1080PSelected = computed(() => {
+  const resolution = activeMode.value === 'image-to-video' ? formData.value.resolution : formData.value.resolutionLevel
+  return resolution === '1080P'
+})
+const needCreditCheck = computed(() => is1080PSelected.value || freeTimes.value === 0)
+const generateBadgeText = computed(() => {
+  // 1080P 展示实际消耗（不再展示 Free）
+  if (is1080PSelected.value) return `${requiredCredits.value} credits`
+  if (freeTimes.value > 0) return `${freeTimes.value} Free`
+  return `${requiredCredits.value} credits`
+})
+
 // 是否可以生成
 const canGenerate = computed(() => {
+  const hasPrompt = formData.value.prompt.trim().length > 0
   if (activeMode.value === 'image-to-video') {
-    return uploadedImage.value
+    return uploadedImage.value && hasPrompt
   } else {
-    return formData.value.prompt.trim().length > 0
+    return hasPrompt
   }
 })
 
@@ -755,11 +774,19 @@ const handleGenerate = async () => {
     return
   }
   
-  if (!canGenerate.value) return
+  if (!canGenerate.value) {
+    if (activeMode.value === 'image-to-video') {
+      $toast.error('Please upload image and enter prompt')
+    } else {
+      $toast.error('Please enter prompt')
+    }
+    return
+  }
   
-  // 检查积分是否充足
-  if (userCredits.value < requiredCredits.value) {
-    $toast.error(`Insufficient credits. This operation requires ${requiredCredits.value} credits, but you only have ${userCredits.value} credits`)
+  // 检查积分是否充足（1080P 或无免费次数时才校验）
+  if (needCreditCheck.value && userCredits.value < requiredCredits.value) {
+    $toast.error(`Insufficient credits. Need ${requiredCredits.value}, available ${userCredits.value}`)
+    router.push('/pricing')
     return
   }
   
@@ -797,16 +824,28 @@ const handleGenerate = async () => {
       // 开始轮询检查任务状态
       startPolling()
     } else {
-      console.log(response)
+      // console.log(response)
+
       throw new Error(response.msg || 'Failed to create task')
     }
   } catch (error: any) {
     console.log('Generation failed:', error)
+
     taskStatus.value = 'failed'
     statusMessage.value = error || 'Generation failed, please try again'
     $toast.error(statusMessage.value)
+    console.log(statusMessage.value)
+
     isGenerating.value = false
-    stopProgressAnimation()
+        
+    if(statusMessage.value.includes('insufficient user usage limit')){
+      stopProgressAnimation()
+      router.push('/pricing')
+      return
+    }else{
+      stopProgressAnimation()
+    }
+
   }
 }
 
@@ -882,6 +921,7 @@ const checkTaskStatus = async () => {
         // 停止轮询
         stopPolling()
         isGenerating.value = false
+        await userStore.fetchUserInfo(true)
         stopProgressAnimation()
       } else if (status <= -1) {
         // 生成失败

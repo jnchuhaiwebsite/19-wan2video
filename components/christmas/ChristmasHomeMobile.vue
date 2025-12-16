@@ -14,6 +14,7 @@
       :key="currentIndex"
       ref="videoPlayer"
       autoplay
+      loop
       :muted="isMuted"
       playsinline
       style="
@@ -151,26 +152,32 @@
         <button
           @click="goToCustomized"
           style="
-            flex: 1;
-            padding: 14px 24px;
-            border-radius: 12px;
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+          flex: 1;
+          padding: 12px 28px;
+          border-radius: 999px;
+          background: linear-gradient(to bottom, #ff6b6b, #c0392b);
+          border: 1px solid rgba(255,255,255,0.3);
+          color: white;
+          font-size: 15px;
+          font-weight: 700;
+          letter-spacing: 0.3px;
+          cursor: pointer;
+          box-shadow: 0 3px 10px rgba(220, 20, 60, 0.3),
+                      0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+                      0 0 10px rgba(255, 75, 75, 0.4);
+          transition: all 0.3s ease;
+          text-decoration: none;
+          position: relative;
+          overflow: hidden;
           "
-          @mouseenter="(e: any) => e.target.style.background = 'rgba(255,255,255,0.3)'"
-          @mouseleave="(e: any) => e.target.style.background = 'rgba(255,255,255,0.2)'"
+        @mouseenter="(e: any) => { e.target.style.transform = 'translateY(-2px) scale(1.05)'; e.target.style.boxShadow = '0 6px 20px rgba(220, 20, 60, 0.6), 0 0 0 2px rgba(255, 255, 255, 0.15) inset, 0 0 20px rgba(255, 75, 75, 0.8)' }"
+        @mouseleave="(e: any) => { e.target.style.transform = 'translateY(0) scale(1)'; e.target.style.boxShadow = '0 3px 10px rgba(220, 20, 60, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1) inset, 0 0 10px rgba(255, 75, 75, 0.4)' }"
         >
           Customized
         </button>
 
         <!-- Upload Image 按钮 -->
-        <button
+        <!-- <button
           @click="triggerImageUpload"
           style="
             flex: 1;
@@ -189,7 +196,7 @@
           @mouseleave="(e: any) => e.target.style.transform = 'translateY(0)'"
         >
           Upload Image
-        </button>
+        </button> -->
       </div>
 
       <!-- 隐藏的文件输入 -->
@@ -202,7 +209,7 @@
       />
 
       <!-- 左右切换按钮 -->
-      <button
+      <!-- <button
         @click="prevVideo"
         style="
           position: absolute;
@@ -228,8 +235,8 @@
         @mouseleave="(e: any) => e.target.style.background = 'rgba(255,255,255,0.2)'"
       >
         ‹
-      </button>
-      <button
+      </button> -->
+      <!-- <button
         @click="nextVideo"
         style="
           position: absolute;
@@ -255,7 +262,7 @@
         @mouseleave="(e: any) => e.target.style.background = 'rgba(255,255,255,0.2)'"
       >
         ›
-      </button>
+      </button> -->
     </div>
   </div>
 </template>
@@ -275,34 +282,34 @@ const templates = [
     verticalVideo: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-s.mp4',
     prompt: 'The Christmas sky is snowing, surrounded by pine trees adorned with colorful lights. The Christmas tree is covered in snow, and the roof and windowsill of the small wooden house are covered with a thick layer of white snow. There is a flower wreath made of pine cones and red berries hanging at the door. The character is wearing a Christmas sweater and a red Christmas hat, standing next to a small wooden house. The character width accounts for 70% of the page. About 70% of the page is occupied by height, holding a Christmas card and saying to a friend with a straight face, "Happy Holidays, Catching up so to celebrate. Hope you\'re drilling hard and getting all the best snacks/gifts. Stay awesome".Make people instantly feel the lively, excited, and energetic atmosphere of the festival night.'
   },
-  {
-    name: 'christmas tree',
-    thumbnail: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-living-room-pine-tree-scene.png',
-    horizontalVideo: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-h.mp4',
-    verticalVideo: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-s.mp4',
-    prompt: 'On Christmas Eve, there is a huge and lush real pine tree in the center of the living room! It is covered with various retro glass ball ornaments, with warm yellow white string lights on. The heavy snow outside the window gives a feeling of the night. Six thick red or green Christmas stockings are neatly placed on the fireplace rack, creating a warm atmosphere inside the house. The soft yellow color scheme places the characters inside, wearing Christmas hats and standing at the front. The character width accounts for 70% of the page. About 70% of the page is high, wearing an ugly Christmas sweater, holding a Christmas card, and saying to friends with a straight face, "Happy Holidays, Catching up so to celebrate. Hope you\'re drilling hard and getting all the best snacks/gifts. Stay awesome.'
-  },
-  {
-    name: 'church',
-    thumbnail: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-church-holiday-interior.png',
-    horizontalVideo: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-church-holiday-interior-h.mp4',
-    verticalVideo: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-church-holiday-interior-s.mp4',
-    prompt: 'The interior of the Christmas church is decorated with a large number of green holly branches and red potted poinsettias in the night background. The main lighting comes from chandeliers and lit candles. The character is in the center of the video, wearing a red Christmas hat, and the width of the character accounts for 70% of the page. The height accounts for about 70% of the page, wearing an ugly Christmas sweater, making people instantly feel the lively, excited, and energetic atmosphere of the holiday night. Say to your friend with a straight face, \'Happy Holidays, Catching up soon to celebrate. Hope you\'re drilling hard and getting all the best snacks/gifts. Stay awesome!\'.'
-  },
-  {
-    name: 'pine forest',
-    thumbnail: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-snowy-pine-forest-lights.png',
-    horizontalVideo: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-pine-forest-lights-h.mp4',
-    verticalVideo: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-pine-forest-lights-s.mp4',
-    prompt: 'A pine forest in the outskirts, with thick snow on the ground, and yellow lights shining from the windows of the farm\'s wooden houses, warm and romantic. Most importantly, there are countless warm light strings wrapped around the pine trees in the forest, only white or amber in color. The contours of the pine trees are outlined like Christmas trees. There are elk running through the forest, and as dusk falls and the lights begin to dominate the view, the entire scene becomes poetic and romantic. The sky is snowing, and the character is wearing a Christmas sweater and a red Christmas hat. The character\'s width accounts for 70% of the page. The proportion of height on the page is about 70%, making people instantly feel the lively, excited, and energetic atmosphere of the festival night. Say to your friend with a straight face, \'Happy Holidays, Catching up soon to celebrate. Hope you\'re drilling hard and getting all the best snacks/gifts. Stay awesome!\'.'
-  }
+  // {
+  //   name: 'christmas tree',
+  //   thumbnail: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-living-room-pine-tree-scene.png',
+  //   horizontalVideo: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-h.mp4',
+  //   verticalVideo: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-s.mp4',
+  //   prompt: 'On Christmas Eve, there is a huge and lush real pine tree in the center of the living room! It is covered with various retro glass ball ornaments, with warm yellow white string lights on. The heavy snow outside the window gives a feeling of the night. Six thick red or green Christmas stockings are neatly placed on the fireplace rack, creating a warm atmosphere inside the house. The soft yellow color scheme places the characters inside, wearing Christmas hats and standing at the front. The character width accounts for 70% of the page. About 70% of the page is high, wearing an ugly Christmas sweater, holding a Christmas card, and saying to friends with a straight face, "Happy Holidays, Catching up so to celebrate. Hope you\'re drilling hard and getting all the best snacks/gifts. Stay awesome.'
+  // },
+  // {
+  //   name: 'church',
+  //   thumbnail: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-church-holiday-interior.png',
+  //   horizontalVideo: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-church-holiday-interior-h.mp4',
+  //   verticalVideo: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-church-holiday-interior-s.mp4',
+  //   prompt: 'The interior of the Christmas church is decorated with a large number of green holly branches and red potted poinsettias in the night background. The main lighting comes from chandeliers and lit candles. The character is in the center of the video, wearing a red Christmas hat, and the width of the character accounts for 70% of the page. The height accounts for about 70% of the page, wearing an ugly Christmas sweater, making people instantly feel the lively, excited, and energetic atmosphere of the holiday night. Say to your friend with a straight face, \'Happy Holidays, Catching up soon to celebrate. Hope you\'re drilling hard and getting all the best snacks/gifts. Stay awesome!\'.'
+  // },
+  // {
+  //   name: 'pine forest',
+  //   thumbnail: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-snowy-pine-forest-lights.png',
+  //   horizontalVideo: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-pine-forest-lights-h.mp4',
+  //   verticalVideo: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-pine-forest-lights-s.mp4',
+  //   prompt: 'A pine forest in the outskirts, with thick snow on the ground, and yellow lights shining from the windows of the farm\'s wooden houses, warm and romantic. Most importantly, there are countless warm light strings wrapped around the pine trees in the forest, only white or amber in color. The contours of the pine trees are outlined like Christmas trees. There are elk running through the forest, and as dusk falls and the lights begin to dominate the view, the entire scene becomes poetic and romantic. The sky is snowing, and the character is wearing a Christmas sweater and a red Christmas hat. The character\'s width accounts for 70% of the page. The proportion of height on the page is about 70%, making people instantly feel the lively, excited, and energetic atmosphere of the festival night. Say to your friend with a straight face, \'Happy Holidays, Catching up soon to celebrate. Hope you\'re drilling hard and getting all the best snacks/gifts. Stay awesome!\'.'
+  // }
 ]
 
 const router = useRouter()
 const { $toast } = useNuxtApp() as any
 const currentIndex = ref(0)
 const videoPlayer = ref<HTMLVideoElement | null>(null)
-const isMuted = ref(true) // 默认静音
+const isMuted = ref(false) // 默认静音
 const imageInput = ref<HTMLInputElement | null>(null)
 const isGenerating = ref(false)
 const currentTaskId = ref<string | null>(null)
