@@ -137,7 +137,7 @@
                 <label class="block text-sm font-semibold text-gray-900 mb-3">Resolution</label>
                 <div class="grid grid-cols-3 gap-3">
                   <button
-                    v-for="item in ['480P','720P','1080P']"
+                    v-for="item in ['720P','1080P']"
                     :key="item"
                     type="button"
                     class="w-full p-3 rounded-lg border-2 transition-all duration-300 text-center text-sm"
@@ -328,7 +328,7 @@
                 <label class="block text-sm font-semibold text-gray-900 mb-3">Resolution</label>
                 <div class="grid grid-cols-3 gap-3">
                   <button
-                    v-for="item in ['480P','720P','1080P']"
+                    v-for="item in ['720P','1080P']"
                     :key="item"
                     type="button"
                     class="w-full p-3 rounded-lg border-2 transition-all duration-300 text-center text-sm"
@@ -556,7 +556,7 @@
                 <label class="block text-sm font-semibold text-gray-900 mb-3">Resolution</label>
                 <div class="grid grid-cols-3 gap-3">
                   <button
-                    v-for="item in ['480P','720P','1080P']"
+                    v-for="item in ['720P','1080P']"
                     :key="item"
                     type="button"
                     class="w-full p-3 rounded-lg border-2 transition-all duration-300 text-center text-sm"
@@ -1254,11 +1254,11 @@ if (typeof window !== 'undefined') {
 
 const getSizeByConfig = (resolution: string, aspect?: string) => {
   const map: Record<string, Record<string, string>> = {
-    '480P': {
-      '16:9': '832*480',
-      '9:16': '480*832',
-      '1:1': '624*624'
-    },
+    // '480P': {
+    //   '16:9': '832*480',
+    //   '9:16': '480*832',
+    //   '1:1': '624*624'
+    // },
     '720P': {
       '16:9': '1280*720',
       '9:16': '720*1280',
