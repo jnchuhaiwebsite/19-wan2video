@@ -22,31 +22,56 @@
       <Wan26WhatIs />
     </section>
 
+    <!-- How to Use Wan 2.6 -->
+    <section class="relative">
+      <Wan26HowToUse />
+    </section>
+
     <!-- What's New in Wan 2.6 -->
     <section class="relative">
       <Wan26WhatsNew />
-    </section>
-
-    <!-- Why Wan 2.6 Matters -->
-    <section class="relative">
-      <Wan26WhyMatters />
-    </section>
-
-
-    <!-- Key Features & Advantages -->
-    <section class="relative">
-      <Wan26KeyFeatures />
-    </section>
-
-    <!-- Use Cases -->
-    <section class="relative">
-      <Wan26UseCases />
     </section>
 
     <!-- Video Examples -->
     <section class="relative">
       <Wan26VideoExamples />
     </section>
+
+    <!-- Why Wan 2.6 Matters -->
+    <!-- <section class="relative">
+      <Wan26WhyMatters />
+    </section> -->
+
+    <!-- Why Wan 2.6 Is Built for Professional Storytelling -->
+    <section class="relative">
+      <Wan26StorytellingWhy />
+    </section>
+
+    <!-- Key Features & Advantages -->
+    <section class="relative">
+      <Wan26KeyFeatures />
+    </section>
+
+    <!-- Key Creative Capabilities -->
+    <section class="relative">
+      <Wan26CreativeCapabilities />
+    </section>
+
+    <!-- What You Can Create with Wan 2.6 -->
+    <section class="relative">
+      <Wan26WhatYouCanCreate />
+    </section>
+
+    <section class="model-comparison">
+      <Wan26ModelComparison />
+    </section>
+    
+
+
+    <!-- Use Cases -->
+    <!-- <section class="relative">
+      <Wan26UseCases />
+    </section> -->
 
     <!-- FAQ -->
     <section class="relative">
@@ -60,11 +85,15 @@
 import Wan26HeroSection from '~/components/wan26/HeroSection.vue';
 import Wan26WhatIs from '~/components/wan26/WhatIs.vue';
 import Wan26WhatsNew from '~/components/wan26/WhatsNew.vue';
-import Wan26WhyMatters from '~/components/wan26/WhyMatters.vue';
 import Wan26Generator from '~/components/wan26/Generator.vue';
+import Wan26HowToUse from '~/components/wan26/HowToUse.vue';
+import Wan26StorytellingWhy from '~/components/wan26/StorytellingWhy.vue';
+import Wan26CreativeCapabilities from '~/components/wan26/CreativeCapabilities.vue';
 import Wan26KeyFeatures from '~/components/wan26/KeyFeatures.vue';
 import Wan26UseCases from '~/components/wan26/UseCases.vue';
+import Wan26ModelComparison from '~/components/wan26/ModelComparison.vue';
 import Wan26VideoExamples from '~/components/wan26/VideoExamples.vue';
+import Wan26WhatYouCanCreate from '~/components/wan26/WhatYouCanCreate.vue';
 import Wan26Faq from '~/components/wan26/Faq.vue';
 import { useHead } from 'nuxt/app';
 import { useSeo } from '~/composables/useSeo';
