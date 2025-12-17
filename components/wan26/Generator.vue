@@ -1019,6 +1019,9 @@ const checkLoginStatus = (event?: Event): boolean => {
   return true
 }
 
+// 免费次数
+const freeTimes = computed(() => userInfo.value?.free_times || 0)
+
 // 计算当前配置对应的积分消耗
 const creditCostLabel = computed(() => {
   const resolution =
@@ -1036,6 +1039,11 @@ const creditCostLabel = computed(() => {
       : form.reference.duration
 
   const duration = parseInt(durationStr, 10) || 0
+
+  // 720P、5s 时优先检测 free_times
+  if (resolution === '720P' && duration === 5 && freeTimes.value > 0) {
+    return freeTimes.value + ' Free'
+  }
 
   // Wan 2.6 积分表
   const tableTextImage: Record<string, Record<number, number>> = {
