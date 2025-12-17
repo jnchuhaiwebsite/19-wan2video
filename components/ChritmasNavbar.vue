@@ -1,7 +1,7 @@
 <template>
   <header>
     <nav
-      class="fixed top-0 left-0 w-full z-50 backdrop-blur-md shadow-md bg-transparent"
+      class="fixed top-0 left-0 w-full z-50 backdrop-blur-md shadow-md bg-transparent z-[9999]"
     >
       <div class="max-w-7xl mx-auto px-4">
         <div class="flex items-center justify-between h-20">

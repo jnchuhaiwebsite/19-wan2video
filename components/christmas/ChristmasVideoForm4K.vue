@@ -1084,7 +1084,12 @@ const onAudioEnded = () => {
 const userStore = useUserStore();
 const userInfo = computed(() => userStore.userInfo);
 const freeTimes = computed(() => userInfo.value?.free_times || 0);
-const generateBadgeText = computed(() => freeTimes.value > 0 ? freeTimes.value + ' Free' : '400 Credits');
+const generateBadgeText = computed(() => {
+  if (!isLoggedIn()) {
+    return 'Free';
+  }
+  return freeTimes.value > 0 ? freeTimes.value + ' Free' : '400 Credits';
+});
 
 // 检查是否已登录
 const isLoggedIn = (): boolean => {
