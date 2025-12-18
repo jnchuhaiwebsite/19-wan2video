@@ -1382,6 +1382,7 @@ const startPolling = (taskId: string) => {
         isLoading.value = false
         errorMessage.value = null
         stopPolling()
+        await userStore.fetchUserInfo(true)
         // 视频加载后重新计算尺寸
         setTimeout(() => {
           calculateVideoSize()

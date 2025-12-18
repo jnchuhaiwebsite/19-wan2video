@@ -1,7 +1,12 @@
 <template>
   <div class="w-full flex justify-center px-4 py-10">
     <!-- 外层容器（无背景），左右分栏 -->
-    <div class="w-full max-w-6xl flex flex-col lg:flex-row lg:items-start gap-8">
+    <div
+      :class="[
+        'w-full max-w-6xl flex flex-col lg:flex-row lg:items-start',
+        isVertical ? 'gap-12 lg:gap-24' : 'gap-8 lg:gap-12'
+      ]"
+    >
       <!-- 左侧表单：单独一个 DIV，玻璃态透明背景 -->
       <div
         :class="[
@@ -285,13 +290,13 @@
             </span>
           </div>
 
-          <!-- <button
+          <button
             type="button"
             class="mt-1 inline-flex items-center px-4 py-1.5 rounded-full text-[11px] font-medium bg-slate-700/80 hover:bg-slate-600 text-slate-100"
             @click="onTestGenerate"
           >
             Test Generate (mock task)
-          </button> -->
+          </button>
         </div>
       </div>
 
@@ -303,7 +308,7 @@
           'lg:sticky lg:top-[100px]'
         ]"
       >
-        <div class="flex flex-col items-center" :class="isVertical ? 'justify-center py-36' : 'justify-start'">
+        <div class="flex flex-col items-center" :class="isVertical ? 'justify-center py-20' : 'justify-start'">
           <!-- 横版预览 -->
           <div v-if="!isVertical" class="w-full max-w-2xl flex justify-center">
             <div class="relative w-full aspect-[914/724]">
@@ -447,8 +452,8 @@
           <!-- 竖版预览 -->
           <div
             v-else
-            class="w-full max-w-sm flex justify-center mb-8"
-            style="transform: scale(1.4); transform-origin: center;"
+            class="w-full max-w-sm flex justify-center mb-6"
+            style="transform: scale(1.2); transform-origin: center;"
           >
             <div class="relative w-full aspect-[9/16]">
               <img
@@ -590,7 +595,7 @@
             v-if="generatedVideoUrl && !isGenerating"
             :class="[
               'w-full max-w-xl flex flex-col items-center gap-4 relative z-20',
-              isVertical ? 'mt-20 py-10' : 'mt-4'
+              isVertical ? 'mt-20 ' : 'mt-4'
             ]"
           >
             <div class="flex flex-col sm:flex-row gap-3 w-full">

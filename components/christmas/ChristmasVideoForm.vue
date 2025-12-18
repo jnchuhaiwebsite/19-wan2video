@@ -1,7 +1,12 @@
 <template>
   <div class="w-full flex justify-center px-4 py-10">
     <!-- 外层容器（无背景），左右分栏 -->
-    <div class="w-full max-w-6xl flex flex-col lg:flex-row lg:items-start gap-8">
+    <div
+    :class="[
+        'w-full max-w-6xl flex flex-col lg:flex-row lg:items-start',
+        isVertical ? 'gap-12 lg:gap-24' : 'gap-8 lg:gap-12'
+      ]"
+    >
       <!-- 左侧表单：单独一个 DIV，玻璃态透明背景 -->
       <div
         :class="[
@@ -304,7 +309,7 @@
         ]"
       >
       <!-- isVertical 竖版还是横版，前面的竖版后边的横版 -->
-        <div class="flex flex-col items-center" :class="isVertical ? 'justify-center py-32' : 'justify-start py-6 ml-4'">
+        <div class="flex flex-col items-center" :class="isVertical ? 'justify-center py-12' : 'justify-start py-6 ml-4'">
           <!-- 横版预览 -->
           <div
             v-if="!isVertical"
@@ -453,7 +458,7 @@
           <div
             v-else
             class="w-full max-w-sm flex justify-start mb-8"
-            style="transform: scale(1.35); transform-origin: center;"
+            style="transform: scale(1.1); transform-origin: center;"
           >
             <div class="relative w-full aspect-[9/16]">
               <img
@@ -595,7 +600,7 @@
             v-if="generatedVideoUrl && !isGenerating"
             :class="[
               'w-full max-w-xl flex flex-col items-center gap-4 relative z-20',
-              isVertical ? 'mt-20 py-10' : 'mt-8'
+              isVertical ? 'mt-10 ' : 'mt-8'
             ]"
           >
             <div class="flex flex-col sm:flex-row gap-3 w-full">
