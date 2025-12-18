@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-blue-pale">
+  <div class="min-h-screen bg-blue-pale pt-10">
     <main class="w-full mx-auto p-6 bg-blue-pale rounded-lg max-w-7xl min-h-screen">
       <!-- 页面标题区域 -->
       <header>

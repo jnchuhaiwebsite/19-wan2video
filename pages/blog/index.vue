@@ -1,5 +1,5 @@
 <template>
-  <main class="w-full mx-auto p-6 bg-blue-pale rounded-lg max-w-24xl min-h-screen">
+  <main class="w-full mx-auto p-6 bg-blue-pale rounded-lg max-w-24xl min-h-screen pt-14">
     <!-- Hero Section -->
     <section 
       id="blog-hero"

@@ -15,13 +15,14 @@ export interface RouteItem {
 
 // 主路由配置
 export const mainRoutes: RouteItem[] = [
+  { id: "christmas", name: "Christmas", href: "/christmas", icon: "christmas" },
   { id: "hero", name: "Wan 2.2", icon: "HomeIcon" },
   { id: "wan-2.5", name: "Wan 2.5", href: "/wan-2-5-ai", icon: "Wan25Icon" },
   { id: "wan-2.6", name: "Wan 2.6", href: "/wan/wan-2-6", icon: "Wan26Icon" },
   { id: "pricing", name: "Pricing", icon: "TagIcon", href: "/pricing" },
   { id: "blog", name: "Blog", href: "/blog", icon: "BookOpenIcon" },
   { id: "mobile-app", name: "Mobile App", href: "/wan-mobile-app", icon: "PhoneIcon" },
-  // { id: "christmas", name: "christmas", href: "/christmas", icon: "christmas" },
+
   // { id: "image-generate", name: "Image Generate", href: "/ai-image-generator", icon: "image" },
   // { id: "pricing", name: "Pricing", href: "/pricing", icon: "tag" },
 ]
