@@ -112,9 +112,63 @@
             overflow: hidden;
             background: black;
             box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+            position: relative;
           "
         >
-          <video autoplay loop muted playsinline controls style="width:100%;height:100%;object-fit:cover;">
+          <!-- 音量控制按钮 -->
+          <button
+            type="button"
+            class="absolute right-2 top-2 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-black/60 hover:bg-black/80 border border-white/40 transition-colors"
+            @click="toggleVideoAudio('left')"
+          >
+            <!-- 有声音状态图标 -->
+            <svg
+              v-if="activeVideoId === 'left'"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="w-4 h-4 text-white"
+              aria-hidden="true"
+            >
+              <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path>
+              <path d="M16 9a5 5 0 0 1 0 6"></path>
+              <path d="M19.364 18.364a9 9 0 0 0 0-12.728"></path>
+            </svg>
+            <!-- 静音状态图标 -->
+            <svg
+              v-else
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="w-4 h-4 text-white"
+              aria-hidden="true"
+            >
+              <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path>
+              <line x1="22" x2="16" y1="9" y2="15"></line>
+              <line x1="16" x2="22" y1="9" y2="15"></line>
+            </svg>
+          </button>
+
+          <video
+            ref="leftVideo"
+            autoplay
+            loop
+            :muted="activeVideoId !== 'left'"
+            playsinline
+            style="width:100%;height:100%;object-fit:cover;"
+          >
             <source :src="assets.videoLeft" type="video/mp4" />
           </video>
         </div>
@@ -166,9 +220,63 @@
               background: black;
               border: 1px solid rgba(255,255,255,0.25);
               box-shadow: 0 22px 60px rgba(0,0,0,0.65);
+              position: relative;
             "
           >
-            <video autoplay loop muted playsinline controls style="width:100%;height:100%;object-fit:cover;">
+            <!-- 音量控制按钮 -->
+            <button
+              type="button"
+              class="absolute right-2 top-2 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-black/60 hover:bg-black/80 border border-white/40 transition-colors"
+              @click="toggleVideoAudio('middle')"
+            >
+              <!-- 有声音状态图标 -->
+              <svg
+                v-if="activeVideoId === 'middle'"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-4 h-4 text-white"
+                aria-hidden="true"
+              >
+                <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path>
+                <path d="M16 9a5 5 0 0 1 0 6"></path>
+                <path d="M19.364 18.364a9 9 0 0 0 0-12.728"></path>
+              </svg>
+              <!-- 静音状态图标 -->
+              <svg
+                v-else
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="w-4 h-4 text-white"
+                aria-hidden="true"
+              >
+                <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path>
+                <line x1="22" x2="16" y1="9" y2="15"></line>
+                <line x1="16" x2="22" y1="9" y2="15"></line>
+              </svg>
+            </button>
+
+            <video
+              ref="middleVideo"
+              autoplay
+              loop
+              :muted="activeVideoId !== 'middle'"
+              playsinline
+              style="width:100%;height:100%;object-fit:cover;"
+            >
               <source :src="assets.videoMiddle" type="video/mp4" />
             </video>
           </div>
@@ -182,9 +290,63 @@
             overflow: hidden;
             background: black;
             box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+            position: relative;
           "
         >
-          <video autoplay loop muted playsinline controls style="width:100%;height:100%;object-fit:cover;">
+          <!-- 音量控制按钮 -->
+          <button
+            type="button"
+            class="absolute right-2 top-2 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-black/60 hover:bg-black/80 border border-white/40 transition-colors"
+            @click="toggleVideoAudio('right')"
+          >
+            <!-- 有声音状态图标 -->
+            <svg
+              v-if="activeVideoId === 'right'"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="w-4 h-4 text-white"
+              aria-hidden="true"
+            >
+              <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path>
+              <path d="M16 9a5 5 0 0 1 0 6"></path>
+              <path d="M19.364 18.364a9 9 0 0 0 0-12.728"></path>
+            </svg>
+            <!-- 静音状态图标 -->
+            <svg
+              v-else
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="w-4 h-4 text-white"
+              aria-hidden="true"
+            >
+              <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path>
+              <line x1="22" x2="16" y1="9" y2="15"></line>
+              <line x1="16" x2="22" y1="9" y2="15"></line>
+            </svg>
+          </button>
+
+          <video
+            ref="rightVideo"
+            autoplay
+            loop
+            :muted="activeVideoId !== 'right'"
+            playsinline
+            style="width:100%;height:100%;object-fit:cover;"
+          >
             <source :src="assets.videoRight" type="video/mp4" />
           </video>
         </div>
@@ -194,12 +356,56 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+
 // 资源配置
 const assets = {
   bg: 'https://cfsource.wan2video.com/wan2video/christmas/template/home/wan2video-christmas-background.jpg',
   videoLeft: 'https://cfsource.wan2video.com/wan2video/christmas/template/home/wan2video-christmas-home-left.mp4',
   videoMiddle: 'https://cfsource.wan2video.com/wan2video/christmas/template/home/wan2video-christmas-home-middle.mp4',
   videoRight: 'https://cfsource.wan2video.com/wan2video/christmas/template/home/wan2video-christmas-home-right.mp4'
+}
+
+type VideoId = 'left' | 'middle' | 'right'
+
+const leftVideo = ref<HTMLVideoElement | null>(null)
+const middleVideo = ref<HTMLVideoElement | null>(null)
+const rightVideo = ref<HTMLVideoElement | null>(null)
+
+// 当前播放声音的视频，null 表示全部静音
+const activeVideoId = ref<VideoId | null>(null)
+
+const getVideoRefById = (id: VideoId) => {
+  if (id === 'left') return leftVideo.value
+  if (id === 'middle') return middleVideo.value
+  return rightVideo.value
+}
+
+const toggleVideoAudio = (id: VideoId) => {
+  // 如果点击的是当前有声音的视频，则全部静音
+  if (activeVideoId.value === id) {
+    ;(['left', 'middle', 'right'] as VideoId[]).forEach((vid) => {
+      const el = getVideoRefById(vid)
+      if (el) el.muted = true
+    })
+    activeVideoId.value = null
+    return
+  }
+
+  // 切换到新的有声音视频，并将其他视频静音
+  activeVideoId.value = id
+  ;(['left', 'middle', 'right'] as VideoId[]).forEach((vid) => {
+    const el = getVideoRefById(vid)
+    if (!el) return
+    const shouldUnmute = vid === id
+    el.muted = !shouldUnmute
+    if (shouldUnmute) {
+      // 用户点击属于交互行为，可尝试播放
+      el.play().catch(() => {
+        // 某些浏览器可能仍然阻止自动播放，这里忽略错误
+      })
+    }
+  })
 }
 </script>
 
