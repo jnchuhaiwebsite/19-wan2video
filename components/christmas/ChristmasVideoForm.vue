@@ -1,7 +1,12 @@
 <template>
   <div class="w-full flex justify-center px-4 py-10">
     <!-- 外层容器（无背景），左右分栏 -->
-    <div class="w-full max-w-6xl flex flex-col lg:flex-row lg:items-start gap-8">
+    <div
+    :class="[
+        'w-full max-w-6xl flex flex-col lg:flex-row lg:items-start',
+        isVertical ? 'gap-12 lg:gap-24' : 'gap-8 lg:gap-12'
+      ]"
+    >
       <!-- 左侧表单：单独一个 DIV，玻璃态透明背景 -->
       <div
         :class="[
@@ -170,20 +175,84 @@
               <div class="flex gap-3 min-w-max px-1">
                 <!-- Upload Audio 按钮 -->
                 <label
-                  for="christmas-audio-upload"
                   :class="[
                     'flex items-center gap-2 px-4 py-3 rounded-lg cursor-pointer transition-all whitespace-nowrap border-2 border-dashed min-w-[140px] justify-center',
                     uploadedAudio && !selectedAudioFromLibrary
                       ? 'bg-yellow-500/20 border-yellow-400 text-white shadow-lg'
                       : 'bg-black/30 border-yellow-400/50 text-white hover:border-yellow-400/80 hover:bg-black/40'
                   ]"
+                  @click.stop.prevent="handleUploadLabelClick"
                 >
-                  <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-                  </svg>
-                  <span class="text-sm font-medium">
-                    {{ uploadedAudio?.name || 'Upload Audio' }}
-                  </span>
+                  <!-- 已上传音频时：左播放，中间文件名，右侧 X 清除 -->
+                  <template v-if="uploadedAudio && !selectedAudioFromLibrary">
+                    <!-- 播放按钮 -->
+                    <button
+                      type="button"
+                      class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-black/40 border border-yellow-400/70 mr-1"
+                      @click.stop="toggleCurrentAudioPlay"
+                    >
+                      <!-- 根据播放状态切换图标：播放 ▶ / 暂停 ⏸ -->
+                      <svg
+                        v-if="!isAudioPlaying"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-play w-4 h-4 text-yellow-300"
+                        aria-hidden="true"
+                      >
+                        <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                      </svg>
+                      <svg
+                        v-else
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-pause w-4 h-4 text-yellow-300"
+                        aria-hidden="true"
+                      >
+                        <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+                        <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+                      </svg>
+                    </button>
+
+                    <!-- 文件名 -->
+                    <span class="text-sm font-medium max-w-[140px] truncate">
+                      {{ uploadedAudio?.name }}
+                    </span>
+
+                    <!-- 清除按钮 -->
+                    <button
+                      type="button"
+                      class="ml-2 inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-500/90 hover:bg-red-500 text-white text-xs"
+                      @click.stop="removeAudio"
+                    >
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </template>
+
+                  <!-- 未上传音频时：显示 + Upload Audio -->
+                  <template v-else>
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                    <span class="text-sm font-medium">
+                      Upload Audio
+                    </span>
+                  </template>
                 </label>
                 <input
                   id="christmas-audio-upload"
@@ -220,6 +289,7 @@
                 </button>
               </div>
             </div>
+
           </div>
 
           <!-- 隐藏的音频播放器（用于上传音频，不显示控件） -->
@@ -227,6 +297,8 @@
             v-if="audioPreview && uploadedAudio" 
             ref="audioPlayer" 
             :src="audioPreview" 
+            @play="onAudioPlay"
+            @pause="onAudioPause"
             @ended="onAudioEnded"
             class="hidden"
           >
@@ -304,7 +376,7 @@
         ]"
       >
       <!-- isVertical 竖版还是横版，前面的竖版后边的横版 -->
-        <div class="flex flex-col items-center" :class="isVertical ? 'justify-center py-32' : 'justify-start py-6 ml-4'">
+        <div class="flex flex-col items-center" :class="isVertical ? 'justify-center py-12' : 'justify-start py-6 ml-4'">
           <!-- 横版预览 -->
           <div
             v-if="!isVertical"
@@ -453,7 +525,7 @@
           <div
             v-else
             class="w-full max-w-sm flex justify-start mb-8"
-            style="transform: scale(1.35); transform-origin: center;"
+            style="transform: scale(1.1); transform-origin: center;"
           >
             <div class="relative w-full aspect-[9/16]">
               <img
@@ -595,7 +667,7 @@
             v-if="generatedVideoUrl && !isGenerating"
             :class="[
               'w-full max-w-xl flex flex-col items-center gap-4 relative z-20',
-              isVertical ? 'mt-20 py-10' : 'mt-8'
+              isVertical ? 'mt-10 ' : 'mt-8'
             ]"
           >
             <div class="flex flex-col sm:flex-row gap-3 w-full">
@@ -812,7 +884,7 @@ const audioCategories: AudioCategory[] = [
       { name: 'Coming Home This Christmas', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/coming-home-this-christmas.mp3' },
       { name: 'Jingle Bell Rock', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/jingle-bell-rock.mp3' },
 
-      { name: 'Friends (Male)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/friend.mp3' },
+      { name: 'Friends (Male)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/friend.mp3'},
       { name: 'Colleagues (Male)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/colleague.mp3' },
       { name: 'Family (Male)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/family-members.mp3' },
       { name: 'Friends (Female)', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/friend.mp3' },
@@ -825,9 +897,14 @@ const audioCategories: AudioCategory[] = [
     name: 'male',
     displayName: 'Male',
     audios: [
-      { name: 'Friends', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/friend.mp3' },
       { name: 'Colleagues', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/colleague.mp3' },
-      { name: 'Family', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/family-members.mp3' }
+      { name: 'Family', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/family-members.mp3' },
+      { name: 'Jingle Bell Rock', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/jingle-bell-rock.mp3' },
+      { name: 'Mistletoe', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/mistletoe.mp3' },
+      { name: 'Last Christmas', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/last-christmas.mp3' },
+      { name: 'Feliz Navidad', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/feliz-navidad.mp3' },
+      { name: 'All I Want For Christmas', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/all-i-want-for-christmas-is-you.mp3' },
+      { name: 'Friends', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/male/friend.mp3' },
     ]
   },
   {
@@ -837,7 +914,11 @@ const audioCategories: AudioCategory[] = [
     audios: [
       { name: 'Friends', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/friend.mp3' },
       { name: 'Colleagues', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/colleague.mp3' },
-      { name: 'Family', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/family-members.mp3' }
+      { name: 'Family', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/female/family-members.mp3' },
+      { name: 'Christmas Tree Farm', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/christmas-tree-farm.mp3' },
+      { name: 'Snowman', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/snowman.mp3' },
+      { name: 'Santa Tell Me', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/santa-tell-me.mp3' },
+      { name: 'Fairytale At Christmas', url: 'https://cfsource.wan2video.com/wan2video/christmas/template/music/fairytale-at-christmas.mp3' },
     ]
   }
 ];
@@ -1003,6 +1084,17 @@ const handleAudioChange = (e: Event) => {
   audioPreview.value = URL.createObjectURL(file);
 };
 
+// 处理上传区域点击：只有在未选择上传音频或已切到音频库时才弹出文件选择
+const handleUploadLabelClick = () => {
+  // 如果已经有上传音频并且当前未选音频库模板，则不再弹出选择框
+  if (uploadedAudio.value && !selectedAudioFromLibrary.value) {
+    return;
+  }
+  if (audioInput.value) {
+    audioInput.value.click();
+  }
+};
+
 const selectAudioFromLibrary = async (audio: AudioItem) => {
   const isSameAudio = selectedAudioFromLibrary.value?.url === audio.url;
   
@@ -1084,6 +1176,25 @@ const onAudioEnded = () => {
   isAudioPlaying.value = false;
   // 可以选择是否清除 playingAudioUrl，或者保留以便用户知道哪个音频刚播放完
   // playingAudioUrl.value = null;
+};
+
+// 播放 / 暂停当前已选择的音频（上传或音频库）
+const toggleCurrentAudioPlay = () => {
+  const player = audioPlayerHidden.value || audioPlayer.value;
+  if (!player || !audioPreview.value) return;
+
+  if (isAudioPlaying.value) {
+    player.pause();
+  } else {
+    try {
+      player.currentTime = 0;
+      player.play().catch((err: any) => {
+        console.error('Failed to play audio:', err);
+      });
+    } catch (err) {
+      console.error('Failed to play audio:', err);
+    }
+  }
 };
 const userStore = useUserStore();
 const userInfo = computed(() => userStore.userInfo);
