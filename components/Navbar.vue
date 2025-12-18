@@ -1,7 +1,41 @@
 <template>
-  <header>
+  <!-- 修改 header 为 fixed 定位，包含 Banner 和 Nav -->
+  <header class="fixed top-0 left-0 w-full z-50 flex flex-col">
+    
+    <!-- 新增：Banner 区域 -->
+    <div class="w-full relative z-[51]">
+      <!-- PC端 Banner: 显示 GIF 图片 -->
+      <a 
+        href="/christmas" 
+        class="hidden lg:block w-full bg-slate-900/90 hover:opacity-95 transition-opacity"
+      >
+        <!-- 设置固定高度或自适应，根据图片比例调整，这里设置为 h-[60px] object-cover 保持条状 -->
+        <img 
+          src="https://cfsource.wan2video.com/wan2video/christmas/banner.gif" 
+          alt="Christmas Special" 
+          class="w-full h-[60px] object-cover mx-auto"
+        />
+      </a>
+
+      <!-- 移动端 Banner: 加载 HTML -->
+      <div class="block lg:hidden w-full h-[50px] relative bg-slate-900 overflow-hidden">
+        <!-- 添加透明点击层，确保移动端可以点击跳转 -->
+        <a 
+          href="/christmas" 
+          class="absolute inset-0 z-10 w-full h-full"
+        >
+        <img 
+          src="https://cfsource.wan2video.com/wan2video/christmas/bannershouji.gif" 
+          alt="Christmas Special" 
+          class="w-full h-[60px] object-cover mx-auto"
+        />
+      </a>
+      </div>
+    </div>
+
+    <!-- 原导航栏：移除 fixed top-0 等定位样式，改为相对定位 -->
     <nav
-      class="fixed top-0 left-0 w-full z-50 backdrop-blur-md shadow-md bg-transparent"
+      class="w-full backdrop-blur-md shadow-md bg-transparent relative z-50"
     >
       <div class="max-w-7xl mx-auto px-4">
         <div class="flex items-center justify-between h-20">
@@ -111,30 +145,10 @@
       <Transition name="slide-fade">
         <div
           v-if="isOpen"
-          class="lg:hidden fixed top-0 left-0 w-full h-screen overflow-y-auto bg-blue-pale/95 backdrop-blur-sm z-[100]"
+          class="lg:hidden fixed top-20 left-0 w-full h-[calc(100vh-5rem)] overflow-y-auto bg-blue-pale/95 backdrop-blur-sm z-[100] border-t border-blue-100"
         >
-          <!-- 关闭按钮 -->
-          <button
-            @click="isOpen = false"
-            class="fixed top-4 right-4 text-blue-dark p-2 rounded-full hover:bg-blue-medium/20 transition-colors z-[101]"
-          >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-
           <!-- 滚动内容区域 -->
-          <div class="pt-16 px-4 pb-8">
+          <div class="px-4 pb-8 pt-4">
             <!-- 导航链接 -->
             <div class="space-y-2 mb-6">
               <template v-for="(section, index) in sections" :key="index">
@@ -146,14 +160,6 @@
                   {{ section.name }}
                 </NuxtLink>
               </template>
-              <!-- <NuxtLink
-                v-if="isSignedIn"
-                to="/profile"
-                class="block text-blue-navtext hover:text-blue-dark text-base py-2 transition-colors"
-                @click="() => { isOpen = false; }"
-              >
-                Personal Center
-              </NuxtLink> -->
             </div>
 
             <!-- 移动端用户菜单 -->
@@ -289,4 +295,4 @@ onUnmounted(() => {
 .hover-text-theme:hover {
   color: var(--baby-coral) !important;
 }
-</style> 
+</style>

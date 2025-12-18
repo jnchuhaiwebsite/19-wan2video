@@ -271,6 +271,16 @@
                   </svg>
                 </button>
                 <button 
+                  @click="handleShare(work.generate_image || work.origin_image)"
+                  class="bg-blue-button bg-opacity-80 p-2 rounded-full hover:bg-opacity-100 transition-all shadow-lg hover:shadow-xl"
+                  title="Share video"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                  </svg>
+                </button>
+                <button 
                   @click="handleDownload(work.generate_image || work.origin_image)"
                   class="bg-blue-button bg-opacity-80 p-2 rounded-full hover:bg-opacity-100 transition-all shadow-lg hover:shadow-xl"
                   :disabled="isDownloading"
@@ -303,6 +313,16 @@
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                  </svg>
+                </button>
+                <button 
+                  @click="handleShare(work.generate_image)"
+                  class="bg-blue-button bg-opacity-80 p-2 rounded-full hover:bg-opacity-100 transition-all shadow-lg hover:shadow-xl"
+                  title="Share image"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
                   </svg>
                 </button>
                 <button 
@@ -844,6 +864,18 @@ const copyPrompt = async (prompt: string) => {
   } catch (error) {
     console.error('Failed to copy prompt:', error)
     $toast.error('Failed to copy prompt', 3000, 'center')
+  }
+}
+
+// 分享视频
+const handleShare = async (videoUrl: string) => {
+  try {
+    const shareUrl = `https://cfsource.wan2video.com/wan2video/christmas/christmas.html?video=${encodeURIComponent(videoUrl)}`
+    await navigator.clipboard.writeText(shareUrl)
+    $toast.success('Share link copied to clipboard', 3000, 'center')
+  } catch (error) {
+    console.error('Failed to copy share link:', error)
+    $toast.error('Failed to copy share link', 3000, 'center')
   }
 }
 
