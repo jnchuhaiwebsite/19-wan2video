@@ -141,9 +141,6 @@
           max-width: 360px;
         "
       >
-        <!-- <span style="display: block; margin-bottom: 8px;">Upload your photo, and let Santa do the magic!</span>
-        
-        <span style="display: block;">A free, personalized video is just one click away</span> -->
         <span style="display: block; margin-bottom: 8px;">Create Christmas videos in minutes with AI. Just pick a template and click to generate, let wan2video handle the scenes, media, voiceovers, and sound effects. Instantly delivers free Christmas video clips with music</span>
       </p>
     </div>
@@ -193,6 +190,21 @@
       </button>
     </div>
 
+    <!-- ===== 新增部分：全屏透明遮罩层 ===== -->
+    <!-- z-index 设为 99，比表单的 100 低，比背景高 -->
+    <!-- 点击此区域将触发 handleCloseForm -->
+    <div
+      v-if="showForm"
+      style="
+        position: fixed;
+        inset: 0;
+        z-index: 99;
+        cursor: pointer;
+      "
+      @click="handleCloseForm"
+    ></div>
+    <!-- =================================== -->
+
     <!-- 页面内容：表单部分 -->
     <Transition name="slide-down">
       <div
@@ -212,7 +224,7 @@
           width: 100%;
           background: transparent;
           overflow-y: auto;
-          padding: 16px 16px 0 16px;
+          padding: 16px  0 0 0;
           transition: transform 0.2s ease-out;
         "
       >
@@ -1020,4 +1032,3 @@ onMounted(() => {
   top: 88px !important; /* 下移到导航下方，导航高度约80px */
 }
 </style>
-
