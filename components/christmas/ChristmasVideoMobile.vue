@@ -674,7 +674,20 @@ const currentTaskId = ref<string | null>(null)
 const showShareMenu = ref(false)
 const userStore = useUserStore()
 const freeTimes = computed(() => userStore.userInfo?.free_times || 0)
-const generateBadgeText = computed(() => freeTimes.value > 0 ? freeTimes.value + ' Free' : '400 Credits')
+const userInfo = computed(() => userStore.userInfo);
+// 检查是否已登录
+const isLoggedIn = (): boolean => {
+  if (!userInfo.value) {
+    return false;
+  }
+  return true;
+};
+const generateBadgeText = computed(() => {
+  if (!isLoggedIn()) {
+    return 'Free';
+  }
+  return freeTimes.value > 0 ? freeTimes.value + ' Free' : '400 Credits';
+});
 
 // 开始制作：滚动到表单区域并选中模版1
 const handleStartCreate = () => {
