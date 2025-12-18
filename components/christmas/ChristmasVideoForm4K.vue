@@ -175,20 +175,85 @@
               <div class="flex gap-3 min-w-max px-1">
                 <!-- Upload Audio 按钮 -->
                 <label
-                  for="christmas-audio-upload"
                   :class="[
                     'flex items-center gap-2 px-4 py-3 rounded-lg cursor-pointer transition-all whitespace-nowrap border-2 border-dashed min-w-[140px] justify-center',
                     uploadedAudio && !selectedAudioFromLibrary
                       ? 'bg-yellow-500/20 border-yellow-400 text-white shadow-lg'
                       : 'bg-black/30 border-yellow-400/50 text-white hover:border-yellow-400/80 hover:bg-black/40'
                   ]"
+                  @click.stop.prevent="handleUploadLabelClick"
                 >
-                  <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-                  </svg>
-                  <span class="text-sm font-medium">
-                    {{ uploadedAudio?.name || 'Upload Audio' }}
-                  </span>
+                  <!-- 已上传音频时：左播放/暂停，中间文件名，右侧 X 清除 -->
+                  <template v-if="uploadedAudio && !selectedAudioFromLibrary">
+                    <!-- 播放 / 暂停按钮 -->
+                    <button
+                      type="button"
+                      class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-black/40 border border-yellow-400/70 mr-1"
+                      @click.stop="toggleCurrentAudioPlay"
+                    >
+                      <!-- 未播放：播放图标 -->
+                      <svg
+                        v-if="!isAudioPlaying"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-play w-4 h-4 text-yellow-300"
+                        aria-hidden="true"
+                      >
+                        <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                      </svg>
+                      <!-- 播放中：暂停图标 -->
+                      <svg
+                        v-else
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-pause w-4 h-4 text-yellow-300"
+                        aria-hidden="true"
+                      >
+                        <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+                        <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+                      </svg>
+                    </button>
+
+                    <!-- 文件名 -->
+                    <span class="text-sm font-medium max-w-[160px] truncate">
+                      {{ uploadedAudio?.name }}
+                    </span>
+
+                    <!-- 清除按钮 -->
+                    <button
+                      type="button"
+                      class="ml-2 inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-500/90 hover:bg-red-500 text-white text-xs"
+                      @click.stop="removeAudio"
+                    >
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </template>
+
+                  <!-- 未上传音频时：显示 + Upload Audio -->
+                  <template v-else>
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                    <span class="text-sm font-medium">
+                      Upload Audio
+                    </span>
+                  </template>
                 </label>
                 <input
                   id="christmas-audio-upload"
@@ -232,6 +297,8 @@
             v-if="audioPreview && uploadedAudio" 
             ref="audioPlayer" 
             :src="audioPreview" 
+            @play="onAudioPlay"
+            @pause="onAudioPause"
             @ended="onAudioEnded"
             class="hidden"
           >
@@ -1011,6 +1078,36 @@ const handleAudioChange = (e: Event) => {
     URL.revokeObjectURL(audioPreview.value);
   }
   audioPreview.value = URL.createObjectURL(file);
+};
+
+// 播放 / 暂停当前已选择的音频（上传或音频库）
+const toggleCurrentAudioPlay = () => {
+  const player = audioPlayerHidden.value || audioPlayer.value;
+  if (!player || !audioPreview.value) return;
+
+  if (isAudioPlaying.value) {
+    player.pause();
+  } else {
+    try {
+      player.currentTime = 0;
+      player.play().catch((err: any) => {
+        console.error('Failed to play audio:', err);
+      });
+    } catch (err) {
+      console.error('Failed to play audio:', err);
+    }
+  }
+};
+
+// 处理 Upload 区域点击：只有在未上传音频或正在用音频库时才弹文件选择框
+const handleUploadLabelClick = () => {
+  if (uploadedAudio.value && !selectedAudioFromLibrary.value) {
+    // 已有上传音频时，不再打开选择框
+    return;
+  }
+  if (audioInput.value) {
+    audioInput.value.click();
+  }
 };
 
 const selectAudioFromLibrary = async (audio: AudioItem) => {
