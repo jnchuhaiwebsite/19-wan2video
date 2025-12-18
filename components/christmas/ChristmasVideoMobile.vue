@@ -627,7 +627,8 @@ const handleGenerate = async () => {
       duration: 10,
       prompt_extend: true,
       image: imageFile,
-      resolution: '720P'
+      resolution: '720P',
+      topic_tag: 1
     }
 
     // 优先使用上传的音频文件，否则如果选择了音频库的音频，将音频 URL 传给 audio_url
