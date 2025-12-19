@@ -655,9 +655,13 @@ const startPollingStatus = (taskId: string) => {
             formRef.value.stopAudio()
           }
           
-          // 确保结果视频有声音（取消静音）
+          // 确保结果视频有声音（取消静音）并尝试自动播放
           if (resultVideo.value) {
             resultVideo.value.muted = false
+            // 尝试自动播放（浏览器策略可能阻止，但尝试一下）
+            resultVideo.value.play().catch(err => {
+              console.log('Video autoplay prevented:', err)
+            })
           }
           
           // 静音背景视频

@@ -475,6 +475,7 @@
                       class="max-w-full max-h-full"
                       :style="videoStyle"
                       :muted="isVideoMuted"
+                      autoplay
                       controls
                       playsinline
                       @loadedmetadata="onVideoMetadata"
@@ -618,6 +619,7 @@
                       :src="generatedVideoUrl"
                       class="w-full h-full object-cover"
                       :muted="isVideoMuted"
+                      autoplay
                       controls
                       playsinline
                       @loadedmetadata="onVideoMetadata"
@@ -1425,10 +1427,14 @@ const startPollingStatus = (taskId: string) => {
           // 取消生成视频的静音
           isVideoMuted.value = false;
           
-          // 更新结果视频的静音状态
+          // 更新结果视频的静音状态并尝试自动播放
           const resultVideo = isVertical.value ? resultVideoVertical.value : resultVideoHorizontal.value;
           if (resultVideo) {
             resultVideo.muted = false;
+            // 尝试自动播放（浏览器策略可能阻止，但尝试一下）
+            resultVideo.play().catch(err => {
+              console.log('Video autoplay prevented:', err);
+            });
           }
           
           // 静音预览视频（如果有）
