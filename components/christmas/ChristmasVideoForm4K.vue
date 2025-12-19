@@ -1403,11 +1403,40 @@ const startPollingStatus = (taskId: string) => {
         
         // 提取分享视频短ID
         try {
+          console.log('Extracting share video ID from URL:', url);
           shareVideoId.value = getShareVideoId(url);
+          console.log('Extracted share video ID:', shareVideoId.value);
         } catch (error) {
           console.error('Failed to get share video ID:', error);
+          console.error('Video URL that failed:', url);
           shareVideoId.value = '';
         }
+        
+        // 视频生成成功后，自动取消静音并停止音频库播放
+        nextTick(() => {
+          // 停止音频库音频播放
+          const player = audioPlayerHidden.value || audioPlayer.value;
+          if (player && isAudioPlaying.value) {
+            player.pause();
+            player.currentTime = 0;
+            isAudioPlaying.value = false;
+          }
+          
+          // 取消生成视频的静音
+          isVideoMuted.value = false;
+          
+          // 更新结果视频的静音状态
+          const resultVideo = isVertical.value ? resultVideoVertical.value : resultVideoHorizontal.value;
+          if (resultVideo) {
+            resultVideo.muted = false;
+          }
+          
+          // 静音预览视频（如果有）
+          const previewVideo = isVertical.value ? previewVideoVertical.value : previewVideoHorizontal.value;
+          if (previewVideo) {
+            previewVideo.muted = true;
+          }
+        });
         
         await userStore.fetchUserInfo(true)
         $toast?.success?.('Video generated successfully!');
@@ -1527,11 +1556,23 @@ const onTestGenerate = () => {
 const copyShareLink = async () => {
   if (!generatedVideoUrl.value) return;
   try {
+    // 优先使用已提取的短ID，如果没有则尝试从URL重新提取
+    let videoId = shareVideoId.value;
+    if (!videoId) {
+      try {
+        videoId = getShareVideoId(generatedVideoUrl.value);
+        shareVideoId.value = videoId; // 保存提取的ID
+      } catch (error) {
+        console.error('Failed to extract video ID from URL:', generatedVideoUrl.value, error);
+      }
+    }
+    
     // 使用短链接
-    const shareUrl = shareVideoId.value 
-      ? `https://christmas.wan2video.com/christmas/share/${shareVideoId.value}`
+    const shareUrl = videoId 
+      ? `https://christmas.wan2video.com/christmas/share/${videoId}`
       : buildShareUrl(generatedVideoUrl.value);
     
+    console.log('Copying share URL:', shareUrl);
     await navigator.clipboard.writeText(shareUrl);
     $toast?.success?.('Link copied to clipboard!');
   } catch {
@@ -1587,11 +1628,23 @@ const downloadGeneratedVideo = async () => {
 const shareTo = (platform: 'facebook' | 'twitter' | 'pinterest' | 'whatsapp') => {
   if (!generatedVideoUrl.value) return;
   
+  // 优先使用已提取的短ID，如果没有则尝试从URL重新提取
+  let videoId = shareVideoId.value;
+  if (!videoId) {
+    try {
+      videoId = getShareVideoId(generatedVideoUrl.value);
+      shareVideoId.value = videoId; // 保存提取的ID
+    } catch (error) {
+      console.error('Failed to extract video ID from URL:', generatedVideoUrl.value, error);
+    }
+  }
+  
   // 使用短链接
-  const shareUrl = shareVideoId.value 
-    ? `https://christmas.wan2video.com/christmas/share/${shareVideoId.value}`
+  const shareUrl = videoId 
+    ? `https://christmas.wan2video.com/christmas/share/${videoId}`
     : buildShareUrl(generatedVideoUrl.value);
   
+  console.log('Sharing URL:', shareUrl);
   const url = encodeURIComponent(shareUrl);
   const text = encodeURIComponent(SHARE_TEXT);
 

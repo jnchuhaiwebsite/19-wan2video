@@ -639,11 +639,33 @@ const startPollingStatus = (taskId: string) => {
         
         // 提取分享视频短ID
         try {
+          console.log('Extracting share video ID from URL:', url);
           shareVideoId.value = getShareVideoId(url);
+          console.log('Extracted share video ID:', shareVideoId.value);
         } catch (error) {
           console.error('Failed to get share video ID:', error);
+          console.error('Video URL that failed:', url);
           shareVideoId.value = '';
         }
+        
+        // 视频生成成功后，停止音频库播放并确保视频有声音
+        nextTick(() => {
+          // 停止音频库音频播放
+          if (formRef.value?.stopAudio) {
+            formRef.value.stopAudio()
+          }
+          
+          // 确保结果视频有声音（取消静音）
+          if (resultVideo.value) {
+            resultVideo.value.muted = false
+          }
+          
+          // 静音背景视频
+          isBackgroundVideoMuted.value = true
+          if (backgroundVideo.value) {
+            backgroundVideo.value.muted = true
+          }
+        })
         
         await userStore.fetchUserInfo(true)
         $toast?.success?.('Video generated successfully!')
@@ -1037,11 +1059,23 @@ const SHARE_TEXT = 'Check out my personalized Christmas video made with Wan2Vide
 const handleShare = (platform: 'facebook' | 'twitter' | 'pinterest' | 'whatsapp') => {
   if (!generatedVideoUrl.value) return
   
+  // 优先使用已提取的短ID，如果没有则尝试从URL重新提取
+  let videoId = shareVideoId.value
+  if (!videoId) {
+    try {
+      videoId = getShareVideoId(generatedVideoUrl.value)
+      shareVideoId.value = videoId // 保存提取的ID
+    } catch (error) {
+      console.error('Failed to extract video ID from URL:', generatedVideoUrl.value, error)
+    }
+  }
+  
   // 使用短链接
-  const shareUrl = shareVideoId.value 
-    ? `https://christmas.wan2video.com/christmas/share/${shareVideoId.value}`
+  const shareUrl = videoId 
+    ? `https://christmas.wan2video.com/christmas/share/${videoId}`
     : buildShareUrl(generatedVideoUrl.value)
   
+  console.log('Sharing URL:', shareUrl)
   const url = encodeURIComponent(shareUrl)
   const text = encodeURIComponent(SHARE_TEXT)
 
