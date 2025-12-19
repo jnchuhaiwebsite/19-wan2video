@@ -490,7 +490,6 @@
                       class="max-w-full max-h-full"
                       :style="videoStyle"
                       :muted="isVideoMuted"
-                      autoplay
                       controls
                       playsinline
                       @loadedmetadata="onVideoMetadata"
@@ -510,6 +509,7 @@
                         controls
                         playsinline
                         @loadedmetadata="onVideoMetadata"
+                        @loadeddata="onPreviewVideoLoaded"
                         @play="onPreviewVideoPlay"
                       ></video>
                       <template v-else>
@@ -637,7 +637,6 @@
                       :src="generatedVideoUrl"
                       class="w-full h-full object-cover"
                       :muted="isVideoMuted"
-                      autoplay
                       controls
                       playsinline
                       @loadedmetadata="onVideoMetadata"
@@ -655,6 +654,7 @@
                         controls
                         playsinline
                         @loadedmetadata="onVideoMetadata"
+                        @loadeddata="onPreviewVideoLoaded"
                         @play="onPreviewVideoPlay"
                       ></video>
                       <template v-else>
@@ -762,7 +762,6 @@ import { useRoute } from 'vue-router';
 import { createChristmasVideo, checkTaskStatusVideo, checkTask } from '~/api';
 import { useUserStore } from '~/stores/user';
 import { useRouter } from 'vue-router';
-import { getShareVideoId, buildShareUrl } from '~/utils/videoShare';
 const router = useRouter();
 interface TemplateItem {
   key: string;
@@ -943,12 +942,13 @@ const isGenerating = ref(false);
 const currentTaskId = ref<string | null>(null);
 const generatedVideoUrl = ref<string | null>(null);
 const statusMessage = ref<string>('');
-const shareVideoId = ref<string>(''); // 存储分享视频短ID
 
 const showShareMenu = ref(false);
 const shareMenuRef = ref<HTMLElement | null>(null);
 
 const { $toast } = useNuxtApp() as any;
+
+const shareChristmasUrl = "https://cfsource.wan2video.com/wan2video/christmas/christmas.html?video=";
 
 const SHARE_TEXT =
   "Check out my personalized Christmas video made with Wan2Video! 🎄 #Christmas #Greetings #MerryChristmas";
@@ -1103,11 +1103,11 @@ const handleUploadLabelClick = () => {
   }
 };
 
-const selectAudioFromLibrary = async (audio: AudioItem, autoPlay: boolean = true) => {
+const selectAudioFromLibrary = async (audio: AudioItem) => {
   const isSameAudio = selectedAudioFromLibrary.value?.url === audio.url;
   
-  // 如果点击的是同一个音频，切换播放/暂停（仅在用户手动点击时）
-  if (isSameAudio && playingAudioUrl.value === audio.url && autoPlay) {
+  // 如果点击的是同一个音频，切换播放/暂停
+  if (isSameAudio && playingAudioUrl.value === audio.url) {
     const player = audioPlayerHidden.value || audioPlayer.value;
     if (player) {
       if (isAudioPlaying.value) {
@@ -1163,15 +1163,13 @@ const selectAudioFromLibrary = async (audio: AudioItem, autoPlay: boolean = true
     }
   }
 
-  // 只有在 autoPlay 为 true 时才自动播放音频
-  if (autoPlay) {
-    const player = audioPlayerHidden.value || audioPlayer.value;
-    if (player) {
-      player.currentTime = 0;
-      player.play().catch(err => {
-        console.error('Failed to play audio:', err);
-      });
-    }
+  // 自动播放音频（使用隐藏的播放器，不显示控件）
+  const player = audioPlayerHidden.value || audioPlayer.value;
+  if (player) {
+    player.currentTime = 0;
+    player.play().catch(err => {
+      console.error('Failed to play audio:', err);
+    });
   }
 };
 
@@ -1295,13 +1293,13 @@ const handleSelectTemplate = async (tpl: TemplateItem) => {
   selectedTemplateKey.value = tpl.key;
   prompt.value = tpl.prompt;
   
-  // 自动选中对应的音乐（不自动播放）
+  // 自动选中对应的音乐
   if (tpl.AudioName) {
     // 在所有分类中查找对应的音频
     for (const category of audioCategories) {
       const matchingAudio = category.audios.find(audio => audio.name === tpl.AudioName);
       if (matchingAudio) {
-        await selectAudioFromLibrary(matchingAudio, false); // false 表示不自动播放
+        await selectAudioFromLibrary(matchingAudio);
         break;
       }
     }
@@ -1351,48 +1349,6 @@ const startPollingStatus = (taskId: string) => {
         isGenerating.value = false;
         generatedVideoUrl.value = url;
         statusMessage.value = 'Video generated successfully!';
-        
-        // 提取分享视频短ID
-        try {
-          console.log('Extracting share video ID from URL:', url);
-          shareVideoId.value = getShareVideoId(url);
-          console.log('Extracted share video ID:', shareVideoId.value);
-        } catch (error) {
-          console.error('Failed to get share video ID:', error);
-          console.error('Video URL that failed:', url);
-          shareVideoId.value = '';
-        }
-        
-        // 视频生成成功后，自动取消静音并停止音频库播放
-        nextTick(() => {
-          // 停止音频库音频播放
-          const player = audioPlayerHidden.value || audioPlayer.value;
-          if (player && isAudioPlaying.value) {
-            player.pause();
-            player.currentTime = 0;
-            isAudioPlaying.value = false;
-          }
-          
-          // 取消生成视频的静音
-          isVideoMuted.value = false;
-          
-          // 更新结果视频的静音状态并尝试自动播放
-          const resultVideo = isVertical.value ? resultVideoVertical.value : resultVideoHorizontal.value;
-          if (resultVideo) {
-            resultVideo.muted = false;
-            // 尝试自动播放（浏览器策略可能阻止，但尝试一下）
-            resultVideo.play().catch(err => {
-              console.log('Video autoplay prevented:', err);
-            });
-          }
-          
-          // 静音预览视频（如果有）
-          const previewVideo = isVertical.value ? previewVideoVertical.value : previewVideoHorizontal.value;
-          if (previewVideo) {
-            previewVideo.muted = true;
-          }
-        });
-        
         await userStore.fetchUserInfo(true)
         $toast?.success?.('Video generated successfully!');
       } else if (status <= -1) {
@@ -1513,24 +1469,7 @@ const onTestGenerate = () => {
 const copyShareLink = async () => {
   if (!generatedVideoUrl.value) return;
   try {
-    // 优先使用已提取的短ID，如果没有则尝试从URL重新提取
-    let videoId = shareVideoId.value;
-    if (!videoId) {
-      try {
-        videoId = getShareVideoId(generatedVideoUrl.value);
-        shareVideoId.value = videoId; // 保存提取的ID
-      } catch (error) {
-        console.error('Failed to extract video ID from URL:', generatedVideoUrl.value, error);
-      }
-    }
-    
-    // 使用短链接
-    const shareUrl = videoId 
-      ? `https://christmas.wan2video.com/christmas/share/${videoId}`
-      : buildShareUrl(generatedVideoUrl.value);
-    
-    console.log('Copying share URL:', shareUrl);
-    await navigator.clipboard.writeText(shareUrl);
+    await navigator.clipboard.writeText(shareChristmasUrl + generatedVideoUrl.value);
     $toast?.success?.('Link copied to clipboard!');
   } catch {
     $toast?.error?.('Failed to copy link. Please copy it manually.');
@@ -1584,40 +1523,22 @@ const downloadGeneratedVideo = async () => {
 
 const shareTo = (platform: 'facebook' | 'twitter' | 'pinterest' | 'whatsapp') => {
   if (!generatedVideoUrl.value) return;
-  
-  // 优先使用已提取的短ID，如果没有则尝试从URL重新提取
-  let videoId = shareVideoId.value;
-  if (!videoId) {
-    try {
-      videoId = getShareVideoId(generatedVideoUrl.value);
-      shareVideoId.value = videoId; // 保存提取的ID
-    } catch (error) {
-      console.error('Failed to extract video ID from URL:', generatedVideoUrl.value, error);
-    }
-  }
-  
-  // 使用短链接
-  const shareUrl = videoId 
-    ? `https://christmas.wan2video.com/christmas/share/${videoId}`
-    : buildShareUrl(generatedVideoUrl.value);
-  
-  console.log('Sharing URL:', shareUrl);
-  const url = encodeURIComponent(shareUrl);
+  const url = encodeURIComponent(shareChristmasUrl + generatedVideoUrl.value);
   const text = encodeURIComponent(SHARE_TEXT);
 
-  let platformShareUrl = '';
+  let shareUrl = '';
   if (platform === 'facebook') {
-    platformShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
   } else if (platform === 'twitter') {
-    platformShareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+    shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
   } else if (platform === 'pinterest') {
-    platformShareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${text}`;
+    shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${text}`;
   } else if (platform === 'whatsapp') {
-    platformShareUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+    shareUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
   }
 
-  if (platformShareUrl) {
-    window.open(platformShareUrl, '_blank', 'noopener,noreferrer');
+  if (shareUrl) {
+    window.open(shareUrl, '_blank', 'noopener,noreferrer');
   }
 };
 

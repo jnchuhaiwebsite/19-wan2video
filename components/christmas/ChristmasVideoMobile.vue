@@ -472,7 +472,6 @@ import ChristmasVideoFormMobile from './ChristmasVideoFormMobile.vue'
 import { createChristmasVideo, checkTaskStatusVideo, checkTask } from '~/api'
 import { useUserStore } from '~/stores/user'
 import { useRouter } from 'vue-router'
-import { getShareVideoId, buildShareUrl } from '~/utils/videoShare'
 // 模版数据（与表单组件保持一致）
 interface TemplateItem {
   key: string;
@@ -613,8 +612,7 @@ const getFormData = () => {
   return { imageFile, prompt, audioFile, selectedAudioFromLibrary }
 }
 
-const shareVideoId = ref<string>(''); // 存储分享视频短ID
-
+const shareChristmasUrl = "https://cfsource.wan2video.com/wan2video/christmas/christmas.html?video=";
 // 轮询检查任务状态
 const startPollingStatus = (taskId: string) => {
   currentTaskId.value = taskId
@@ -636,41 +634,6 @@ const startPollingStatus = (taskId: string) => {
         generatedVideoUrl.value = url
         showResult.value = true
         statusMessage.value = 'Video created successfully!'
-        
-        // 提取分享视频短ID
-        try {
-          console.log('Extracting share video ID from URL:', url);
-          shareVideoId.value = getShareVideoId(url);
-          console.log('Extracted share video ID:', shareVideoId.value);
-        } catch (error) {
-          console.error('Failed to get share video ID:', error);
-          console.error('Video URL that failed:', url);
-          shareVideoId.value = '';
-        }
-        
-        // 视频生成成功后，停止音频库播放并确保视频有声音
-        nextTick(() => {
-          // 停止音频库音频播放
-          if (formRef.value?.stopAudio) {
-            formRef.value.stopAudio()
-          }
-          
-          // 确保结果视频有声音（取消静音）并尝试自动播放
-          if (resultVideo.value) {
-            resultVideo.value.muted = false
-            // 尝试自动播放（浏览器策略可能阻止，但尝试一下）
-            resultVideo.value.play().catch(err => {
-              console.log('Video autoplay prevented:', err)
-            })
-          }
-          
-          // 静音背景视频
-          isBackgroundVideoMuted.value = true
-          if (backgroundVideo.value) {
-            backgroundVideo.value.muted = true
-          }
-        })
-        
         await userStore.fetchUserInfo(true)
         $toast?.success?.('Video generated successfully!')
       } else if (status <= -1) {
@@ -1044,12 +1007,7 @@ const closeShareMenu = () => {
 const handleCopyLink = async () => {
   if (!generatedVideoUrl.value) return
   try {
-    // 使用短链接
-    const shareUrl = shareVideoId.value 
-      ? `https://christmas.wan2video.com/christmas/share/${shareVideoId.value}`
-      : buildShareUrl(generatedVideoUrl.value)
-    
-    await navigator.clipboard.writeText(shareUrl)
+    await navigator.clipboard.writeText(shareChristmasUrl + generatedVideoUrl.value)
     $toast?.success?.('Link copied to clipboard!')
     closeShareMenu()
   } catch {
@@ -1062,40 +1020,22 @@ const SHARE_TEXT = 'Check out my personalized Christmas video made with Wan2Vide
 
 const handleShare = (platform: 'facebook' | 'twitter' | 'pinterest' | 'whatsapp') => {
   if (!generatedVideoUrl.value) return
-  
-  // 优先使用已提取的短ID，如果没有则尝试从URL重新提取
-  let videoId = shareVideoId.value
-  if (!videoId) {
-    try {
-      videoId = getShareVideoId(generatedVideoUrl.value)
-      shareVideoId.value = videoId // 保存提取的ID
-    } catch (error) {
-      console.error('Failed to extract video ID from URL:', generatedVideoUrl.value, error)
-    }
-  }
-  
-  // 使用短链接
-  const shareUrl = videoId 
-    ? `https://christmas.wan2video.com/christmas/share/${videoId}`
-    : buildShareUrl(generatedVideoUrl.value)
-  
-  console.log('Sharing URL:', shareUrl)
-  const url = encodeURIComponent(shareUrl)
+  const url = encodeURIComponent(shareChristmasUrl + generatedVideoUrl.value)
   const text = encodeURIComponent(SHARE_TEXT)
 
-  let platformShareUrl = ''
+  let shareUrl = ''
   if (platform === 'facebook') {
-    platformShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`
+    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`
   } else if (platform === 'twitter') {
-    platformShareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`
+    shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`
   } else if (platform === 'pinterest') {
-    platformShareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${text}`
+    shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${text}`
   } else if (platform === 'whatsapp') {
-    platformShareUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`
+    shareUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`
   }
 
-  if (platformShareUrl) {
-    window.open(platformShareUrl, '_blank', 'noopener,noreferrer')
+  if (shareUrl) {
+    window.open(shareUrl, '_blank', 'noopener,noreferrer')
   }
   closeShareMenu()
 }
