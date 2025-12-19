@@ -472,6 +472,7 @@ import ChristmasVideoFormMobile from './ChristmasVideoFormMobile.vue'
 import { createChristmasVideo, checkTaskStatusVideo, checkTask } from '~/api'
 import { useUserStore } from '~/stores/user'
 import { useRouter } from 'vue-router'
+import { getShareVideoId, buildShareUrl } from '~/utils/videoShare'
 // 模版数据（与表单组件保持一致）
 interface TemplateItem {
   key: string;
@@ -612,7 +613,8 @@ const getFormData = () => {
   return { imageFile, prompt, audioFile, selectedAudioFromLibrary }
 }
 
-const shareChristmasUrl = "https://cfsource.wan2video.com/wan2video/christmas/christmas.html?video=";
+const shareVideoId = ref<string>(''); // 存储分享视频短ID
+
 // 轮询检查任务状态
 const startPollingStatus = (taskId: string) => {
   currentTaskId.value = taskId
@@ -634,6 +636,15 @@ const startPollingStatus = (taskId: string) => {
         generatedVideoUrl.value = url
         showResult.value = true
         statusMessage.value = 'Video created successfully!'
+        
+        // 提取分享视频短ID
+        try {
+          shareVideoId.value = getShareVideoId(url);
+        } catch (error) {
+          console.error('Failed to get share video ID:', error);
+          shareVideoId.value = '';
+        }
+        
         await userStore.fetchUserInfo(true)
         $toast?.success?.('Video generated successfully!')
       } else if (status <= -1) {
@@ -1007,7 +1018,12 @@ const closeShareMenu = () => {
 const handleCopyLink = async () => {
   if (!generatedVideoUrl.value) return
   try {
-    await navigator.clipboard.writeText(shareChristmasUrl + generatedVideoUrl.value)
+    // 使用短链接
+    const shareUrl = shareVideoId.value 
+      ? `https://christmas.wan2video.com/christmas/share/${shareVideoId.value}`
+      : buildShareUrl(generatedVideoUrl.value)
+    
+    await navigator.clipboard.writeText(shareUrl)
     $toast?.success?.('Link copied to clipboard!')
     closeShareMenu()
   } catch {
@@ -1020,22 +1036,28 @@ const SHARE_TEXT = 'Check out my personalized Christmas video made with Wan2Vide
 
 const handleShare = (platform: 'facebook' | 'twitter' | 'pinterest' | 'whatsapp') => {
   if (!generatedVideoUrl.value) return
-  const url = encodeURIComponent(shareChristmasUrl + generatedVideoUrl.value)
+  
+  // 使用短链接
+  const shareUrl = shareVideoId.value 
+    ? `https://christmas.wan2video.com/christmas/share/${shareVideoId.value}`
+    : buildShareUrl(generatedVideoUrl.value)
+  
+  const url = encodeURIComponent(shareUrl)
   const text = encodeURIComponent(SHARE_TEXT)
 
-  let shareUrl = ''
+  let platformShareUrl = ''
   if (platform === 'facebook') {
-    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`
+    platformShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`
   } else if (platform === 'twitter') {
-    shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`
+    platformShareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`
   } else if (platform === 'pinterest') {
-    shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${text}`
+    platformShareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${text}`
   } else if (platform === 'whatsapp') {
-    shareUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`
+    platformShareUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`
   }
 
-  if (shareUrl) {
-    window.open(shareUrl, '_blank', 'noopener,noreferrer')
+  if (platformShareUrl) {
+    window.open(platformShareUrl, '_blank', 'noopener,noreferrer')
   }
   closeShareMenu()
 }

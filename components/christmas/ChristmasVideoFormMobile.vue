@@ -644,11 +644,11 @@ const handleUploadLabelClick = () => {
   }
 };
 
-const selectAudioFromLibrary = async (audio: AudioItem) => {
+const selectAudioFromLibrary = async (audio: AudioItem, autoPlay: boolean = true) => {
   const isSameAudio = selectedAudioFromLibrary.value?.url === audio.url;
   
-  // 如果点击的是同一个音频，切换播放/暂停
-  if (isSameAudio && playingAudioUrl.value === audio.url) {
+  // 如果点击的是同一个音频，切换播放/暂停（仅在用户手动点击时）
+  if (isSameAudio && playingAudioUrl.value === audio.url && autoPlay) {
     const player = audioPlayerHidden.value || audioPlayer.value;
     if (player) {
       if (isAudioPlaying.value) {
@@ -704,13 +704,15 @@ const selectAudioFromLibrary = async (audio: AudioItem) => {
     }
   }
 
-  // 自动播放音频（使用隐藏的播放器，不显示控件）
-  const player = audioPlayerHidden.value || audioPlayer.value;
-  if (player) {
-    player.currentTime = 0;
-    player.play().catch(err => {
-      console.error('Failed to play audio:', err);
-    });
+  // 只有在 autoPlay 为 true 时才自动播放音频
+  if (autoPlay) {
+    const player = audioPlayerHidden.value || audioPlayer.value;
+    if (player) {
+      player.currentTime = 0;
+      player.play().catch(err => {
+        console.error('Failed to play audio:', err);
+      });
+    }
   }
 };
 
@@ -753,13 +755,13 @@ const handleSelectTemplate = async (tpl: TemplateItem) => {
   selectedTemplateKey.value = tpl.key;
   prompt.value = tpl.prompt;
   
-  // 自动选中对应的音乐
+  // 自动选中对应的音乐（不自动播放）
   if (tpl.AudioName) {
     // 在所有分类中查找对应的音频
     for (const category of audioCategories) {
       const matchingAudio = category.audios.find(audio => audio.name === tpl.AudioName);
       if (matchingAudio) {
-        await selectAudioFromLibrary(matchingAudio);
+        await selectAudioFromLibrary(matchingAudio, false); // false 表示不自动播放
         break;
       }
     }

@@ -509,7 +509,6 @@
                         controls
                         playsinline
                         @loadedmetadata="onVideoMetadata"
-                        @loadeddata="onPreviewVideoLoaded"
                         @play="onPreviewVideoPlay"
                       ></video>
                       <template v-else>
@@ -654,7 +653,6 @@
                         controls
                         playsinline
                         @loadedmetadata="onVideoMetadata"
-                        @loadeddata="onPreviewVideoLoaded"
                         @play="onPreviewVideoPlay"
                       ></video>
                       <template v-else>
@@ -762,6 +760,7 @@ import { useRoute } from 'vue-router';
 import { createChristmasVideo, checkTaskStatusVideo, checkTask } from '~/api';
 import { useUserStore } from '~/stores/user';
 import { useRouter } from 'vue-router';
+import { getShareVideoId, buildShareUrl } from '~/utils/videoShare';
 const router = useRouter();
 interface TemplateItem {
   key: string;
@@ -942,13 +941,12 @@ const isGenerating = ref(false);
 const currentTaskId = ref<string | null>(null);
 const generatedVideoUrl = ref<string | null>(null);
 const statusMessage = ref<string>('');
+const shareVideoId = ref<string>(''); // 存储分享视频短ID
 
 const showShareMenu = ref(false);
 const shareMenuRef = ref<HTMLElement | null>(null);
 
 const { $toast } = useNuxtApp() as any;
-
-const shareChristmasUrl = "https://cfsource.wan2video.com/wan2video/christmas/christmas.html?video=";
 
 const SHARE_TEXT =
   "Check out my personalized Christmas video made with Wan2Video! 🎄 #Christmas #Greetings #MerryChristmas";
@@ -1103,11 +1101,11 @@ const handleUploadLabelClick = () => {
   }
 };
 
-const selectAudioFromLibrary = async (audio: AudioItem) => {
+const selectAudioFromLibrary = async (audio: AudioItem, autoPlay: boolean = true) => {
   const isSameAudio = selectedAudioFromLibrary.value?.url === audio.url;
   
-  // 如果点击的是同一个音频，切换播放/暂停
-  if (isSameAudio && playingAudioUrl.value === audio.url) {
+  // 如果点击的是同一个音频，切换播放/暂停（仅在用户手动点击时）
+  if (isSameAudio && playingAudioUrl.value === audio.url && autoPlay) {
     const player = audioPlayerHidden.value || audioPlayer.value;
     if (player) {
       if (isAudioPlaying.value) {
@@ -1163,13 +1161,15 @@ const selectAudioFromLibrary = async (audio: AudioItem) => {
     }
   }
 
-  // 自动播放音频（使用隐藏的播放器，不显示控件）
-  const player = audioPlayerHidden.value || audioPlayer.value;
-  if (player) {
-    player.currentTime = 0;
-    player.play().catch(err => {
-      console.error('Failed to play audio:', err);
-    });
+  // 只有在 autoPlay 为 true 时才自动播放音频
+  if (autoPlay) {
+    const player = audioPlayerHidden.value || audioPlayer.value;
+    if (player) {
+      player.currentTime = 0;
+      player.play().catch(err => {
+        console.error('Failed to play audio:', err);
+      });
+    }
   }
 };
 
@@ -1293,13 +1293,13 @@ const handleSelectTemplate = async (tpl: TemplateItem) => {
   selectedTemplateKey.value = tpl.key;
   prompt.value = tpl.prompt;
   
-  // 自动选中对应的音乐
+  // 自动选中对应的音乐（不自动播放）
   if (tpl.AudioName) {
     // 在所有分类中查找对应的音频
     for (const category of audioCategories) {
       const matchingAudio = category.audios.find(audio => audio.name === tpl.AudioName);
       if (matchingAudio) {
-        await selectAudioFromLibrary(matchingAudio);
+        await selectAudioFromLibrary(matchingAudio, false); // false 表示不自动播放
         break;
       }
     }
@@ -1349,6 +1349,15 @@ const startPollingStatus = (taskId: string) => {
         isGenerating.value = false;
         generatedVideoUrl.value = url;
         statusMessage.value = 'Video generated successfully!';
+        
+        // 提取分享视频短ID
+        try {
+          shareVideoId.value = getShareVideoId(url);
+        } catch (error) {
+          console.error('Failed to get share video ID:', error);
+          shareVideoId.value = '';
+        }
+        
         await userStore.fetchUserInfo(true)
         $toast?.success?.('Video generated successfully!');
       } else if (status <= -1) {
@@ -1469,7 +1478,12 @@ const onTestGenerate = () => {
 const copyShareLink = async () => {
   if (!generatedVideoUrl.value) return;
   try {
-    await navigator.clipboard.writeText(shareChristmasUrl + generatedVideoUrl.value);
+    // 使用短链接
+    const shareUrl = shareVideoId.value 
+      ? `https://christmas.wan2video.com/christmas/share/${shareVideoId.value}`
+      : buildShareUrl(generatedVideoUrl.value);
+    
+    await navigator.clipboard.writeText(shareUrl);
     $toast?.success?.('Link copied to clipboard!');
   } catch {
     $toast?.error?.('Failed to copy link. Please copy it manually.');
@@ -1523,22 +1537,28 @@ const downloadGeneratedVideo = async () => {
 
 const shareTo = (platform: 'facebook' | 'twitter' | 'pinterest' | 'whatsapp') => {
   if (!generatedVideoUrl.value) return;
-  const url = encodeURIComponent(shareChristmasUrl + generatedVideoUrl.value);
+  
+  // 使用短链接
+  const shareUrl = shareVideoId.value 
+    ? `https://christmas.wan2video.com/christmas/share/${shareVideoId.value}`
+    : buildShareUrl(generatedVideoUrl.value);
+  
+  const url = encodeURIComponent(shareUrl);
   const text = encodeURIComponent(SHARE_TEXT);
 
-  let shareUrl = '';
+  let platformShareUrl = '';
   if (platform === 'facebook') {
-    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+    platformShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
   } else if (platform === 'twitter') {
-    shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+    platformShareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
   } else if (platform === 'pinterest') {
-    shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${text}`;
+    platformShareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${text}`;
   } else if (platform === 'whatsapp') {
-    shareUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+    platformShareUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
   }
 
-  if (shareUrl) {
-    window.open(shareUrl, '_blank', 'noopener,noreferrer');
+  if (platformShareUrl) {
+    window.open(platformShareUrl, '_blank', 'noopener,noreferrer');
   }
 };
 
