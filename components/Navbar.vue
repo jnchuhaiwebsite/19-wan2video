@@ -52,9 +52,26 @@
               <template v-for="(section, index) in sections" :key="index">
                 <NuxtLink
                   :to="section.href || `/#${section.id}`"
-                  class="relative text-blue-navtext hover:text-blue-dark transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:shadow-lg whitespace-nowrap flex items-center gap-2" 
+                  :class="[
+                    'relative transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:shadow-lg whitespace-nowrap flex items-center gap-2',
+                    section.id === 'christmas' ? 'christmas-nav-link' : 'text-blue-navtext hover:text-blue-dark'
+                  ]"
                 >
                   {{ section.name }}
+                  <!-- Christmas HOT 标签 -->
+                  <span
+                    v-if="section.id === 'christmas'"
+                    class="hot-badge"
+                  >
+                    HOT
+                  </span>
+                  <!-- Wan 2.6 New 标签 -->
+                  <span
+                    v-if="section.id === 'wan-2.6'"
+                    class="new-badge"
+                  >
+                    New
+                  </span>
                 </NuxtLink>
               </template>
             </div>
@@ -155,9 +172,26 @@
                 <NuxtLink
                   :to="section.href || `/#${section.id}`"
                   @click="isOpen = false"
-                  class="relative block text-blue-navtext hover:text-blue-dark text-base transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:bg-blue-medium/10 hover:shadow-lg hover:shadow-blue-medium/20 whitespace-nowrap mt-3 flex items-center gap-3"
+                  :class="[
+                    'relative block text-base transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:bg-blue-medium/10 hover:shadow-lg hover:shadow-blue-medium/20 whitespace-nowrap mt-3 flex items-center gap-3',
+                    section.id === 'christmas' ? 'christmas-nav-link' : 'text-blue-navtext hover:text-blue-dark'
+                  ]"
                 >
                   {{ section.name }}
+                  <!-- Christmas HOT 标签 -->
+                  <span
+                    v-if="section.id === 'christmas'"
+                    class="hot-badge"
+                  >
+                    HOT
+                  </span>
+                  <!-- Wan 2.6 New 标签 -->
+                  <span
+                    v-if="section.id === 'wan-2.6'"
+                    class="new-badge"
+                  >
+                    New
+                  </span>
                 </NuxtLink>
               </template>
             </div>
@@ -294,5 +328,51 @@ onUnmounted(() => {
 /* 覆盖hover效果 */
 .hover-text-theme:hover {
   color: var(--baby-coral) !important;
+}
+  
+/* HOT 标签样式 */
+.hot-badge {
+  position: absolute;
+  top: -6px;
+  right: -4px;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transform: rotate(-12deg) skew(-5deg);
+  box-shadow: 0 2px 8px rgba(255, 107, 53, 0.5), 0 0 4px rgba(255, 107, 53, 0.3);
+  z-index: 10;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+/* New 标签样式 */
+.new-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #e0dcdc56;
+  color: #8B5CF6;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  text-transform: capitalize;
+  letter-spacing: 0.3px;
+}
+
+/* Christmas 导航链接样式 */
+.christmas-nav-link {
+  color: #f1d222;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.christmas-nav-link:hover {
+  color: #FDDD20;
+  opacity: 0.9;
 }
 </style>

@@ -132,7 +132,7 @@
 
         <!-- 提示词输入 -->
         <div class="flex flex-col gap-2">
-          <label class="text-sm text-yellow-400/50">Prompt(The prompt can be modified.)</label>
+          <label class="text-sm text-yellow-400/80">Prompt(The prompt can be modified.)</label>
           <textarea
             v-model="prompt"
             rows="4"
@@ -316,9 +316,14 @@
           >
           </audio>
 
-          <p class="text-[11px] text-gray-100 mt-1">
-            Supports WAV, MP3 format, 3-30 seconds, max 15MB
-          </p>
+          <div class="flex items-center justify-between mt-1">
+            <p class="text-[11px] text-gray-100">
+              Supports WAV, MP3 format, 3-30 seconds, max 15MB
+            </p>
+            <a href="https://www.merrychristmasmusic.net/" class="text-xs linkStyle" rel="nofollow">
+              more audio
+            </a>
+          </div>
         </div>
 
         <!-- 生成按钮 -->
@@ -394,11 +399,11 @@
                 style="left: 0%; top: 0%; width: 100%; height: 86%;border-radius: 45px;"
               >
                 <!-- 音频控制按钮（横版） -->
-                <button
+                <button 
                   v-if="currentPreviewVideo && !isGenerating && !generatedVideoUrl"
                   type="button"
                   @click="toggleVideoMute"
-                  class="absolute top-4 right-6 z-30 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm border border-white/20 transition-all duration-200"
+                  class="absolute m-4 top-4 right-6 z-30 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm border border-white/20 transition-all duration-200"
                   title="Toggle audio"
                 >
                   <!-- 播放声音图标 -->
@@ -468,6 +473,11 @@
                       <p class="text-xs sm:text-sm text-emerald-50 font-medium">
                         Santa's Elves are crafting your video...
                       </p>
+                      <br>
+                      <p class="text-xs sm:text-sm text-emerald-50 font-medium">
+                        You don't need to wait here.Check your work in the <a href="/profile" class="linkStyle">Profile Center</a> after 5 minutes.
+                      </p>
+                      
                     </div>
                   </template>
 
@@ -612,6 +622,9 @@
                       <p class="text-xs sm:text-sm text-emerald-50 font-medium">
                         Santa's Elves are crafting your video...
                       </p>
+                      <p class="text-xs sm:text-sm text-emerald-50 font-medium">
+                        You don't need to wait here.Check your work in the <a href="/profile" class="linkStyle">Profile Center</a> after 5 minutes.
+                      </p>
                     </div>
                   </template>
 
@@ -667,108 +680,70 @@
             v-if="generatedVideoUrl && !isGenerating"
             :class="[
               'w-full max-w-xl flex flex-col items-center gap-4 relative z-20',
-              isVertical ? 'mt-10 ' : 'mt-8'
+              isVertical ? 'mt-10 ' : 'mt-14'
             ]"
           >
-            <div class="flex flex-col sm:flex-row gap-3 w-full">
+            <!-- 分享和下载按钮组 -->
+            <div class="flex items-center gap-2 flex-wrap">
+              <!-- Share on X 按钮 -->
               <button
                 type="button"
-                class="flex-1 inline-flex items-center justify-center px-6 py-3 rounded-xl text-base font-semibold bg-emerald-500 hover:bg-emerald-400 text-white shadow-lg hover:shadow-xl transition-all duration-200"
-                @click="downloadGeneratedVideo"
+                class="inline-flex items-center justify-center px-4 py-3 rounded-full bg-white hover:bg-gray-50 text-black font-medium transition-all duration-200 shadow-sm"
+                @click="handleShare('twitter')"
               >
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
+                <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                 </svg>
-                Download Video
+                Share on X
               </button>
-              
-              <div ref="shareMenuRef" class="relative flex-1">
-                <button
-                  type="button"
-                  class="w-full inline-flex items-center justify-center px-6 py-3 rounded-xl text-base font-semibold bg-white/10 hover:bg-white/20 border border-white/30 text-white shadow-lg hover:shadow-xl transition-all duration-200 backdrop-blur-sm"
-                  @click.stop="toggleShareMenu"
-                >
-                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                  </svg>
-                  Share...
-                  <svg 
-                    class="w-4 h-4 ml-2 transition-transform duration-200"
-                    :class="{ 'rotate-180': showShareMenu }"
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
 
-                <Transition
-                  enter-active-class="transition ease-out duration-200"
-                  enter-from-class="opacity-0 scale-95"
-                  enter-to-class="opacity-100 scale-100"
-                  leave-active-class="transition ease-in duration-150"
-                  leave-from-class="opacity-100 scale-100"
-                  leave-to-class="opacity-0 scale-95"
-                >
-                  <div
-                    v-if="showShareMenu"
-                    class="absolute z-50 mt-2 w-full sm:w-80 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 overflow-hidden"
-                    :class="isMobile ? 'bottom-full mb-2 left-0' : 'top-full left-0'"
-                    @click.stop
-                  >
-                    <div class="p-4 space-y-2">
-                      <button
-                        type="button"
-                        class="w-full flex items-center px-4 py-3 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium transition-colors"
-                        @click="handleCopyLink"
-                      >
-                        <svg class="w-5 h-5 mr-3 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16h8M8 12h8m-6-8h6a2 2 0 012 2v12a2 2 0 01-2 2h-6m-4-4H6a2 2 0 01-2-2V6a2 2 0 012-2h2" />
-                        </svg>
-                        Copy Link
-                      </button>
+              <!-- Facebook 按钮 -->
+              <button
+                type="button"
+                class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-white hover:bg-gray-50 transition-all duration-200 shadow-sm"
+                @click="handleShare('facebook')"
+                title="Share on Facebook"
+              >
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="#1877F2">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </button>
 
-                      <div class="h-px bg-slate-200 my-2"></div>
+              <!-- WhatsApp 按钮 -->
+              <button
+                type="button"
+                class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-white hover:bg-gray-50 transition-all duration-200 shadow-sm"
+                @click="handleShare('whatsapp')"
+                title="Share on WhatsApp"
+              >
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="#25D366">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+              </button>
 
-                      <div class="grid grid-cols-2 gap-2">
-                        <button
-                          type="button"
-                          class="flex items-center justify-center px-4 py-3 rounded-xl bg-[#1877F2] hover:bg-[#166FE5] text-white font-medium transition-colors"
-                          @click="handleShare('facebook')"
-                        >
-                          <span class="font-bold mr-2">f</span>
-                          Facebook
-                        </button>
-                        <button
-                          type="button"
-                          class="flex items-center justify-center px-4 py-3 rounded-xl bg-[#1DA1F2] hover:bg-[#1A91DA] text-white font-medium transition-colors"
-                          @click="handleShare('twitter')"
-                        >
-                          <span class="font-bold mr-2">X</span>
-                          Twitter
-                        </button>
-                        <button
-                          type="button"
-                          class="flex items-center justify-center px-4 py-3 rounded-xl bg-[#E60023] hover:bg-[#D1001F] text-white font-medium transition-colors"
-                          @click="handleShare('pinterest')"
-                        >
-                          <span class="font-bold mr-2">P</span>
-                          Pinterest
-                        </button>
-                        <button
-                          type="button"
-                          class="flex items-center justify-center px-4 py-3 rounded-xl bg-[#25D366] hover:bg-[#20BA5A] text-white font-medium transition-colors"
-                          @click="handleShare('whatsapp')"
-                        >
-                          <span class="font-bold mr-2">WA</span>
-                          WhatsApp
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </Transition>
-              </div>
+              <!-- Copy 按钮 -->
+              <button
+                type="button"
+                class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-slate-700 hover:bg-slate-600 transition-all duration-200 shadow-sm"
+                @click="handleCopyLink"
+                title="Copy Link"
+              >
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+              </button>
+
+              <!-- Download 按钮 -->
+              <button
+                type="button"
+                class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-slate-700 hover:bg-slate-600 transition-all duration-200 shadow-sm"
+                @click="downloadGeneratedVideo"
+                title="Download Video"
+              >
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+              </button>
             </div>
           </div>
         </div>
@@ -1203,7 +1178,7 @@ const generateBadgeText = computed(() => {
   if (!isLoggedIn()) {
     return 'Free';
   }
-  return freeTimes.value > 0 ? freeTimes.value + ' Free' : '400 Credits';
+  return freeTimes.value > 0 ? freeTimes.value + ' Free Trials' : '400 Credits';
 });
 
 // 检查是否已登录
@@ -1252,6 +1227,11 @@ const clearImage = () => {
   previewUrl.value = null;
   ratioInfo.value = null;
   isVertical.value = false;
+
+  // 清除生成的视频
+  generatedVideoUrl.value = null;
+  currentTaskId.value = null;
+  isGenerating.value = false;
 
   if (fileInput.value) {
     fileInput.value.value = '';
@@ -1566,5 +1546,18 @@ defineExpose({
 
 .audio-scroll-container::-webkit-scrollbar-thumb:hover {
   background: rgba(234, 179, 8, 0.7);
+}
+
+/* 链接样式 */
+.linkStyle {
+  color: #FDDD20;
+  text-decoration: underline;
+  text-decoration-color: #FDDD20;
+  transition: color 0.2s, text-decoration-color 0.2s; 
+}
+
+.linkStyle:hover {
+  color: #E6C71D;
+  text-decoration-color: #E6C71D;
 }
 </style>

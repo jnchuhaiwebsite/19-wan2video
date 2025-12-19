@@ -65,8 +65,9 @@
         class="main-title"
         style="
           font-family: 'Playfair Display', serif;
-          font-size: 3.4rem;
+          font-size: 4rem;
           letter-spacing: 1px;
+          margin-top: -10px;
           margin-bottom: 36px;
           text-shadow: 0 4px 12px rgba(0,0,0,0.55);
           max-width: 900px;
@@ -114,7 +115,7 @@ onMounted(() => {
 /* 4K分辨率下标题适配 */
 @media (min-width: 2560px) {
   .main-title {
-    font-size: 4.4rem !important; /* 3.4rem + 3rem = 6.4rem */
+    font-size: 5rem !important; /* 3.4rem + 3rem = 6.4rem */
     max-width: 1700px !important; /* 900px * (6.4/3.4) ≈ 1700px，保持比例 */
   }
 }
@@ -123,7 +124,7 @@ onMounted(() => {
   /* 布局与间距 */
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 42px;
+  /* margin-bottom: 42px; */
   
   /* 1080P 下的黄金尺寸 */
   max-width: 650px;       /* 您原本的宽度，在1080P上很合适 */
