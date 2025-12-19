@@ -491,8 +491,10 @@
                       :muted="isVideoMuted"
                       controls
                       playsinline
+                      autoplay
                       @loadedmetadata="onVideoMetadata"
                       @play="onResultVideoPlay"
+                      @loadeddata="onGeneratedVideoLoaded"
                     ></video>
 
                     <template v-else>
@@ -638,8 +640,10 @@
                       :muted="isVideoMuted"
                       controls
                       playsinline
+                      autoplay
                       @loadedmetadata="onVideoMetadata"
                       @play="onResultVideoPlay"
+                      @loadeddata="onGeneratedVideoLoaded"
                     ></video>
                     <template v-else>
                       <video
@@ -1001,6 +1005,24 @@ const onPreviewVideoPlay = () => {
   }
 };
 
+// 生成视频加载完成后，自动播放并开启声音
+const onGeneratedVideoLoaded = async () => {
+  const resultVideo = isVertical.value ? resultVideoVertical.value : resultVideoHorizontal.value;
+  if (resultVideo) {
+    // 确保视频取消静音
+    resultVideo.muted = false;
+    isVideoMuted.value = false;
+    
+    // 尝试自动播放
+    try {
+      await resultVideo.play();
+    } catch (err) {
+      console.log('Auto-play prevented:', err);
+      // 如果自动播放被阻止，用户需要手动点击播放
+    }
+  }
+};
+
 // 结果视频播放时，停止音频并静音预览视频
 const onResultVideoPlay = () => {
   // 停止音频库音频播放
@@ -1288,6 +1310,8 @@ const startPollingStatus = (taskId: string) => {
         isGenerating.value = false;
         generatedVideoUrl.value = url;
         statusMessage.value = 'Video generated successfully!';
+        // 视频生成成功后，取消静音以便自动播放声音
+        isVideoMuted.value = false;
         await userStore.fetchUserInfo(true)
         $toast?.success?.('Video generated successfully!');
       } else if (status <= -1) {
