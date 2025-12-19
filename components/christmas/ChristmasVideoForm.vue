@@ -320,7 +320,7 @@
             <p class="text-[11px] text-gray-100">
               Supports WAV, MP3 format, 3-30 seconds, max 15MB
             </p>
-            <a href="https://www.merrychristmasmusic.net/" class="text-xs linkStyle" rel="nofollow">
+            <a href="https://www.merrychristmasmusic.net/" class="text-xs linkStyle" rel="nofollow"  target="_blank">
               more audio
             </a>
           </div>
@@ -508,6 +508,7 @@
                         controls
                         playsinline
                         @loadedmetadata="onVideoMetadata"
+                        @loadeddata="onPreviewVideoLoaded"
                         @play="onPreviewVideoPlay"
                       ></video>
                       <template v-else>
@@ -652,6 +653,7 @@
                         controls
                         playsinline
                         @loadedmetadata="onVideoMetadata"
+                        @loadeddata="onPreviewVideoLoaded"
                         @play="onPreviewVideoPlay"
                       ></video>
                       <template v-else>
@@ -1470,6 +1472,9 @@ const shareTo = (platform: 'facebook' | 'twitter' | 'pinterest' | 'whatsapp') =>
 };
 
 onMounted(() => {
+  // 确保视频默认静音
+  isVideoMuted.value = true;
+  
   const route = useRoute()
   const taskId = route.query.taskId as string
   const templateIndex = route.query.templateIndex as string

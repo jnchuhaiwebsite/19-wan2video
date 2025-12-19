@@ -366,13 +366,13 @@ onUnmounted(() => {
 
 /* Christmas 导航链接样式 */
 .christmas-nav-link {
-  color: #f1d222;
+  color: #FF4500 ;
   font-weight: 700;
   font-size: 20px;
 }
 
 .christmas-nav-link:hover {
-  color: #FDDD20;
+  color: #FF4500;
   opacity: 0.9;
 }
 </style>

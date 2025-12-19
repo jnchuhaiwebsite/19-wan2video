@@ -16,7 +16,7 @@
       :src="currentBackgroundVideo"
       autoplay
       loop
-      :muted="isBackgroundVideoMuted"
+      muted
       playsinline
       style="
         position: fixed;
@@ -27,6 +27,7 @@
         object-fit: cover;
         z-index: -3;
       "
+      @loadeddata="onBackgroundVideoLoaded"
     ></video>
 
     <!-- 背景视频音频控制按钮 -->
@@ -524,7 +525,7 @@ const formRef = ref<InstanceType<typeof ChristmasVideoFormMobile> | null>(null)
 const formSection = ref<HTMLElement | null>(null)
 const previewSection = ref<HTMLElement | null>(null)
 const showForm = ref(false)
-const isBackgroundVideoMuted = ref(false) // 背景视频默认静音
+const isBackgroundVideoMuted = ref(true) // 背景视频默认静音
 const { $toast } = useNuxtApp() as any
 const router = useRouter();
 // 下滑关闭手势相关
@@ -804,11 +805,28 @@ const updateBackgroundVideo = (templateKey: string) => {
     // 更新背景视频
     if (backgroundVideo.value) {
       backgroundVideo.value.src = selectedTemplate.videoV
-      backgroundVideo.value.muted = isBackgroundVideoMuted.value
+      backgroundVideo.value.muted = true
+      isBackgroundVideoMuted.value = true
       backgroundVideo.value.load()
+      // 确保视频自动播放
+      backgroundVideo.value.play().catch((err) => {
+        console.log('Background video auto-play prevented:', err);
+      });
     }
   }
 }
+
+// 背景视频加载完成后，确保静音并自动播放
+const onBackgroundVideoLoaded = () => {
+  if (backgroundVideo.value) {
+    backgroundVideo.value.muted = true;
+    isBackgroundVideoMuted.value = true;
+    // 确保视频自动播放
+    backgroundVideo.value.play().catch((err) => {
+      console.log('Background video auto-play prevented:', err);
+    });
+  }
+};
 
 // 切换背景视频静音状态
 const toggleBackgroundVideoMute = () => {
@@ -939,6 +957,16 @@ const handleShare = (platform: 'facebook' | 'twitter' | 'pinterest' | 'whatsapp'
 
 onMounted(() => {
   // watch 会自动监听模版变化，无需额外操作
+  // 确保背景视频静音并自动播放
+  nextTick(() => {
+    if (backgroundVideo.value) {
+      backgroundVideo.value.muted = true;
+      isBackgroundVideoMuted.value = true;
+      backgroundVideo.value.play().catch((err) => {
+        console.log('Background video auto-play prevented:', err);
+      });
+    }
+  });
 })
 </script>
 
