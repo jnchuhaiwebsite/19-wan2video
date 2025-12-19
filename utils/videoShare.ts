@@ -1,67 +1,47 @@
 /**
- * 从视频URL中提取短ID用于分享
- * 支持多种URL格式，提取唯一标识符
+ * 从视频URL提取短ID
+ * 输入: https://resp.infinitetalkai.com/topic_1/infinitetalk/2512/18/3423.mp4
+ * 输出: "251218-3423"
  * 
  * @param url 视频的完整URL
- * @returns 短ID字符串
+ * @returns 短ID字符串，格式为 {年}{月}-{视频ID}
  */
 export const getShareVideoId = (url: string): string => {
-  try {
-    if (!url) {
-      throw new Error('URL is empty')
-    }
+  const match = url.match(/topic_1\/infinitetalk\/(\d+)\/(\d+)\/(\d+)\.mp4/)
+  if (!match) throw new Error('Invalid URL format')
+  return `${match[1]}${match[2]}-${match[3]}`
+}
 
-    // 方案1: 如果URL包含路径结构，提取路径部分
-    // 例如: https://resp.wan2video.com/wan2ai/video/xxx.mp4
-    // 或者: https://resp.wan2video.com/topic_1/infinitetalk/2512/18/3423.mp4
-    const urlObj = new URL(url)
-    const pathname = urlObj.pathname
-    
-    // 尝试匹配类似 /topic_1/infinitetalk/{年}/{月}/{视频ID}.mp4 的格式
-    const match1 = pathname.match(/topic_1\/infinitetalk\/(\d+)\/(\d+)\/(\d+)\.mp4/)
-    if (match1) {
-      return `${match1[1]}${match1[2]}-${match1[3]}`
-    }
-    
-    // 尝试匹配类似 /wan2ai/video/{视频ID}.mp4 的格式
-    const match2 = pathname.match(/wan2ai\/video\/([^\/]+)\.mp4/)
-    if (match2) {
-      return match2[1].replace(/\.(mp4|webm)$/, '')
-    }
-    
-    // 尝试匹配类似 /wan2video/christmas/... 的格式
-    const match3 = pathname.match(/wan2video\/christmas\/([^\/]+)\.mp4/)
-    if (match3) {
-      return match3[1]
-    }
-    
-    // 方案2: 提取文件名（去除扩展名）
-    const filename = pathname.split('/').pop() || ''
-    if (filename && filename.includes('.')) {
-      return filename.replace(/\.(mp4|webm|mov)$/i, '')
-    }
-    
-    // 方案3: 如果以上都不匹配，使用URL的hash或编码
-    // 使用base64编码URL的一部分作为短ID
-    const urlHash = btoa(url).replace(/[+/=]/g, '').substring(0, 16)
-    return urlHash
-    
-  } catch (error) {
-    console.error('Failed to extract share video ID:', error)
-    // 降级方案：使用URL的简单编码
-    try {
-      return btoa(url).replace(/[+/=]/g, '').substring(0, 16)
-    } catch {
-      // 最后的降级方案：使用时间戳
-      return Date.now().toString(36)
-    }
+/**
+ * 从短ID还原完整视频URL
+ * @param year 年份，如 "2512"
+ * @param month 月份，如 "18"
+ * @param videoId 视频ID，如 "3423"
+ * @returns 完整的视频URL
+ */
+export const buildShareVideoUrl = (year: string, month: string, videoId: string): string => {
+  return `https://resp.infinitetalkai.com/topic_1/infinitetalk/${year}/${month}/${videoId}.mp4`
+}
+
+/**
+ * 从短ID解析出年月和视频ID
+ * @param shareId 短ID，格式为 "251218-3423"
+ * @returns 包含 year, month, videoId 的对象
+ */
+export const parseShareVideoId = (shareId: string): { year: string; month: string; videoId: string } => {
+  const match = shareId.match(/^(\d{4})(\d{2})-(\d+)$/)
+  if (!match) throw new Error('Invalid share ID format')
+  return {
+    year: match[1],
+    month: match[2],
+    videoId: match[3]
   }
 }
 
 /**
- * 构建短链接
+ * 构建短链接（分享链接）
  * @param videoUrl 视频的完整URL
- * @returns 短链接URL
+ * @returns 短链接URL，格式为 https://christmas.wan2video.com/christmas/share/{短ID}
  */
 export const buildShareUrl = (videoUrl: string): string => {
   try {
@@ -73,4 +53,5 @@ export const buildShareUrl = (videoUrl: string): string => {
     return `https://cfsource.wan2video.com/wan2video/christmas/christmas.html?video=${encodeURIComponent(videoUrl)}`
   }
 }
+
 
