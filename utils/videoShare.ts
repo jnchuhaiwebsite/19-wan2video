@@ -7,9 +7,20 @@
  * @returns 短ID字符串，格式为 {年}{月}-{视频ID}
  */
 export const getShareVideoId = (url: string): string => {
+  if (!url) {
+    throw new Error('URL is empty')
+  }
+  
+  // 尝试匹配 topic_1/infinitetalk/{年}/{月}/{视频ID}.mp4 格式
+  // 支持多种域名：resp.infinitetalkai.com, resp.wan2video.com 等
   const match = url.match(/topic_1\/infinitetalk\/(\d+)\/(\d+)\/(\d+)\.mp4/)
-  if (!match) throw new Error('Invalid URL format')
-  return `${match[1]}${match[2]}-${match[3]}`
+  if (match) {
+    return `${match[1]}${match[2]}-${match[3]}`
+  }
+  
+  // 如果匹配失败，记录日志以便调试
+  console.warn('Failed to extract share video ID from URL:', url)
+  throw new Error(`Invalid URL format: ${url}`)
 }
 
 /**
