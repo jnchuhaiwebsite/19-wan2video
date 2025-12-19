@@ -480,7 +480,31 @@ interface TemplateItem {
   prompt: string;
   videoH: string;
   videoV: string;
+  AudioName:string;
 }
+const PromptTemplate1 = `Sunrise, daytime. Side lighting with rim light. Medium close-up shot. High saturation, balanced composition. Eye-level close shot, telephoto lens. High contrast. Over-the-shoulder camera angle. Soft lighting, warm color tones, clear sunny daylight.
+The person in front of the camera is wearing a red Christmas outfit and a red Santa hat, standing beside a wooden cabin. The person occupies about 70% of the frame in width and approximately 70% in height, facing the camera directly. She is singing the climax of a classic English Christmas song. Her arms move gently with the rhythm, performing simple gestures. Her expression is immersive and emotional, her tone sincere, and her voice clear, in American English.
+The entire video captures her transition from a focused singing state to a relaxed, warm smile, creating a strong artistic and cinematic feeling. After finishing the song, she forms a heart shape with both hands, as if sending it to friends watching the screen.
+Behind her is a realistic Christmas scene: snow is falling from the sky, surrounded by Christmas trees decorated with ornaments. The trees are covered in snow, and a thick layer of white snow blankets the roof and windowsills of the wooden cabin. A wreath made of pinecones and red berries hangs on the front door.
+The atmosphere is lively, exciting, and full of energy. Snowflakes fall slowly, accompanied by the sound of snowfall, enhancing the rich and immersive Christmas ambiance.`
+const PromptTemplate2 = `Nighttime. Side lighting with rim light. Medium close-up shot. High saturation, balanced composition. Eye-level close shot, telephoto lens. High contrast. Over-the-shoulder camera angle. Soft lighting, warm color tones, indoor nighttime lighting.
+The person in front of the camera is indoors, wearing a red Santa hat and a red Christmas sweater, standing at the forefront of the scene. The person occupies approximately 70% of the frame in width and about 70% in height, facing the camera directly. She is singing the climax of a classic English Christmas song. Her arms move gently with the rhythm, performing simple gestures. Her expression is immersive, and her voice is clear, in American English.
+The entire video captures her transition from a focused singing state to a relaxed, warm smile, creating a strong artistic and cinematic feeling.
+Outside the window, it is a snowy Christmas night with heavy snowfall. In the center of the living room stands an oversized, lush real pine Christmas tree, decorated with various vintage glass ornaments and glowing warm yellow-white string lights, creating a cozy nighttime ambiance.
+On the mantel above the fireplace, six thick red or green Christmas stockings are neatly arranged. The overall indoor atmosphere is warm and inviting, filled with soft yellow tones.
+Snowflakes fall slowly, accompanied by the sound of snowfall, enhancing the rich and immersive Christmas atmosphere.`
+
+const  PromptTemplate3 =`Daytime. Side lighting with rim light. Medium close-up shot. High saturation, balanced composition. Eye-level close shot, telephoto lens. High contrast. Over-the-shoulder camera angle. Soft lighting, warm color tones, clear sunny daylight.
+The person in front of the camera is inside a church, wearing a red Santa hat. The person occupies approximately 70% of the frame in width and about 70% in height. She is wearing a green “ugly Christmas” sweater and faces the camera directly while singing the climax of a classic English Christmas song. Her arms move gently with the rhythm, performing simple gestures. Her expression is immersive, and her voice is clear, in American English.
+The entire video captures her transition from a focused singing state to a relaxed, warm smile, creating a strong artistic and cinematic feeling.
+The background shows the interior of a Christmas-decorated church at night. The church is adorned with abundant green holly branches and red potted poinsettias. The primary lighting comes from chandeliers and lit candles. Blurred figures can be seen moving inside the church in the background. The overall indoor atmosphere is warm and inviting, filled with soft yellow tones.`
+
+const PromptTemplate4 = `Nighttime. Medium close-up shot. High-saturation visuals, balanced composition. Eye-level close shot, telephoto lens. High contrast. Over-the-shoulder camera angle. Soft lighting with warm color tones.
+The person in front of the camera is wearing a red Santa hat and a green Christmas sweater. The person occupies approximately 70% of the frame in width and about 70% in height, facing the camera directly while singing the climax of a classic English Christmas song. His arms move gently with the rhythm, performing simple gestures. His expression is immersive, and his voice is clear, in American English.
+The entire video captures his transition from a focused singing state to a relaxed smile, creating a strong artistic and cinematic feeling.
+The background shows a Christmas night scene with heavy snow falling from the sky. The shops around the square are decorated with colorful string lights, creating a dreamy and magical atmosphere. In the center of the square stands a gigantic outdoor Christmas tree, extremely tall and lush, covered in LED light strings mainly in yellow and red, sparkling brilliantly and looking especially magical.
+The background is softly blurred, with the Christmas tree faintly visible. A group of people wearing Christmas outfits can be seen in the square, swaying and dancing along to the music.
+The camera moves in a smooth, circular motion, following the performer’s movements, delivering a cinematic, ultra-realistic, and highly immersive visual experience.`
 
 const templates: TemplateItem[] = [
   {
@@ -489,7 +513,9 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-snowy-christmas-cabin-scene.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-s.mp4',
-    prompt: "  Snow is falling under the Christmas sky, with pine trees adorned with colorful lights all around. The Christmas tree is covered in snow, and the roof and windowsills of the little cabin are blanketed in a thick layer of white snow. A wreath made of pine cones and red berries hangs at the door. The person is wearing a Christmas sweater and a red Santa hat, standing next to the cabin. The person occupies about 70% of the width and around 70% of the height of the page, facing the camera directly and saying: 'Happy Holidays, Catching up soon to celebrate. Hope you're chilling hard and getting all the best snacks/gifts. Stay awesome!' The scene instantly conveys a lively, excited, and energetic holiday night atmosphere."
+    prompt:PromptTemplate1,
+    AudioName:"Fairytale At Christmas"
+
   },
   {
     key: 'christmas-tree',
@@ -497,7 +523,8 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-living-room-pine-tree-scene.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-s.mp4',
-    prompt: "  On Christmas night, a huge, lush real pine tree stands in the center of the living room! It's adorned with various vintage glass ball ornaments, glowing with warm yellow and white string lights. Outside the window, snowflakes drift down, capturing the essence of a winter night. On the mantel, six thick red or green Christmas stockings are neatly arranged. The overall atmosphere in the room is cozy, with soft yellow tones. The person is inside the room, wearing a Christmas hat, standing at the front. They occupy about 70% of the width and around 70% of the height of the page, dressed in an ugly Christmas sweater, facing the camera and saying to their friend: 'Happy Holidays, Catching up soon to celebrate. Hope you're chilling hard and getting all the best snacks/gifts. Stay awesome!'"
+    prompt:PromptTemplate2,
+    AudioName:"All I Want For Christmas"
   },
   {
     key: 'church',
@@ -505,7 +532,8 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-church-holiday-interior.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-church-holiday-interior-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-church-holiday-interior-s.mp4',
-    prompt: "  The interior of the Christmas church is decorated with a large number of green holly branches and red potted poinsettias in the night background. The main lighting comes from chandeliers and lit candles. The character is in the center of the video, wearing a red Christmas hat, and the width of the character accounts for 70% of the page. The height accounts for about 70% of the page, wearing an ugly Christmas sweater, making people instantly feel the lively, excited, and energetic atmosphere of the holiday night. Say to your friend with a straight face, 'Happy Holidays, Catching up soon to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome!'."
+    prompt:PromptTemplate3,
+    AudioName:"Feliz Navidad"
   },
   {
     key: 'pine-forest',
@@ -513,9 +541,44 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-snowy-pine-forest-lights.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-pine-forest-lights-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-pine-forest-lights-s.mp4',
-    prompt: "  A pine forest in the outskirts, with thick snow on the ground, and yellow lights shining from the windows of the farm's wooden houses, warm and romantic. Most importantly, there are countless warm light strings wrapped around the pine trees in the forest, only white or amber in color. The contours of the pine trees are outlined like Christmas trees. There are elk running through the forest, and as dusk falls and the lights begin to dominate the view, the entire scene becomes poetic and romantic. The sky is snowing, and the character is wearing a Christmas sweater and a red Christmas hat. The character's width accounts for 70% of the page. The proportion of height on the page is about 70%, making people instantly feel the lively, excited, and energetic atmosphere of the festival night. Say to your friend with a straight face, 'Happy Holidays, Catching up soon to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome!'."
+    prompt:PromptTemplate4,
+    AudioName:"Jingle Bell Rock"
   }
 ];
+// const templates: TemplateItem[] = [
+//   {
+//     key: 'snow-house',
+//     name: 'snow house',
+//     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-snowy-christmas-cabin-scene.png',
+//     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-h.mp4',
+//     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-s.mp4',
+//     prompt: "  Snow is falling under the Christmas sky, with pine trees adorned with colorful lights all around. The Christmas tree is covered in snow, and the roof and windowsills of the little cabin are blanketed in a thick layer of white snow. A wreath made of pine cones and red berries hangs at the door. The person is wearing a Christmas sweater and a red Santa hat, standing next to the cabin. The person occupies about 70% of the width and around 70% of the height of the page, facing the camera directly and saying: 'Happy Holidays, Catching up soon to celebrate. Hope you're chilling hard and getting all the best snacks/gifts. Stay awesome!' The scene instantly conveys a lively, excited, and energetic holiday night atmosphere."
+//   },
+//   {
+//     key: 'christmas-tree',
+//     name: 'christmas tree',
+//     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-living-room-pine-tree-scene.png',
+//     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-h.mp4',
+//     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-s.mp4',
+//     prompt: "  On Christmas night, a huge, lush real pine tree stands in the center of the living room! It's adorned with various vintage glass ball ornaments, glowing with warm yellow and white string lights. Outside the window, snowflakes drift down, capturing the essence of a winter night. On the mantel, six thick red or green Christmas stockings are neatly arranged. The overall atmosphere in the room is cozy, with soft yellow tones. The person is inside the room, wearing a Christmas hat, standing at the front. They occupy about 70% of the width and around 70% of the height of the page, dressed in an ugly Christmas sweater, facing the camera and saying to their friend: 'Happy Holidays, Catching up soon to celebrate. Hope you're chilling hard and getting all the best snacks/gifts. Stay awesome!'"
+//   },
+//   {
+//     key: 'church',
+//     name: 'church',
+//     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-church-holiday-interior.png',
+//     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-church-holiday-interior-h.mp4',
+//     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-church-holiday-interior-s.mp4',
+//     prompt: "  The interior of the Christmas church is decorated with a large number of green holly branches and red potted poinsettias in the night background. The main lighting comes from chandeliers and lit candles. The character is in the center of the video, wearing a red Christmas hat, and the width of the character accounts for 70% of the page. The height accounts for about 70% of the page, wearing an ugly Christmas sweater, making people instantly feel the lively, excited, and energetic atmosphere of the holiday night. Say to your friend with a straight face, 'Happy Holidays, Catching up soon to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome!'."
+//   },
+//   {
+//     key: 'pine-forest',
+//     name: 'pine forest',
+//     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-snowy-pine-forest-lights.png',
+//     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-pine-forest-lights-h.mp4',
+//     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-pine-forest-lights-s.mp4',
+//     prompt: "  A pine forest in the outskirts, with thick snow on the ground, and yellow lights shining from the windows of the farm's wooden houses, warm and romantic. Most importantly, there are countless warm light strings wrapped around the pine trees in the forest, only white or amber in color. The contours of the pine trees are outlined like Christmas trees. There are elk running through the forest, and as dusk falls and the lights begin to dominate the view, the entire scene becomes poetic and romantic. The sky is snowing, and the character is wearing a Christmas sweater and a red Christmas hat. The character's width accounts for 70% of the page. The proportion of height on the page is about 70%, making people instantly feel the lively, excited, and energetic atmosphere of the festival night. Say to your friend with a straight face, 'Happy Holidays, Catching up soon to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome!'."
+//   }
+// ];
 
 // 默认使用模版1的videoV
 const currentBackgroundVideo = ref(templates[0].videoV)
