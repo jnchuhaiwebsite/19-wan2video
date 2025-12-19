@@ -696,10 +696,32 @@ const handleGenerate = async () => {
     }
 
     // 优先使用上传的音频文件，否则如果选择了音频库的音频，将音频 URL 传给 audio_url
+    // 如果用户都没有选择，则使用模板对应的默认音频
     if (audioFile) {
       payload.audio = audioFile
     } else if (selectedAudioFromLibrary?.url) {
       payload.audio_url = selectedAudioFromLibrary.url
+    } else {
+      // 如果用户没有选择音频，使用模板对应的默认音频
+      const selectedTemplateKey = formRef.value?.selectedTemplateKey
+      if (selectedTemplateKey) {
+        const selectedTemplate = templates.find(t => t.key === selectedTemplateKey)
+        if (selectedTemplate?.AudioName) {
+          // 从表单组件获取音频分类（如果暴露了的话），或者在这里定义音频URL映射
+          // 由于音频分类数据在表单组件中，我们需要通过其他方式获取
+          // 这里我们直接使用音频名称查找URL（需要从表单组件暴露或在这里定义）
+          const audioUrlMap: Record<string, string> = {
+            'Fairytale At Christmas': 'https://cfsource.wan2video.com/wan2video/christmas/template/music/fairytale-at-christmas.mp3',
+            'All I Want For Christmas': 'https://cfsource.wan2video.com/wan2video/christmas/template/music/all-i-want-for-christmas-is-you.mp3',
+            'Feliz Navidad': 'https://cfsource.wan2video.com/wan2video/christmas/template/music/feliz-navidad.mp3',
+            'Jingle Bell Rock': 'https://cfsource.wan2video.com/wan2video/christmas/template/music/jingle-bell-rock.mp3'
+          }
+          const defaultAudioUrl = audioUrlMap[selectedTemplate.AudioName]
+          if (defaultAudioUrl) {
+            payload.audio_url = defaultAudioUrl
+          }
+        }
+      }
     }
 
     const res: any = await createChristmasVideo(payload)

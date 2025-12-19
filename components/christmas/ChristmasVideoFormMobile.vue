@@ -170,7 +170,7 @@
         <!-- 音频选择区域 -->
         <div class="relative">
           <!-- 音频列表（横向滚动，包含 Upload Audio 按钮） -->
-          <div class="overflow-x-auto pb-2 audio-scroll-container" style="scroll-behavior: smooth; -webkit-overflow-scrolling: touch;">
+          <div ref="audioScrollContainer" class="overflow-x-auto pb-2 audio-scroll-container" style="scroll-behavior: smooth; -webkit-overflow-scrolling: touch;">
             <div class="flex gap-3 min-w-max px-1">
               <!-- Upload Audio 按钮 -->
               <label
@@ -267,6 +267,7 @@
               <button
                 v-for="audio in currentCategoryAudios"
                 :key="audio.url"
+                :data-audio-url="audio.url"
                 type="button"
                 @click="selectAudioFromLibrary(audio)"
                 :class="[
@@ -455,6 +456,7 @@ const fileInput = ref<HTMLInputElement | null>(null);
 const audioInput = ref<HTMLInputElement | null>(null);
 const audioPlayer = ref<HTMLAudioElement | null>(null);
 const audioPlayerHidden = ref<HTMLAudioElement | null>(null);
+const audioScrollContainer = ref<HTMLElement | null>(null);
 
 const previewUrl = ref<string | null>(null);
 const uploadedImageFile = ref<File | null>(null);
@@ -681,8 +683,26 @@ const selectAudioFromLibrary = async (audio: AudioItem) => {
   playingAudioUrl.value = audio.url;
   isAudioPlaying.value = false; // 重置播放状态，等待播放事件触发
 
-  // 等待下一个 tick 确保 audio 元素已更新
+  // 等待下一个 tick 确保 DOM 已更新
   await nextTick();
+
+  // 滚动到选中的音频按钮
+  if (audioScrollContainer.value) {
+    const selectedButton = audioScrollContainer.value.querySelector(`[data-audio-url="${audio.url}"]`) as HTMLElement;
+    if (selectedButton) {
+      const buttonRect = selectedButton.getBoundingClientRect();
+      const containerRect = audioScrollContainer.value.getBoundingClientRect();
+      
+      // 检查按钮是否在可视区域内
+      if (buttonRect.right > containerRect.right || buttonRect.left < containerRect.left) {
+        selectedButton.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center'
+        });
+      }
+    }
+  }
 
   // 自动播放音频（使用隐藏的播放器，不显示控件）
   const player = audioPlayerHidden.value || audioPlayer.value;
@@ -729,9 +749,21 @@ const clearImage = () => {
   }
 };
 
-const handleSelectTemplate = (tpl: TemplateItem) => {
+const handleSelectTemplate = async (tpl: TemplateItem) => {
   selectedTemplateKey.value = tpl.key;
   prompt.value = tpl.prompt;
+  
+  // 自动选中对应的音乐
+  if (tpl.AudioName) {
+    // 在所有分类中查找对应的音频
+    for (const category of audioCategories) {
+      const matchingAudio = category.audios.find(audio => audio.name === tpl.AudioName);
+      if (matchingAudio) {
+        await selectAudioFromLibrary(matchingAudio);
+        break;
+      }
+    }
+  }
 };
 
 const onFileChange = (e: Event) => {

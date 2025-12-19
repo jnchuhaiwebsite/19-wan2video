@@ -171,7 +171,7 @@
           <div class="relative">
 
             <!-- 音频列表（横向滚动，包含 Upload Audio 按钮） -->
-            <div class="overflow-x-auto pb-2 audio-scroll-container" style="scroll-behavior: smooth; -webkit-overflow-scrolling: touch;">
+            <div ref="audioScrollContainer" class="overflow-x-auto pb-2 audio-scroll-container" style="scroll-behavior: smooth; -webkit-overflow-scrolling: touch;">
               <div class="flex gap-3 min-w-max px-1">
                 <!-- Upload Audio 按钮 -->
                 <label
@@ -268,6 +268,7 @@
                 <button
                   v-for="audio in currentCategoryAudios"
                   :key="audio.url"
+                  :data-audio-url="audio.url"
                   type="button"
                   @click="selectAudioFromLibrary(audio)"
                   :class="[
@@ -897,6 +898,7 @@ const previewVideoHorizontal = ref<HTMLVideoElement | null>(null);
 const previewVideoVertical = ref<HTMLVideoElement | null>(null);
 const resultVideoHorizontal = ref<HTMLVideoElement | null>(null);
 const resultVideoVertical = ref<HTMLVideoElement | null>(null);
+const audioScrollContainer = ref<HTMLElement | null>(null);
 
 const previewUrl = ref<string | null>(null);
 const uploadedImageFile = ref<File | null>(null);
@@ -1213,8 +1215,26 @@ const selectAudioFromLibrary = async (audio: AudioItem) => {
   playingAudioUrl.value = audio.url;
   isAudioPlaying.value = false; // 重置播放状态，等待播放事件触发
 
-  // 等待下一个 tick 确保 audio 元素已更新
+  // 等待下一个 tick 确保 DOM 已更新
   await nextTick();
+
+  // 滚动到选中的音频按钮
+  if (audioScrollContainer.value) {
+    const selectedButton = audioScrollContainer.value.querySelector(`[data-audio-url="${audio.url}"]`) as HTMLElement;
+    if (selectedButton) {
+      const buttonRect = selectedButton.getBoundingClientRect();
+      const containerRect = audioScrollContainer.value.getBoundingClientRect();
+      
+      // 检查按钮是否在可视区域内
+      if (buttonRect.right > containerRect.right || buttonRect.left < containerRect.left) {
+        selectedButton.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center'
+        });
+      }
+    }
+  }
 
   // 自动播放音频（使用隐藏的播放器，不显示控件）
   const player = audioPlayerHidden.value || audioPlayer.value;
@@ -1318,9 +1338,21 @@ const clearImage = () => {
   }
 };
 
-const handleSelectTemplate = (tpl: TemplateItem) => {
+const handleSelectTemplate = async (tpl: TemplateItem) => {
   selectedTemplateKey.value = tpl.key;
   prompt.value = tpl.prompt;
+  
+  // 自动选中对应的音乐
+  if (tpl.AudioName) {
+    // 在所有分类中查找对应的音频
+    for (const category of audioCategories) {
+      const matchingAudio = category.audios.find(audio => audio.name === tpl.AudioName);
+      if (matchingAudio) {
+        await selectAudioFromLibrary(matchingAudio);
+        break;
+      }
+    }
+  }
 };
 
 const onFileChange = (e: Event) => {
@@ -1411,11 +1443,21 @@ const onGenerate = async () => {
     };
 
     // 优先使用上传的音频文件，否则如果选择了音频库的音频，将音频 URL 传给 audio_url
+    // 如果用户都没有选择，则使用模板对应的默认音频
     if (audioFile.value) {
       payload.audio = audioFile.value;
     } else if (selectedAudioFromLibrary.value?.url) {
       // 如果选择了音频模板，将模板音频的地址传给 audio_url
       payload.audio_url = selectedAudioFromLibrary.value.url;
+    } else if (selectedTemplate.value?.AudioName) {
+      // 如果用户没有选择音频，使用模板对应的默认音频
+      for (const category of audioCategories) {
+        const defaultAudio = category.audios.find(audio => audio.name === selectedTemplate.value?.AudioName);
+        if (defaultAudio) {
+          payload.audio_url = defaultAudio.url;
+          break;
+        }
+      }
     }
 
     const res: any = await createChristmasVideo(payload);
