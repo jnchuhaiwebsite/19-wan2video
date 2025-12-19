@@ -171,7 +171,7 @@
           <div class="relative">
 
             <!-- 音频列表（横向滚动，包含 Upload Audio 按钮） -->
-            <div class="overflow-x-auto pb-2 audio-scroll-container" style="scroll-behavior: smooth; -webkit-overflow-scrolling: touch;">
+            <div ref="audioScrollContainer" class="overflow-x-auto pb-2 audio-scroll-container" style="scroll-behavior: smooth; -webkit-overflow-scrolling: touch;">
               <div class="flex gap-3 min-w-max px-1">
                 <!-- Upload Audio 按钮 -->
                 <label
@@ -267,6 +267,7 @@
                 <button
                   v-for="audio in currentCategoryAudios"
                   :key="audio.url"
+                  :data-audio-url="audio.url"
                   type="button"
                   @click="selectAudioFromLibrary(audio)"
                   :class="[
@@ -475,7 +476,7 @@
                       </p>
                       <br>
                       <p class="text-xs sm:text-sm text-emerald-50 font-medium">
-                        You don't need to wait here.Check your work in the <a href="/profile" class="linkStyle">Profile Center</a> after 5 minutes.
+                        You don't need to wait here.Check your work in the <a href="/profile" class="linkStyle" target="_blank">Profile Center</a> after 5 minutes.
                       </p>
                       
                     </div>
@@ -510,7 +511,6 @@
                         controls
                         playsinline
                         @loadedmetadata="onVideoMetadata"
-                        @loadeddata="onPreviewVideoLoaded"
                         @play="onPreviewVideoPlay"
                       ></video>
                       <template v-else>
@@ -626,7 +626,7 @@
                         Santa's Elves are crafting your video...
                       </p>
                       <p class="text-xs sm:text-sm text-emerald-50 font-medium">
-                        You don't need to wait here.Check your work in the <a href="/profile" class="linkStyle">Profile Center</a> after 5 minutes.
+                        You don't need to wait here.Check your work in the <a href="/profile" class="linkStyle" target="_blank">Profile Center</a> after 5 minutes.
                       </p>
                     </div>
                   </template>
@@ -657,7 +657,6 @@
                         controls
                         playsinline
                         @loadedmetadata="onVideoMetadata"
-                        @loadeddata="onPreviewVideoLoaded"
                         @play="onPreviewVideoPlay"
                       ></video>
                       <template v-else>
@@ -765,6 +764,7 @@ import { useRoute } from 'vue-router';
 import { createChristmasVideo, checkTaskStatusVideo, checkTask } from '~/api';
 import { useUserStore } from '~/stores/user';
 import { useRouter } from 'vue-router';
+import { getShareVideoId, buildShareUrl } from '~/utils/videoShare';
 const router = useRouter();
 interface TemplateItem {
   key: string;
@@ -773,7 +773,31 @@ interface TemplateItem {
   prompt: string;
   videoH: string;
   videoV: string;
+  AudioName:string;
 }
+const PromptTemplate1 = `Sunrise, daytime. Side lighting with rim light. Medium close-up shot. High saturation, balanced composition. Eye-level close shot, telephoto lens. High contrast. Over-the-shoulder camera angle. Soft lighting, warm color tones, clear sunny daylight.
+The person in front of the camera is wearing a red Christmas outfit and a red Santa hat, standing beside a wooden cabin. The person occupies about 70% of the frame in width and approximately 70% in height, facing the camera directly. She is singing the climax of a classic English Christmas song. Her arms move gently with the rhythm, performing simple gestures. Her expression is immersive and emotional, her tone sincere, and her voice clear, in American English.
+The entire video captures her transition from a focused singing state to a relaxed, warm smile, creating a strong artistic and cinematic feeling. After finishing the song, she forms a heart shape with both hands, as if sending it to friends watching the screen.
+Behind her is a realistic Christmas scene: snow is falling from the sky, surrounded by Christmas trees decorated with ornaments. The trees are covered in snow, and a thick layer of white snow blankets the roof and windowsills of the wooden cabin. A wreath made of pinecones and red berries hangs on the front door.
+The atmosphere is lively, exciting, and full of energy. Snowflakes fall slowly, accompanied by the sound of snowfall, enhancing the rich and immersive Christmas ambiance.`
+const PromptTemplate2 = `Nighttime. Side lighting with rim light. Medium close-up shot. High saturation, balanced composition. Eye-level close shot, telephoto lens. High contrast. Over-the-shoulder camera angle. Soft lighting, warm color tones, indoor nighttime lighting.
+The person in front of the camera is indoors, wearing a red Santa hat and a red Christmas sweater, standing at the forefront of the scene. The person occupies approximately 70% of the frame in width and about 70% in height, facing the camera directly. She is singing the climax of a classic English Christmas song. Her arms move gently with the rhythm, performing simple gestures. Her expression is immersive, and her voice is clear, in American English.
+The entire video captures her transition from a focused singing state to a relaxed, warm smile, creating a strong artistic and cinematic feeling.
+Outside the window, it is a snowy Christmas night with heavy snowfall. In the center of the living room stands an oversized, lush real pine Christmas tree, decorated with various vintage glass ornaments and glowing warm yellow-white string lights, creating a cozy nighttime ambiance.
+On the mantel above the fireplace, six thick red or green Christmas stockings are neatly arranged. The overall indoor atmosphere is warm and inviting, filled with soft yellow tones.
+Snowflakes fall slowly, accompanied by the sound of snowfall, enhancing the rich and immersive Christmas atmosphere.`
+
+const  PromptTemplate3 =`Daytime. Side lighting with rim light. Medium close-up shot. High saturation, balanced composition. Eye-level close shot, telephoto lens. High contrast. Over-the-shoulder camera angle. Soft lighting, warm color tones, clear sunny daylight.
+The person in front of the camera is inside a church, wearing a red Santa hat. The person occupies approximately 70% of the frame in width and about 70% in height. She is wearing a green “ugly Christmas” sweater and faces the camera directly while singing the climax of a classic English Christmas song. Her arms move gently with the rhythm, performing simple gestures. Her expression is immersive, and her voice is clear, in American English.
+The entire video captures her transition from a focused singing state to a relaxed, warm smile, creating a strong artistic and cinematic feeling.
+The background shows the interior of a Christmas-decorated church at night. The church is adorned with abundant green holly branches and red potted poinsettias. The primary lighting comes from chandeliers and lit candles. Blurred figures can be seen moving inside the church in the background. The overall indoor atmosphere is warm and inviting, filled with soft yellow tones.`
+
+const PromptTemplate4 = `Nighttime. Medium close-up shot. High-saturation visuals, balanced composition. Eye-level close shot, telephoto lens. High contrast. Over-the-shoulder camera angle. Soft lighting with warm color tones.
+The person in front of the camera is wearing a red Santa hat and a green Christmas sweater. The person occupies approximately 70% of the frame in width and about 70% in height, facing the camera directly while singing the climax of a classic English Christmas song. His arms move gently with the rhythm, performing simple gestures. His expression is immersive, and his voice is clear, in American English.
+The entire video captures his transition from a focused singing state to a relaxed smile, creating a strong artistic and cinematic feeling.
+The background shows a Christmas night scene with heavy snow falling from the sky. The shops around the square are decorated with colorful string lights, creating a dreamy and magical atmosphere. In the center of the square stands a gigantic outdoor Christmas tree, extremely tall and lush, covered in LED light strings mainly in yellow and red, sparkling brilliantly and looking especially magical.
+The background is softly blurred, with the Christmas tree faintly visible. A group of people wearing Christmas outfits can be seen in the square, swaying and dancing along to the music.
+The camera moves in a smooth, circular motion, following the performer’s movements, delivering a cinematic, ultra-realistic, and highly immersive visual experience.`
 
 const templates: TemplateItem[] = [
   {
@@ -782,7 +806,9 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-snowy-christmas-cabin-scene.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-christmas-cabin-scene-s.mp4',
-    prompt:"  Snow is falling under the Christmas sky, with pine trees adorned with colorful lights all around. The Christmas tree is covered in snow, and the roof and windowsills of the little cabin are blanketed in a thick layer of white snow. A wreath made of pine cones and red berries hangs at the door. The person is wearing a Christmas sweater and a red Santa hat, standing next to the cabin. The person occupies about 70% of the width and around 70% of the height of the page, facing the camera directly and saying: 'Happy Holidays, Catching up soon to celebrate. Hope you're chilling hard and getting all the best snacks/gifts. Stay awesome!' The scene instantly conveys a lively, excited, and energetic holiday night atmosphere."
+    prompt:PromptTemplate1,
+    AudioName:"Fairytale At Christmas"
+
   },
   {
     key: 'christmas-tree',
@@ -790,7 +816,8 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-living-room-pine-tree-scene.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-living-room-pine-tree-scene-s.mp4',
-    prompt:"  On Christmas night, a huge, lush real pine tree stands in the center of the living room! It's adorned with various vintage glass ball ornaments, glowing with warm yellow and white string lights. Outside the window, snowflakes drift down, capturing the essence of a winter night. On the mantel, six thick red or green Christmas stockings are neatly arranged. The overall atmosphere in the room is cozy, with soft yellow tones. The person is inside the room, wearing a Christmas hat, standing at the front. They occupy about 70% of the width and around 70% of the height of the page, dressed in an ugly Christmas sweater, facing the camera and saying to their friend: 'Happy Holidays, Catching up soon to celebrate. Hope you're chilling hard and getting all the best snacks/gifts. Stay awesome!'"
+    prompt:PromptTemplate2,
+    AudioName:"All I Want For Christmas"
   },
   {
     key: 'church',
@@ -798,7 +825,8 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-church-holiday-interior.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-church-holiday-interior-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-church-holiday-interior-s.mp4',
-    prompt:"  The interior of the Christmas church is decorated with a large number of green holly branches and red potted poinsettias in the night background. The main lighting comes from chandeliers and lit candles. The character is in the center of the video, wearing a red Christmas hat, and the width of the character accounts for 70% of the page. The height accounts for about 70% of the page, wearing an ugly Christmas sweater, making people instantly feel the lively, excited, and energetic atmosphere of the holiday night. Say to your friend with a straight face, 'Happy Holidays, Catching up soon to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome!'."
+    prompt:PromptTemplate3,
+    AudioName:"Feliz Navidad"
   },
   {
     key: 'pine-forest',
@@ -806,7 +834,8 @@ const templates: TemplateItem[] = [
     thumb: 'https://cfsource.wan2video.com/wan2video/christmas/template/images/wan2video-christmas-template-snowy-pine-forest-lights.png',
     videoH: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-pine-forest-lights-h.mp4',
     videoV: 'https://cfsource.wan2video.com/wan2video/christmas/template/videos/wan2video-christmas-template-snowy-pine-forest-lights-s.mp4',
-    prompt:"  A pine forest in the outskirts, with thick snow on the ground, and yellow lights shining from the windows of the farm's wooden houses, warm and romantic. Most importantly, there are countless warm light strings wrapped around the pine trees in the forest, only white or amber in color. The contours of the pine trees are outlined like Christmas trees. There are elk running through the forest, and as dusk falls and the lights begin to dominate the view, the entire scene becomes poetic and romantic. The sky is snowing, and the character is wearing a Christmas sweater and a red Christmas hat. The character's width accounts for 70% of the page. The proportion of height on the page is about 70%, making people instantly feel the lively, excited, and energetic atmosphere of the festival night. Say to your friend with a straight face, 'Happy Holidays, Catching up soon to celebrate. Hope you're drilling hard and getting all the best snacks/gifts. Stay awesome!'."
+    prompt:PromptTemplate4,
+    AudioName:"Jingle Bell Rock"
   }
 ];
 
@@ -818,6 +847,7 @@ const previewVideoHorizontal = ref<HTMLVideoElement | null>(null);
 const previewVideoVertical = ref<HTMLVideoElement | null>(null);
 const resultVideoHorizontal = ref<HTMLVideoElement | null>(null);
 const resultVideoVertical = ref<HTMLVideoElement | null>(null);
+const audioScrollContainer = ref<HTMLElement | null>(null);
 
 const previewUrl = ref<string | null>(null);
 const uploadedImageFile = ref<File | null>(null);
@@ -915,13 +945,12 @@ const isGenerating = ref(false);
 const currentTaskId = ref<string | null>(null);
 const generatedVideoUrl = ref<string | null>(null);
 const statusMessage = ref<string>('');
+const shareVideoId = ref<string>(''); // 存储分享视频短ID
 
 const showShareMenu = ref(false);
 const shareMenuRef = ref<HTMLElement | null>(null);
 
 const { $toast } = useNuxtApp() as any;
-
-const shareChristmasUrl = "https://cfsource.wan2video.com/wan2video/christmas/christmas.html?video=";
 
 const SHARE_TEXT =
   "Check out my personalized Christmas video made with Wan2Video! 🎄 #Christmas #Greetings #MerryChristmas";
@@ -1094,11 +1123,11 @@ const handleUploadLabelClick = () => {
   }
 };
 
-const selectAudioFromLibrary = async (audio: AudioItem) => {
+const selectAudioFromLibrary = async (audio: AudioItem, autoPlay: boolean = true) => {
   const isSameAudio = selectedAudioFromLibrary.value?.url === audio.url;
   
-  // 如果点击的是同一个音频，切换播放/暂停
-  if (isSameAudio && playingAudioUrl.value === audio.url) {
+  // 如果点击的是同一个音频，切换播放/暂停（仅在用户手动点击时）
+  if (isSameAudio && playingAudioUrl.value === audio.url && autoPlay) {
     const player = audioPlayerHidden.value || audioPlayer.value;
     if (player) {
       if (isAudioPlaying.value) {
@@ -1133,16 +1162,36 @@ const selectAudioFromLibrary = async (audio: AudioItem) => {
   playingAudioUrl.value = audio.url;
   isAudioPlaying.value = false; // 重置播放状态，等待播放事件触发
 
-  // 等待下一个 tick 确保 audio 元素已更新
+  // 等待下一个 tick 确保 DOM 已更新
   await nextTick();
 
-  // 自动播放音频（使用隐藏的播放器，不显示控件）
-  const player = audioPlayerHidden.value || audioPlayer.value;
-  if (player) {
-    player.currentTime = 0;
-    player.play().catch(err => {
-      console.error('Failed to play audio:', err);
-    });
+  // 滚动到选中的音频按钮
+  if (audioScrollContainer.value) {
+    const selectedButton = audioScrollContainer.value.querySelector(`[data-audio-url="${audio.url}"]`) as HTMLElement;
+    if (selectedButton) {
+      const buttonRect = selectedButton.getBoundingClientRect();
+      const containerRect = audioScrollContainer.value.getBoundingClientRect();
+      
+      // 检查按钮是否在可视区域内
+      if (buttonRect.right > containerRect.right || buttonRect.left < containerRect.left) {
+        selectedButton.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center'
+        });
+      }
+    }
+  }
+
+  // 只有在 autoPlay 为 true 时才自动播放音频
+  if (autoPlay) {
+    const player = audioPlayerHidden.value || audioPlayer.value;
+    if (player) {
+      player.currentTime = 0;
+      player.play().catch(err => {
+        console.error('Failed to play audio:', err);
+      });
+    }
   }
 };
 
@@ -1262,9 +1311,21 @@ const clearImage = () => {
   }
 };
 
-const handleSelectTemplate = (tpl: TemplateItem) => {
+const handleSelectTemplate = async (tpl: TemplateItem) => {
   selectedTemplateKey.value = tpl.key;
   prompt.value = tpl.prompt;
+  
+  // 自动选中对应的音乐（不自动播放）
+  if (tpl.AudioName) {
+    // 在所有分类中查找对应的音频
+    for (const category of audioCategories) {
+      const matchingAudio = category.audios.find(audio => audio.name === tpl.AudioName);
+      if (matchingAudio) {
+        await selectAudioFromLibrary(matchingAudio, false); // false 表示不自动播放
+        break;
+      }
+    }
+  }
 };
 
 const onFileChange = (e: Event) => {
@@ -1310,8 +1371,44 @@ const startPollingStatus = (taskId: string) => {
         isGenerating.value = false;
         generatedVideoUrl.value = url;
         statusMessage.value = 'Video generated successfully!';
-        // 视频生成成功后，取消静音以便自动播放声音
-        isVideoMuted.value = false;
+        
+        // 提取分享视频短ID
+        try {
+          console.log('Extracting share video ID from URL:', url);
+          shareVideoId.value = getShareVideoId(url);
+          console.log('Extracted share video ID:', shareVideoId.value);
+        } catch (error) {
+          console.error('Failed to get share video ID:', error);
+          console.error('Video URL that failed:', url);
+          shareVideoId.value = '';
+        }
+        
+        // 视频生成成功后，自动取消静音并停止音频库播放
+        nextTick(() => {
+          // 停止音频库音频播放
+          const player = audioPlayerHidden.value || audioPlayer.value;
+          if (player && isAudioPlaying.value) {
+            player.pause();
+            player.currentTime = 0;
+            isAudioPlaying.value = false;
+          }
+          
+          // 取消生成视频的静音
+          isVideoMuted.value = false;
+          
+          // 更新结果视频的静音状态
+          const resultVideo = isVertical.value ? resultVideoVertical.value : resultVideoHorizontal.value;
+          if (resultVideo) {
+            resultVideo.muted = false;
+          }
+          
+          // 静音预览视频（如果有）
+          const previewVideo = isVertical.value ? previewVideoVertical.value : previewVideoHorizontal.value;
+          if (previewVideo) {
+            previewVideo.muted = true;
+          }
+        });
+        
         await userStore.fetchUserInfo(true)
         $toast?.success?.('Video generated successfully!');
       } else if (status <= -1) {
@@ -1357,11 +1454,21 @@ const onGenerate = async () => {
     };
 
     // 优先使用上传的音频文件，否则如果选择了音频库的音频，将音频 URL 传给 audio_url
+    // 如果用户都没有选择，则使用模板对应的默认音频
     if (audioFile.value) {
       payload.audio = audioFile.value;
     } else if (selectedAudioFromLibrary.value?.url) {
       // 如果选择了音频模板，将模板音频的地址传给 audio_url
       payload.audio_url = selectedAudioFromLibrary.value.url;
+    } else if (selectedTemplate.value?.AudioName) {
+      // 如果用户没有选择音频，使用模板对应的默认音频
+      for (const category of audioCategories) {
+        const defaultAudio = category.audios.find(audio => audio.name === selectedTemplate.value?.AudioName);
+        if (defaultAudio) {
+          payload.audio_url = defaultAudio.url;
+          break;
+        }
+      }
     }
 
     const res: any = await createChristmasVideo(payload);
@@ -1422,7 +1529,24 @@ const onTestGenerate = () => {
 const copyShareLink = async () => {
   if (!generatedVideoUrl.value) return;
   try {
-    await navigator.clipboard.writeText(shareChristmasUrl + generatedVideoUrl.value);
+    // 优先使用已提取的短ID，如果没有则尝试从URL重新提取
+    let videoId = shareVideoId.value;
+    if (!videoId) {
+      try {
+        videoId = getShareVideoId(generatedVideoUrl.value);
+        shareVideoId.value = videoId; // 保存提取的ID
+      } catch (error) {
+        console.error('Failed to extract video ID from URL:', generatedVideoUrl.value, error);
+      }
+    }
+    
+    // 使用短链接
+    const shareUrl = videoId 
+      ? `https://christmas.wan2video.com/christmas/share/${videoId}`
+      : buildShareUrl(generatedVideoUrl.value);
+    
+    console.log('Copying share URL:', shareUrl);
+    await navigator.clipboard.writeText(shareUrl);
     $toast?.success?.('Link copied to clipboard!');
   } catch {
     $toast?.error?.('Failed to copy link. Please copy it manually.');
@@ -1476,22 +1600,40 @@ const downloadGeneratedVideo = async () => {
 
 const shareTo = (platform: 'facebook' | 'twitter' | 'pinterest' | 'whatsapp') => {
   if (!generatedVideoUrl.value) return;
-  const url = encodeURIComponent(shareChristmasUrl + generatedVideoUrl.value);
+  
+  // 优先使用已提取的短ID，如果没有则尝试从URL重新提取
+  let videoId = shareVideoId.value;
+  if (!videoId) {
+    try {
+      videoId = getShareVideoId(generatedVideoUrl.value);
+      shareVideoId.value = videoId; // 保存提取的ID
+    } catch (error) {
+      console.error('Failed to extract video ID from URL:', generatedVideoUrl.value, error);
+    }
+  }
+  
+  // 使用短链接
+  const shareUrl = videoId 
+    ? `https://christmas.wan2video.com/christmas/share/${videoId}`
+    : buildShareUrl(generatedVideoUrl.value);
+  
+  console.log('Sharing URL:', shareUrl);
+  const url = encodeURIComponent(shareUrl);
   const text = encodeURIComponent(SHARE_TEXT);
 
-  let shareUrl = '';
+  let platformShareUrl = '';
   if (platform === 'facebook') {
-    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+    platformShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
   } else if (platform === 'twitter') {
-    shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+    platformShareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
   } else if (platform === 'pinterest') {
-    shareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${text}`;
+    platformShareUrl = `https://pinterest.com/pin/create/button/?url=${url}&description=${text}`;
   } else if (platform === 'whatsapp') {
-    shareUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+    platformShareUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
   }
 
-  if (shareUrl) {
-    window.open(shareUrl, '_blank', 'noopener,noreferrer');
+  if (platformShareUrl) {
+    window.open(platformShareUrl, '_blank', 'noopener,noreferrer');
   }
 };
 
