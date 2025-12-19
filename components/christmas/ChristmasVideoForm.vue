@@ -475,7 +475,7 @@
                       </p>
                       <br>
                       <p class="text-xs sm:text-sm text-emerald-50 font-medium">
-                        You don't need to wait here.Check your work in the <a href="/profile" class="linkStyle">Profile Center</a> after 5 minutes.
+                        You don't need to wait here.Check your work in the <a href="/profile" class="linkStyle" target="_blank">Profile Center</a> after 5 minutes.
                       </p>
                       
                     </div>
@@ -624,7 +624,7 @@
                         Santa's Elves are crafting your video...
                       </p>
                       <p class="text-xs sm:text-sm text-emerald-50 font-medium">
-                        You don't need to wait here.Check your work in the <a href="/profile" class="linkStyle">Profile Center</a> after 5 minutes.
+                        You don't need to wait here.Check your work in the <a href="/profile" class="linkStyle" target="_blank">Profile Center</a> after 5 minutes.
                       </p>
                     </div>
                   </template>
