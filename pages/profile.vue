@@ -520,6 +520,7 @@ import { getOpusList, checkTask, getTimesLog ,checkTaskWan26} from '~/api'
 import { SparklesIcon } from '@heroicons/vue/24/outline'
 import { useNotificationStore } from '~/stores/notification'
 import { useNuxtApp } from 'nuxt/app'
+import { buildShareUrl } from '~/utils/videoShare'
 
 // Get user info
 const userStore = useUserStore()
@@ -870,7 +871,8 @@ const copyPrompt = async (prompt: string) => {
 // 分享视频
 const handleShare = async (videoUrl: string) => {
   try {
-    const shareUrl = `https://cfsource.wan2video.com/wan2video/christmas/christmas.html?video=${encodeURIComponent(videoUrl)}`
+    // 使用短链接
+    const shareUrl = buildShareUrl(videoUrl)
     await navigator.clipboard.writeText(shareUrl)
     $toast.success('Share link copied to clipboard', 3000, 'center')
   } catch (error) {

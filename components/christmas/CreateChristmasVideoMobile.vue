@@ -382,6 +382,7 @@ import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import { useNuxtApp } from 'nuxt/app'
 import ChristmasVideoForm from './ChristmasVideoForm.vue'
 import { previewGenvideo, checkTaskStatusVideo, checkTask } from '~/api'
+import { getShareVideoId, buildShareUrl } from '~/utils/videoShare'
 
 // 模版数据（与表单组件保持一致）
 interface TemplateItem {
@@ -465,7 +466,7 @@ const getFormData = () => {
   return { imageFile, prompt, audioFile }
 }
 
-const shareChristmasUrl = "https://cfsource.wan2video.com/wan2video/christmas/christmas.html?video=";
+const shareVideoId = ref<string>(''); // 存储分享视频短ID
 // 轮询检查任务状态
 const startPollingStatus = (taskId: string) => {
   currentTaskId.value = taskId
@@ -487,6 +488,17 @@ const startPollingStatus = (taskId: string) => {
         generatedVideoUrl.value = url
         showResult.value = true
         statusMessage.value = 'Video created successfully!'
+        
+        // 提取分享视频短ID
+        try {
+          console.log('Extracting share video ID from URL:', url);
+          shareVideoId.value = getShareVideoId(url);
+          console.log('Extracted share video ID:', shareVideoId.value);
+        } catch (error) {
+          console.error('Failed to get share video ID:', error);
+          shareVideoId.value = '';
+        }
+        
         $toast?.success?.('Video generated successfully!')
       } else if (status <= -1) {
         // 生成失败
@@ -648,7 +660,23 @@ const closeShareMenu = () => {
 const handleCopyLink = async () => {
   if (!generatedVideoUrl.value) return
   try {
-    await navigator.clipboard.writeText(shareChristmasUrl + generatedVideoUrl.value)
+    // 优先使用已提取的短ID，如果没有则尝试从URL重新提取
+    let videoId = shareVideoId.value;
+    if (!videoId) {
+      try {
+        videoId = getShareVideoId(generatedVideoUrl.value);
+        shareVideoId.value = videoId; // 保存提取的ID
+      } catch (error) {
+        console.error('Failed to extract video ID from URL:', generatedVideoUrl.value, error);
+      }
+    }
+    
+    // 使用短链接
+    const shareUrl = videoId 
+      ? `https://christmas.wan2video.com/christmas/share/${videoId}`
+      : buildShareUrl(generatedVideoUrl.value);
+    
+    await navigator.clipboard.writeText(shareUrl)
     $toast?.success?.('Link copied to clipboard!')
     closeShareMenu()
   } catch {
@@ -661,7 +689,24 @@ const SHARE_TEXT = 'Check out my personalized Christmas video made with Wan2Vide
 
 const handleShare = (platform: 'facebook' | 'twitter' | 'pinterest' | 'whatsapp') => {
   if (!generatedVideoUrl.value) return
-  const url = encodeURIComponent(shareChristmasUrl + generatedVideoUrl.value)
+  
+  // 优先使用已提取的短ID，如果没有则尝试从URL重新提取
+  let videoId = shareVideoId.value;
+  if (!videoId) {
+    try {
+      videoId = getShareVideoId(generatedVideoUrl.value);
+      shareVideoId.value = videoId; // 保存提取的ID
+    } catch (error) {
+      console.error('Failed to extract video ID from URL:', generatedVideoUrl.value, error);
+    }
+  }
+  
+  // 使用短链接
+  const shareUrl = videoId 
+    ? `https://christmas.wan2video.com/christmas/share/${videoId}`
+    : buildShareUrl(generatedVideoUrl.value);
+  
+  const url = encodeURIComponent(shareUrl)
   const text = encodeURIComponent(SHARE_TEXT)
 
   let shareUrl = ''
