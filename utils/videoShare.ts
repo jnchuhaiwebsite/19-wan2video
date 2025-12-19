@@ -1,7 +1,9 @@
 /**
  * 从视频URL提取短ID
- * 输入: https://resp.infinitetalkai.com/topic_1/infinitetalk/2512/18/3423.mp4
- * 输出: "251218-3423"
+ * 支持两种格式：
+ * 1. https://resp.infinitetalkai.com/topic_1/infinitetalk/2512/18/3423.mp4
+ * 2. https://resp.wan2video.com/topic_1/wan2ai/2512/19/2157.mp4
+ * 输出: "251218-3423" 或 "251219-2157"
  * 
  * @param url 视频的完整URL
  * @returns 短ID字符串，格式为 {年}{月}-{视频ID}
@@ -12,8 +14,13 @@ export const getShareVideoId = (url: string): string => {
   }
   
   // 尝试匹配 topic_1/infinitetalk/{年}/{月}/{视频ID}.mp4 格式
-  // 支持多种域名：resp.infinitetalkai.com, resp.wan2video.com 等
-  const match = url.match(/topic_1\/infinitetalk\/(\d+)\/(\d+)\/(\d+)\.mp4/)
+  let match = url.match(/topic_1\/infinitetalk\/(\d+)\/(\d+)\/(\d+)\.mp4/)
+  if (match) {
+    return `${match[1]}${match[2]}-${match[3]}`
+  }
+  
+  // 尝试匹配 topic_1/wan2ai/{年}/{月}/{视频ID}.mp4 格式
+  match = url.match(/topic_1\/wan2ai\/(\d+)\/(\d+)\/(\d+)\.mp4/)
   if (match) {
     return `${match[1]}${match[2]}-${match[3]}`
   }
@@ -25,12 +32,17 @@ export const getShareVideoId = (url: string): string => {
 
 /**
  * 从短ID还原完整视频URL
+ * 默认使用 wan2ai 路径（因为 Christmas 视频使用此路径）
  * @param year 年份，如 "2512"
- * @param month 月份，如 "18"
+ * @param month 月份，如 "18" 或 "19"
  * @param videoId 视频ID，如 "3423"
+ * @param useWan2ai 是否使用 wan2ai 路径，默认为 true
  * @returns 完整的视频URL
  */
-export const buildShareVideoUrl = (year: string, month: string, videoId: string): string => {
+export const buildShareVideoUrl = (year: string, month: string, videoId: string, useWan2ai: boolean = true): string => {
+  if (useWan2ai) {
+    return `https://resp.wan2video.com/topic_1/wan2ai/${year}/${month}/${videoId}.mp4`
+  }
   return `https://resp.infinitetalkai.com/topic_1/infinitetalk/${year}/${month}/${videoId}.mp4`
 }
 
