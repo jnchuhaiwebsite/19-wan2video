@@ -492,8 +492,10 @@
                       :muted="isVideoMuted"
                       controls
                       playsinline
+                      autoplay
                       @loadedmetadata="onVideoMetadata"
                       @play="onResultVideoPlay"
+                      @loadeddata="onGeneratedVideoLoaded"
                     ></video>
 
                     <template v-else>
@@ -638,8 +640,10 @@
                       :muted="isVideoMuted"
                       controls
                       playsinline
+                      autoplay
                       @loadedmetadata="onVideoMetadata"
                       @play="onResultVideoPlay"
+                      @loadeddata="onGeneratedVideoLoaded"
                     ></video>
                     <template v-else>
                       <video
@@ -1026,6 +1030,24 @@ const onPreviewVideoPlay = () => {
       player.pause();
       player.currentTime = 0;
       isAudioPlaying.value = false;
+    }
+  }
+};
+
+// 生成视频加载完成后，自动播放并开启声音
+const onGeneratedVideoLoaded = async () => {
+  const resultVideo = isVertical.value ? resultVideoVertical.value : resultVideoHorizontal.value;
+  if (resultVideo) {
+    // 确保视频取消静音
+    resultVideo.muted = false;
+    isVideoMuted.value = false;
+    
+    // 尝试自动播放
+    try {
+      await resultVideo.play();
+    } catch (err) {
+      console.log('Auto-play prevented:', err);
+      // 如果自动播放被阻止，用户需要手动点击播放
     }
   }
 };
