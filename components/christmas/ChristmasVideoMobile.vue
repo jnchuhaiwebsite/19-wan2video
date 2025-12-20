@@ -302,15 +302,38 @@
       >
         <div class="flex flex-col items-center justify-center gap-6 px-6 text-center">
           <!-- 旋转雪花动画 -->
-          <svg t="1765265099439" class="w-10 h-10 animate-spin-slow icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10181" width="200" height="200"><path d="M496 30.4L472 72v880l24 41.6 24-41.6V72z" fill="#59C2E0" p-id="10182"></path><path d="M496 240l-96-64v-48l96 64zM496 336L368 256v-48l128 80zM496 240l96-64v-48l-96 64zM496 336l128-80v-48L496 288zM496 784l-96 64v48l96-64zM496 688L368 768v48l128-80zM496 784l96 64v48l-96-64zM496 688l128 80v48L496 736z" fill="#59C2E0" p-id="10183"></path><path d="M79.2 752.8h48l761.6-440 24-41.6h-48l-761.6 440z" fill="#59C2E0" p-id="10184"></path><path d="M260 648l-7.2 115.2-41.6 24 7.2-115.2zM343.2 600l-5.6 151.2-41.6 24 5.6-151.2z" fill="#59C2E0" p-id="10185"></path><path d="M260 648l-103.2-51.2-41.6 24L218.4 672zM343.2 600l-133.6-70.4-41.6 24L301.6 624zM731.2 376l103.2 51.2 41.6-24L772.8 352zM648 424l133.6 71.2 41.6-24L689.6 400z" fill="#59C2E0" p-id="10186"></path><path d="M731.2 376l7.2-115.2 41.6-24-7.2 115.2zM648 424l5.6-150.4 41.6-24-5.6 150.4z" fill="#59C2E0" p-id="10187"></path><path d="M912.8 752.8h-48l-761.6-440-24-41.6h48l761.6 440z" fill="#59C2E0" p-id="10188"></path><path d="M732 648l7.2 115.2 41.6 24-7.2-115.2zM648.8 600l5.6 151.2 41.6 24-5.6-151.2z" fill="#59C2E0" p-id="10189"></path><path d="M732 648l103.2-51.2 41.6 24L773.6 672zM648.8 600l133.6-70.4 41.6 24L690.4 624zM260.8 376l-103.2 51.2-41.6-24L219.2 352zM344 424l-133.6 71.2-41.6-24L302.4 400zM260.8 376l-7.2-115.2-41.6-24 7.2 115.2z" fill="#59C2E0" p-id="10190"></path><path d="M344 424l-5.6-150.4-41.6-24 5.6 150.4z" fill="#59C2E0" p-id="10191"></path><path d="M496 663.2l-131.2-75.2V436.8L496 360.8l131.2 75.2v151.2L496 663.2zM404.8 564.8L496 616.8l91.2-52.8v-104L496 407.2l-91.2 52.8v104.8z" fill="#59C2E0" p-id="10192"></path></svg>
-          
-          <div class="flex flex-col gap-2">
-            <p class="text-lg font-semibold text-emerald-50">
-              {{ statusMessage || 'Generating video...' }}
+       
+          <div class="christmas-progress-content">
+            <svg
+              t="1765265099439"
+              class="christmas-progress-spinner"
+              viewBox="0 0 1024 1024"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              p-id="10181"
+              width="200"
+              height="200"
+            >
+              <path d="M496 30.4L472 72v880l24 41.6 24-41.6V72z" fill="#59C2E0" p-id="10182"></path>
+              <path d="M496 240l-96-64v-48l96 64zM496 336L368 256v-48l128 80zM496 240l96-64v-48l-96 64zM496 336l128-80v-48L496 288zM496 784l-96 64v48l96-64zM496 688L368 768v48l128-80zM496 784l96 64v48l-96-64zM496 688l128 80v48L496 736z" fill="#59C2E0" p-id="10183"></path>
+              <path d="M79.2 752.8h48l761.6-440 24-41.6h-48l-761.6 440z" fill="#59C2E0" p-id="10184"></path>
+              <path d="M260 648l-7.2 115.2-41.6 24 7.2-115.2zM343.2 600l-5.6 151.2-41.6 24 5.6-151.2z" fill="#59C2E0" p-id="10185"></path>
+              <path d="M260 648l-103.2-51.2-41.6 24L218.4 672zM343.2 600l-133.6-70.4-41.6 24L301.6 624zM731.2 376l103.2 51.2 41.6-24L772.8 352zM648 424l133.6 71.2 41.6-24L689.6 400z" fill="#59C2E0" p-id="10186"></path>
+              <path d="M731.2 376l7.2-115.2 41.6-24-7.2 115.2zM648 424l5.6-150.4 41.6-24-5.6 150.4z" fill="#59C2E0" p-id="10187"></path>
+              <path d="M912.8 752.8h-48l-761.6-440-24-41.6h48l761.6 440z" fill="#59C2E0" p-id="10188"></path>
+              <path d="M732 648l7.2 115.2 41.6 24-7.2-115.2zM648.8 600l5.6 151.2 41.6 24-5.6-151.2z" fill="#59C2E0" p-id="10189"></path>
+              <path d="M732 648l103.2-51.2 41.6 24L773.6 672zM648.8 600l133.6-70.4 41.6 24L690.4 624zM260.8 376l-103.2 51.2-41.6-24L219.2 352zM344 424l-133.6 71.2-41.6-24L302.4 400zM260.8 376l-7.2-115.2-41.6-24 7.2 115.2z" fill="#59C2E0" p-id="10190"></path>
+              <path d="M344 424l-5.6-150.4-41.6-24 5.6 150.4z" fill="#59C2E0" p-id="10191"></path>
+              <path d="M496 663.2l-131.2-75.2V436.8L496 360.8l131.2 75.2v151.2L496 663.2zM404.8 564.8L496 616.8l91.2-52.8v-104L496 407.2l-91.2 52.8v104.8z" fill="#59C2E0" p-id="10192"></path>
+            </svg>
+            <p class="christmas-progress-title">
+              Production takes 2-3 minutes. If you close this page, you can view your work in your personal center.
+              <NuxtLink to="/profile" class="christmas-progress-link">Go to profile</NuxtLink>
             </p>
-            <p class="text-sm text-emerald-100/70">
-              Santa's Elves are crafting your video...
-            </p>
+            <div class="christmas-progress-bar-wrapper">
+              <div class="christmas-progress-bar" :style="{ width: `${progressPercent}%` }"></div>
+            </div>
+            <p class="christmas-progress-hint">CREATING YOUR CHRISTMAS MAGIC...{{ Math.round(progressPercent) }}%</p>
           </div>
         </div>
       </div>
@@ -633,6 +656,8 @@ const startPollingStatus = (taskId: string) => {
       if (status === 1 && url) {
         // 生成成功
         isGenerating.value = false
+        progressPercent.value = 100
+        stopProgressAnimation()
         generatedVideoUrl.value = url
         showResult.value = true
         statusMessage.value = 'Video created successfully!'
@@ -672,6 +697,7 @@ const startPollingStatus = (taskId: string) => {
       } else if (status <= -1) {
         // 生成失败
         isGenerating.value = false
+        stopProgressAnimation()
         statusMessage.value = status_msg || 'Generation failed'
         $toast?.error?.(statusMessage.value)
       } else {
@@ -688,6 +714,39 @@ const startPollingStatus = (taskId: string) => {
 
   // 首次调用
   setTimeout(poll, 5000)
+}
+
+// 开始进度条动画
+const startProgressAnimation = () => {
+  progressPercent.value = 0
+  const duration = 5 * 60 * 1000 // 5分钟 = 300秒 = 300000毫秒
+  const targetProgress = 95 // 目标进度95%
+  const interval = 50 // 每50ms更新一次，让进度条更流畅
+  const totalSteps = duration / interval // 总步数
+  const increment = targetProgress / totalSteps // 每步增加的进度
+  
+  progressInterval.value = setInterval(() => {
+    progressPercent.value += increment
+    if (progressPercent.value >= targetProgress) {
+      progressPercent.value = targetProgress
+      if (progressInterval.value) {
+        clearInterval(progressInterval.value)
+        progressInterval.value = null
+      }
+    }
+  }, interval)
+}
+
+// 停止进度条动画
+const stopProgressAnimation = () => {
+  if (progressInterval.value) {
+    clearInterval(progressInterval.value)
+    progressInterval.value = null
+  }
+  // 延迟重置进度，让用户看到100%
+  setTimeout(() => {
+    progressPercent.value = 0
+  }, 2000)
 }
 
 // 触发生成
@@ -762,10 +821,12 @@ const handleGenerate = async () => {
     if (res?.success && res.data?.task_id) {
       $toast?.success?.('Task created successfully, generating video...')
       statusMessage.value = 'Generating video...'
+      startProgressAnimation()
       startPollingStatus(res.data.task_id)
     } else {
 
       isGenerating.value = false
+      stopProgressAnimation()
       const msg = res?.msg || 'Failed to create task'
       statusMessage.value = msg
       $toast?.error?.(msg)
@@ -778,6 +839,7 @@ const handleGenerate = async () => {
   } catch (err: any) {
     console.error('createChristmasVideo error', err)
     isGenerating.value = false
+    stopProgressAnimation()
     const msg = err?.msg || 'An error occurred while generating video'
     alert(msg)
     statusMessage.value = msg
@@ -792,6 +854,8 @@ const generatedVideoUrl = ref<string | null>(null)
 const statusMessage = ref('Creating video...')
 const currentTaskId = ref<string | null>(null)
 const showShareMenu = ref(false)
+const progressPercent = ref(0)
+const progressInterval = ref<NodeJS.Timeout | null>(null)
 const userStore = useUserStore()
 const freeTimes = computed(() => userStore.userInfo?.free_times || 0)
 const userInfo = computed(() => userStore.userInfo);
@@ -1095,7 +1159,46 @@ const handleShare = (platform: 'facebook' | 'twitter' | 'pinterest' | 'whatsapp'
   }
   closeShareMenu()
 }
+// 测试生成：跳过 previewGenvideo，5 秒后直接调用 checkTask 固定 ID
+const onTestGenerate = () => {
+  const testTaskId = '56033c04-359f-4183-b9d7-f0b45fc67964'
 
+  isGenerating.value = true
+  showResult.value = false
+  generatedVideoUrl.value = null
+  statusMessage.value = 'Running test task...'
+  startProgressAnimation()
+  // $toast?.info?.('Start test generation task...')
+
+  setTimeout(async () => {
+    try {
+      const res: any = await checkTask(testTaskId)
+      const data = res?.data
+      if (data && data.status === 1 && data.url) {
+        progressPercent.value = 100
+        stopProgressAnimation()
+        isGenerating.value = false
+        generatedVideoUrl.value = data.url
+        showResult.value = true
+        statusMessage.value = 'Video generated successfully!'
+        $toast?.success?.('Test video fetched successfully!')
+      } else {
+        isGenerating.value = false
+        stopProgressAnimation()
+        const msg = data?.status_msg || res?.msg || 'Test task has not completed yet'
+        statusMessage.value = msg
+        $toast?.error?.(msg)
+      }
+    } catch (err: any) {
+      console.error('checkTask test error', err)
+      isGenerating.value = false
+      stopProgressAnimation()
+      const msg = err?.msg || 'Failed to run test task'
+      statusMessage.value = msg
+      $toast?.error?.(msg)
+    }
+  }, 5000)
+}
 onMounted(() => {
   // watch 会自动监听模版变化，无需额外操作
   // 确保背景视频静音并自动播放
@@ -1213,5 +1316,67 @@ onMounted(() => {
 :global(.Vue-Toastification__toast-container--top-left),
 :global(.Vue-Toastification__toast-container--top-center) {
   top: 88px !important; /* 下移到导航下方，导航高度约80px */
+}
+
+/* 圣诞节进度条链接样式 */
+.christmas-progress-link {
+  color: #FDDD20;
+  text-decoration: underline;
+  text-decoration-color: #FDDD20;
+  transition: color 0.2s, text-decoration-color 0.2s;
+  margin-left: 0.25rem;
+}
+
+.christmas-progress-link:hover {
+  color: #E6C71D;
+  text-decoration-color: #E6C71D;
+}
+
+/* 圣诞节进度条样式 */
+.christmas-progress-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+.christmas-progress-spinner {
+  width: 2.5rem;
+  height: 2.5rem;
+  animation: spin 2.5s linear infinite;
+}
+
+.christmas-progress-title {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: rgb(209, 250, 229);
+  max-width: 24rem;
+}
+
+.christmas-progress-bar-wrapper {
+  width: 100%;
+  max-width: 20rem;
+  height: 0.5rem;
+  background-color: rgba(6, 78, 59, 0.3);
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.christmas-progress-bar {
+  height: 100%;
+  background: linear-gradient(to right, rgb(52, 211, 153), rgb(16, 185, 129));
+  border-radius: 9999px;
+  transition: width 0.5s ease-out;
+}
+
+.christmas-progress-hint {
+  font-size: 0.75rem;
+  color: rgba(209, 250, 229, 0.8);
+  margin-top: 0.25rem;
+  letter-spacing: 0.05em;
 }
 </style>

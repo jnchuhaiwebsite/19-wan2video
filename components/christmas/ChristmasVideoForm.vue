@@ -448,10 +448,10 @@
                 </button>
                 <div class="w-full h-full rounded-lg overflow-hidden bg-black/80 flex items-center justify-center">
                   <template v-if="isGenerating">
-                    <div class="flex flex-col items-center justify-center gap-3 text-center px-4">
+                    <div class="christmas-progress-content">
                       <svg
                         t="1765265099439"
-                        class="w-10 h-10 animate-spin-slow icon"
+                        class="christmas-progress-spinner"
                         viewBox="0 0 1024 1024"
                         version="1.1"
                         xmlns="http://www.w3.org/2000/svg"
@@ -471,14 +471,14 @@
                         <path d="M344 424l-5.6-150.4-41.6-24 5.6 150.4z" fill="#59C2E0" p-id="10191"></path>
                         <path d="M496 663.2l-131.2-75.2V436.8L496 360.8l131.2 75.2v151.2L496 663.2zM404.8 564.8L496 616.8l91.2-52.8v-104L496 407.2l-91.2 52.8v104.8z" fill="#59C2E0" p-id="10192"></path>
                       </svg>
-                      <p class="text-xs sm:text-sm text-emerald-50 font-medium">
-                        Santa's Elves are crafting your video...
+                      <p class="christmas-progress-title">
+                        Production takes 2-3 minutes. If you close this page, you can view your work in your personal center.
+                        <NuxtLink to="/profile" class="christmas-progress-link">Go to profile</NuxtLink>
                       </p>
-                      <br>
-                      <p class="text-xs sm:text-sm text-emerald-50 font-medium">
-                        You don't need to wait here.Check your work in the <a href="/profile" class="linkStyle" target="_blank">Profile Center</a> after 5 minutes.
-                      </p>
-                      
+                      <div class="christmas-progress-bar-wrapper">
+                        <div class="christmas-progress-bar" :style="{ width: `${progressPercent}%` }"></div>
+                      </div>
+                      <p class="christmas-progress-hint">CREATING YOUR CHRISTMAS MAGIC...{{ Math.round(progressPercent) }}%</p>
                     </div>
                   </template>
 
@@ -599,10 +599,10 @@
                 </button>
                 <!-- <div class="w-full h-full rounded-xl overflow-hidden bg-black/80 flex items-center justify-center"> -->
                   <template v-if="isGenerating">
-                    <div class="flex flex-col items-center justify-center gap-3 text-center px-4">
+                    <div class="christmas-progress-content">
                       <svg
                         t="1765265099439"
-                        class="w-10 h-10 animate-spin-slow icon"
+                        class="christmas-progress-spinner"
                         viewBox="0 0 1024 1024"
                         version="1.1"
                         xmlns="http://www.w3.org/2000/svg"
@@ -622,12 +622,14 @@
                         <path d="M344 424l-5.6-150.4-41.6-24 5.6 150.4z" fill="#59C2E0" p-id="10191"></path>
                         <path d="M496 663.2l-131.2-75.2V436.8L496 360.8l131.2 75.2v151.2L496 663.2zM404.8 564.8L496 616.8l91.2-52.8v-104L496 407.2l-91.2 52.8v104.8z" fill="#59C2E0" p-id="10192"></path>
                       </svg>
-                      <p class="text-xs sm:text-sm text-emerald-50 font-medium">
-                        Santa's Elves are crafting your video...
+                      <p class="christmas-progress-title">
+                        Production takes 2-3 minutes. If you close this page, you can view your work in your personal center.
+                        <NuxtLink to="/profile" class="christmas-progress-link">Go to profile</NuxtLink>
                       </p>
-                      <p class="text-xs sm:text-sm text-emerald-50 font-medium">
-                        You don't need to wait here.Check your work in the <a href="/profile" class="linkStyle" target="_blank">Profile Center</a> after 5 minutes.
-                      </p>
+                      <div class="christmas-progress-bar-wrapper">
+                        <div class="christmas-progress-bar" :style="{ width: `${progressPercent}%` }"></div>
+                      </div>
+                      <p class="christmas-progress-hint">CREATING YOUR CHRISTMAS MAGIC...{{ Math.round(progressPercent) }}%</p>
                     </div>
                   </template>
 
@@ -693,7 +695,7 @@
               <!-- Share on X 按钮 -->
               <button
                 type="button"
-                class="inline-flex items-center justify-center px-4 py-3 rounded-full bg-white hover:bg-gray-50 text-black font-medium transition-all duration-200 shadow-sm"
+                class="inline-flex items-center justify-center px-4 py-3 rounded-lg bg-white hover:bg-gray-50 text-black font-medium transition-all duration-200 shadow-sm"
                 @click="handleShare('twitter')"
               >
                 <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
@@ -946,6 +948,8 @@ const currentTaskId = ref<string | null>(null);
 const generatedVideoUrl = ref<string | null>(null);
 const statusMessage = ref<string>('');
 const shareVideoId = ref<string>(''); // 存储分享视频短ID
+const progressPercent = ref(0);
+const progressInterval = ref<NodeJS.Timeout | null>(null);
 
 const showShareMenu = ref(false);
 const shareMenuRef = ref<HTMLElement | null>(null);
@@ -1356,6 +1360,39 @@ const onFileChange = (e: Event) => {
   reader.readAsDataURL(file);
 };
 
+// 开始进度条动画
+const startProgressAnimation = () => {
+  progressPercent.value = 0;
+  const duration = 5 * 60 * 1000; // 5分钟 = 300秒 = 300000毫秒
+  const targetProgress = 95; // 目标进度95%
+  const interval = 50; // 每50ms更新一次，让进度条更流畅
+  const totalSteps = duration / interval; // 总步数
+  const increment = targetProgress / totalSteps; // 每步增加的进度
+  
+  progressInterval.value = setInterval(() => {
+    progressPercent.value += increment;
+    if (progressPercent.value >= targetProgress) {
+      progressPercent.value = targetProgress;
+      if (progressInterval.value) {
+        clearInterval(progressInterval.value);
+        progressInterval.value = null;
+      }
+    }
+  }, interval);
+};
+
+// 停止进度条动画
+const stopProgressAnimation = () => {
+  if (progressInterval.value) {
+    clearInterval(progressInterval.value);
+    progressInterval.value = null;
+  }
+  // 延迟重置进度，让用户看到100%
+  setTimeout(() => {
+    progressPercent.value = 0;
+  }, 2000);
+};
+
 const startPollingStatus = (taskId: string) => {
   currentTaskId.value = taskId;
 
@@ -1369,6 +1406,8 @@ const startPollingStatus = (taskId: string) => {
 
       if (status === 1 && url) {
         isGenerating.value = false;
+        progressPercent.value = 100;
+        stopProgressAnimation();
         generatedVideoUrl.value = url;
         statusMessage.value = 'Video generated successfully!';
         
@@ -1413,6 +1452,7 @@ const startPollingStatus = (taskId: string) => {
         $toast?.success?.('Video generated successfully!');
       } else if (status <= -1) {
         isGenerating.value = false;
+        stopProgressAnimation();
         statusMessage.value = status_msg || 'Generation failed';
         $toast?.error?.(statusMessage.value);
       } else {
@@ -1475,9 +1515,11 @@ const onGenerate = async () => {
 
     if (res?.success && res.data?.task_id) {
       $toast?.success?.('Preview task created, generating video...');
+      startProgressAnimation();
       startPollingStatus(res.data.task_id);
     } else {
       isGenerating.value = false;
+      stopProgressAnimation();
       const msg = res?.msg || 'Failed to create preview task.';
       $toast?.error?.(msg);
       if(msg ==='Credits is insufficient, Please recharge'){
@@ -1489,6 +1531,7 @@ const onGenerate = async () => {
   } catch (err: any) {
     console.error('previewGenvideo error', err);
     isGenerating.value = false;
+    stopProgressAnimation();
     const msg = err?.msg || 'An error occurred while creating preview video.';
     
     $toast?.error?.(msg);
@@ -1496,34 +1539,39 @@ const onGenerate = async () => {
 };
 
 const onTestGenerate = () => {
-  const testTaskId = '56033c04-359f-4183-b9d7-f0b45fc67964';
+  const testTaskId = 'b5ba1a3c-7702-40af-8ab0-2e472bdabeb4';
 
   isGenerating.value = true;
   generatedVideoUrl.value = null;
   statusMessage.value = 'Running test task...';
+  startProgressAnimation();
 
   setTimeout(async () => {
     try {
       const res: any = await checkTask(testTaskId);
       const data = res?.data;
       if (data && data.status === 1 && data.url) {
+        progressPercent.value = 100;
+        stopProgressAnimation();
         generatedVideoUrl.value =  data.url;
         statusMessage.value = 'Video generated successfully!';
         $toast?.success?.('Test video fetched successfully!');
       } else {
         const msg = data?.status_msg || res?.msg || 'Test task has not completed yet.';
         statusMessage.value = msg;
+        stopProgressAnimation();
         $toast?.error?.(msg);
       }
     } catch (err: any) {
       console.error('checkTask test error', err);
       const msg = err?.msg || 'Failed to run test task.';
       statusMessage.value = msg;
+      stopProgressAnimation();
       $toast?.error?.(msg);
     } finally {
       isGenerating.value = false;
     }
-  }, 5000);
+  }, 50000);
 };
 
 const copyShareLink = async () => {
@@ -1730,5 +1778,80 @@ defineExpose({
 .linkStyle:hover {
   color: #E6C71D;
   text-decoration-color: #E6C71D;
+}
+
+/* 进度条滚动动画 */
+@keyframes slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
+}
+
+.animate-slide {
+  animation: slide 2s ease-in-out infinite;
+}
+
+/* 圣诞节进度条样式 */
+.christmas-progress-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+.christmas-progress-spinner {
+  width: 2.5rem;
+  height: 2.5rem;
+  animation: spin 2.5s linear infinite;
+}
+
+.christmas-progress-title {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: rgb(209, 250, 229);
+  max-width: 24rem;
+}
+
+.christmas-progress-link {
+  color: #FDDD20;
+  text-decoration: underline;
+  text-decoration-color: #FDDD20;
+  transition: color 0.2s, text-decoration-color 0.2s;
+  margin-left: 0.25rem;
+}
+
+.christmas-progress-link:hover {
+  color: #E6C71D;
+  text-decoration-color: #E6C71D;
+}
+
+.christmas-progress-bar-wrapper {
+  width: 100%;
+  max-width: 20rem;
+  height: 0.5rem;
+  background-color: rgba(6, 78, 59, 0.3);
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.christmas-progress-bar {
+  height: 100%;
+  background: linear-gradient(to right, rgb(52, 211, 153), rgb(16, 185, 129));
+  border-radius: 9999px;
+  transition: width 0.5s ease-out;
+}
+
+.christmas-progress-hint {
+  font-size: 0.75rem;
+  color: rgba(209, 250, 229, 0.8);
+  margin-top: 0.25rem;
+  letter-spacing: 0.05em;
 }
 </style>
