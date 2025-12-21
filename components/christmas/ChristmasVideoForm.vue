@@ -363,13 +363,13 @@
             </span>
           </div>
 
-          <!-- <button
+          <button
             type="button"
             class="mt-1 inline-flex items-center px-4 py-1.5 rounded-full text-[11px] font-medium bg-slate-700/80 hover:bg-slate-600 text-slate-100"
             @click="onTestGenerate"
           >
             Test Generate (mock task)
-          </button> -->
+          </button>
         </div>
       </div>
 
@@ -446,7 +446,13 @@
                     <line x1="16" x2="22" y1="9" y2="15"></line>
                   </svg>
                 </button>
-                <div class="w-full h-full rounded-lg overflow-hidden bg-black/80 flex items-center justify-center">
+                <div class="w-full h-full rounded-lg overflow-hidden bg-black/80 flex items-center justify-center relative">
+                  <!-- 生成视频时的底部黑色半透明背景（横版） -->
+                  <div
+                    v-if="isGenerating"
+                    class="absolute bottom-0 left-0 right-0 z-20"
+                    style="height: 40%; background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)); pointer-events: none;"
+                  ></div>
                   <template v-if="isGenerating">
                     <div class="christmas-progress-content">
                       <svg
@@ -597,7 +603,13 @@
                     <line x1="16" x2="22" y1="9" y2="15"></line>
                   </svg>
                 </button>
-                <!-- <div class="w-full h-full rounded-xl overflow-hidden bg-black/80 flex items-center justify-center"> -->
+                <div class="w-full h-full rounded-xl overflow-hidden bg-black/80 flex items-center justify-center relative">
+                  <!-- 生成视频时的底部黑色半透明背景（竖版） -->
+                  <div
+                    v-if="isGenerating"
+                    class="absolute bottom-0 left-0 right-0 z-20"
+                    style="height: 40%; background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)); pointer-events: none;"
+                  ></div>
                   <template v-if="isGenerating">
                     <div class="christmas-progress-content">
                       <svg
@@ -677,7 +689,7 @@
                       </template>
                     </template>
                   </template>
-                <!-- </div> -->
+                </div>
               </div>
             </div>
           </div>
