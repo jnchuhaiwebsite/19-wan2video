@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | Wan2Video</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --accent-color: #8b5cf6;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-light: #94a3b8;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            padding: 60px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--bg-gradient);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 80px;
+            height: 2px;
+            background: var(--bg-gradient);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: var(--bg-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .effective-date {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 10px 20px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .effective-date::before {
+            content: '📅';
+            font-size: 1.2rem;
+        }
+
+        section {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        section:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--bg-gradient);
+            border-radius: 16px 0 0 16px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        section:hover::before {
+            opacity: 1;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            padding-left: 16px;
+        }
+
+        h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--bg-gradient);
+            border-radius: 2px;
+        }
+
+        h2::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, var(--primary-light), transparent);
+            margin-left: 12px;
+        }
+
+        p {
+            margin-bottom: 18px;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        ul {
+            margin-left: 0;
+            margin-bottom: 20px;
+            list-style: none;
+        }
+
+        li {
+            margin-bottom: 16px;
+            padding-left: 32px;
+            position: relative;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--bg-gradient);
+            color: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 700;
+            box-shadow: var(--shadow-sm);
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+            background: linear-gradient(120deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--bg-gradient);
+            transition: width 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+        }
+
+        a:hover::after {
+            width: 100%;
+        }
+
+        .last-updated {
+            margin-top: 60px;
+            padding: 24px;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-align: center;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .last-updated::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        .section-number {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background: var(--bg-gradient);
+            color: white;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            margin-right: 12px;
+            box-shadow: var(--shadow-md);
+        }
+
+        h2 .section-number {
+            margin-right: 0;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+
+            .container {
+                padding: 40px 24px;
+                border-radius: 16px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            section {
+                padding: 24px;
+                margin-bottom: 32px;
+            }
+
+            p, li {
+                font-size: 1rem;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-primary: #f1f5f9;
+                --text-secondary: #cbd5e1;
+                --text-light: #94a3b8;
+                --bg-primary: #1e293b;
+                --bg-secondary: #0f172a;
+                --border-color: #334155;
+            }
+
+            body {
+                background: var(--bg-secondary);
+                background-image: 
+                    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
+            }
+
+            .container {
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+            }
+
+            section:hover {
+                background: #1e293b;
+            }
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--bg-gradient);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Privacy Policy</h1>
+            <p class="effective-date">Effective Date: December 22, 2025</p>
+        </div>
+
+        <section>
+            <h2><span class="section-number">1</span>Introduction</h2>
+            <p>Welcome to Wan 2.2 Plus ("we," "our," or "us"). This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our AI-powered video generation service (the "Service"). Your privacy is of the utmost importance to us.</p>
+        </section>
+
+        <section>
+            <h2><span class="section-number">2</span>Information We Collect</h2>
+            <p>To provide and improve our Service, we collect the following types of information:</p>
+            <ul>
+                <li><strong>Account Information:</strong> When you register for an account, we collect your email address, password, and any profile details you choose to provide.</li>
+                <li><strong>User Content:</strong> This includes the inputs you provide to the Service, such as text prompts for Text-to-Video generation and images you upload for Image-to-Video generation. It also includes the final videos generated by the Service.</li>
+                <li><strong>Usage Data:</strong> We automatically collect information about how you interact with our Service. This may include your IP address, browser type, device information, features used, and the time and date of your activities.</li>
+                <li><strong>Payment Information:</strong> If you subscribe to a paid plan, our payment processor, Stripe, will collect and process your credit card details and billing information. We do not store your full credit card information on our servers.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2><span class="section-number">3</span>How We Use Your Information</h2>
+            <p>We use the information we collect for various purposes, including to:</p>
+            <ul>
+                <li>Provide, operate, and maintain our video generation Service.</li>
+                <li>Process your requests, generate your videos, and manage your account.</li>
+                <li>Improve the quality, safety, and accuracy of our AI models and the Service.</li>
+                <li>Communicate with you, including sending service-related notifications, updates, and responding to your support inquiries.</li>
+                <li>Process transactions and prevent fraudulent activity.</li>
+                <li>Enforce our Terms of Service and ensure compliance with our policies.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2><span class="section-number">4</span>Data Retention</h2>
+            <p>We retain your data only for as long as necessary to fulfill the purposes outlined in this policy.</p>
+            <ul>
+                <li><strong>Account Information</strong> is retained for as long as your account is active.</li>
+                <li><strong>Generated Videos and User Content</strong> are stored temporarily to allow you to access and download them. This content may be automatically deleted after a set period (e.g., 30 days) unless you explicitly save it to a personal gallery.</li>
+                <li><strong>Anonymized prompts and usage data</strong> may be retained for longer periods for the sole purpose of service improvement and statistical analysis.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2><span class="section-number">5</span>Information Sharing</h2>
+            <p>We are committed to protecting your privacy and do not sell your personal information. We may share your information only in the following limited circumstances:</p>
+            <ul>
+                <li>With trusted third-party <strong>service providers</strong> who help us operate our platform, such as cloud hosting providers (e.g., AWS, Google Cloud) and our payment processor (Stripe).</li>
+                <li>With <strong>legal authorities</strong> if required by law, court order, or other governmental request.</li>
+                <li>In connection with a <strong>business transaction</strong>, such as a merger, acquisition, or sale of assets, where your information may be transferred as part of the deal.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2><span class="section-number">6</span>Your Data Rights</h2>
+            <p>You have rights over your personal data. Depending on your location, these may include the right to:</p>
+            <ul>
+                <li>Access the personal information we hold about you.</li>
+                <li>Request corrections to any inaccurate information.</li>
+                <li>Request the deletion of your personal information and account.</li>
+                <li>Export your data in a machine-readable format.</li>
+            </ul>
+            <p>To exercise these rights, please contact our support team at <a href="mailto:support@wan2video.com">support@wan2video.com</a>.</p>
+        </section>
+
+        <section>
+            <h2><span class="section-number">7</span>Security</h2>
+            <p>We implement robust technical and organizational security measures designed to protect your information from unauthorized access, use, or disclosure. However, no method of transmission over the internet or electronic storage is 100% secure, and we cannot guarantee absolute security.</p>
+        </section>
+
+        <section>
+            <h2><span class="section-number">8</span>Children's Privacy</h2>
+            <p>Our Service is not directed to or intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If we become aware that we have collected such information, we will take steps to delete it.</p>
+        </section>
+
+        <section>
+            <h2><span class="section-number">9</span>Changes to This Privacy Policy</h2>
+            <p>We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We will notify you of any material changes by posting the new policy on our website and updating the "Effective Date" at the top.</p>
+        </section>
+
+        <section>
+            <h2><span class="section-number">10</span>Contact Us</h2>
+            <p>If you have any questions, concerns, or requests regarding this Privacy Policy, please do not hesitate to contact us at: <a href="mailto:support@wan2video.com">support@wan2video.com</a></p>
+        </section>
+
+        <p class="last-updated">Last updated: December 22, 2025</p>
+    </div>
+</body>
+</html>
