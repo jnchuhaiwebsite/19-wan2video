@@ -537,7 +537,7 @@
                 class="w-full h-full object-contain select-none pointer-events-none relative z-20"
               />
               <div
-                class="absolute flex items-center justify-center z-10 overflow-hidden"
+                class="absolute flex items-center justify-center z-10 overflow-hidden  bg-black/80 "
                 style="left: 6%; top: 0; width: 87%; height: 100%;border-radius: 60px;"
               >
                 <!-- 音频控制按钮（竖版） -->
@@ -589,7 +589,7 @@
                 </button>
                 <!-- <div class="w-full h-full rounded-xl overflow-hidden bg-black/80 flex items-center justify-center"> -->
                   <template v-if="isGenerating">
-                    <div class="christmas-progress-content">
+                    <div class="christmas-progress-content ">
                       <svg
                         t="1765265099439"
                         class="christmas-progress-spinner"
