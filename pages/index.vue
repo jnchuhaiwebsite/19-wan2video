@@ -17,7 +17,7 @@
       <Wan26Advantages />
       
       <!-- Why Creators Choose Wan 2.6 (Benefits) -->
-      <WhyCreatorsChooseWan26 />
+      <!-- <WhyCreatorsChooseWan26 /> -->
       
       <!-- Wan 2.5 vs Wan 2.6 -->
       <Wan25VsWan26 />
