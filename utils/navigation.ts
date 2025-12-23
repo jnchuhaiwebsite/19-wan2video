@@ -8,17 +8,25 @@ export interface RouteItem {
   icon?: string
   href?: string
   badge?: string
+  children?: RouteItem[]
   badgePosition?: 'center' | 'left' | 'right' // badge位置：center=上方居中, left=左上角, right=右上角
   openInNewTab?: boolean // 是否在新标签页打开
   showBeta?: boolean // 是否显示 Beta 标签
+  isNew?: boolean // 是否显示 New 标签
+  linkTitle?: string // 链接的 title 属性
 }
 
 // 主路由配置
 export const mainRoutes: RouteItem[] = [
+  { id: "home", name: "Home", href: "/", icon: "HomeIcon" },
   { id: "christmas", name: "Christmas", href: "/christmas", icon: "christmas" },
-  { id: "hero", name: "Wan 2.2", icon: "HomeIcon" },
-  { id: "wan-2.5", name: "Wan 2.5", href: "/wan-2-5-ai", icon: "Wan25Icon" },
-  { id: "wan-2.6", name: "Wan 2.6", href: "/wan/wan-2-6", icon: "Wan26Icon" },
+  { id: "wanAI", name: "Wan AI", icon: "HomeIcon",
+    children: [
+      { id: "wan-2.2", name: "Wan 2.2", href: "/wan/wan-2-2", icon: "Wan22Icon" },
+      { id: "wan-2.5", name: "Wan 2.5", href: "/wan/wan-2-5", icon: "Wan25Icon" },
+      { id: "wan-2.6", name: "Wan 2.6", href: "/wan/wan-2-6", icon: "Wan26Icon" },
+    ]
+   },
   { id: "pricing", name: "Pricing", icon: "TagIcon", href: "/pricing" },
   { id: "blog", name: "Blog", href: "/blog", icon: "BookOpenIcon" },
   { id: "mobile-app", name: "Mobile App", href: "/wan-mobile-app", icon: "PhoneIcon" },
