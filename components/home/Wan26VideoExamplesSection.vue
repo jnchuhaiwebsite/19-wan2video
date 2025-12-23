@@ -110,64 +110,64 @@ interface VideoItem {
 const videoItems = ref<VideoItem[]>([
   {
     title: 'Moonlight Waltz',
-    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/moonlight-waltz.webp',
-    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/moonlight-waltz.mp4',
+    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/wan-2-6_examples_1.webp',
+    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/wan-2-6_examples_1.mp4',
     loading: false,
     videoLoaded: false
   },
   {
     title: 'Floral Reverie',
-    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/floral-reverie.webp',
-    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/floral-reverie.mp4',
+    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/wan-2-6_examples_2.webp',
+    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/wan-2-6_examples_2.mp4',
     loading: false,
     videoLoaded: false
   },
   {
     title: 'Dinner for Two',
-    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/dinner-for-two.webp',
-    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/dinner-for-two.mp4',
+    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/wan-2-6_examples_3.webp',
+    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/wan-2-6_examples_3.mp4',
     loading: false,
     videoLoaded: false
   },
   {
     title: 'When Flowers Took Flight',
-    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/when-flowers-took-flight.webp',
-    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/when-flowers-took-flight.mp4',
+    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/wan-2-6_examples_4.webp',
+    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/wan-2-6_examples_4.mp4',
     loading: false,
     videoLoaded: false
   },
   {
     title: 'The Last Sign of Life',
-    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/the-last-sign-of-life.webp',
-    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/the-last-sign-of-life.mp4',
+    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/wan-2-6_examples_5.webp',
+    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/wan-2-6_examples_5.mp4',
     loading: false,
     videoLoaded: false
   },
   {
     title: 'The Luminous Run',
-    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/the-luminous-run.webp',
-    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/the-luminous-run.mp4',
+    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/wan-2-6_examples_6.webp',
+    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/wan-2-6_examples_6.mp4',
     loading: false,
     videoLoaded: false
   },
   {
     title: 'The Long Walk Home',
-    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/the-long-walk-home.webp',
-    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/the-long-walk-home.mp4',
+    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/wan-2-6_examples_7.webp',
+    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/wan-2-6_examples_7.mp4',
     loading: false,
     videoLoaded: false
   },
   {
     title: 'On Guard',
-    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/on-guard.webp',
-    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/on-guard.mp4',
+    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/wan-2-6_examples_8.webp',
+    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/wan-2-6_examples_8.mp4',
     loading: false,
     videoLoaded: false
   },
   {
     title: 'Zoomies Incoming',
-    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/zoomies-incoming.webp',
-    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/zoomies-incoming.mp4',
+    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/wan-2-6_examples_9.webp',
+    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/wan-2-6_examples_9.mp4',
     loading: false,
     videoLoaded: false
   }
