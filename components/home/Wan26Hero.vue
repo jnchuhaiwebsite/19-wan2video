@@ -53,15 +53,16 @@
 
         <!-- 标题：字号加大，使用响应式 clamp -->
         <h1 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-white mb-8 leading-[1.1]">
-          <span class="block text-white drop-shadow-2xl">The Future of</span>
+      
           <span class="title-glow bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            AI Video Creation
+     Wan 2.6
           </span>
+              <span class="block text-white drop-shadow-2xl">      AI Video Generator </span>
         </h1>
         
         <!-- 副标题：提升对比度 -->
         <p class="text-lg md:text-xl lg:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-12 text-pretty drop-shadow-lg">
-          Transform your ideas into cinematic masterpieces with stable characters, multi-shot storytelling, and 1080P precision.
+Create cinematic AI videos with multi-shot storytelling, stable characters, and natural audio-visual sync in up to 1080P quality.
         </p>
         
         <!-- CTA 按钮组 -->
