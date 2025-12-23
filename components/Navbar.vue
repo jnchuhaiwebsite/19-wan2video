@@ -55,7 +55,7 @@
                 <li v-if="section.children && section.children.length" class="relative group/main">
                   <div
                     class="relative transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:shadow-lg whitespace-nowrap flex items-center gap-2"
-                    :class="section.id === 'christmas' ? 'christmas-nav-link' : 'text-blue-navtext hover:text-blue-dark'"
+                    :class="section.id === 'christmas' ? 'christmas-nav-link' : 'text-white hover:text-blue-100'"
                     @click="section.href ? (section.openInNewTab ? handleLinkClick(section.href, section.openInNewTab) : router.push(section.href)) : null"
                   >
                     <span class="relative">
@@ -186,7 +186,7 @@
                     v-if="section.openInNewTab"
                     @click="handleLinkClick(section.href || `/#${section.id}`, section.openInNewTab)"
                     class="relative transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:shadow-lg whitespace-nowrap flex items-center gap-2"
-                    :class="section.id === 'christmas' ? 'christmas-nav-link' : 'text-blue-navtext hover:text-blue-dark'"
+                    :class="section.id === 'christmas' ? 'christmas-nav-link' : 'text-white hover:text-blue-100'"
                   >
                     {{ section.name }}
                     <span v-if="section.badge" class="absolute -top-3 left-full -ml-2 bg-red-500 text-white text-[9px] font-bold rounded-full px-1.5 py-0.5 leading-none shadow-sm">
@@ -212,7 +212,7 @@
                     v-else
                     :to="section.href || `/#${section.id}`"
                     class="relative transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:shadow-lg whitespace-nowrap flex items-center gap-2"
-                    :class="section.id === 'christmas' ? 'christmas-nav-link' : 'text-blue-navtext hover:text-blue-dark'"
+                    :class="section.id === 'christmas' ? 'christmas-nav-link' : 'text-white hover:text-blue-100'"
                     @click="handleMenuClick"
                   >
                     {{ section.name }}

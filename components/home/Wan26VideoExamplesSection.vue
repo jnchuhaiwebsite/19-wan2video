@@ -1,96 +1,94 @@
 <template>
-  <section class="py-24 bg-gradient-to-br from-white via-blue-50 to-purple-50 relative overflow-hidden">
-    <!-- 背景装饰 -->
-    <div class="absolute inset-0 opacity-20">
-      <div
-        class="absolute top-1/4 left-1/5 w-80 h-80 bg-gradient-to-br from-blue-200 to-indigo-200 rounded-full blur-3xl"
-      ></div>
-      <div
-        class="absolute bottom-1/4 right-1/5 w-72 h-72 bg-gradient-to-tr from-indigo-200 to-purple-200 rounded-full blur-3xl"
-      ></div>
+  <section class="py-24 bg-[#fafaff] relative overflow-hidden">
+    <!-- 动态背景装饰 -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-[-10%] left-[-5%] w-[40rem] h-[40rem] bg-blue-100/50 rounded-full blur-[120px] animate-pulse-slow"></div>
+      <div class="absolute bottom-[-10%] right-[-5%] w-[35rem] h-[35rem] bg-purple-100/50 rounded-full blur-[120px] animate-pulse-slow" style="animation-delay: 2s;"></div>
     </div>
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
-      <!-- 标题 & 副标题 -->
-      <div class="text-center mb-14">
-        <h2
-          class="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mb-5 leading-tight"
-        >
-          Explore Real Wan 2.6 Video Creations
+      <!-- 标题区域 -->
+      <div class="text-center mb-16 space-y-4">
+
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 mb-6">
+          Explore Real <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Wan 2.6</span> Video Generations
         </h2>
-        <p class="max-w-3xl mx-auto text-base md:text-lg text-gray-700 leading-relaxed">
+        <p class="max-w-2xl mx-auto text-lg text-gray-500 leading-relaxed font-light">
           Browse sample videos to understand how Wan 2.6 handles storytelling, character consistency, and audio-visual flow.
         </p>
       </div>
 
       <!-- 视频网格 -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         <div
           v-for="(item, index) in videoItems"
           :key="index"
-          class="group relative overflow-hidden rounded-2xl shadow-lg bg-white/80 backdrop-blur-sm border border-purple-100/60 hover:border-purple-200 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+          class="group relative flex flex-col bg-white rounded-3xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgba(79,70,229,0.15)] transition-all duration-500 border border-gray-100/50"
           @mouseenter="handleMouseEnter(index)"
+          @mouseleave="handleMouseLeave(index)"
           @click="handleClick(index)"
         >
-          <!-- 图片封面 -->
-          <div
-            v-if="!item.videoLoaded"
-            class="relative aspect-video bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden"
-          >
-            <img
-              :src="item.imageUrl"
-              :alt="item.title"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              loading="lazy"
-            />
-            
-            <!-- Loading 状态 -->
-            <div
-              v-if="item.loading"
-              class="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm"
-            >
-              <div class="flex flex-col items-center gap-3">
-                <div class="w-12 h-12 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
-                <p class="text-white text-sm font-medium">Loading...</p>
+          <!-- 媒体容器 -->
+          <div class="relative aspect-video overflow-hidden">
+            <!-- 封面图 (淡出动画) -->
+            <transition name="fade">
+              <div v-if="!item.videoLoaded" class="absolute inset-0 z-10">
+                <img
+                  :src="item.imageUrl"
+                  :alt="item.title"
+                  class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+                />
+                <!-- 播放提示遮罩 -->
+                <div class="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+                  <div class="w-14 h-14 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/40 transform scale-90 group-hover:scale-100 transition-all duration-300">
+                    <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                  </div>
+                </div>
               </div>
-            </div>
-            
-            <!-- 播放按钮 -->
-            <div
-              v-if="!item.loading && !item.videoLoaded"
-              class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-all duration-300 cursor-pointer"
-            >
-              <div class="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-2xl transform group-hover:scale-110 transition-transform duration-300">
-                <svg class="w-8 h-8 text-purple-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-            </div>
-          </div>
+            </transition>
 
-          <!-- 视频元素 -->
-          <div
-            v-if="item.videoLoaded"
-            class="relative aspect-video bg-black overflow-hidden"
-          >
+            <!-- 视频主体 -->
             <video
+              v-if="item.videoLoaded || item.loading"
               :ref="el => setVideoRef(index, el)"
               :src="item.videoUrl"
               loop
               muted
               playsinline
-              autoplay
               class="w-full h-full object-cover"
+              :class="{'opacity-0': item.loading, 'opacity-100': item.videoLoaded}"
               @loadeddata="handleVideoLoaded(index)"
-              @error="handleVideoError(index)"
             ></video>
+
+            <!-- 加载状态 -->
+            <div v-if="item.loading" class="absolute inset-0 z-20 flex items-center justify-center bg-gray-50/50 backdrop-blur-sm">
+              <div class="relative w-10 h-10">
+                <div class="absolute inset-0 border-2 border-blue-500/20 rounded-full"></div>
+                <div class="absolute inset-0 border-2 border-blue-600 rounded-full border-t-transparent animate-spin"></div>
+              </div>
+            </div>
+
+            <!-- AI 标签 (装饰) -->
+            <div class="absolute top-3 left-3 z-30">
+              <span class="px-2 py-1 text-[10px] font-bold text-white bg-black/30 backdrop-blur-md rounded-md border border-white/20 uppercase">
+                Wan 2.6
+              </span>
+            </div>
           </div>
 
-          <!-- 视频标题 -->
-          <div class="p-4 bg-white/90 backdrop-blur-sm">
-            <h3 class="text-sm font-semibold text-gray-900 line-clamp-1">
-              {{ item.title }}
-            </h3>
+          <!-- 底部信息 -->
+          <div class="p-5 flex items-center justify-between bg-white relative">
+            <div class="flex-1 min-w-0">
+              <h3 class="text-base font-bold text-gray-800 truncate group-hover:text-blue-600 transition-colors duration-300">
+                {{ item.title }}
+              </h3>
+              <p class="text-xs text-gray-400 mt-1 uppercase tracking-wider font-medium">Cinematic • 4K AI</p>
+            </div>
+            <div class="ml-4 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+              <div class="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -178,114 +176,83 @@ const videoItems = ref<VideoItem[]>([
 const videoRefs = ref<(HTMLVideoElement | null)[]>([])
 const isMobile = ref(false)
 
-// 检测是否为移动设备
 const checkMobile = () => {
   if (typeof window === 'undefined') return
-  isMobile.value = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768
+  isMobile.value = window.innerWidth < 768
 }
 
-// 设置视频引用
 const setVideoRef = (index: number, el: any) => {
-  if (el && el instanceof HTMLVideoElement) {
-    videoRefs.value[index] = el
-  }
+  if (el) videoRefs.value[index] = el
 }
 
-// 开始加载视频
 const startLoadingVideo = (index: number) => {
   const item = videoItems.value[index]
-  
-  // 如果已经在加载或已加载，则返回
   if (item.loading || item.videoLoaded) return
-  
-  // 设置加载状态
   item.loading = true
-  
-  // 创建视频元素进行预加载
-  const video = document.createElement('video')
-  video.src = item.videoUrl
-  video.preload = 'auto'
-  
-  video.addEventListener('loadeddata', () => {
-    item.loading = false
-    item.videoLoaded = true
-    
-    // 确保视频元素已挂载后再播放
-    setTimeout(() => {
-      const videoEl = videoRefs.value[index]
-      if (videoEl) {
-        videoEl.play().catch(err => {
-          console.error(`视频 ${index} 播放失败:`, err)
-        })
-      }
-    }, 100)
-  })
-  
-  video.addEventListener('error', () => {
-    item.loading = false
-    console.error(`视频 ${index} 加载失败`)
-  })
 }
 
-// PC端鼠标移动事件
 const handleMouseEnter = (index: number) => {
-  if (!isMobile.value) {
-    startLoadingVideo(index)
-  }
+  if (!isMobile.value) startLoadingVideo(index)
 }
 
-// 移动端和PC端点击事件
+const handleMouseLeave = (index: number) => {
+  // 如果想在鼠标移出时停止视频以节省CPU，可以在这里添加逻辑
+}
+
 const handleClick = (index: number) => {
-  if (isMobile.value || !videoItems.value[index].videoLoaded) {
-    startLoadingVideo(index)
-  }
+  if (isMobile.value) startLoadingVideo(index)
 }
 
-// 视频加载完成
 const handleVideoLoaded = (index: number) => {
   const item = videoItems.value[index]
   item.loading = false
-  
-  const videoEl = videoRefs.value[index]
-  if (videoEl) {
-    videoEl.play().catch(err => {
-      console.error(`视频 ${index} 播放失败:`, err)
-    })
-  }
-}
-
-// 视频加载错误
-const handleVideoError = (index: number) => {
-  const item = videoItems.value[index]
-  item.loading = false
-  console.error(`视频 ${index} 加载失败`)
-}
-
-// 窗口大小改变时重新检测
-const handleResize = () => {
-  checkMobile()
+  item.videoLoaded = true
+  setTimeout(() => {
+    videoRefs.value[index]?.play()
+  }, 50)
 }
 
 onMounted(() => {
   checkMobile()
-  if (typeof window !== 'undefined') {
-    window.addEventListener('resize', handleResize)
-  }
+  window.addEventListener('resize', checkMobile)
 })
 
 onUnmounted(() => {
-  if (typeof window !== 'undefined') {
-    window.removeEventListener('resize', handleResize)
-  }
+  window.removeEventListener('resize', checkMobile)
 })
 </script>
 
 <style scoped>
-.line-clamp-1 {
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+/* 动画增强 */
+@keyframes pulse-slow {
+  0%, 100% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.1) translate(2%, 2%); }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 10s infinite ease-in-out;
+}
+
+/* 过渡动画 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.6s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* 自定义滚动条样式（如果需要） */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
 }
 </style>
