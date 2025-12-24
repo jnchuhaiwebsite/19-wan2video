@@ -1,11 +1,11 @@
 <template>
-  <!-- Header 容器 -->
-  <header class="fixed top-0 left-0 w-full z-50 flex flex-col transition-all duration-300">
+  <!-- Header 容器 - 始终固定在顶部 -->
+  <header class="fixed top-0 left-0 w-full z-50 flex flex-col shadow-md">
     
-    <!-- Banner 区域 -->
+    <!-- Banner 区域 (根据需求保留) -->
     <div class="w-full relative z-[51]">
       <!-- PC端 Banner -->
-      <a href="/christmas" class="hidden lg:block w-full bg-slate-900/90 hover:opacity-95 transition-opacity">
+      <a href="/christmas" class="hidden lg:block w-full bg-slate-900 hover:opacity-95 transition-opacity">
         <img 
           src="https://cfsource.wan2video.com/wan2video/christmas/banner.gif" 
           alt="Christmas Special" 
@@ -24,19 +24,12 @@
       </div>
     </div>
 
-    <!-- 导航栏：只有背景和文字颜色随 isScrolled 切换 -->
-    <nav
-      class="w-full transition-all duration-500 ease-in-out relative z-50"
-      :class="[
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-md py-1' 
-          : 'bg-transparent py-3'
-      ]"
-    >
+    <!-- 导航栏：直接固定为“滚动后”的白底样式 -->
+    <nav class="w-full bg-white/95 backdrop-blur-md py-1 relative z-50">
       <div class="max-w-7xl mx-auto px-4">
-        <div class="flex items-center justify-between h-16 lg:h-20">
+        <div class="flex items-center justify-between h-16 lg:h-18">
           
-          <!-- Logo: 颜色保持 text-blue-logo 不变 -->
+          <!-- Logo: 保持蓝色 -->
           <div class="flex-shrink-0">
             <NuxtLink to="/">
               <span class="text-blue-logo text-2xl lg:text-3xl font-bold">Wan2Video</span>
@@ -45,17 +38,14 @@
 
           <!-- PC端导航项 -->
           <div class="hidden lg:flex items-center justify-center flex-grow">
-            <ul class="flex items-center space-x-2 lg:space-x-4 list-none">
+            <ul class="flex items-center space-x-1 lg:space-x-2 list-none">
               <template v-for="(section, index) in sections" :key="index">
                 
                 <!-- 场景1：有下拉菜单 -->
                 <li v-if="section.children && section.children.length" class="relative group/main">
                   <div
-                    class="relative transition-all cursor-pointer px-4 py-2 rounded-lg whitespace-nowrap flex items-center gap-1.5 font-medium"
-                    :class="[
-                      section.id === 'christmas' ? 'christmas-nav-link' : 
-                      (isScrolled ? 'text-slate-700 hover:text-blue-600 hover:bg-blue-50' : 'text-white hover:text-blue-200')
-                    ]"
+                    class="relative transition-all cursor-pointer px-4 py-2 rounded-lg whitespace-nowrap flex items-center gap-1.5 font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+                    :class="[section.id === 'christmas' ? 'christmas-nav-link' : '']"
                   >
                     <span class="relative">
                       {{ section.name }}
@@ -63,27 +53,29 @@
                       <span v-if="section.badge" class="absolute -top-3 left-full -ml-2 bg-red-500 text-white text-[9px] font-bold rounded-full px-1.5 py-0.5 shadow-sm">{{ section.badge }}</span>
                       <span v-if="section.id === 'christmas'" class="hot-badge">HOT</span>
                     </span>
-                    <!-- 箭头图标颜色适配 -->
+                    <!-- 箭头图标 -->
                     <svg 
-                      class="h-4 w-4 transition-transform duration-300 group-hover/main:rotate-180" 
-                      :class="isScrolled ? 'text-slate-400' : 'text-white/70'"
+                      class="h-4 w-4 text-slate-400 transition-transform duration-300 group-hover/main:rotate-180" 
                       fill="none" viewBox="0 0 24 24" stroke="currentColor"
                     >
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
                   </div>
                   
-                  <!-- 下拉菜单容器 (悬浮窗始终保持白底深色字) -->
-                  <ul class="absolute top-[calc(100%+0.5rem)] left-0 hidden group-hover/main:block bg-white border border-slate-100 rounded-2xl shadow-2xl min-w-[220px] p-1.5 ring-1 ring-black/5">
-                    <li v-for="(child, childIndex) in section.children" :key="childIndex" class="relative group/item">
-                      <NuxtLink
-                        :to="child.href || `/#${child.id}`" 
-                        class="flex items-center justify-between px-4 py-3 text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all"
-                      >
-                        <span v-html="child.name" class="font-medium text-[15px]"></span>
-                        <span v-if="child.isNew" class="ml-2 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">NEW</span>
-                      </NuxtLink>
-                    </li>
+                  <!-- 下拉菜单：使用 top-full 和 pt-2 解决“点不到”问题 -->
+                  <ul class="absolute top-full left-0 pt-2 opacity-0 translate-y-2 pointer-events-none group-hover/main:opacity-100 group-hover/main:translate-y-0 group-hover/main:pointer-events-auto transition-all duration-200 ease-out min-w-[240px] z-[60]">
+                    <!-- 背景和内容容器 -->
+                    <div class="bg-white border border-slate-100 rounded-2xl shadow-2xl p-1.5 ring-1 ring-black/5">
+                      <li v-for="(child, childIndex) in section.children" :key="childIndex">
+                        <NuxtLink
+                          :to="child.href || `/#${child.id}`" 
+                          class="flex items-center justify-between px-4 py-3 text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all"
+                        >
+                          <span v-html="child.name" class="font-medium text-[15px]"></span>
+                          <span v-if="child.isNew" class="ml-2 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">NEW</span>
+                        </NuxtLink>
+                      </li>
+                    </div>
                   </ul>
                 </li>
 
@@ -91,11 +83,8 @@
                 <li v-else>
                   <NuxtLink 
                     :to="section.href || `/#${section.id}`"
-                    class="relative transition-all px-4 py-2 rounded-lg font-medium block"
-                    :class="[
-                      section.id === 'christmas' ? 'christmas-nav-link' : 
-                      (isScrolled ? 'text-slate-700 hover:text-blue-600 hover:bg-blue-50' : 'text-white hover:text-blue-200')
-                    ]"
+                    class="relative transition-all px-4 py-2 rounded-lg font-medium block text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+                    :class="[section.id === 'christmas' ? 'christmas-nav-link' : '']"
                   >
                     {{ section.name }}
                     <span v-if="section.id === 'wan-2.6'" class="new-badge">New</span>
@@ -105,16 +94,13 @@
             </ul>
           </div>
 
-          <!-- 用户区域 -->
+          <!-- 用户区域 (始终使用深色风格) -->
           <div class="hidden lg:flex items-center space-x-4">
             <div
               v-if="isSignedIn && freeTimes > 0"
-              class="flex items-center gap-1.5 rounded-full border px-3 py-1 transition-all duration-300"
-              :class="isScrolled 
-                ? 'bg-blue-50 border-blue-100 text-blue-700' 
-                : 'bg-white/10 border-white/20 text-white'"
+              class="flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-blue-700"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4" :style="{color: isScrolled ? '#2563eb' : '#00e6e8'}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4 text-blue-600">
                 <path d="M2 9a3 3 0 1 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path>
                 <path d="m15 9-6 6"></path>
                 <path d="M9 9h.01"></path><path d="M15 15h.01"></path>
@@ -127,8 +113,7 @@
           <!-- 移动端按钮 -->
           <button
             @click="isOpen = !isOpen"
-            class="lg:hidden p-2 transition-colors"
-            :class="isScrolled ? 'text-slate-800' : 'text-white'"
+            class="lg:hidden p-2 text-slate-800 transition-colors"
           >
             <svg v-if="!isOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -140,14 +125,14 @@
         </div>
       </div>
 
-      <!-- 移动端滑出菜单 (始终使用深色字/白底) -->
+      <!-- 移动端滑出菜单 -->
       <Transition name="slide-fade">
-        <div v-if="isOpen" class="lg:hidden fixed top-20 left-0 w-full h-screen bg-white z-[100] border-t border-slate-100 px-4 pt-4">
+        <div v-if="isOpen" class="lg:hidden fixed inset-0 top-[110px] w-full h-screen bg-white z-[100] border-t border-slate-100 px-4 pt-4">
            <ul class="space-y-4">
               <li v-for="section in sections" :key="section.id">
                 <NuxtLink 
                   :to="section.href || `/#${section.id}`" 
-                  class="text-lg font-bold text-slate-800"
+                  class="text-lg font-bold text-slate-800 block py-2"
                   @click="isOpen = false"
                 >
                   {{ section.name }}
@@ -161,34 +146,28 @@
       </Transition>
     </nav>
   </header>
+  <!-- 占位符，防止内容被固定导航栏遮挡 (高度 = Banner + Nav) -->
+  <div class="h-[126px] lg:h-[132px]"></div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useNavigation } from "~/utils/navigation";
 import { useClerkAuth } from '~/utils/authHelper';
 import { useRouter, useRoute } from 'vue-router';
 import { useUserStore } from '~/stores/user';
 
-const isScrolled = ref(false);
 const isOpen = ref(false);
 const { isSignedIn } = useClerkAuth();
-const router = useRouter();
 const route = useRoute();
 const userStore = useUserStore();
 const freeTimes = ref(0);
 
 const { sections, handleScroll: navHandleScroll, executeScroll } = useNavigation();
 
-// 滚动监听：切换导航栏状态
-const handleScroll = () => {
-  isScrolled.value = window.scrollY > 60;
-  navHandleScroll(); // 保持原有的锚点高亮逻辑
-};
-
 onMounted(() => {
-  window.addEventListener("scroll", handleScroll);
-  handleScroll(); // 初始化状态
+  // 依然保留滚动监听，用于锚点高亮逻辑（如果 sections 依赖这个逻辑的话）
+  window.addEventListener("scroll", navHandleScroll);
   
   if (isSignedIn) {
     userStore.fetchUserInfo().then(data => {
@@ -203,19 +182,16 @@ onMounted(() => {
   }
 });
 
-onUnmounted(() => {
-  window.removeEventListener("scroll", handleScroll);
-});
-
 watch(isOpen, (val) => {
   document.body.style.overflow = val ? "hidden" : "";
 });
 </script>
 
 <style scoped>
-/* 渐变过渡 */
-.text-white, .text-slate-700, .bg-white, .bg-transparent, .py-1, .py-3 {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+/* 保持 Christmas 导航链接红色 */
+.christmas-nav-link {
+  color: #FF4500 !important;
+  font-weight: 800;
 }
 
 /* HOT 标签样式 */
@@ -244,12 +220,6 @@ watch(isOpen, (val) => {
   padding: 1px 7px;
   border-radius: 6px;
   text-transform: uppercase;
-}
-
-/* Christmas 导航链接 */
-.christmas-nav-link {
-  color: #FF4500 !important;
-  font-weight: 800;
 }
 
 /* 移动端动画 */

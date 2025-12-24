@@ -115,16 +115,16 @@ import { useSeoMeta } from 'nuxt/app';
 const baseUrl = 'https://www.wan2video.com/'
 // SEO Meta
 useSeoMeta({
-  title: 'Wan 2.5 | Cinematic AI Video Generator with Audio Sync',
-  ogTitle: 'Wan 2.5 | Cinematic AI Video Generator with Audio Sync',
-  description: 'Create cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
-  ogDescription: 'Create cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
+  title: ' Wan 2.5: Audio-Driven Video Generator for Lip-Synced HD Videos',
+  ogTitle: ' Wan 2.5: Audio-Driven Video Generator for Lip-Synced HD Videos',
+  description: 'Wan 2.5 is an all-in-one AI video generation model that turns text, image, or audio into lip-synced HD videos. Perfect for creators, marketers, and storytellers.',
+  ogDescription: 'Wan 2.5 is an all-in-one AI video generation model that turns text, image, or audio into lip-synced HD videos. Perfect for creators, marketers, and storytellers.',
   ogImage: baseUrl + '/wan-25-og-image.webp',
   ogUrl: baseUrl + 'wan-2-5-ai',
   ogType: 'website',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'Wan 2.5 | Cinematic AI Video Generator with Audio Sync',
-  twitterDescription: 'Create cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
+  twitterTitle: ' Wan 2.5: Audio-Driven Video Generator for Lip-Synced HD Videos',
+  twitterDescription: 'Wan 2.5 is an all-in-one AI video generation model that turns text, image, or audio into lip-synced HD videos. Perfect for creators, marketers, and storytellers.',
   twitterImage: baseUrl + '/wan-25-og-image.webp',
   twitterUrl: baseUrl + 'wan-2-5-ai',
   twitterType: 'summary_large_image',
@@ -165,9 +165,9 @@ const tabs = ref([
 ]);
 // Page head
 useHead({
-  title: 'Wan 2.5 | Cinematic AI Video Generator with Audio Sync',
+  title: ' Wan 2.5: Audio-Driven Video Generator for Lip-Synced HD Videos',
   meta: [
-    { name: 'description', content: 'Create cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.' },
+    { name: 'description', content: 'Wan 2.5 is an all-in-one AI video generation model that turns text, image, or audio into lip-synced HD videos. Perfect for creators, marketers, and storytellers.' },
     { name: 'keywords', content: 'Wan 2.5, AI video generator, text-to-video, image-to-video, 1080p video, AI video creation' }
   ],
   link: [{ rel: 'canonical', href:  baseUrl + 'wan-2-5-ai' }]

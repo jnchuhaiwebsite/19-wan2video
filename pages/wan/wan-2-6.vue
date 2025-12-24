@@ -125,12 +125,13 @@ const tabs = ref([
     text: 'Wan 2.5', 
     to: '/wan/wan-2-5', 
     isActive: false, 
-    badge: 'New'  
   },
   { 
     text: 'Wan 2.6', 
     to: '/wan/wan-2-6', 
     isActive: true, 
+    badge: 'New'  
+
   
   }
 ]);
