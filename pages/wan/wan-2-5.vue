@@ -17,6 +17,10 @@
       <Wan25HeroSection />
     </section>
     
+    <!-- What You Can Do -->
+    <section class="relative">
+      <Wan25WhatYouCanDo />
+    </section>
 
         <!-- Generator -->
     <section class="relative" id="generator">
@@ -109,6 +113,7 @@ import Wan25Generator from '~/components/Wan25Generator.vue';
 import Wan25UseCases from '~/components/Wan25UseCases.vue';
 import Wan25HeroSection from '~/components/Wan25HeroSection.vue';
 import Wan25ProcessSteps from '~/components/Wan25ProcessSteps.vue';
+import Wan25WhatYouCanDo from '~/components/wan25/WhatYouCanDo.vue';
 
 import { useHead } from 'nuxt/app';
 import { useSeoMeta } from 'nuxt/app';
