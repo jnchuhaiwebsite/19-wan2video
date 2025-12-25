@@ -134,7 +134,8 @@ const jsonLD ={
       "inLanguage": "en-US", // 语言
       "brand": { // 品牌
         "@type": "Brand",
-        "name": "Wan 2.2"
+        "name": "Wan AI",
+        "@id": "https://www.wan2video.com/#brand"
       },
       "publisher": { // 发布方（组织）
         "@id": "https://www.wan2video.com/#organization" // 关联 Organization

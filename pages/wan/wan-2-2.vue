@@ -125,17 +125,15 @@ const jsonLD ={
       "@type": "SoftwareApplication", // 应用实体（产品页）
       "@id": "https://www.wan2video.com/wan/wan-2-2#wan-2-2-app", // 应用唯一 ID
       "name": "Wan 2.2 Plus - Cinematic AI Video Generator", // 应用完整名称（无空格关键词主打）
-      "alternateName": "Wan 2.2", // 备选名（带空格品牌写法）
-      "applicationSuite": "Wan 2.2", // 所属品牌套件
       "url": "https://www.wan2video.com/wan/wan-2-2", // 应用页面 URL
       "applicationCategory": "MultimediaApplication", // 分类：Web/多媒体
       "operatingSystem": "Web Browser", // 运行环境：浏览器
-      "applicationSubCategory": "AI Video Generation Tool", // 子类：AI 视频生成工具
       "image": "https://www.wan2video.com/wan-2-2.webp", // 展示图
       "inLanguage": "en-US", // 语言
       "brand": { // 品牌
         "@type": "Brand",
-        "name": "Wan 2.2"
+        "name": "Wan AI",
+        "@id": "https://www.wan2video.com/wan/wan-2-2#brand"
       },
       "publisher": { // 发布方（组织）
         "@id": "https://www.wan2video.com/#organization" // 关联 Organization
