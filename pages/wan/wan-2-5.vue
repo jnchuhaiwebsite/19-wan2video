@@ -17,20 +17,35 @@
       <Wan25HeroSection />
     </section>
     
-    <!-- What You Can Do -->
-    <section class="relative">
-      <Wan25WhatYouCanDo />
-    </section>
-
         <!-- Generator -->
     <section class="relative" id="generator">
       <Wan25Generator />
     </section>
 
-    <!-- Process Steps -->
-    <section class="relative">
-      <Wan25ProcessSteps />
+        <!-- What You Can Do -->
+        <section class="relative">
+      <Wan25WhatYouCanDo />
     </section>
+
+    <!-- How to Use -->
+    <section class="relative">
+      <Wan25HowToUse />
+    </section>
+
+    <!-- Why Creators Choose -->
+    <section class="relative">
+      <Wan25WhyCreatorsChoose />
+    </section>
+
+    <!-- Real Examples -->
+    <section class="relative">
+      <Wan25RealExamples />
+    </section>
+
+    <!-- Process Steps -->
+    <!-- <section class="relative">
+      <Wan25ProcessSteps />
+    </section> -->
 
     <!-- Video Showcase -->
     <section class="relative" id="showcase">
@@ -39,10 +54,15 @@
     
     <!-- 分隔线装饰 -->
 
-    <!-- Technical Specifications -->
+    <!-- Technical Specifications (New) -->
     <section class="relative">
-      <Wan25Specs />
+      <Wan25TechnicalSpecs />
     </section>
+
+    <!-- Technical Specifications -->
+    <!-- <section class="relative">
+      <Wan25Specs />
+    </section> -->
 
     <!-- Prompt Formulas -->
     <section class="relative">
@@ -114,6 +134,10 @@ import Wan25UseCases from '~/components/Wan25UseCases.vue';
 import Wan25HeroSection from '~/components/Wan25HeroSection.vue';
 import Wan25ProcessSteps from '~/components/Wan25ProcessSteps.vue';
 import Wan25WhatYouCanDo from '~/components/wan25/WhatYouCanDo.vue';
+import Wan25HowToUse from '~/components/wan25/HowToUse.vue';
+import Wan25WhyCreatorsChoose from '~/components/wan25/WhyCreatorsChooseWan25.vue';
+import Wan25RealExamples from '~/components/wan25/RealExamples.vue';
+import Wan25TechnicalSpecs from '~/components/wan25/TechnicalSpecs.vue';
 
 import { useHead } from 'nuxt/app';
 import { useSeoMeta } from 'nuxt/app';

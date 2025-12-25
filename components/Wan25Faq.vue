@@ -74,33 +74,38 @@
 <script setup lang="ts">
 const faqs = ref([
   {
+    question: 'Can I use Wan 2.5 for free?',
+    answer: 'Wan2Video occasionally offers free-credit events. After the free quota is used, you can purchase credits as needed— no subscription',
+    isOpen: false
+  },
+  {
     question: 'What is the biggest advantage of Wan 2.5?',
-    answer: 'Wan 2.5 combines 1080p clarity, stable lighting, animation control, and audio sync. It delivers high-quality video fast and cost-effectively through our API.',
+    answer: 'Wan 2.5 delivers precise audio sync, 1080p clarity, stable lighting and semantic precision in one cinematic AI short video generator. It creates high-quality 5s and 10s AI text-to-video clips at an affordable, credits-based price.',
     isOpen: false
   },
   {
     question: 'Do I need a powerful PC to use Wan 2.5?',
-    answer: 'No. Wan 2.5 is available via cloud API with no local setup. Local workflows with older Wan versions may require high-VRAM GPUs.',
+    answer: 'No. Wan 2.5 runs fully on the Wan2Video cloud platform, so no high-VRAM GPU is required. Just upload text, images or audio in your browser.',
     isOpen: false
   },
   {
     question: 'What sizes and resolutions does Wan 2.5 support?',
-    answer: 'Wan 2.5 supports 480p, 720p, 1080p for image-to-video, and multiple text-to-video sizes including 832×480, 1280×720, and 1920×1080.',
-    isOpen: false
-  },
-  {
-    question: 'Can I use Wan 2.5 for my business?',
-    answer: 'Yes. You can generate Wan 2.5 video commercially via API. Please check your plan\'s terms and content policies.',
+    answer: 'Wan 2.5 supports 480p, 720p and 1080p for image-to-video, plus 832×480, 1280×720 and 1920×1080 for AI text-to-video. All modes are optimized for 5s and 10s short-form clips.',
     isOpen: false
   },
   {
     question: 'How long are the videos with Wan 2.5?',
-    answer: 'Wan 2.5 currently supports 5-second and 10-second clips. Longer formats are in development.',
+    answer: 'Wan 2.5 currently produces 5-second and 10-second short videos, ideal for hooks, intros and short-form content. Longer formats are under exploration.',
     isOpen: false
   },
   {
-    question: 'Is Wan 2.5 the best AI video model?',
-    answer: 'Wan 2.5 is one of the strongest options today. It competes with Veo3 while offering accessible quality, strong text handling, and audio guidance.',
+    question: 'Do my credits expire?',
+    answer: 'No. Credits on Wan2Video never expire, and you can stack multiple credit packs anytime.',
+    isOpen: false
+  },
+  {
+    question: 'Can I use Wan 2.5 for commercial projects?',
+    answer: 'Yes. Generated content can be used commercially for marketing, social media, client work and monetized content under Wan2Video\'s Terms of Service.',
     isOpen: false
   }
 ])

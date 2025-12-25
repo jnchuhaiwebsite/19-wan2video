@@ -13,11 +13,10 @@
         Use Cases
         </div>
         <h2 class="text-3xl md:text-4xl font-normal bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent mb-8 leading-tight">
-          Wan 2.5  - Transforming Content Across Industries
+          Alibaba Wan 2.5 – Transforming Short-Form Content Across Industries
         </h2>
         <p class="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed font-light">
-          Discover how <span class="font-semibold text-emerald-600">Wan 2.5</span> can transform your creative workflow across 
-          <span class="font-semibold text-teal-600">various industries</span> and <span class="font-semibold text-cyan-600">applications</span>.
+          Wan 2.5 is not limited to one niche. It acts as a short-form AI video generator for <span class="font-semibold text-emerald-600">film studios</span>, <span class="font-semibold text-teal-600">game developers</span>, <span class="font-semibold text-cyan-600">marketers</span>, <span class="font-semibold text-emerald-600">educators</span>, and <span class="font-semibold text-teal-600">enterprise teams</span> who want to replace static assets and slides with dynamic AI-generated clips.
         </p>
       </div>
 
@@ -77,7 +76,7 @@
               <span 
                 v-for="tag in useCase.tags" 
                 :key="tag"
-                class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full"
+                class="px-3 py-1 bg-gray-100 text-gray-700 text-xs rounded-lg border border-gray-200"
               >
                 {{ tag }}
               </span>
@@ -98,8 +97,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
               </svg>
             </div>
-            <h4 class="font-semibold text-gray-900 mb-2">Film & Entertainment</h4>
-            <p class="text-gray-600 text-sm">Create high-definition short videos, animation clips, and previews with professional quality</p>
+            <h4 class="font-semibold text-gray-900 mb-2">Film & Short Video Production</h4>
+            <p class="text-gray-600 text-sm">Create 5s and 10s HD clips for storyboards, teasers, and experimental shorts using AI text-to-video and image-to-video workflows</p>
           </div>
 
           <div class="text-center">
@@ -108,8 +107,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </div>
-            <h4 class="font-semibold text-gray-900 mb-2">Gaming Industry</h4>
-            <p class="text-gray-600 text-sm">Build immersive cutscenes and environments from text or images for game development</p>
+            <h4 class="font-semibold text-gray-900 mb-2">Game Scenes & Virtual Worlds</h4>
+            <p class="text-gray-600 text-sm">Generate immersive cutscenes, establishing shots, and stylized environments from prompts or concept art</p>
           </div>
 
           <div class="text-center">
@@ -118,8 +117,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
             </div>
-            <h4 class="font-semibold text-gray-900 mb-2">Education & Training</h4>
-            <p class="text-gray-600 text-sm">Transform course content into engaging video lessons with narration and music</p>
+            <h4 class="font-semibold text-gray-900 mb-2">Educational & Training Videos</h4>
+            <p class="text-gray-600 text-sm">Transform course content into short explainer clips for LMS, micro-learning, and internal training</p>
           </div>
 
           <div class="text-center">
@@ -128,8 +127,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
               </svg>
             </div>
-            <h4 class="font-semibold text-gray-900 mb-2">Marketing & Advertising</h4>
-            <p class="text-gray-600 text-sm">Produce ad campaigns and product promos faster with voiceovers and visuals</p>
+            <h4 class="font-semibold text-gray-900 mb-2">Advertising & Marketing Content</h4>
+            <p class="text-gray-600 text-sm">Produce social-ready ad creatives, product videos and UGC-style promos with AI marketing video generator workflows</p>
           </div>
 
           <div class="text-center">
@@ -139,7 +138,7 @@
               </svg>
             </div>
             <h4 class="font-semibold text-gray-900 mb-2">Virtual Hosts & AI Characters</h4>
-            <p class="text-gray-600 text-sm">Create virtual presenters and interactive avatars for demos and live events</p>
+            <p class="text-gray-600 text-sm">Use Wan 2.5 as a virtual presenter video generator: create digital hosts, AI characters and VTubers for webinars, product tours and online events</p>
           </div>
 
           <div class="text-center">
@@ -148,8 +147,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
               </svg>
             </div>
-            <h4 class="font-semibold text-gray-900 mb-2">Cross-Media & Multilingual</h4>
-            <p class="text-gray-600 text-sm">Generate cross-platform content for global audiences in multiple languages</p>
+            <h4 class="font-semibold text-gray-900 mb-2">Cross-Media & Multilingual Presentations</h4>
+            <p class="text-gray-600 text-sm">Wan 2.5 works well with different languages and accents, making it an AI video generator for global creators and international brands</p>
           </div>
         </div>
       </div>
@@ -163,51 +162,51 @@ import { ref } from 'vue'
 const useCases = ref([
   {
     title: 'Film & Short Video Production',
-    description: 'Create high-definition short videos, animation clips, and previews with Wan 2.5.',
+    description: 'Create 5s and 10s HD clips for storyboards, teasers, and experimental shorts using AI text-to-video and image-to-video workflows.',
     videoUrl: 'https://resp.wan2video.com/wan2ai/video/use-cases-1.webm',
     posterUrl: 'https://resp.wan2video.com/wan2ai/images/use-cases-1.webp',
     category: 'Film',
-    tags: ['HD Video', 'Animation', 'Previews']
+    tags: ['AI video generator for film and ad professionals', 'cinematic AI short video generator']
   },
   {
     title: 'Game Scenes & Virtual Worlds',
-    description: 'Wan 2.5 helps developers build immersive cutscenes and environments from text or images.',
+    description: 'Generate immersive cutscenes, establishing shots, and stylized environments from prompts or concept art.',
     videoUrl: 'https://resp.wan2video.com/wan2ai/video/use-cases-2.webm',
     posterUrl: 'https://resp.wan2video.com/wan2ai/images/use-cases-2.webp',
     category: 'Gaming',
-    tags: ['Cutscenes', 'Environments', 'Immersive']
+    tags: ['AI video generator for game developers', 'multi-modal AI video generation model']
   },
   {
     title: 'Educational & Training Videos',
-    description: 'Transform course content into engaging video lessons with Wan 2.5 narration and music.',
+    description: 'Transform course content into short explainer clips for LMS, micro-learning, and internal training.',
     videoUrl: 'https://resp.wan2video.com/wan2ai/video/use-cases-3.webm',
     posterUrl: 'https://resp.wan2video.com/wan2ai/images/use-cases-3.webp',
     category: 'Education',
-    tags: ['Training', 'Lessons', 'Narration']
+    tags: ['AI education video generator', 'training video automation with AI', 'micro-learning AI videos']
   },
   {
     title: 'Advertising & Marketing Content',
-    description: 'Produce ad campaigns and product promos faster with Wan 2.5 voiceovers and visuals.',
+    description: 'Produce social-ready ad creatives, product videos and UGC-style promos with AI marketing video generator workflows.',
     videoUrl: 'https://resp.wan2video.com/wan2ai/video/use-cases-4.webm',
     posterUrl: 'https://resp.wan2video.com/wan2ai/images/use-cases-4.webp',
     category: 'Marketing',
-    tags: ['Ads', 'Promos', 'Campaigns']
+    tags: ['AI video generator for marketers', 'AI product video generator for e-commerce', 'AI video generator for small businesses and startups']
   },
   {
     title: 'Virtual Hosts & AI Characters',
-    description: 'Use Wan 2.5 to create virtual presenters and interactive avatars for demos and live events.',
+    description: 'Use Wan 2.5 as a virtual presenter video generator: create digital hosts, AI characters and VTubers for webinars, product tours and online events.',
     videoUrl: 'https://resp.wan2video.com/wan2ai/video/use-cases-5.webm',
     posterUrl: 'https://resp.wan2video.com/wan2ai/images/use-cases-5.webp',
     category: 'Virtual',
-    tags: ['Presenters', 'Avatars', 'Interactive']
+    tags: ['AI VTuber video generator', 'AI presenter video generator', 'AI digital avatar video generator']
   },
   {
     title: 'Cross-Media & Multilingual Presentations',
-    description: 'Wan 2.5 generates cross-platform content for global audiences in multiple languages.',
+    description: 'Wan 2.5 works well with different languages and accents, making it an AI video generator for global creators and international brands.',
     videoUrl: 'https://resp.wan2video.com/wan2ai/video/use-cases-6.webm',
     posterUrl: 'https://resp.wan2video.com/wan2ai/images/use-cases-6.webp',
     category: 'Global',
-    tags: ['Multilingual', 'Cross-Platform', 'Global']
+    tags: ['multilingual AI lip-sync generator', 'AI video generator for international brands', 'corporate communication AI video generator']
   }
 ])
 
