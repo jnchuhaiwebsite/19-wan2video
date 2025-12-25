@@ -14,33 +14,77 @@
 
           <!-- PC端导航 - 居中显示 -->
           <div class="hidden lg:flex items-center justify-center flex-grow">
-            <div class="flex items-center space-x-6">
+            <ul class="flex items-center space-x-1 lg:space-x-2 list-none">
               <template v-for="(section, index) in sections" :key="index">
-                <NuxtLink
-                  :to="section.href || `/#${section.id}`"
-                  :class="[
-                    'relative transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:shadow-lg whitespace-nowrap flex items-center gap-2',
-                    section.id === 'christmas' ? 'christmas-nav-link' : 'text-white hover:text-white/80'
-                  ]"
-                >
-                  {{ section.name }}
-                  <!-- Christmas HOT 标签 -->
-                  <span
-                    v-if="section.id === 'christmas'"
-                    class="hot-badge"
+                
+                <!-- 场景1：有下拉菜单 -->
+                <li v-if="section.children && section.children.length" class="relative group/main">
+                  <div
+                    class="relative transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:shadow-lg whitespace-nowrap flex items-center gap-1.5 font-medium"
+                    :class="[
+                      section.id === 'christmas' ? 'christmas-nav-link' : 'text-white hover:text-white/80'
+                    ]"
                   >
-                    HOT
-                  </span>
-                  <!-- Wan 2.6 New 标签 -->
-                  <span
-                    v-if="section.id === 'wan-2.6'"
-                    class="new-badge"
+                    <span class="relative">
+                      {{ section.name }}
+                      <!-- 标签逻辑 -->
+                      <span v-if="section.badge" class="absolute -top-3 left-full -ml-2 bg-red-500 text-white text-[9px] font-bold rounded-full px-1.5 py-0.5 shadow-sm">{{ section.badge }}</span>
+                      <span v-if="section.id === 'christmas'" class="hot-badge">HOT</span>
+                    </span>
+                    <!-- 箭头图标 -->
+                    <svg 
+                      class="h-4 w-4 text-white/60 transition-transform duration-300 group-hover/main:rotate-180" 
+                      fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                  
+                  <!-- 下拉菜单：使用 top-full 和 pt-2 解决"点不到"问题 -->
+                  <ul class="absolute top-full left-0 pt-2 opacity-0 translate-y-2 pointer-events-none group-hover/main:opacity-100 group-hover/main:translate-y-0 group-hover/main:pointer-events-auto transition-all duration-200 ease-out min-w-[240px] z-[60]">
+                    <!-- 背景和内容容器 -->
+                    <div class="bg-white border border-slate-100 rounded-2xl shadow-2xl p-1.5 ring-1 ring-black/5">
+                      <li v-for="(child, childIndex) in section.children" :key="childIndex">
+                        <NuxtLink
+                          :to="child.href || `/#${child.id}`" 
+                          class="flex items-center justify-between px-4 py-3 text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all"
+                        >
+                          <span v-html="child.name" class="font-medium text-[15px]"></span>
+                          <span v-if="child.isNew" class="ml-2 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">NEW</span>
+                        </NuxtLink>
+                      </li>
+                    </div>
+                  </ul>
+                </li>
+
+                <!-- 场景2：普通链接 -->
+                <li v-else>
+                  <NuxtLink 
+                    :to="section.href || `/#${section.id}`"
+                    :class="[
+                      'relative transition-all px-4 py-2.5 rounded-lg hover:shadow-lg font-medium block whitespace-nowrap flex items-center gap-2',
+                      section.id === 'christmas' ? 'christmas-nav-link' : 'text-white hover:text-white/80'
+                    ]"
                   >
-                    New
-                  </span>
-                </NuxtLink>
+                    {{ section.name }}
+                    <!-- Christmas HOT 标签 -->
+                    <span
+                      v-if="section.id === 'christmas'"
+                      class="hot-badge"
+                    >
+                      HOT
+                    </span>
+                    <!-- Wan 2.6 New 标签 -->
+                    <span
+                      v-if="section.id === 'wan-2.6'"
+                      class="new-badge"
+                    >
+                      New
+                    </span>
+                  </NuxtLink>
+                </li>
               </template>
-            </div>
+            </ul>
           </div>
 
           <!-- 用户信息区域 - PC端 -->
@@ -153,42 +197,90 @@
           <!-- 滚动内容区域 -->
           <div class="pt-16 px-4 pb-8">
             <!-- 导航链接 -->
-            <div class="space-y-2 mb-6">
+            <ul class="space-y-2 mb-6">
               <template v-for="(section, index) in sections" :key="index">
-                <NuxtLink
-                  :to="section.href || `/#${section.id}`"
-                  @click="isOpen = false"
-                  :class="[
-                    'relative block text-base transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:bg-gray-100 hover:shadow-md whitespace-nowrap mt-3 flex items-center gap-3 font-medium',
-                    section.id === 'christmas' ? 'christmas-nav-link' : 'text-gray-900 hover:text-gray-700'
-                  ]"
-                >
-                  {{ section.name }}
-                  <!-- Christmas HOT 标签 -->
-                  <span
-                    v-if="section.id === 'christmas'"
-                    class="hot-badge"
+                <!-- 有子菜单的情况 -->
+                <li v-if="section.children && section.children.length">
+                  <div
+                    @click="toggleMobileSubmenu(section.id || index)"
+                    :class="[
+                      'relative flex items-center justify-between text-base transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:bg-gray-100 hover:shadow-md whitespace-nowrap mt-3 font-medium',
+                      section.id === 'christmas' ? 'christmas-nav-link' : 'text-gray-900 hover:text-gray-700'
+                    ]"
                   >
-                    HOT
-                  </span>
-                  <!-- Wan 2.6 New 标签 -->
-                  <span
-                    v-if="section.id === 'wan-2.6'"
-                    class="new-badge"
+                    <span class="flex items-center gap-3">
+                      {{ section.name }}
+                      <!-- Christmas HOT 标签 -->
+                      <span
+                        v-if="section.id === 'christmas'"
+                        class="hot-badge"
+                      >
+                        HOT
+                      </span>
+                      <!-- Wan 2.6 New 标签 -->
+                      <span
+                        v-if="section.id === 'wan-2.6'"
+                        class="new-badge"
+                      >
+                        New
+                      </span>
+                    </span>
+                    <!-- 展开/收起箭头 -->
+                    <svg 
+                      :class="[
+                        'h-5 w-5 transition-transform duration-200',
+                        openMobileSubmenus.has(section.id || index) ? 'rotate-180' : ''
+                      ]"
+                      fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                  <!-- 子菜单 -->
+                  <Transition name="slide-fade">
+                    <ul v-if="openMobileSubmenus.has(section.id || index)" class="ml-4 mt-2 space-y-1 border-l-2 border-gray-200 pl-4">
+                      <li v-for="(child, childIndex) in section.children" :key="childIndex">
+                        <NuxtLink
+                          :to="child.href || `/#${child.id}`"
+                          @click="isOpen = false"
+                          class="flex items-center justify-between px-4 py-2.5 text-sm text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
+                        >
+                          <span v-html="child.name"></span>
+                          <span v-if="child.isNew" class="ml-2 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">NEW</span>
+                        </NuxtLink>
+                      </li>
+                    </ul>
+                  </Transition>
+                </li>
+                <!-- 普通链接 -->
+                <li v-else>
+                  <NuxtLink
+                    :to="section.href || `/#${section.id}`"
+                    @click="isOpen = false"
+                    :class="[
+                      'relative block text-base transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:bg-gray-100 hover:shadow-md whitespace-nowrap mt-3 flex items-center gap-3 font-medium',
+                      section.id === 'christmas' ? 'christmas-nav-link' : 'text-gray-900 hover:text-gray-700'
+                    ]"
                   >
-                    New
-                  </span>
-                </NuxtLink>
+                    {{ section.name }}
+                    <!-- Christmas HOT 标签 -->
+                    <span
+                      v-if="section.id === 'christmas'"
+                      class="hot-badge"
+                    >
+                      HOT
+                    </span>
+                    <!-- Wan 2.6 New 标签 -->
+                    <span
+                      v-if="section.id === 'wan-2.6'"
+                      class="new-badge"
+                    >
+                      New
+                    </span>
+                  </NuxtLink>
+                </li>
               </template>
-              <!-- <NuxtLink
-                v-if="isSignedIn"
-                to="/profile"
-                class="block text-blue-navtext hover:text-blue-dark text-base py-2 transition-colors"
-                @click="() => { isOpen = false; }"
-              >
-                Personal Center
-              </NuxtLink> -->
-            </div>
+            </ul>
 
             <!-- 移动端用户菜单 -->
             <UserMenu :isMobile="true" :onCloseMobileNav="() => isOpen = false" />
@@ -216,12 +308,22 @@ import {
 
 // 状态管理
 const isOpen = ref(false);
+const openMobileSubmenus = ref(new Set<string | number>());
 const { isSignedIn } = useClerkAuth();
 const router = useRouter();
 const route = useRoute();
 const userStore = useUserStore();
 const credits = ref(0);
 const freeTimes = ref(0);
+
+// 切换移动端子菜单
+const toggleMobileSubmenu = (sectionId: string | number) => {
+  if (openMobileSubmenus.value.has(sectionId)) {
+    openMobileSubmenus.value.delete(sectionId);
+  } else {
+    openMobileSubmenus.value.add(sectionId);
+  }
+};
 
 // 图标映射
 const iconMap = {
