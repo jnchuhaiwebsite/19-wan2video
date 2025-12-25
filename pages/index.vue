@@ -123,7 +123,7 @@ const jsonLD ={
       },
       "primaryImageOfPage": { // 页面主要图片
         "@type": "ImageObject", // 图片对象
-        "url": "https://www.wan2video.com/wan-2-6.webp" // 首页主视觉
+        "url": "https://www.wan2video.com/wan-ai.webp" // 首页主视觉
       },
       "about": { // 页面主题对象
         "@id": "https://www.wan2video.com/#app" // 指向首页 SoftwareApplication
