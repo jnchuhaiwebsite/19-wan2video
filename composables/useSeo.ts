@@ -50,8 +50,12 @@ export function useSeo(options: SeoOptions = {} as SeoOptions) {
       },
       { property: 'og:type', content: options.ogType || 'website' },
       { property: 'og:url', content: fullUrlWithoutSlash },
-      { property: 'og:image', content: options.ogImage || `${baseUrl}/wan2.2-og-image.webp` },
+      { property: 'og:image', content: options.ogImage || `${baseUrl}/wan-ai.webp` },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { property: 'og:image:alt', content: 'Wan 2.6 AI Video Generation' },
       { property: 'og:site_name', content: 'Wan2Video' },
+      { property: 'og:locale', content: 'en_US' },
       ...(options.other || []),
 
       // Twitter Card
@@ -64,7 +68,8 @@ export function useSeo(options: SeoOptions = {} as SeoOptions) {
         name: 'twitter:description',
         content: options.twitterDescription || description,
       },
-      { name: 'twitter:image', content: options.twitterImage || `${baseUrl}/wan2.2-og-image.webp` },
+      { name: 'twitter:image', content: options.twitterImage || `${baseUrl}/wan-ai.webp` },
+      { name: 'twitter:url', content: baseUrl },
     ],
     link: [{ rel: 'canonical', href: fullUrlWithoutSlash }],
   })

@@ -1,91 +1,89 @@
 <template>
   <div class="min-h-screen bg-blue-pale">
+
     <main>
+      <div class="">
+    <Breadcrumbs 
+    :nav-tabs="tabs" 
+    :items="breadcrumbItems" />
+  </div>
       <!-- 主功能区 -->
-      <Wan26Hero />
+      <HeroSection />
       
-      <!-- What Is Wan 2.6 -->
-      <WhatIsWan26 />
+      <!-- 操作步骤 -->
+      <ProcessSteps />
       
-      <!-- Why Creators Choose Wan 2.6 -->
-      <WhyChooseWan26 />
+      <!-- 核心优势 -->
+      <CoreFeatures />
+
+            
+      <!-- 适用人群 -->
+      <ForWhomSection />
       
-      <!-- How Wan2.6 Works -->
-      <HowWan26Works />
+      <!-- 模型案例展示 -->
+      <ModelShowcase />
       
-      <!-- Wan 2.6 AI Advantages -->
-      <Wan26Advantages />
-      
-      <!-- Why Creators Choose Wan 2.6 (Benefits) -->
-      <!-- <WhyCreatorsChooseWan26 /> -->
-      
-      <!-- Wan 2.5 vs Wan 2.6 -->
-      <Wan25VsWan26 />
-      
-      <!-- Explore Real Wan 2.6 Video Creations -->
-      <Wan26VideoExamplesSection />
-      
-      <!-- Pricing for Wan 2.6 -->
-      <Wan26Pricing />
-      
-      <!-- Frequently Asked Questions about Wan 2.6 -->
-      <Wan26Faq />
-      
-      <!-- Get Started with Wan 2.6 Today -->
-      <Wan26Cta />
-      
+      <!-- 套餐价格 -->
+      <PricingPlans />
+
+      <!-- 常见问题 -->
+      <FaqPreview />
+
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useHead } from 'nuxt/app';
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { useSeo } from '~/composables/useSeo'
 import { useNuxtApp } from 'nuxt/app'
 import { useNavigation } from '~/utils/navigation'
-import Wan26Hero from '~/components/home/Wan26Hero.vue'
-import WhatIsWan26 from '~/components/home/WhatIsWan26.vue'
-import WhyChooseWan26 from '~/components/home/WhyChooseWan26.vue'
-import HowWan26Works from '~/components/home/HowWan26Works.vue'
-import Wan26Advantages from '~/components/home/Wan26Advantages.vue'
-import WhyCreatorsChooseWan26 from '~/components/home/WhyCreatorsChooseWan26.vue'
-import Wan25VsWan26 from '~/components/home/Wan25VsWan26.vue'
-import Wan26VideoExamplesSection from '~/components/home/Wan26VideoExamplesSection.vue'
-import Wan26Pricing from '~/components/home/Wan26Pricing.vue'
-import Wan26Faq from '~/components/home/Wan26Faq.vue'
-import Wan26Cta from '~/components/home/Wan26Cta.vue'
-
-
+import { useHead } from 'nuxt/app';
+// 导入组件
+import Breadcrumbs from '~/components/Breadcrumbs.vue'
+import HeroSection from '~/components/HeroSection.vue'
+import ProcessSteps from '~/components/ProcessSteps.vue'
+import CoreFeatures from '~/components/CoreFeatures.vue'
+import ModelShowcase from '~/components/ModelShowcase.vue'
+import PricingPlans from '~/components/PricingPlans.vue'
+import ForWhomSection from '~/components/ForWhomSection.vue'
 
 const { $toast } = useNuxtApp() as any
 const { handleScroll } = useNavigation()
 
 // 使用默认的 SEO 配置
 useSeo({
-  title: 'Wan 2.6 – Multi-Shot AI Video Generation with Audio Sync',
-  description: 'Wan 2.6 enables cinematic AI video generation with multi-shot storytelling, stable characters, and natural audio-visual sync in up to 1080P quality. Try it today.'
+  title: 'Wan 2.2 Plus - Cinematic AI Video Generator',
+  description: 'Generate AI videos with Wan 2.2 Plus. Cinematic visuals, realistic motion, prompt control—ideal for creators and marketers.'
 })
 
-// 处理支付回调
-onMounted(() => {
-  if (typeof window === "undefined") return;
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const paySuccess = urlParams.get("paysuccess");
+const breadcrumbItems = ref([
+  { text: 'Wan AI',},
+  { text: 'Wan 2.2', to: '/wan/wan-2-2' },
+]);
 
-  if (paySuccess == "1") {
-    window.history.replaceState({}, "", window.location.pathname);
-    setTimeout(() => {
-      $toast.success("Thank you for your support! Your membership benefits are now activated.", 3000);
-    }, 500);
-  } else if (urlParams.get("payfail") == "1") {
-    window.history.replaceState({}, "", window.location.pathname);
+// 修改点 2 (可选，建议): 使用 ref 包裹，确保数据响应性一致
+const tabs = ref([
+  { 
+    text: 'Wan 2.2', 
+    to: '/wan/wan-2-2', 
+    isActive: true 
+  },
+  { 
+    text: 'Wan 2.5', 
+    to: '/wan/wan-2-5', 
+    isActive: false, 
+  
+  },
+  { 
+    text: 'Wan 2.6', 
+    to: '/wan/wan-2-6', 
+    isActive: false, 
+    badge: 'New'  
   }
+]);
 
-  // 添加滚动监听
-  window.addEventListener('scroll', handleScroll)
-})
 const jsonLD ={
   "@context": "https://schema.org", // 使用 Schema.org 词汇表
   "@graph": [ // 页面包含多个实体
@@ -128,14 +126,14 @@ const jsonLD ={
       "@id": "https://www.wan2video.com/wan/wan-2-2#wan-2-2-app", // 应用唯一 ID
       "name": "Wan 2.2 Plus - Cinematic AI Video Generator", // 应用完整名称（无空格关键词主打）
       "url": "https://www.wan2video.com/wan/wan-2-2", // 应用页面 URL
-      "applicationCategory": "MultimediaApplication", // 分类：多媒体
+      "applicationCategory": "MultimediaApplication", // 分类：Web/多媒体
       "operatingSystem": "Web Browser", // 运行环境：浏览器
       "image": "https://www.wan2video.com/wan-2-2.webp", // 展示图
       "inLanguage": "en-US", // 语言
       "brand": { // 品牌
         "@type": "Brand",
         "name": "Wan AI",
-        "@id": "https://www.wan2video.com/#brand"
+        "@id": "https://www.wan2video.com/wan/wan-2-2#brand"
       },
       "publisher": { // 发布方（组织）
         "@id": "https://www.wan2video.com/#organization" // 关联 Organization
@@ -151,11 +149,6 @@ const jsonLD ={
           "priceCurrency": "USD", // 货币
           "valueAddedTaxIncluded": false // 是否含税（不含）
         }
-      },
-      "aggregateRating": { // 聚合评分（若无真实评分建议暂不开放）
-        "@type": "AggregateRating", // 评分类型
-        "ratingValue": "4.5", // 平均分
-        "ratingCount": "288" // 评分数量
       },
       "featureList": [ // 功能列表（同步 HeroSection 组件功能）
         "Text-to-Video generation with natural language prompts",
@@ -239,15 +232,38 @@ const jsonLD ={
     }
   ]
 }
+
+
 useHead({
 
-script: [
-  {
-    type: 'application/ld+json',
-    children: JSON.stringify(jsonLD)
-  }
-]
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify(jsonLD)
+    }
+  ]
 })
+
+// 处理支付回调
+onMounted(() => {
+  if (typeof window === "undefined") return;
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const paySuccess = urlParams.get("paysuccess");
+
+  if (paySuccess == "1") {
+    window.history.replaceState({}, "", window.location.pathname);
+    setTimeout(() => {
+      $toast.success("Thank you for your support! Your membership benefits are now activated.", 3000);
+    }, 500);
+  } else if (urlParams.get("payfail") == "1") {
+    window.history.replaceState({}, "", window.location.pathname);
+  }
+
+  // 添加滚动监听
+  window.addEventListener('scroll', handleScroll)
+})
+
 // 清理滚动监听
 onUnmounted(() => {
   if (typeof window !== "undefined") {

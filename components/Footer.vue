@@ -42,50 +42,15 @@
         <!-- 导航链接和法律条款 -->
         <div class="flex-1 flex flex-col sm:flex-row gap-6 md:gap-8">
           <!-- 导航链接 -->
-          <!-- <div class="flex-1 text-center sm:text-left">
+          <div class="flex-1 text-center sm:text-left">
             <div class="text-blue-footer font-medium mb-4 text-sm md:text-lg">Resources</div>
             <div class="flex flex-col gap-2 items-center sm:items-start">
-              <template v-for="(section, index) in footerSections" :key="index">
-                <div v-if="section.href && section.openInNewTab" 
-                  @click="handleLinkClick(section.href, section.openInNewTab)"
-                  class="text-blue-footertext hover:text-blue-footerhover transition-colors cursor-pointer flex items-center gap-2 justify-center sm:justify-start">
-                  <span>{{ section.name }}</span>
-                  <div class="flex items-center gap-1">
-                    <span v-if="section.showBeta" class="bg-blue-medium/50 text-white text-xs font-semibold rounded-full px-1.5 py-0.5">
-                      Beta
-                    </span>
-                    <span v-if="section.badge" class="bg-red-500 text-white text-xs font-semibold rounded-full px-1.5 py-0.5">
-                      {{ section.badge }}
-                    </span>
-                  </div>
-                </div>
-                <NuxtLink v-else-if="section.href" :to="section.href" 
+              <NuxtLink to="/blog" 
                   class="text-blue-footertext hover:text-blue-footerhover transition-colors flex items-center gap-2 justify-center sm:justify-start">
-                  <span>{{ section.name }}</span>
-                  <div class="flex items-center gap-1">
-                    <span v-if="section.showBeta" class="bg-blue-medium/50 text-white text-xs font-semibold rounded-full px-1.5 py-0.5">
-                      Beta
-                    </span>
-                    <span v-if="section.badge" class="bg-red-500 text-white text-xs font-semibold rounded-full px-1.5 py-0.5">
-                      {{ section.badge }}
-                    </span>
-                  </div>
+                  <span>Blog</span>
                 </NuxtLink>
-                <div v-else @click.prevent="handleNavClick(section.id)" 
-                  class="text-blue-footertext hover:text-blue-footerhover transition-colors cursor-pointer flex items-center gap-2 justify-center sm:justify-start">
-                  <span>{{ section.name }}</span>
-                  <div class="flex items-center gap-1">
-                    <span v-if="section.showBeta" class="bg-blue-medium/50 text-white text-xs font-semibold rounded-full px-1.5 py-0.5">
-                      Beta
-                    </span>
-                    <span v-if="section.badge" class="bg-red-500 text-white text-xs font-semibold rounded-full px-1.5 py-0.5">
-                      {{ section.badge }}
-                    </span>
-                  </div>
-                </div>
-              </template>
             </div>
-          </div> -->
+          </div>
           <!-- Products 部分 - 只在有内容时显示 -->
           <!-- <div v-if="productsSections && productsSections.length > 0" class="flex-1 text-center sm:text-left">
             <div class="text-blue-footer font-medium mb-4 text-sm md:text-lg">Products</div>

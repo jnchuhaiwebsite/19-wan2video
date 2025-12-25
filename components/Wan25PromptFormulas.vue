@@ -47,7 +47,7 @@
             </p>
             
             <div class="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 mb-4">
-              <h4 class="font-semibold text-gray-900 mb-3 text-center">Formula</h4>
+              <p class="font-semibold text-gray-900 mb-3 text-center">Formula</p>
               <div class="text-center font-mono text-amber-800 bg-white/70 rounded-lg p-3">
                 Prompt = Subject + Scene + Motion
               </div>
@@ -110,7 +110,7 @@
             </p>
             
             <div class="bg-gradient-to-r from-orange-50 to-red-50 rounded-2xl p-6 mb-4">
-              <h4 class="font-semibold text-gray-900 mb-3 text-center">Formula</h4>
+              <p class="font-semibold text-gray-900 mb-3 text-center">Formula</p>
               <div class="text-center font-mono text-orange-800 bg-white/70 rounded-lg p-3 text-sm">
                 Subject (detailed) + Scene (detailed) + Motion (detailed) + Aesthetic Controls + Stylization
               </div>
@@ -166,7 +166,7 @@
             </p>
             
             <div class="bg-gradient-to-r from-red-50 to-pink-50 rounded-2xl p-6 mb-4">
-              <h4 class="font-semibold text-gray-900 mb-3 text-center">Formula</h4>
+              <p class="font-semibold text-gray-900 mb-3 text-center">Formula</p>
               <div class="text-center font-mono text-red-800 bg-white/70 rounded-lg p-3">
                 Prompt = Motion + Camera Movement
               </div>
@@ -202,7 +202,7 @@
           <div class="flex items-center mb-6">
             <div class="w-16 h-16 bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-300">
               <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15pa1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
               </svg>
             </div>
             <div>
@@ -220,7 +220,7 @@
             </p>
             
             <div class="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl p-6 mb-4">
-              <h4 class="font-semibold text-gray-900 mb-3 text-center">Formula</h4>
+              <p class="font-semibold text-gray-900 mb-3 text-center">Formula</p>
               <div class="text-center font-mono text-purple-800 bg-white/70 rounded-lg p-3 text-sm">
                 Subject + Scene + Motion + Audio Description
               </div>
@@ -265,7 +265,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
-            <h4 class="font-semibold text-gray-900 mb-2">Be Specific</h4>
+            <p class="font-semibold text-gray-900 mb-2">Be Specific</p>
             <p class="text-gray-600 text-sm">The more detailed and specific your prompt, the better the AI understands your vision.</p>
           </div>
 
@@ -275,7 +275,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </div>
-            <h4 class="font-semibold text-gray-900 mb-2">Experiment</h4>
+            <p class="font-semibold text-gray-900 mb-2">Experiment</p>
             <p class="text-gray-600 text-sm">Try different combinations of formulas to discover unique styles and effects.</p>
           </div>
 
@@ -285,7 +285,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
-            <h4 class="font-semibold text-gray-900 mb-2">Start Simple</h4>
+            <p class="font-semibold text-gray-900 mb-2">Start Simple</p>
             <p class="text-gray-600 text-sm">Begin with basic formulas and gradually add complexity as you gain experience.</p>
           </div>
         </div>

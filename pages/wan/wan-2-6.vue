@@ -1,4 +1,9 @@
 <template>
+        <div class="">
+    <Breadcrumbs 
+    :nav-tabs="tabs" 
+    :items="breadcrumbItems" />
+  </div>
   <div class="relative">
     <!-- 背景装饰 -->
     <div class="fixed inset-0 -z-10 overflow-hidden">
@@ -82,6 +87,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import Wan26HeroSection from '~/components/wan26/HeroSection.vue';
 import Wan26WhatIs from '~/components/wan26/WhatIs.vue';
 import Wan26WhatsNew from '~/components/wan26/WhatsNew.vue';
@@ -95,6 +101,7 @@ import Wan26ModelComparison from '~/components/wan26/ModelComparison.vue';
 import Wan26VideoExamples from '~/components/wan26/VideoExamples.vue';
 import Wan26WhatYouCanCreate from '~/components/wan26/WhatYouCanCreate.vue';
 import Wan26Faq from '~/components/wan26/Faq.vue';
+import Breadcrumbs from '~/components/Breadcrumbs.vue';
 import { useHead } from 'nuxt/app';
 import { useSeo } from '~/composables/useSeo';
 useSeo({
@@ -102,6 +109,32 @@ useSeo({
   description: 'Explore Wan 2.6, an AI video model for multi-shot storytelling and 15s videos. Keep scene consistency, reuse video references, and create richer stories with ease.',
 })
 
+const breadcrumbItems = ref([
+  { text: 'Wan AI',},
+  { text: 'Wan 2.6', to: '/wan/wan-2-6' },
+]);
+
+// 修改点 2 (可选，建议): 使用 ref 包裹，确保数据响应性一致
+const tabs = ref([
+  { 
+    text: 'Wan 2.2', 
+    to: '/wan/wan-2-2', 
+    isActive: false 
+  },
+  { 
+    text: 'Wan 2.5', 
+    to: '/wan/wan-2-5', 
+    isActive: false, 
+  },
+  { 
+    text: 'Wan 2.6', 
+    to: '/wan/wan-2-6', 
+    isActive: true, 
+    badge: 'New'  
+
+  
+  }
+]);
 const jsonLD ={
   "@context": "https://schema.org", // 使用 Schema.org 词汇表
   "@graph": [ // 页面包含多个实体
@@ -143,17 +176,15 @@ const jsonLD ={
       "@type": "SoftwareApplication", // 应用实体（产品页）
       "@id": "https://www.wan2video.com/wan/wan-2-6#wan-2-6-app", // 应用唯一 ID
       "name": "Wan 2.6 - AI Video Generator for Multi-Shot Storytelling", // 应用完整名称（无空格关键词主打）
-      "alternateName": "Wan 2.6", // 备选名（带空格品牌写法）
-      "applicationSuite": "Wan 2.6", // 所属品牌套件
       "url": "https://www.wan2video.com/wan/wan-2-6", // 应用页面 URL
-      "applicationCategory": [ "WebApplication", "MultimediaApplication" ], // 分类：Web/多媒体
+      "applicationCategory": "MultimediaApplication", // 分类：Web/多媒体
       "operatingSystem": "Web Browser", // 运行环境：浏览器
-      "applicationSubCategory": "AI Video Generation Tool", // 子类：AI 视频生成工具
       "image": "https://www.wan2video.com/wan-2-6.webp", // 展示图
       "inLanguage": "en-US", // 语言
       "brand": { // 品牌
         "@type": "Brand",
-        "name": "Wan 2.6"
+        "name": "Wan AI",
+        "@id": "https://www.wan2video.com/wan/wan-2-6#brand"
       },
       "publisher": { // 发布方（组织）
         "@id": "https://www.wan2video.com/#organization" // 关联 Organization

@@ -44,7 +44,7 @@
             </button>
             <a 
               class="download-btn inline-flex flex-row items-center gap-4 px-8 py-5 bg-blue-dark hover:bg-blue-buttonhover text-white font-semibold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl"
-              href="https://play.google.com/store/apps/details?id=com.cykj.wan2" 
+              href="https://play.google.com/store/apps/details?id=com.cykj.wan25" 
               target="_blank" 
               rel="nofollow noopener"
               aria-label="Download from Google Play Store"

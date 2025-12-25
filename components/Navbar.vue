@@ -1,378 +1,233 @@
 <template>
-  <!-- 修改 header 为 fixed 定位，包含 Banner 和 Nav -->
-  <header class="fixed top-0 left-0 w-full z-50 flex flex-col">
+  <!-- Header 容器 - 始终固定在顶部 -->
+  <header class="fixed top-0 left-0 w-full z-50 flex flex-col shadow-md">
     
-    <!-- 新增：Banner 区域 -->
+    <!-- Banner 区域 (根据需求保留) -->
     <div class="w-full relative z-[51]">
-      <!-- PC端 Banner: 显示 GIF 图片 -->
-      <a 
-        href="/christmas" 
-        class="hidden lg:block w-full bg-slate-900/90 hover:opacity-95 transition-opacity"
-      >
-        <!-- 设置固定高度或自适应，根据图片比例调整，这里设置为 h-[60px] object-cover 保持条状 -->
+      <!-- PC端 Banner -->
+      <a href="/christmas" class="hidden lg:block w-full bg-slate-900 hover:opacity-95 transition-opacity">
         <img 
           src="https://cfsource.wan2video.com/wan2video/christmas/banner.gif" 
           alt="Christmas Special" 
           class="w-full h-[60px] object-cover mx-auto"
         />
       </a>
-
-      <!-- 移动端 Banner: 加载 HTML -->
+      <!-- 移动端 Banner -->
       <div class="block lg:hidden w-full h-[50px] relative bg-slate-900 overflow-hidden">
-        <!-- 添加透明点击层，确保移动端可以点击跳转 -->
-        <a 
-          href="/christmas" 
-          class="absolute inset-0 z-10 w-full h-full"
-        >
-        <img 
-          src="https://cfsource.wan2video.com/wan2video/christmas/bannershouji.gif" 
-          alt="Christmas Special" 
-          class="w-full h-[60px] object-cover mx-auto"
-        />
-      </a>
+        <a href="/christmas" class="absolute inset-0 z-10 w-full h-full">
+          <img 
+            src="https://cfsource.wan2video.com/wan2video/christmas/bannershouji.gif" 
+            alt="Christmas Special" 
+            class="w-full h-[60px] object-cover mx-auto"
+          />
+        </a>
       </div>
     </div>
 
-    <!-- 原导航栏：移除 fixed top-0 等定位样式，改为相对定位 -->
-    <nav
-      class="w-full backdrop-blur-md shadow-md bg-transparent relative z-50"
-    >
+    <!-- 导航栏：直接固定为“滚动后”的白底样式 -->
+    <nav class="w-full bg-white/95 backdrop-blur-md py-1 relative z-50">
       <div class="max-w-7xl mx-auto px-4">
-        <div class="flex items-center justify-between h-20">
-          <!-- Logo -->
+        <div class="flex items-center justify-between h-16 lg:h-18">
+          
+          <!-- Logo: 保持蓝色 -->
           <div class="flex-shrink-0">
             <NuxtLink to="/">
               <span class="text-blue-logo text-2xl lg:text-3xl font-bold">Wan2Video</span>
             </NuxtLink>
           </div>
 
-          <!-- PC端导航 - 居中显示 -->
+          <!-- PC端导航项 -->
           <div class="hidden lg:flex items-center justify-center flex-grow">
-            <div class="flex items-center space-x-6">
+            <ul class="flex items-center space-x-1 lg:space-x-2 list-none">
               <template v-for="(section, index) in sections" :key="index">
-                <NuxtLink
-                  :to="section.href || `/#${section.id}`"
-                  :class="[
-                    'relative transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:shadow-lg whitespace-nowrap flex items-center gap-2',
-                    section.id === 'christmas' ? 'christmas-nav-link' : 'text-blue-navtext hover:text-blue-dark'
-                  ]"
-                >
-                  {{ section.name }}
-                  <!-- Christmas HOT 标签 -->
-                  <span
-                    v-if="section.id === 'christmas'"
-                    class="hot-badge"
+                
+                <!-- 场景1：有下拉菜单 -->
+                <li v-if="section.children && section.children.length" class="relative group/main">
+                  <div
+                    class="relative transition-all cursor-pointer px-4 py-2 rounded-lg whitespace-nowrap flex items-center gap-1.5 font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+                    :class="[section.id === 'christmas' ? 'christmas-nav-link' : '']"
                   >
-                    HOT
-                  </span>
-                  <!-- Wan 2.6 New 标签 -->
-                  <span
-                    v-if="section.id === 'wan-2.6'"
-                    class="new-badge"
+                    <span class="relative">
+                      {{ section.name }}
+                      <!-- 标签逻辑 -->
+                      <span v-if="section.badge" class="absolute -top-3 left-full -ml-2 bg-red-500 text-white text-[9px] font-bold rounded-full px-1.5 py-0.5 shadow-sm">{{ section.badge }}</span>
+                      <span v-if="section.id === 'christmas'" class="hot-badge">HOT</span>
+                    </span>
+                    <!-- 箭头图标 -->
+                    <svg 
+                      class="h-4 w-4 text-slate-400 transition-transform duration-300 group-hover/main:rotate-180" 
+                      fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                  
+                  <!-- 下拉菜单：使用 top-full 和 pt-2 解决“点不到”问题 -->
+                  <ul class="absolute top-full left-0 pt-2 opacity-0 translate-y-2 pointer-events-none group-hover/main:opacity-100 group-hover/main:translate-y-0 group-hover/main:pointer-events-auto transition-all duration-200 ease-out min-w-[240px] z-[60]">
+                    <!-- 背景和内容容器 -->
+                    <div class="bg-white border border-slate-100 rounded-2xl shadow-2xl p-1.5 ring-1 ring-black/5">
+                      <li v-for="(child, childIndex) in section.children" :key="childIndex">
+                        <NuxtLink
+                          :to="child.href || `/#${child.id}`" 
+                          class="flex items-center justify-between px-4 py-3 text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all"
+                        >
+                          <span v-html="child.name" class="font-medium text-[15px]"></span>
+                          <span v-if="child.isNew" class="ml-2 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">NEW</span>
+                        </NuxtLink>
+                      </li>
+                    </div>
+                  </ul>
+                </li>
+
+                <!-- 场景2：普通链接 -->
+                <li v-else>
+                  <NuxtLink 
+                    :to="section.href || `/#${section.id}`"
+                    class="relative transition-all px-4 py-2 rounded-lg font-medium block text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+                    :class="[section.id === 'christmas' ? 'christmas-nav-link' : '']"
                   >
-                    New
-                  </span>
-                </NuxtLink>
+                    {{ section.name }}
+                    <span v-if="section.id === 'wan-2.6'" class="new-badge">New</span>
+                  </NuxtLink>
+                </li>
               </template>
-            </div>
+            </ul>
           </div>
 
-          <!-- 用户信息区域 - PC端 -->
-          <div class="hidden lg:flex items-center space-x-4 flex-shrink-0">
-            <!-- 体验卷角标 -->
+          <!-- 用户区域 (始终使用深色风格) -->
+          <div class="hidden lg:flex items-center space-x-4">
             <div
               v-if="isSignedIn && freeTimes > 0"
-              class="group flex items-center gap-1.5 rounded-full border border-blue-200/70 bg-gradient-to-r from-blue-500/20 via-indigo-400/15 to-cyan-400/20 px-3 py-1 font-semibold text-blue-50 shadow-[0_0_0_1px_rgba(15,23,42,0.55),0_10px_24px_rgba(15,23,42,0.65)] text-[11px]"
-              title="Trial vouchers"
+              class="flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-blue-700"
             >
-              <div class="relative flex items-center justify-center">
-                <div class="absolute inset-0 rounded-full bg-blue-300/25 blur-[8px] opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ticket-percent relative drop-shadow-sm h-4 w-4" aria-hidden="true" style="color:#00e6e8">
-                  <path d="M2 9a3 3 0 1 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path>
-                  <path d="M9 9h.01"></path>
-                  <path d="m15 9-6 6"></path>
-                  <path d="M15 15h.01"></path>
-                </svg>
-              </div>
-              <span class="ml-0.5 rounded-full bg-slate-950/80 px-2 py-0.5 leading-none border border-blue-200/70 shadow-sm">{{ freeTimes }} Free</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4 text-blue-600">
+                <path d="M2 9a3 3 0 1 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path>
+                <path d="m15 9-6 6"></path>
+                <path d="M9 9h.01"></path><path d="M15 15h.01"></path>
+              </svg>
+              <span class="text-[11px] font-bold">{{ freeTimes }} Free</span>
             </div>
-            <!-- 用户头像区域 -->
-            <div>
-              <UserMenu />
-            </div>
+            <UserMenu />
           </div>
 
-          <!-- 移动端体验卷 + 菜单按钮 -->
-          <div class="flex items-center lg:hidden gap-3">
-            <div
-              v-if="isSignedIn && freeTimes > 0"
-              class="group flex items-center gap-1.5 rounded-full border border-blue-200/70 bg-gradient-to-r from-blue-500/20 via-indigo-400/15 to-cyan-400/20 px-2.5 py-0.5 font-semibold text-blue-50 shadow-[0_0_0_1px_rgba(15,23,42,0.55),0_8px_18px_rgba(15,23,42,0.6)] text-[10px]"
-              title="Trial vouchers"
-            >
-              <div class="relative flex items-center justify-center">
-                <div class="absolute inset-0 rounded-full bg-blue-300/25 blur-[6px] opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ticket-percent relative drop-shadow-sm h-4 w-4" aria-hidden="true" style="color:#00e6e8">
-                  <path d="M2 9a3 3 0 1 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path>
-                  <path d="M9 9h.01"></path>
-                  <path d="m15 9-6 6"></path>
-                  <path d="M15 15h.01"></path>
-                </svg>
-              </div>
-              <span class="ml-0.5 rounded-full bg-slate-950/80 px-2 py-0.5 leading-none border border-blue-200/70 shadow-sm">{{ freeTimes }} Free</span>
-            </div>
-
-            <button
-              @click="isOpen = !isOpen"
-              class="lg:hidden text-blue-dark p-2 rounded-md hover:bg-blue-medium/20 transition-colors"
-            >
-              <svg
-                v-if="!isOpen"
-                class="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-              <svg
-                v-else
-                class="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
+          <!-- 移动端按钮 -->
+          <button
+            @click="isOpen = !isOpen"
+            class="lg:hidden p-2 text-slate-800 transition-colors"
+          >
+            <svg v-if="!isOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg v-else class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
       </div>
 
-      <!-- 移动端菜单，使用懒加载 -->
+      <!-- 移动端滑出菜单 -->
       <Transition name="slide-fade">
-        <div
-          v-if="isOpen"
-          class="lg:hidden fixed top-20 left-0 w-full h-[calc(100vh-5rem)] overflow-y-auto bg-blue-pale/95 backdrop-blur-sm z-[100] border-t border-blue-100"
-        >
-          <!-- 滚动内容区域 -->
-          <div class="px-4 pb-8 pt-4">
-            <!-- 导航链接 -->
-            <div class="space-y-2 mb-6">
-              <template v-for="(section, index) in sections" :key="index">
-                <NuxtLink
-                  :to="section.href || `/#${section.id}`"
+        <div v-if="isOpen" class="lg:hidden fixed inset-0 top-[110px] w-full h-screen bg-white z-[100] border-t border-slate-100 px-4 pt-4">
+           <ul class="space-y-4">
+              <li v-for="section in sections" :key="section.id">
+                <NuxtLink 
+                  :to="section.href || `/#${section.id}`" 
+                  class="text-lg font-bold text-slate-800 block py-2"
                   @click="isOpen = false"
-                  :class="[
-                    'relative block text-base transition-all cursor-pointer px-4 py-2.5 rounded-lg hover:bg-blue-medium/10 hover:shadow-lg hover:shadow-blue-medium/20 whitespace-nowrap mt-3 flex items-center gap-3',
-                    section.id === 'christmas' ? 'christmas-nav-link' : 'text-blue-navtext hover:text-blue-dark'
-                  ]"
                 >
                   {{ section.name }}
-                  <!-- Christmas HOT 标签 -->
-                  <span
-                    v-if="section.id === 'christmas'"
-                    class="hot-badge"
-                  >
-                    HOT
-                  </span>
-                  <!-- Wan 2.6 New 标签 -->
-                  <span
-                    v-if="section.id === 'wan-2.6'"
-                    class="new-badge"
-                  >
-                    New
-                  </span>
                 </NuxtLink>
-              </template>
-            </div>
-
-            <!-- 移动端用户菜单 -->
-            <UserMenu :isMobile="true" :onCloseMobileNav="() => isOpen = false" />
-          </div>
+              </li>
+           </ul>
+           <div class="mt-8 border-t pt-6">
+              <UserMenu :isMobile="true" :onCloseMobileNav="() => isOpen = false" />
+           </div>
         </div>
       </Transition>
     </nav>
   </header>
+  <!-- 占位符，防止内容被固定导航栏遮挡 (高度 = Banner + Nav) -->
+  <div class="h-[126px] lg:h-[132px]"></div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onUnmounted, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useNavigation } from "~/utils/navigation";
 import { useClerkAuth } from '~/utils/authHelper';
 import { useRouter, useRoute } from 'vue-router';
 import { useUserStore } from '~/stores/user';
-import { 
-  HomeIcon, 
-  SparklesIcon, 
-  PlayIcon, 
-  TagIcon,
-  QuestionMarkCircleIcon,
-  BookOpenIcon
-} from '@heroicons/vue/24/outline';
 
-// 状态管理
 const isOpen = ref(false);
 const { isSignedIn } = useClerkAuth();
-const router = useRouter();
 const route = useRoute();
 const userStore = useUserStore();
-const credits = ref(0);
 const freeTimes = ref(0);
 
-// 图标映射
-const iconMap = {
-  HomeIcon,
-  SparklesIcon,
-  PlayIcon,
-  TagIcon,
-  QuestionMarkCircleIcon,
-  BookOpenIcon
-};
+const { sections, handleScroll: navHandleScroll, executeScroll } = useNavigation();
 
-// 获取图标组件
-const getIconComponent = (iconName: string) => {
-  return iconMap[iconName as keyof typeof iconMap] || null;
-};
-
-// 监听用户信息变化
-watch(() => userStore.userInfo, (newUserInfo) => {
-  if (newUserInfo) {
-    credits.value = newUserInfo.free_limit + newUserInfo.remaining_limit || 0;
-    freeTimes.value = newUserInfo.free_times || 0;
-  } else {
-    credits.value = 0;
-    freeTimes.value = 0;
-  }
-}, { immediate: true });
-
-// 获取用户信息
-const getUserInfo = async () => {
-  try {
-    const userData = await userStore.fetchUserInfo();
-    if (userData) {
-      credits.value = userData.free_limit + userData.remaining_limit || 0;
-      freeTimes.value = userData.free_times || 0;
-    }
-  } catch (error) {
-    console.error("获取用户信息失败:", error);
-  }
-}
-
-// 使用导航工具
-const { activeSection, sections, handleNavClick, handleScroll, executeScroll } =
-  useNavigation();
-
-onMounted(async () => {
-  // 只重置overflow，不改变滚动位置
-  document.body.style.overflow = "";
-
-  // 添加滚动事件监听
-  window.addEventListener("scroll", handleScroll);
-
-  // 如果用户已登录，获取用户信息
+onMounted(() => {
+  // 依然保留滚动监听，用于锚点高亮逻辑（如果 sections 依赖这个逻辑的话）
+  window.addEventListener("scroll", navHandleScroll);
+  
   if (isSignedIn) {
-    await getUserInfo();
+    userStore.fetchUserInfo().then(data => {
+      if (data) freeTimes.value = data.free_times || 0;
+    });
   }
 
-  // 初始检查 sessionStorage 中是否有目标锚点
-  const targetSection = sessionStorage.getItem("targetSection");
-  if (targetSection && route.path === '/') {
-    // 清除目标锚点
+  const target = sessionStorage.getItem("targetSection");
+  if (target && route.path === '/') {
     sessionStorage.removeItem("targetSection");
-    // 延迟执行滚动操作，确保DOM已加载完成
-    setTimeout(() => {
-      executeScroll(targetSection);
-    }, 300);
+    setTimeout(() => executeScroll(target), 300);
   }
 });
 
-// 监听菜单打开状态，控制body滚动
-watch(isOpen, (newValue) => {
-  if (newValue) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "";
-  }
-});
-
-// 组件卸载时恢复body滚动并移除事件监听
-onUnmounted(() => {
-  document.body.style.overflow = "";
-  window.removeEventListener("scroll", handleScroll);
+watch(isOpen, (val) => {
+  document.body.style.overflow = val ? "hidden" : "";
 });
 </script>
 
 <style scoped>
-/* 导航栏动画 */
-.nav-enter-active,
-.nav-leave-active {
-  transition: all 0.3s ease;
+/* 保持 Christmas 导航链接红色 */
+.christmas-nav-link {
+  color: #FF4500 !important;
+  font-weight: 800;
 }
 
-.nav-enter-from,
-.nav-leave-to {
-  opacity: 0;
-  transform: translateY(-20px);
-}
-
-/* 覆盖hover效果 */
-.hover-text-theme:hover {
-  color: var(--baby-coral) !important;
-}
-  
 /* HOT 标签样式 */
 .hot-badge {
   position: absolute;
-  top: -6px;
-  right: -4px;
+  top: -10px;
+  right: -12px;
   background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
   color: white;
   font-size: 9px;
-  font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 9999px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transform: rotate(-12deg) skew(-5deg);
-  box-shadow: 0 2px 8px rgba(255, 107, 53, 0.5), 0 0 4px rgba(255, 107, 53, 0.3);
-  z-index: 10;
-  white-space: nowrap;
-  line-height: 1.2;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 999px;
+  transform: rotate(-12deg);
+  box-shadow: 0 2px 4px rgba(255, 107, 53, 0.3);
 }
 
 /* New 标签样式 */
 .new-badge {
   display: inline-flex;
-  align-items: center;
-  background: #e0dcdc56;
-  color: #8B5CF6;
-  font-size: 12px;
+  margin-left: 6px;
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  font-size: 10px;
   font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 9999px;
-  text-transform: capitalize;
-  letter-spacing: 0.3px;
+  padding: 1px 7px;
+  border-radius: 6px;
+  text-transform: uppercase;
 }
 
-/* Christmas 导航链接样式 */
-.christmas-nav-link {
-  color: #FF4500 ;
-  font-weight: 700;
-  font-size: 20px;
+/* 移动端动画 */
+.slide-fade-enter-active, .slide-fade-leave-active {
+  transition: all 0.3s ease;
 }
-
-.christmas-nav-link:hover {
-  color: #FF4500;
-  opacity: 0.9;
+.slide-fade-enter-from, .slide-fade-leave-to {
+  opacity: 0;
+  transform: translateX(10px);
 }
 </style>
