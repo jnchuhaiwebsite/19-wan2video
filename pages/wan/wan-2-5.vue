@@ -72,10 +72,14 @@
 
 
     <!-- Use Cases -->
-    <section class="relative">
+    <!-- <section class="relative">
       <Wan25UseCases />
-    </section>
+    </section> -->
 
+    <!-- Transforming Industries -->
+    <section class="relative">
+      <Wan25TransformingIndustries />
+    </section>
 
     <!-- FAQ Section -->
     <section class="relative">
@@ -127,17 +131,15 @@ import { ref } from 'vue';
 import Breadcrumbs from '~/components/Breadcrumbs.vue';
 import Wan25Faq from '~/components/Wan25Faq.vue';
 import Wan25Showcase from '~/components/Wan25Showcase.vue';
-import Wan25Specs from '~/components/Wan25Specs.vue';
 import Wan25PromptFormulas from '~/components/Wan25PromptFormulas.vue';
 import Wan25Generator from '~/components/Wan25Generator.vue';
-import Wan25UseCases from '~/components/Wan25UseCases.vue';
 import Wan25HeroSection from '~/components/Wan25HeroSection.vue';
-import Wan25ProcessSteps from '~/components/Wan25ProcessSteps.vue';
 import Wan25WhatYouCanDo from '~/components/wan25/WhatYouCanDo.vue';
 import Wan25HowToUse from '~/components/wan25/HowToUse.vue';
 import Wan25WhyCreatorsChoose from '~/components/wan25/WhyCreatorsChooseWan25.vue';
 import Wan25RealExamples from '~/components/wan25/RealExamples.vue';
 import Wan25TechnicalSpecs from '~/components/wan25/TechnicalSpecs.vue';
+import Wan25TransformingIndustries from '~/components/wan25/TransformingIndustries.vue';
 
 import { useHead } from 'nuxt/app';
 import { useSeoMeta } from 'nuxt/app';
@@ -192,6 +194,191 @@ const tabs = ref([
     badge: 'New'  
   }
 ]);
+
+const jsonLD ={
+  "@context": "https://schema.org", // 使用 Schema.org 词汇表
+  "@graph": [ // 页面包含多个实体
+    {
+      "@type": "WebPage", // 当前二级页的网页实体
+      "@id": "https://www.wan2video.com/wan/wan-2-5#webpage", // WebPage 唯一 ID
+      "url": "https://www.wan2video.com/wan/wan-2-5", // 页面 URL
+      "name": "Wan 2.5: Audio-Driven Video Generator for Lip-Synced HD Videos", // 页面标题
+      "isPartOf": { // 归属网站
+        "@id": "https://www.wan2video.com/#website" // 指向 WebSite
+      },
+      "about": { // 页面主题对象
+        "@id": "https://www.wan2video.com/wan/wan-2-5" // 指向本页的 SoftwareApplication
+      }
+    },
+    {
+      "@type": "BreadcrumbList", // 面包屑
+      "@id": "https://www.wan2video.com/wan/wan-2-5#breadcrumbs", // 面包屑 ID
+      "itemListElement": [ // 面包屑条目
+        {
+          "@type": "ListItem", // 第 1 层
+          "position": 1,
+          "item": {
+            "@id": "https://www.wan2video.com/", // 首页 URL
+            "name": "Home" // 首页名称
+          }
+        },
+        {
+          "@type": "ListItem", // 第 2 层
+          "position": 2,
+          "item": {
+            "@id": "https://www.wan2video.com/wan/wan-2-5", // 本页 URL
+            "name": "Wan 2.5" // 本页名称
+          }
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication", // 应用实体（产品页）
+      "@id": "https://www.wan2video.com/wan/wan-2-5#wan-2-5-app", // 应用唯一 ID
+      "name": "Wan 2.5 - AI Video Generator for Multi-Shot Storytelling", // 应用完整名称（无空格关键词主打）
+      "alternateName": "Wan 2.5", // 备选名（带空格品牌写法）
+      "applicationSuite": "Wan 2.5", // 所属品牌套件
+      "url": "https://www.wan2video.com/wan/wan-2-5", // 应用页面 URL
+      "applicationCategory": "MultimediaApplication", // 分类：Web/多媒体
+      "operatingSystem": "Web Browser", // 运行环境：浏览器
+      "applicationSubCategory": "AI Video Generation Tool", // 子类：AI 视频生成工具
+      "image": "https://www.wan2video.com/wan-2-5.webp", // 展示图
+      "inLanguage": "en-US", // 语言
+      "brand": { // 品牌
+        "@type": "Brand",
+        "name": "Wan 2.5"
+      },
+      "publisher": { // 发布方（组织）
+        "@id": "https://www.wan2video.com/#organization" // 关联 Organization
+      },
+      "offers": { // 售卖信息
+        "@type": "Offer",
+        "availability": "https://schema.org/OnlineOnly", // 在线售卖
+        "price": "10", // 起价
+        "priceCurrency": "USD", // 货币
+        "priceSpecification": { // 价格细项
+          "@type": "UnitPriceSpecification",
+          "price": "10", // 单价
+          "priceCurrency": "USD", // 货币
+          "valueAddedTaxIncluded": false // 是否含税（不含）
+        }
+      },
+      "featureList": [ // 功能列表（同步 Wan25Generator）
+        "Image-to-Video generation with first frame image upload",
+        "Text-to-Video generation with natural language prompts",
+        "Multiple resolution options: 480p, 720p, and 1080p HD quality",
+        "Flexible video duration: 5-second and 10-second clips",
+        "Audio file upload support (MP3/WAV, 3-30 seconds) with AI lip-sync",
+        "Multiple aspect ratio support: 16:9, 9:16, 1:1, 4:3, and 3:4 formats",
+        "Prompt enhancement feature for improved video quality",
+        "Support for multiple image formats: JPEG, JPG, PNG, BMP, WEBP",
+        "Cloud-based processing - no powerful PC required",
+        "Full commercial rights for all generated content"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.wan2video.com/wan/wan-2-5#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I use Wan 2.5 for free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Wan2Video occasionally offers free-credit events. After the free quota is used, you can purchase credits as needed— no subscription"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the biggest advantage of Wan 2.5?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Wan 2.5 delivers precise audio sync, 1080p clarity, stable lighting and semantic precision in one cinematic AI short video generator. It creates high-quality 5s and 10s AI text-to-video clips at an affordable, credits-based price."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need a powerful PC to use Wan 2.5?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Wan 2.5 runs fully on the Wan2Video cloud platform, so no high-VRAM GPU is required. Just upload text, images or audio in your browser."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What sizes and resolutions does Wan 2.5 support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Wan 2.5 supports 480p, 720p and 1080p for image-to-video, plus 832×480, 1280×720 and 1920×1080 for AI text-to-video. All modes are optimized for 5s and 10s short-form clips."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long are the videos with Wan 2.5?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Wan 2.5 currently produces 5-second and 10-second short videos, ideal for hooks, intros and short-form content. Longer formats are under exploration."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do my credits expire?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Credits on Wan2Video never expire, and you can stack multiple credit packs anytime."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use Wan 2.5 for commercial projects?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Generated content can be used commercially for marketing, social media, client work and monetized content under Wan2Video's Terms of Service."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo", // 使用说明模块（同步 Wan25HowToUse）
+      "@id": "https://www.wan2video.com/wan/wan-2-5#how-to-use",
+      "name": "How to Use Wan 2.5 AI On Wan2Video",
+      "description": "Choose Text-to-Video or Image-to-Video, enter your prompt, upload optional audio, and select the duration and resolution. — Wan 2.5 will generate a polished short-form clip with no editing timeline required.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Step 1: Choose Generation Mode",
+          "text": "Select between Text-to-Video or Image-to-Video mode. For Image-to-Video, upload a first frame image (portrait, product photo, or concept image). For Text-to-Video, you only need to provide a text prompt."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Step 2: Upload First Frame Image (Image-to-Video Mode)",
+          "text": "Upload a portrait, product photo, or concept image. Supported formats: JPEG, JPG, PNG, BMP, WEBP. Resolution: 360-2000px, Max 10MB. Wan 2.5 converts it into a short-form video with smooth motion and consistent identity."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Step 3: Write Your Prompt",
+          "text": "Describe the subject, scene, motion, and style. Example: 'Cinematic close-up of a woman speaking on stage, warm key light, shallow depth of field.' Supports English and Chinese, up to 2000 characters. You can enable Prompt Enhancement for improved video quality."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Step 4: Upload Audio File (Optional)",
+          "text": "Upload an MP3 or WAV file (3–30 seconds, max 15MB). Wan 2.5 uses AI lip-sync and precise audio-visual alignment to match speech, sound effects, and background music."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Step 5: Configure Video Settings",
+          "text": "Choose video duration (5 seconds for fast, eye-catching clips, or 10 seconds for richer storytelling). Select resolution: 480p for quick drafts, 720p for balanced quality, or 1080p for full HD clarity. For Text-to-Video, also select video aspect ratio: 16:9, 9:16, 1:1, 4:3, or 3:4."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Step 6: Generate and Review",
+          "text": "Click Generate Video to create your result. The video will be processed on the cloud platform. Preview the output and download when ready. You can regenerate with different settings if needed."
+        }
+      ]
+    }
+  ]
+}
+
 // Page head
 useHead({
   title: ' Wan 2.5: Audio-Driven Video Generator for Lip-Synced HD Videos',
@@ -199,6 +386,12 @@ useHead({
     { name: 'description', content: 'Wan 2.5 is an all-in-one AI video generation model that turns text, image, or audio into lip-synced HD videos. Perfect for creators, marketers, and storytellers.' },
     { name: 'keywords', content: 'Wan 2.5, AI video generator, text-to-video, image-to-video, 1080p video, AI video creation' }
   ],
-  link: [{ rel: 'canonical', href:  baseUrl + 'wan-2-5-ai' }]
+  link: [{ rel: 'canonical', href:  baseUrl + 'wan-2-5-ai' }],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify(jsonLD)
+    }
+  ]
 })
 </script>

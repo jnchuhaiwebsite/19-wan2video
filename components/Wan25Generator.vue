@@ -387,7 +387,7 @@
 
         <!-- Right Side: Preview Area -->
         <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/50 min-h-[600px] flex flex-col">
-          <h3 class="text-xl font-bold text-gray-900 mb-6 text-center">Video Preview</h3>
+          <p class="text-xl font-bold text-gray-900 mb-6 text-center">Video Preview</p>
           
           <!-- Loading State -->
           <div v-if="isGenerating" class="flex-1 flex flex-col items-center justify-center">
@@ -449,7 +449,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
               </svg>
             </div>
-            <h4 class="text-xl font-bold text-gray-900 mb-3">Ready to Create Your Video</h4>
+            <p class="text-xl font-bold text-gray-900 mb-3">Ready to Create Your Video</p>
             <p class="text-gray-600 mb-6">
               {{ activeMode === 'image-to-video' ? 'Upload image and add description to let AI create dynamic video for you' : 'Enter creative description to let AI generate amazing video for you' }}
             </p>

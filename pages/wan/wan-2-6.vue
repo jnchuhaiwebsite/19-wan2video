@@ -179,7 +179,7 @@ const jsonLD ={
       "alternateName": "Wan 2.6", // 备选名（带空格品牌写法）
       "applicationSuite": "Wan 2.6", // 所属品牌套件
       "url": "https://www.wan2video.com/wan/wan-2-6", // 应用页面 URL
-      "applicationCategory": [ "WebApplication", "MultimediaApplication" ], // 分类：Web/多媒体
+      "applicationCategory": "MultimediaApplication", // 分类：Web/多媒体
       "operatingSystem": "Web Browser", // 运行环境：浏览器
       "applicationSubCategory": "AI Video Generation Tool", // 子类：AI 视频生成工具
       "image": "https://www.wan2video.com/wan-2-6.webp", // 展示图
