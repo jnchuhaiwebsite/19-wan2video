@@ -31,6 +31,7 @@ export const mainRoutes: RouteItem[] = [
    },
   { id: "pricing", name: "Pricing", icon: "TagIcon", href: "/pricing" },
   { id: "blog", name: "Blog", href: "/blog", icon: "BookOpenIcon" },
+  { id: "faq", name: "Faq", href: "/faq", icon: "QuestionMarkCircleIcon" },
   { id: "mobile-app", name: "Mobile App", href: "/wan-mobile-app", icon: "PhoneIcon" },
 
   // { id: "image-generate", name: "Image Generate", href: "/ai-image-generator", icon: "image" },
