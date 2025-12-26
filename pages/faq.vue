@@ -2,7 +2,7 @@
     <div class="min-h-screen bg-slate-50 selection:bg-blue-100 selection:text-blue-700 font-sans text-slate-800">
       
       <!-- 顶部 Banner / 标题区 -->
-      <header class="bg-white border-b border-slate-200 pt-24 pb-16 relative overflow-hidden">
+      <header class="bg-white border-b border-slate-200 pt-32  relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-white/0 pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
           <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-4">
@@ -14,7 +14,7 @@
         </div>
       </header>
   
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
         <!-- 核心布局：Grid 布局，左侧窄列，右侧宽列 -->
         <div class="lg:grid lg:grid-cols-12 lg:gap-12 items-start">
           
@@ -139,12 +139,17 @@
   
   <script setup lang="ts">
   import { ref, onMounted, onUnmounted } from 'vue'
-  
+  import { useSeo } from '~/composables/useSeo'
   // --- 图标组件定义 (内联 SVG 以避免依赖) ---
   const SvgPricing = { template: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>` }
   const SvgPayment = { template: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>` }
   const SvgUsage = { template: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>` }
   
+
+  useSeo({
+    title: 'Wan2Video FAQ | Guide to Wan 2.5 Architecture & Pricing Plans',
+    description: 'Everything you need to know about Wan2Video. Get technical insights into the Wan 2.5 AI architecture, understand subscription costs, and review commercial usage guidelines.',
+  })
   // --- 导航数据 ---
   const activeSection = ref('pricing')
   const navItems = [
