@@ -69,23 +69,37 @@ useSeo({
 
 // 处理支付回调
 onMounted(() => {
-  if (typeof window === "undefined") return;
-
-  const urlParams = new URLSearchParams(window.location.search);
-  const paySuccess = urlParams.get("paysuccess");
-
-  if (paySuccess == "1") {
-    window.history.replaceState({}, "", window.location.pathname);
-    setTimeout(() => {
-      $toast.success("Thank you for your support! Your membership benefits are now activated.", 3000);
-    }, 500);
-  } else if (urlParams.get("payfail") == "1") {
-    window.history.replaceState({}, "", window.location.pathname);
+// 检查URL中是否有锚点，并执行滚动
+const scrollToAnchor = () => {
+    if (window.location.hash) {
+      const sectionId = window.location.hash.substring(1);
+      
+      let attempts = 0;
+      const maxAttempts = 30; // 增加尝试次数以应对慢网络
+      
+      const interval = setInterval(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          clearInterval(interval);
+          const offset = 80; // 导航栏高度
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.scrollY - offset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        } else {
+          attempts++;
+          if (attempts > maxAttempts) {
+            clearInterval(interval);
+            console.warn(`无法找到ID为 '${sectionId}' 的元素`);
+          }
+        }
+      }, 100);
+    }
   }
-
-  // 添加滚动监听
-  window.addEventListener('scroll', handleScroll)
-})
+  scrollToAnchor();
+});
 const jsonLD ={
   "@context": "https://schema.org", // 使用 Schema.org 词汇表
   "@graph": [ // 页面包含多个实体
