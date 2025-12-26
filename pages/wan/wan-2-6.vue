@@ -115,7 +115,7 @@ useSeo({
 })
 
 const breadcrumbItems = ref([
-  { text: 'Wan AI'},
+  { text: 'Wan AI',to: '/wan'},
   { text: 'Wan 2.6', to: '/wan/wan-2-6' },
 ]);
 
@@ -170,6 +170,14 @@ const jsonLD ={
         {
           "@type": "ListItem", // 第 2 层
           "position": 2,
+          "item": {
+            "@id": "https://www.wan2video.com/wan", // 本页 URL
+            "name": "Wan AI" // 本页名称
+          }
+        },  
+        {
+          "@type": "ListItem", // 第 3 层
+          "position": 3,
           "item": {
             "@id": "https://www.wan2video.com/wan/wan-2-6", // 本页 URL
             "name": "Wan 2.6" // 本页名称

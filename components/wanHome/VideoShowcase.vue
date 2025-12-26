@@ -1,25 +1,30 @@
 <template>
-  <section class="py-24 bg-[#fafaff] relative overflow-hidden">
-    <!-- 动态背景装饰 -->
-    <div class="absolute inset-0 pointer-events-none">
-      <div class="absolute top-[-10%] left-[-5%] w-[40rem] h-[40rem] bg-blue-100/50 rounded-full blur-[120px] animate-pulse-slow"></div>
-      <div class="absolute bottom-[-10%] right-[-5%] w-[35rem] h-[35rem] bg-purple-100/50 rounded-full blur-[120px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+  <section class="py-24 bg-gradient-to-br from-white via-blue-50 to-indigo-50 relative overflow-hidden">
+    <!-- 背景装饰 -->
+    <div class="absolute inset-0 opacity-20">
+      <div
+        class="absolute top-1/4 left-1/5 w-80 h-80 bg-gradient-to-br from-blue-200 to-indigo-200 rounded-full blur-3xl"
+      ></div>
+      <div
+        class="absolute bottom-1/4 right-1/5 w-72 h-72 bg-gradient-to-tr from-indigo-200 to-purple-200 rounded-full blur-3xl"
+      ></div>
     </div>
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
-      <!-- 标题区域 -->
-      <div class="text-center mb-16 space-y-4">
-
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 mb-6">
-          Explore Real <span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Wan 2.6</span> Video Generations
+      <!-- 标题 & 副标题 -->
+      <div class="text-center mb-16">
+        <h2
+          class="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mb-5 leading-tight"
+        >
+          See What's Possible: Made with Wan 2.6
         </h2>
-        <p class="max-w-2xl mx-auto text-lg text-gray-500 leading-relaxed font-light">
-          Browse sample videos to understand how Wan 2.6 handles storytelling, character consistency, and audio-visual flow.
+        <p class="max-w-3xl mx-auto text-base md:text-lg text-gray-700 leading-relaxed">
+          Explore a gallery of unedited, raw footage generated directly from Wan 2.6. Experience the breakthrough in 15s coherence, native audio, and character consistency.
         </p>
       </div>
 
       <!-- 视频网格 -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
         <div
           v-for="(item, index) in videoItems"
           :key="index"
@@ -52,12 +57,13 @@
               v-if="item.videoLoaded || item.loading"
               :ref="el => setVideoRef(index, el)"
               :src="item.videoUrl"
-              loop
               muted
+              controls
               playsinline
               class="w-full h-full object-cover"
               :class="{'opacity-0': item.loading, 'opacity-100': item.videoLoaded}"
               @loadeddata="handleVideoLoaded(index)"
+              @play="handleVideoPlay(index)"
             ></video>
 
             <!-- 加载状态 -->
@@ -76,7 +82,25 @@
             </div>
           </div>
 
+          <!-- 底部信息 -->
+ 
         </div>
+      </div>
+
+      <!-- 底部行动区 -->
+      <div class="text-center bg-white/80 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-lg border border-indigo-100/60">
+        <p class="text-xl md:text-2xl font-semibold text-gray-800 mb-6">
+          Want to create videos like these?
+        </p>
+        <NuxtLink
+          to="/wan/wan-2-6#generator"
+          class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-semibold text-lg rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300"
+        >
+          <span>Try Wan AI Now</span>
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </NuxtLink>
       </div>
     </div>
   </section>
@@ -135,32 +159,12 @@ const videoItems = ref<VideoItem[]>([
     videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/wan-2-6_examples_6.mp4',
     loading: false,
     videoLoaded: false
-  },
-  {
-    title: 'The Long Walk Home',
-    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/wan-2-6_examples_7.webp',
-    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/wan-2-6_examples_7.mp4',
-    loading: false,
-    videoLoaded: false
-  },
-  {
-    title: 'On Guard',
-    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/wan-2-6_examples_8.webp',
-    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/wan-2-6_examples_8.mp4',
-    loading: false,
-    videoLoaded: false
-  },
-  {
-    title: 'Zoomies Incoming',
-    imageUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/image/wan-2-6_examples_9.webp',
-    videoUrl: 'https://cfsource.wan2video.com/wan2video/26/examples/video/wan-2-6_examples_9.mp4',
-    loading: false,
-    videoLoaded: false
   }
 ])
 
 const videoRefs = ref<(HTMLVideoElement | null)[]>([])
 const isMobile = ref(false)
+const currentPlayingIndex = ref<number | null>(null)
 
 const checkMobile = () => {
   if (typeof window === 'undefined') return
@@ -198,6 +202,18 @@ const handleVideoLoaded = (index: number) => {
   }, 50)
 }
 
+const handleVideoPlay = (index: number) => {
+  // 如果当前播放的不是这个视频，暂停其他所有视频
+  if (currentPlayingIndex.value !== null && currentPlayingIndex.value !== index) {
+    const previousVideo = videoRefs.value[currentPlayingIndex.value]
+    if (previousVideo && !previousVideo.paused) {
+      previousVideo.pause()
+    }
+  }
+  // 更新当前播放的视频索引
+  currentPlayingIndex.value = index
+}
+
 onMounted(() => {
   checkMobile()
   window.addEventListener('resize', checkMobile)
@@ -209,16 +225,6 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* 动画增强 */
-@keyframes pulse-slow {
-  0%, 100% { transform: scale(1) translate(0, 0); }
-  50% { transform: scale(1.1) translate(2%, 2%); }
-}
-
-.animate-pulse-slow {
-  animation: pulse-slow 10s infinite ease-in-out;
-}
-
 /* 过渡动画 */
 .fade-enter-active,
 .fade-leave-active {
@@ -229,16 +235,5 @@ onUnmounted(() => {
 .fade-leave-to {
   opacity: 0;
 }
-
-/* 自定义滚动条样式（如果需要） */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: #e2e8f0;
-  border-radius: 10px;
-}
 </style>
+
