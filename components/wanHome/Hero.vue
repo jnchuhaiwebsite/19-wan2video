@@ -49,7 +49,7 @@
               
               <!-- 文字容器 -->
               <div class="relative h-full w-full flex items-center justify-center rounded-full bg-transparent">
-                 <span class="text-white text-lg font-medium tracking-wide drop-shadow-md group-hover:tracking-wider transition-all">wan 2.6</span>
+                 <span class="text-white text-lg font-medium tracking-wide drop-shadow-md group-hover:tracking-wider transition-all">Wan 2.6</span>
                  <!-- 闪烁的小圆点 -->
                  <span class="flex h-2 w-2 ml-2 relative">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
@@ -65,7 +65,7 @@
             to="/wan/wan-2-5"
             class="glass-btn group h-14 min-w-[140px] px-8 rounded-full flex items-center justify-center"
           >
-            <span class="relative z-10 text-slate-300 font-normal text-lg group-hover:text-white transition-colors">wan 2.5</span>
+            <span class="relative z-10 text-slate-300 font-normal text-lg group-hover:text-white transition-colors">Wan 2.5</span>
             <div class="absolute inset-0 rounded-full border border-white/10 group-hover:border-white/30 transition-colors"></div>
             <div class="absolute inset-0 rounded-full shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]"></div>
           </NuxtLink>
@@ -76,7 +76,7 @@
             to="/wan/wan-2-2"
             class="glass-btn group h-14 min-w-[140px] px-8 rounded-full opacity-80 hover:opacity-100 transition-opacity flex items-center justify-center"
           >
-            <span class="relative z-10 text-slate-400 font-normal text-lg group-hover:text-white transition-colors">wan 2.2</span>
+            <span class="relative z-10 text-slate-400 font-normal text-lg group-hover:text-white transition-colors">Wan 2.2</span>
             <div class="absolute inset-0 rounded-full border border-white/5 group-hover:border-white/20 transition-colors"></div>
             <div class="absolute inset-0 rounded-full shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)]"></div>
           </NuxtLink>
