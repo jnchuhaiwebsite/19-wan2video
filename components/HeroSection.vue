@@ -879,16 +879,17 @@ const handleGenerate = async () => {
       
       try {
         startProgress()
-        const uploadResponse = await upload({ file: uploadedImage.value }) as any;
-        console.log('📤 图片上传响应:', uploadResponse);
+        // const uploadResponse = await upload({ file: uploadedImage.value }) as any;
+        // console.log('📤 图片上传响应:', uploadResponse);
         
-        if (uploadResponse && uploadResponse.code === 200) {
-          const file_url = uploadResponse.data;
-          console.log('✅ 图片上传成功, URL:', file_url);
+          // if (uploadResponse && uploadResponse.code === 200) {
+          //   const file_url = uploadResponse.data;
+          // console.log('✅ 图片上传成功, URL:', file_url);
           
           const formData = {
             prompt: prompt.value,
-            image_url: file_url,
+            // image_url: file_url,
+            image: uploadedImage.value,
             resolution: selectedResolution.value?.toUpperCase() || '',
             size: selectedAspectRatio.value,
             optimize_prompt: optimizePrompt.value ? 1 : 0,
@@ -896,13 +897,13 @@ const handleGenerate = async () => {
           }
 
           response = await image2video(formData)
-        } else {
-          stopProgress()
-          console.error('❌ 图片上传失败:', uploadResponse);
-          $toast.error(uploadResponse?.msg || 'Image upload failed, please try again');
-          isGenerating.value = false
-          return
-        }
+        // } else {
+        //   stopProgress()
+        //   console.error('❌ 图片上传失败:', uploadResponse);
+        //   $toast.error(uploadResponse?.msg || 'Image upload failed, please try again');
+        //   isGenerating.value = false
+        //   return
+        // }
       } catch (uploadError: any) {
         stopProgress()
         console.error('❌ 图片上传异常:', uploadError);

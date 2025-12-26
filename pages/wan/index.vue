@@ -1,15 +1,10 @@
 <template>
     <div class="min-h-screen">
       <main>
-        
-        <!-- Breadcrumbs 部分 -->
-        <!-- <div class="">
-          <Breadcrumbs 
-            :nav-tabs="tabs" 
-            :items="breadcrumbItems" />
-        </div> -->
         <!-- Hero 首屏组件 -->
-        <WanHomeHero />
+        <WanHomeHero 
+          :nav-tabs="tabs" 
+          :breadcrumb-items="breadcrumbItems" />
 
         <!-- Wan AI Model Quick View -->
         <WanHomeModelQuickView />
