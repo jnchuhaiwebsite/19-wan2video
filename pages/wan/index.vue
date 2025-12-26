@@ -1,11 +1,16 @@
 <template>
-    <div class="min-h-screen bg-blue-pale">
+    <div class="min-h-screen">
       <main>
-        <div class="">
-    <Breadcrumbs 
-    :nav-tabs="tabs" 
-    :items="breadcrumbItems" />
-  </div>
+        
+        <!-- Breadcrumbs 部分 -->
+        <!-- <div class="">
+          <Breadcrumbs 
+            :nav-tabs="tabs" 
+            :items="breadcrumbItems" />
+        </div> -->
+        <!-- Hero 首屏组件 -->
+        <WanHomeHero />
+
       </main>
     </div>
   </template>
@@ -16,14 +21,14 @@
   import { useSeo } from '~/composables/useSeo'
   import { useNuxtApp } from 'nuxt/app'
   import { useNavigation } from '~/utils/navigation'
-
+  import WanHomeHero from '~/components/wanHome/Hero.vue'
+  import Breadcrumbs from '~/components/Breadcrumbs.vue'
   
   
   
   const { $toast } = useNuxtApp() as any
   const { handleScroll } = useNavigation()
 
-  
 const breadcrumbItems = ref([
   { text: 'Wan AI',to: '/wan'},
 ]);
@@ -55,7 +60,7 @@ const tabs = ref([
     description: 'Experience Alibaba\'s Wan AI (Wan 2.6). The latest SOTA video model featuring 15s generation, audio-visual storytelling, and character consistency. Compare Wan 2.6 vs 2.5 features here.'
   })
   
-  // 处理支付回调
+  // 处理支付回调和视频加载
   onMounted(() => {
     if (typeof window === "undefined") return;
   

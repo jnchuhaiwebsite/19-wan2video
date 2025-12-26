@@ -6,31 +6,8 @@
   -->
   <nav aria-label="Breadcrumb" class="relative z-20 bg-transparent pt-20">
     <div class="max-w-7xl mx-auto px-6">
-      
-      <!-- 面包屑区域 -->
-      <ol class="flex items-center py-4 text-xs overflow-x-auto whitespace-nowrap no-scrollbar">
-        <li class="flex items-center flex-shrink-0">
-          <NuxtLink to="/" class="flex items-center text-slate-400 hover:text-blue-600 transition-colors">
-            <svg class="w-3.5 h-3.5 mr-1" fill="currentColor" viewBox="0 0 20 20">
-              <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
-            </svg>
-            <span>Home</span>
-          </NuxtLink>
-        </li>
-
-        <li v-for="(item, index) in items" :key="index" class="flex items-center flex-shrink-0">
-          <svg class="w-2 h-2 text-slate-300 mx-3 flex-shrink-0" fill="none" viewBox="0 0 6 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-          </svg>
-          <NuxtLink v-if="item.to" :to="item.to" class="text-slate-500 hover:text-blue-600 transition-colors">
-            {{ item.text }}
-          </NuxtLink>
-          <span v-else class="font-medium text-slate-600">{{ item.text }}</span>
-        </li>
-      </ol>
-
-      <!-- 导航标签：改为更加轻盈的胶囊样式 -->
-      <div v-if="navTabsWithActive.length > 0" class="flex items-center gap-x-2 pb-2">
+            <!-- 导航标签：改为更加轻盈的胶囊样式 -->
+            <div v-if="navTabsWithActive.length > 0" class="flex items-center gap-x-2 pb-2">
         <NuxtLink
           v-for="(tab, index) in navTabsWithActive"
           :key="index"
@@ -53,6 +30,29 @@
           </span>
         </NuxtLink>
       </div>
+      <!-- 面包屑区域 -->
+      <ol class="flex items-center py-4 text-xs overflow-x-auto whitespace-nowrap no-scrollbar">
+        <li class="flex items-center flex-shrink-0">
+          <NuxtLink to="/" class="flex items-center text-slate-400 hover:text-blue-600 transition-colors">
+            <svg class="w-3.5 h-3.5 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+            </svg>
+            <span>Home</span>
+          </NuxtLink>
+        </li>
+
+        <li v-for="(item, index) in items" :key="index" class="flex items-center flex-shrink-0">
+          <svg class="w-2 h-2 text-slate-300 mx-3 flex-shrink-0" fill="none" viewBox="0 0 6 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+          </svg>
+          <NuxtLink v-if="item.to" :to="item.to" class="text-slate-500 hover:text-blue-600 transition-colors">
+            {{ item.text }}
+          </NuxtLink>
+          <span v-else class="font-medium text-slate-600">{{ item.text }}</span>
+        </li>
+      </ol>
+
+
     </div>
   </nav>
 </template>

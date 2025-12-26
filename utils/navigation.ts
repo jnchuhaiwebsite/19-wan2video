@@ -21,7 +21,7 @@ export const mainRoutes: RouteItem[] = [
   { id: "home", name: "Home", href: "/", icon: "HomeIcon" },
 
   // { id: "christmas", name: "Christmas", href: "/christmas", icon: "christmas" },
-  { id: "wanAI", name: "Wan AI", icon: "HomeIcon",
+  { id: "wanAI", name: "Wan AI", icon: "HomeIcon",href: "/wan",
 
     children: [
       { id: "wan-2.6", name: "Wan 2.6", href: "/wan/wan-2-6", icon: "Wan26Icon", isNew: true },
