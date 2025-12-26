@@ -182,7 +182,7 @@ useSeo({
 
 
 const breadcrumbItems = ref([
-  { text: 'Wan AI',href: '/wan'},
+  { text: 'Wan AI',to: '/wan'},
   { text: 'Wan 2.5', to: '/wan/wan-2-5' },
 ]);
 

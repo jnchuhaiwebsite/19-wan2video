@@ -3,8 +3,7 @@
   <header class="fixed top-0 left-0 w-full z-50 flex flex-col shadow-md">
     
     <!-- Banner 区域 (根据需求保留) -->
-    <div class="w-full relative z-[51]">
-      <!-- PC端 Banner -->
+    <!-- <div class="w-full relative z-[51]">
       <a href="/christmas" class="hidden lg:block w-full bg-slate-900 hover:opacity-95 transition-opacity">
         <img 
           src="https://cfsource.wan2video.com/wan2video/christmas/banner.gif" 
@@ -12,7 +11,6 @@
           class="w-full h-[60px] object-cover mx-auto"
         />
       </a>
-      <!-- 移动端 Banner -->
       <div class="block lg:hidden w-full h-[50px] relative bg-slate-900 overflow-hidden">
         <a href="/christmas" class="absolute inset-0 z-10 w-full h-full">
           <img 
@@ -22,7 +20,7 @@
           />
         </a>
       </div>
-    </div>
+    </div> -->
 
     <!-- 导航栏：直接固定为“滚动后”的白底样式 -->
     <nav class="w-full bg-white/95 backdrop-blur-md py-1 relative z-50">
@@ -43,7 +41,11 @@
                 
                 <!-- 场景1：有下拉菜单 -->
                 <li v-if="section.children && section.children.length" class="relative group/main">
-                  <div
+                  
+                  <!-- 情况 A: 有 href，作为链接渲染 -->
+                  <NuxtLink
+                    v-if="section.href"
+                    :to="section.href"
                     class="relative transition-all cursor-pointer px-4 py-2 rounded-lg whitespace-nowrap flex items-center gap-1.5 font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50"
                     :class="[section.id === 'christmas' ? 'christmas-nav-link' : '']"
                   >
@@ -60,11 +62,29 @@
                     >
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
+                  </NuxtLink>
+
+                  <!-- 情况 B: 无 href，作为普通容器渲染 -->
+                  <div
+                    v-else
+                    class="relative transition-all cursor-pointer px-4 py-2 rounded-lg whitespace-nowrap flex items-center gap-1.5 font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+                    :class="[section.id === 'christmas' ? 'christmas-nav-link' : '']"
+                  >
+                    <span class="relative">
+                      {{ section.name }}
+                      <span v-if="section.badge" class="absolute -top-3 left-full -ml-2 bg-red-500 text-white text-[9px] font-bold rounded-full px-1.5 py-0.5 shadow-sm">{{ section.badge }}</span>
+                      <span v-if="section.id === 'christmas'" class="hot-badge">HOT</span>
+                    </span>
+                    <svg 
+                      class="h-4 w-4 text-slate-400 transition-transform duration-300 group-hover/main:rotate-180" 
+                      fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
                   </div>
                   
-                  <!-- 下拉菜单：使用 top-full 和 pt-2 解决“点不到”问题 -->
+                  <!-- 下拉菜单 -->
                   <ul class="absolute top-full left-0 pt-2 opacity-0 translate-y-2 pointer-events-none group-hover/main:opacity-100 group-hover/main:translate-y-0 group-hover/main:pointer-events-auto transition-all duration-200 ease-out min-w-[240px] z-[60]">
-                    <!-- 背景和内容容器 -->
                     <div class="bg-white border border-slate-100 rounded-2xl shadow-2xl p-1.5 ring-1 ring-black/5">
                       <li v-for="(child, childIndex) in section.children" :key="childIndex">
                         <NuxtLink
@@ -79,7 +99,7 @@
                   </ul>
                 </li>
 
-                <!-- 场景2：普通链接 -->
+                <!-- 场景2：普通链接 (无下拉菜单) -->
                 <li v-else>
                   <NuxtLink 
                     :to="section.href || `/#${section.id}`"
@@ -125,29 +145,49 @@
         </div>
       </div>
 
-      <!-- 移动端滑出菜单 -->
+      <!-- 移动端滑出菜单 (核心修改部分) -->
       <Transition name="slide-fade">
-        <div v-if="isOpen" class="lg:hidden fixed inset-0 top-[110px] w-full h-screen bg-white z-[100] border-t border-slate-100 px-4 pt-4">
+        <div v-if="isOpen" class="lg:hidden fixed inset-0 top-[110px] w-full h-[calc(100vh-110px)] bg-white z-[100] border-t border-slate-100 px-4 pt-4 overflow-y-auto pb-10">
            <ul class="space-y-4">
-              <li v-for="section in sections" :key="section.id">
+              <li v-for="section in sections" :key="section.id" class="border-b border-slate-50 pb-2 last:border-0">
+                <!-- 一级导航 -->
                 <NuxtLink 
                   :to="section.href || `/#${section.id}`" 
-                  class="text-lg font-bold text-slate-800 block py-2"
+                  class="flex items-center justify-between text-lg font-bold text-slate-800 py-2"
                   @click="isOpen = false"
                 >
-                  {{ section.name }}
+                  <span>
+                    {{ section.name }}
+                    <span v-if="section.id === 'christmas'" class="text-xs text-red-500 ml-2 font-extrabold align-top">HOT</span>
+                  </span>
                 </NuxtLink>
+
+                <!-- 二级导航 (展示在下方) -->
+                <div v-if="section.children && section.children.length" class="mt-0 pl-4 border-l-2 border-slate-100 ml-1 space-y-2">
+                  <NuxtLink 
+                    v-for="(child, idx) in section.children"
+                    :key="idx"
+                    :to="child.href || `/#${child.id}`"
+                    class="block py-1.5 text-[15px] font-medium text-slate-500 hover:text-blue-600 transition-colors"
+                    @click="isOpen = false"
+                  >
+                    <div class="flex items-center">
+                      <span v-html="child.name"></span>
+                      <span v-if="child.isNew" class="ml-2 text-[10px] bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded font-bold">NEW</span>
+                    </div>
+                  </NuxtLink>
+                </div>
               </li>
            </ul>
-           <div class="mt-8 border-t pt-6">
+           <div class="mt-8 border-t pt-6 mb-8">
               <UserMenu :isMobile="true" :onCloseMobileNav="() => isOpen = false" />
            </div>
         </div>
       </Transition>
     </nav>
   </header>
-  <!-- 占位符，防止内容被固定导航栏遮挡 (高度 = Banner + Nav) -->
-  <div class="h-[126px] lg:h-[132px]"></div>
+  <!-- 占位符 -->
+  <!-- <div class="h-[126px] lg:h-[132px]"></div> -->
 </template>
 
 <script setup lang="ts">

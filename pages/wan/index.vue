@@ -1,13 +1,18 @@
 <template>
     <div class="min-h-screen bg-blue-pale">
       <main>
+        <div class="">
+    <Breadcrumbs 
+    :nav-tabs="tabs" 
+    :items="breadcrumbItems" />
+  </div>
       </main>
     </div>
   </template>
   
   <script setup lang="ts">
   import { useHead } from 'nuxt/app';
-  import { onMounted, onUnmounted } from 'vue'
+  import { onMounted, onUnmounted, ref } from 'vue'
   import { useSeo } from '~/composables/useSeo'
   import { useNuxtApp } from 'nuxt/app'
   import { useNavigation } from '~/utils/navigation'
@@ -17,6 +22,32 @@
   
   const { $toast } = useNuxtApp() as any
   const { handleScroll } = useNavigation()
+
+  
+const breadcrumbItems = ref([
+  { text: 'Wan AI',to: '/wan'},
+]);
+
+// 修改点 2 (可选，建议): 使用 ref 包裹，确保数据响应性一致
+const tabs = ref([
+  { 
+    text: 'Wan 2.2', 
+    to: '/wan/wan-2-2', 
+    isActive: false 
+  },
+  { 
+    text: 'Wan 2.5', 
+    to: '/wan/wan-2-5', 
+    isActive: false, 
+  
+  },
+  { 
+    text: 'Wan 2.6', 
+    to: '/wan/wan-2-6', 
+    isActive: false, 
+    badge: 'New'  
+  }
+]);
   
   // 使用默认的 SEO 配置
   useSeo({
