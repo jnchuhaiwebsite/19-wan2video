@@ -87,7 +87,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import Wan26HeroSection from '~/components/wan26/HeroSection.vue';
 import Wan26WhatIs from '~/components/wan26/WhatIs.vue';
 import Wan26WhatsNew from '~/components/wan26/WhatsNew.vue';
@@ -104,13 +104,18 @@ import Wan26Faq from '~/components/wan26/Faq.vue';
 import Breadcrumbs from '~/components/Breadcrumbs.vue';
 import { useHead } from 'nuxt/app';
 import { useSeo } from '~/composables/useSeo';
+import { useNuxtApp } from 'nuxt/app'
+import { useNavigation } from '~/utils/navigation'
+
+const { $toast } = useNuxtApp() as any
+const { handleScroll } = useNavigation()
 useSeo({
   title: 'Wan 2.6 – Multi-Shot AI Video Model for 15s Storytelling',
   description: 'Explore Wan 2.6, an AI video model for multi-shot storytelling and 15s videos. Keep scene consistency, reuse video references, and create richer stories with ease.',
 })
 
 const breadcrumbItems = ref([
-  { text: 'Wan AI',},
+  { text: 'Wan AI'},
   { text: 'Wan 2.6', to: '/wan/wan-2-6' },
 ]);
 
@@ -335,7 +340,39 @@ const jsonLD ={
     }
   ]
 }
-
+// 处理支付回调
+onMounted(() => {
+// 检查URL中是否有锚点，并执行滚动
+const scrollToAnchor = () => {
+    if (window.location.hash) {
+      const sectionId = window.location.hash.substring(1);
+      
+      let attempts = 0;
+      const maxAttempts = 30; // 增加尝试次数以应对慢网络
+      
+      const interval = setInterval(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          clearInterval(interval);
+          const offset = 80; // 导航栏高度
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.scrollY - offset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        } else {
+          attempts++;
+          if (attempts > maxAttempts) {
+            clearInterval(interval);
+            console.warn(`无法找到ID为 '${sectionId}' 的元素`);
+          }
+        }
+      }, 100);
+    }
+  }
+  scrollToAnchor();
+});
 
 useHead({
 

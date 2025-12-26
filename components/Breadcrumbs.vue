@@ -29,21 +29,28 @@
         </li>
       </ol>
 
-      <!-- 导航标签：改为更加轻盈的胶囊样式，或者极简线条 -->
-      <div v-if="navTabsWithActive.length > 0" class="flex items-center gap-x-1">
+      <!-- 导航标签：改为更加轻盈的胶囊样式 -->
+      <div v-if="navTabsWithActive.length > 0" class="flex items-center gap-x-2 pb-2">
         <NuxtLink
           v-for="(tab, index) in navTabsWithActive"
           :key="index"
           :to="tab.to"
-          class="relative px-4 py-2 text-[13px] font-semibold transition-all rounded-full"
+          class="relative px-4 py-1.5 text-[13px] font-medium transition-all duration-200 rounded-full border flex items-center justify-center"
           :class="[
             tab.isActive 
-              ? 'bg-blue-600 text-white shadow-md shadow-blue-200' 
-              : 'text-slate-500 hover:bg-slate-100'
+              ? 'bg-blue-600 border-blue-600 text-white shadow-md shadow-blue-500/20' 
+              : 'bg-white border-slate-200 text-slate-600 hover:text-blue-600 hover:border-blue-200 hover:bg-blue-50/80 shadow-sm'
           ]"
         >
           {{ tab.text }}
-          <span v-if="tab.badge" class="ml-1 px-1.5 py-0.5 text-[9px] bg-red-500 text-white rounded-full">{{ tab.badge }}</span>
+          <!-- Badge 样式微调，使其在两种状态下都好看 -->
+          <span 
+            v-if="tab.badge" 
+            class="ml-1.5 px-1.5 py-0.5 text-[9px] rounded-full font-bold leading-none"
+            :class="tab.isActive ? 'bg-white/20 text-white' : 'bg-red-50 text-red-600 border border-red-100'"
+          >
+            {{ tab.badge }}
+          </span>
         </NuxtLink>
       </div>
     </div>

@@ -127,7 +127,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import Breadcrumbs from '~/components/Breadcrumbs.vue';
 import Wan25Faq from '~/components/Wan25Faq.vue';
 import Wan25Showcase from '~/components/Wan25Showcase.vue';
@@ -144,6 +144,11 @@ import Wan25TransformingIndustries from '~/components/wan25/TransformingIndustri
 import { useHead } from 'nuxt/app';
 import { useSeoMeta } from 'nuxt/app';
 import { useSeo } from '~/composables/useSeo';
+import { useNuxtApp } from 'nuxt/app'
+import { useNavigation } from '~/utils/navigation'
+
+const { $toast } = useNuxtApp() as any
+const { handleScroll } = useNavigation()
 const baseUrl = 'https://www.wan2video.com/'
 // SEO Meta
 // useSeoMeta({
@@ -177,7 +182,7 @@ useSeo({
 
 
 const breadcrumbItems = ref([
-  { text: 'Wan AI',},
+  { text: 'Wan AI'},
   { text: 'Wan 2.5', to: '/wan/wan-2-5' },
 ]);
 
@@ -383,7 +388,39 @@ const jsonLD ={
     }
   ]
 }
-
+// 处理支付回调
+onMounted(() => {
+// 检查URL中是否有锚点，并执行滚动
+const scrollToAnchor = () => {
+    if (window.location.hash) {
+      const sectionId = window.location.hash.substring(1);
+      
+      let attempts = 0;
+      const maxAttempts = 30; // 增加尝试次数以应对慢网络
+      
+      const interval = setInterval(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          clearInterval(interval);
+          const offset = 80; // 导航栏高度
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.scrollY - offset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        } else {
+          attempts++;
+          if (attempts > maxAttempts) {
+            clearInterval(interval);
+            console.warn(`无法找到ID为 '${sectionId}' 的元素`);
+          }
+        }
+      }, 100);
+    }
+  }
+  scrollToAnchor();
+});
 // Page head
 useHead({
   title: ' Wan 2.5: Audio-Driven Video Generator for Lip-Synced HD Videos',
