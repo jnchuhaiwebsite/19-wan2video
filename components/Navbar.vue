@@ -3,8 +3,8 @@
   <header class="fixed top-0 left-0 w-full z-50 flex flex-col shadow-md">
     
     <!-- Banner 区域 (根据需求保留) -->
-    <div class="w-full relative z-[51]">
-      <!-- PC端 Banner -->
+    <!-- <div class="w-full relative z-[51]">
+
       <a href="/christmas" class="hidden lg:block w-full bg-slate-900 hover:opacity-95 transition-opacity">
         <img 
           src="https://cfsource.wan2video.com/wan2video/christmas/banner.gif" 
@@ -12,7 +12,7 @@
           class="w-full h-[60px] object-cover mx-auto"
         />
       </a>
-      <!-- 移动端 Banner -->
+
       <div class="block lg:hidden w-full h-[50px] relative bg-slate-900 overflow-hidden">
         <a href="/christmas" class="absolute inset-0 z-10 w-full h-full">
           <img 
@@ -22,7 +22,7 @@
           />
         </a>
       </div>
-    </div>
+    </div> -->
 
     <!-- 导航栏：直接固定为“滚动后”的白底样式 -->
     <nav class="w-full bg-white/95 backdrop-blur-md py-1 relative z-50">
@@ -147,7 +147,7 @@
     </nav>
   </header>
   <!-- 占位符，防止内容被固定导航栏遮挡 (高度 = Banner + Nav) -->
-  <div class="h-[126px] lg:h-[132px]"></div>
+  <!-- <div class="h-[126px] lg:h-[132px]"></div> -->
 </template>
 
 <script setup lang="ts">
