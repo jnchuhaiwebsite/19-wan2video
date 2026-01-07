@@ -166,6 +166,9 @@ import { getSubPlans, payOrder } from "~/api/index";
 import { useClerkAuth } from '~/utils/authHelper';
 import { useSeo } from '~/composables/useSeo';
 import { useAsyncData } from 'nuxt/app';
+import { useDevice } from '~/composables/useDevice';
+
+const { isMobile, isDesktop } = useDevice();
 import PageHero from '~/components/PageHero.vue';
 
 // 定义套餐数据类型
@@ -255,7 +258,7 @@ const handleUpgradePlan = async (plan: PricingPlan) => {
 
   upgradingPlanId.value = plan.code;
   try {
-    const response = (await payOrder({ price_id: plan.code })) as any;
+    const response = (await payOrder({ price_id: plan.code, device_type: isDesktop.value ? 0 : 1})) as any;
     if (response.code === 200 && response.data?.url) {
       window.location.href = response.data.url;
     } else {
