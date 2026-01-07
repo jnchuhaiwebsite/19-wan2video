@@ -362,8 +362,8 @@
               {{ generateBadgeText }}
             </span>
           </div>
-<!-- 
-          <button
+
+          <!-- <button
             type="button"
             class="mt-1 inline-flex items-center px-4 py-1.5 rounded-full text-[11px] font-medium bg-slate-700/80 hover:bg-slate-600 text-slate-100"
             @click="onTestGenerate"
