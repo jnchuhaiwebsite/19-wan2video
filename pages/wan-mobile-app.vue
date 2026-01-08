@@ -28,9 +28,11 @@
           
           <!-- Download Buttons -->
           <div class="flex flex-col sm:flex-row justify-center gap-6 pt-5">
-            <button 
+            <a
+              href="https://apps.apple.com/us/app/wanvideo/id6756774166"
+              target="_blank"
+              rel="nofollow noopener"
               class="download-btn inline-flex flex-row items-center gap-4 px-8 py-5 bg-blue-dark hover:bg-blue-buttonhover text-white font-semibold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
-              @click="showIOSComingSoon"
               aria-label="iOS App Coming Soon"
               title="iOS App Coming Soon"
             >
@@ -41,7 +43,7 @@
                 <div class="text-xs opacity-90">Coming Soon</div>
                 <div class="text-xl font-bold">App Store</div>
               </div>
-            </button>
+            </a>
             <a 
               class="download-btn inline-flex flex-row items-center gap-4 px-8 py-5 bg-blue-dark hover:bg-blue-buttonhover text-white font-semibold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl"
               href="https://play.google.com/store/apps/details?id=com.cykj.wan25" 
