@@ -103,45 +103,65 @@ const scrollToAnchor = () => {
 const jsonLD ={
   "@context": "https://schema.org", // 使用 Schema.org 词汇表
   "@graph": [ // 页面包含多个实体
+
+  {
+      "@type": "Organization",
+      "@id": "https://www.wan2video.com/#organization",
+      "name": "Wan 2.6",
+      "url": "https://www.wan2video.com/",
+      "description": "Wan 2.6 enables cinematic AI video generation with multi-shot storytelling, stable characters, and natural audio-visual sync in up to 1080P quality. Try it today.",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.wan2video.com/wai-ai.webp"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "support@wan2video.com",
+        "contactType": "customer support",
+        "availableLanguage": "en"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.wan2video.com/#website",
+      "name": "Wan 2.6",
+      "url": "https://www.wan2video.com/",
+      "inLanguage": "en-US",
+      "description": "Wan 2.6 enables cinematic AI video generation with multi-shot storytelling, stable characters, and natural audio-visual sync in up to 1080P quality. Try it today.",
+      "publisher": {
+        "@id": "https://www.wan2video.com/#organization"
+      }
+    },
     {
       "@type": "WebPage", // 当前二级页的网页实体
-      "@id": "https://www.wan2video.com/wan/wan-2-2#webpage", // WebPage 唯一 ID
-      "url": "https://www.wan2video.com/wan/wan-2-2", // 页面 URL
-      "name": "Wan 2.2 – Multi-Shot AI Video Model for 15s Storytelling", // 页面标题
+      "@id": "https://www.wan2video.com/#webpage", // WebPage 唯一 ID
+      "url": "https://www.wan2video.com", // 页面 URL
+      "name": "Wan 2.6", // 页面标题
       "isPartOf": { // 归属网站
         "@id": "https://www.wan2video.com/#website" // 指向 WebSite
       },
       "about": { // 页面主题对象
-        "@id": "https://www.wan2video.com/wan/wan-2-2" // 指向本页的 SoftwareApplication
-      }
+        "@id": "https://www.wan2video.com/#software" // 指向本页的 SoftwareApplication
+      },
+      "breadcrumb": { "@id": "https://www.wan2video.com/#breadcrumb"},
     },
     {
       "@type": "BreadcrumbList", // 面包屑
-      "@id": "https://www.wan2video.com/wan/wan-2-2#breadcrumbs", // 面包屑 ID
+      "@id": "https://www.wan2video.com/#breadcrumbs", // 面包屑 ID
       "itemListElement": [ // 面包屑条目
         {
           "@type": "ListItem", // 第 1 层
           "position": 1,
-          "item": {
-            "@id": "https://www.wan2video.com/", // 首页 URL
-            "name": "Home" // 首页名称
-          }
-        },
-        {
-          "@type": "ListItem", // 第 2 层
-          "position": 2,
-          "item": {
-            "@id": "https://www.wan2video.com/wan/wan-2-2", // 本页 URL
-            "name": "Wan 2.2" // 本页名称
-          }
+          "name": "Home",// 首页名称
+          "item": "https://www.wan2video.com/"
         }
       ]
     },
     {
       "@type": "SoftwareApplication", // 应用实体（产品页）
-      "@id": "https://www.wan2video.com/wan/wan-2-2#wan-2-2-app", // 应用唯一 ID
-      "name": "Wan 2.2 Plus - Cinematic AI Video Generator", // 应用完整名称（无空格关键词主打）
-      "url": "https://www.wan2video.com/wan/wan-2-2", // 应用页面 URL
+      "@id": "https://www.wan2video.com/#software", // 应用唯一 ID
+      "name": "Wan 2.6", // 应用完整名称（无空格关键词主打）
+      "url": "https://www.wan2video.com/", // 应用页面 URL
       "applicationCategory": "MultimediaApplication", // 分类：多媒体
       "operatingSystem": "Web Browser", // 运行环境：浏览器
       "image": "https://www.wan2video.com/wan-2-2.webp", // 展示图
@@ -151,7 +171,7 @@ const jsonLD ={
         "name": "Wan AI",
         "@id": "https://www.wan2video.com/#brand"
       },
-      "publisher": { // 发布方（组织）
+      "creator": { // 发布方（组织）
         "@id": "https://www.wan2video.com/#organization" // 关联 Organization
       },
       "offers": { // 售卖信息
@@ -184,54 +204,55 @@ const jsonLD ={
     },
     {
       "@type": "FAQPage",
-      "@id": "https://www.wan2video.com/wan/wan-2-2#faq",
+      "@id": "https://www.wan2video.com#faq",
+      "name":"Frequently Asked Questions about Wan 2.6",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What is Wan 2.2 Plus?",
+          "name": "What is Wan 2.6 used for?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Wan 2.2 Plus is a state-of-the-art AI video generation platform designed for creators who demand high quality and precision. It excels at transforming simple text prompts into stunning, cinematic videos with three key advantages: Cinematic Visuals - It understands filmmaking language, allowing you to control camera angles, lighting, and shots for a professional look. Fluid Motion - Our model produces incredibly smooth and realistic character and object movements, free from the jitter seen in other tools. Semantic Accuracy - It precisely interprets complex prompts, ensuring the final video faithfully represents your creative vision."
+            "text": "Wan 2.6 is used to generate AI videos with clearer storytelling, stable characters, and synchronized audio, making it suitable for narrative and character-driven content."
           }
         },
         {
           "@type": "Question",
-          "name": "How long does it take to generate a video?",
+          "name": "How is Wan 2.6 different from Wan 2.5?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Our platform is optimized for speed, but generation time depends on the selected quality. Standard Quality (480p) typically takes about 1 minute to generate. High Quality (1080p) typically takes about 2 minutes to generate. Please note that these times can vary slightly depending on server traffic and the complexity of your prompt."
+            "text": "Wan 2.6 removes several limitations found in Wan 2.5, including short clip length, weaker multi-shot structure, and separate audio generation, enabling more complete scenes."
           }
         },
         {
           "@type": "Question",
-          "name": "Can I try the Wan 2.2 Plus AI Video Generator for free?",
+          "name": "Does Wan 2.6 support reference-based video generation?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Absolutely! We believe in letting you experience the power of Wan 2.2 Plus firsthand. Every new user who signs up receives 20 free credits. This is typically enough to generate one 480p video, allowing you to test the platform and see the quality of the results for yourself. No credit card is required to get started."
+            "text": "Yes. Wan 2.6 can generate videos by referencing input videos, images, or characters, helping preserve visual identity and voice consistency across scenes."
           }
         },
         {
           "@type": "Question",
-          "name": "Do the credits I receive or purchase have an expiration date?",
+          "name": "Can Wan 2.6 create multi-shot or story-like videos?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No, your credits are yours to keep. Any credits you receive upon signing up or purchase from a credit pack are permanently valid and will never expire. You can use them whenever your creativity strikes, whether it's today or a year from now."
+            "text": "Yes. Wan 2.6 is designed to generate structured, multi-shot videos rather than isolated clips, making stories easier to follow."
           }
         },
         {
           "@type": "Question",
-          "name": "Can I use videos made with Wan 2.2 Plus AI Video Generator for commercial projects?",
+          "name": "How long are videos generated by Wan 2.6?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Absolutely. We believe in empowering every creator. All videos you generate on the Wan 2.2 Plus platform, including those made with free trial credits, come with a full commercial license. This means you are free to use your creations for any purpose, such as: Marketing campaigns and online advertisements, Social media content for business accounts, Client projects and presentations, Monetized content on platforms like YouTube or TikTok. Our goal is to provide you with complete creative and commercial freedom."
+            "text": "Wan 2.6 supports video generation up to 15 seconds per output, allowing creators to include more narrative detail in a single generation."
           }
         }
       ]
     },
     {
       "@type": "HowTo", // 使用说明模块（同步 ProcessSteps 组件）
-      "@id": "https://www.wan2video.com/wan/wan-2-2#how-to-use",
-      "name": "How Wan 2.2 Plus Works",
+      "@id": "https://www.wan2video.com#how-to-use",
+      "name": "How Wan2.6 Works",
       "description": "Our streamlined workflow makes AI video generation with Wan 2.2 intuitive and fast. Go from idea to final render in minutes.",
       "step": [
         {
