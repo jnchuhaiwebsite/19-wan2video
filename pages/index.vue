@@ -143,7 +143,7 @@ const jsonLD ={
       "about": { // 页面主题对象
         "@id": "https://www.wan2video.com/#software" // 指向本页的 SoftwareApplication
       },
-      "breadcrumb": { "@id": "https://www.wan2video.com/#breadcrumb"},
+      "breadcrumb": { "@id": "https://www.wan2video.com/#breadcrumbs"},
     },
     {
       "@type": "BreadcrumbList", // 面包屑
