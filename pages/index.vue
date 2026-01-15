@@ -104,34 +104,34 @@ const jsonLD ={
   "@context": "https://schema.org", // 使用 Schema.org 词汇表
   "@graph": [ // 页面包含多个实体
 
-  {
-      "@type": "Organization",
-      "@id": "https://www.wan2video.com/#organization",
-      "name": "Wan 2.6",
-      "url": "https://www.wan2video.com/",
-      "description": "Wan 2.6 enables cinematic AI video generation with multi-shot storytelling, stable characters, and natural audio-visual sync in up to 1080P quality. Try it today.",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://www.wan2video.com/wai-ai.webp"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "email": "support@wan2video.com",
-        "contactType": "customer support",
-        "availableLanguage": "en"
-      }
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://www.wan2video.com/#website",
-      "name": "Wan 2.6",
-      "url": "https://www.wan2video.com/",
-      "inLanguage": "en-US",
-      "description": "Wan 2.6 enables cinematic AI video generation with multi-shot storytelling, stable characters, and natural audio-visual sync in up to 1080P quality. Try it today.",
-      "publisher": {
-        "@id": "https://www.wan2video.com/#organization"
-      }
-    },
+    // {
+    //   "@type": "Organization",
+    //   "@id": "https://www.wan2video.com/#organization",
+    //   "name": "Wan 2.6",
+    //   "url": "https://www.wan2video.com/",
+    //   "description": "Wan 2.6 enables cinematic AI video generation with multi-shot storytelling, stable characters, and natural audio-visual sync in up to 1080P quality. Try it today.",
+    //   "logo": {
+    //     "@type": "ImageObject",
+    //     "url": "https://www.wan2video.com/wai-ai.webp"
+    //   },
+    //   "contactPoint": {
+    //     "@type": "ContactPoint",
+    //     "email": "support@wan2video.com",
+    //     "contactType": "customer support",
+    //     "availableLanguage": "en"
+    //   }
+    // },
+    // {
+    //   "@type": "WebSite",
+    //   "@id": "https://www.wan2video.com/#website",
+    //   "name": "Wan 2.6",
+    //   "url": "https://www.wan2video.com/",
+    //   "inLanguage": "en-US",
+    //   "description": "Wan 2.6 enables cinematic AI video generation with multi-shot storytelling, stable characters, and natural audio-visual sync in up to 1080P quality. Try it today.",
+    //   "publisher": {
+    //     "@id": "https://www.wan2video.com/#organization"
+    //   }
+    // },
     {
       "@type": "WebPage", // 当前二级页的网页实体
       "@id": "https://www.wan2video.com/#webpage", // WebPage 唯一 ID
@@ -140,10 +140,9 @@ const jsonLD ={
       "isPartOf": { // 归属网站
         "@id": "https://www.wan2video.com/#website" // 指向 WebSite
       },
-      "about": { // 页面主题对象
-        "@id": "https://www.wan2video.com/#software" // 指向本页的 SoftwareApplication
-      },
-      "breadcrumb": { "@id": "https://www.wan2video.com/#breadcrumb"},
+      "about": {  "@id": "https://www.wan2video.com/#organization" },
+      "mainEntity":{"@id":"https://www.wan2video.com/#software"},
+      "breadcrumb": { "@id": "https://www.wan2video.com/#breadcrumbs"},
     },
     {
       "@type": "BreadcrumbList", // 面包屑

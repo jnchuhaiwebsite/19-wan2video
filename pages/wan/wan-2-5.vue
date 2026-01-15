@@ -218,9 +218,11 @@ const jsonLD ={
       "isPartOf": { // 归属网站
         "@id": "https://www.wan2video.com/#website" // 指向 WebSite
       },
-      "about": { // 页面主题对象
-        "@id": "https://www.wan2video.com/wan/wan-2-5" // 指向本页的 SoftwareApplication
-      }
+      "mainEntity":{
+        "@id":"https://www.wan2video.com/wan/wan-2-5#wan-2-5-app"
+      },
+      "about": {  "@id": "https://www.wan2video.com/#organization" },
+      "breadcrumb": { "@id": "https://www.wan2video.com/wan/wan-2-5#breadcrumbs"},
     },
     {
       "@type": "BreadcrumbList", // 面包屑
@@ -229,26 +231,20 @@ const jsonLD ={
         {
           "@type": "ListItem", // 第 1 层
           "position": 1,
-          "item": {
-            "@id": "https://www.wan2video.com/", // 首页 URL
-            "name": "Home" // 首页名称
-          }
+          "name": "Home",// 首页名称
+          "item": "https://www.wan2video.com/"
         },
         {
           "@type": "ListItem", // 第 2 层
           "position": 2,
-          "item": {
-            "@id": "https://www.wan2video.com/wan", // 本页 URL
-            "name": "Wan AI" // 本页名称
-          }
+          "name": "Wan AI",// 首页名称
+          "item": "https://www.wan2video.com/wan"
         },
         {
           "@type": "ListItem", // 第 3 层
           "position": 3,
-          "item": {
-            "@id": "https://www.wan2video.com/wan/wan-2-5", // 本页 URL
-            "name": "Wan 2.5" // 本页名称
-          }
+          "name": "Wan 2.5",// 首页名称
+          "item": "https://www.wan2video.com/wan/wan-2-5"
         }
       ]
     },
