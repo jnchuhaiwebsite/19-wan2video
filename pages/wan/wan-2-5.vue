@@ -157,21 +157,21 @@ const baseUrl = 'https://www.wan2video.com/'
 //   description: 'Wan 2.5 is an all-in-one AI video generation model that turns text, image, or audio into lip-synced HD videos. Perfect for creators, marketers, and storytellers.',
 //   ogDescription: 'Wan 2.5 is an all-in-one AI video generation model that turns text, image, or audio into lip-synced HD videos. Perfect for creators, marketers, and storytellers.',
 //   ogImage: baseUrl + '/wan-25-og-image.webp',
-//   ogUrl: baseUrl + 'wan-2-5-ai',
+//   ogUrl: baseUrl + 'wan-2-5',
 //   ogType: 'website',
 //   twitterCard: 'summary_large_image',
 //   twitterTitle: ' Wan 2.5: Audio-Driven Video Generator for Lip-Synced HD Videos',
 //   twitterDescription: 'Wan 2.5 is an all-in-one AI video generation model that turns text, image, or audio into lip-synced HD videos. Perfect for creators, marketers, and storytellers.',
 //   twitterImage: baseUrl + '/wan-25-og-image.webp',
-//   twitterUrl: baseUrl + 'wan-2-5-ai',
+//   twitterUrl: baseUrl + 'wan-2-5',
 //   twitterType: 'summary_large_image',
 //   twitterSite: '@wan2video',
-//   canonical: baseUrl + 'wan-2-5-ai',
-//   canonicalUrl: baseUrl + 'wan-2-5-ai',
+//   canonical: baseUrl + 'wan-2-5',
+//   canonicalUrl: baseUrl + 'wan-2-5',
 //   other: [
-//     { rel: 'canonical', href: baseUrl + 'wan-2-5-ai' }
+//     { rel: 'canonical', href: baseUrl + 'wan-2-5' }
 //   ],
-//   link: [{ rel: 'canonical', href:  baseUrl + 'wan-2-5-ai' }]
+//   link: [{ rel: 'canonical', href:  baseUrl + 'wan-2-5' }]
 
 // })
 
@@ -436,7 +436,7 @@ useHead({
     { name: 'description', content: 'Wan 2.5 is an all-in-one AI video generation model that turns text, image, or audio into lip-synced HD videos. Perfect for creators, marketers, and storytellers.' },
     { name: 'keywords', content: 'Wan 2.5, AI video generator, text-to-video, image-to-video, 1080p video, AI video creation' }
   ],
-  link: [{ rel: 'canonical', href:  baseUrl + 'wan-2-5-ai' }],
+  link: [{ rel: 'canonical', href:  baseUrl + 'wan-2-5' }],
   script: [
     {
       type: 'application/ld+json',

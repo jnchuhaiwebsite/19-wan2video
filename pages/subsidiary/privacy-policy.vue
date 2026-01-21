@@ -11,12 +11,12 @@
       </div>
       
       <h1 class="text-4xl lg:text-5xl font-extrabold leading-tight mb-8 text-blue-h1">Privacy Policy</h1>
-      <p class="text-blue-footertext mb-8 text-lg">Effective Date: {{ new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}</p>
+      <p class="text-blue-footertext mb-8 text-lg">Effective Date: 2026 January 20</p>
       
       <div class="space-y-6 text-blue-footertext leading-relaxed">
         <section>
           <h2 class="text-2xl font-bold mb-4 text-blue-h1">1. Introduction</h2>
-          <p>Welcome to Wan 2.2 Plus ("we," "our," or "us"). This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our AI-powered video generation service (the "Service"). Your privacy is of the utmost importance to us.</p>
+          <p>Welcome to Wan2Video ("we," "our," or "us"). This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our AI-powered video generation service (the "Service"). Your privacy is of the utmost importance to us.</p>
         </section>
 
         <section>
@@ -96,7 +96,7 @@
         </section>
 
         <section class="mt-8">
-          <p class="text-sm">Last updated: {{ new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}</p>
+          <p class="text-sm">Last updated: 2026 January 20</p>
         </section>
       </div>
     </div>
@@ -114,7 +114,7 @@ definePageMeta({
 
 useSeo({
     title: 'Privacy Policy | Wan2Video',
-    description: 'Read our privacy policy for Wan 2.2 Plus, the advanced AI platform for generating cinematic videos from text and images.'
+    description: 'Read our privacy policy for Wan2Video, the advanced AI platform for generating cinematic videos from text and images.'
 })
 </script>
 
