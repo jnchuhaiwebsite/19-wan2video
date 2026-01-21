@@ -11,17 +11,17 @@
       </div>
 
       <h1 class="text-4xl lg:text-5xl font-extrabold leading-tight mb-8 text-blue-h1">Terms of Service</h1>
-      <p class="text-blue-footertext mb-8 text-lg">Effective Date: {{ new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}</p>
+      <p class="text-blue-footertext mb-8 text-lg">Effective Date: 2026 January 20</p>
       
       <div class="space-y-6 text-blue-footertext leading-relaxed">
         <section>
           <h2 class="text-2xl font-bold mb-4 text-blue-h1">1. Acceptance of Terms</h2>
-          <p>By accessing or using the Wan 2.2 Plus AI Video Generator (the "Service"), you agree to be bound by these Terms of Service ("Terms"). If you disagree with any part of these terms, you may not access our Service.</p>
+          <p>By accessing or using the Wan2Video AI Video Generator (the "Service"), you agree to be bound by these Terms of Service ("Terms"). If you disagree with any part of these terms, you may not access our Service.</p>
         </section>
 
         <section>
           <h2 class="text-2xl font-bold mb-4 text-blue-h1">2. Service Description</h2>
-          <p>Wan 2.2 Plus provides an advanced AI-powered service for creating video content. Key features include:</p>
+          <p>Wan2Video provides an advanced AI-powered service for creating video content. Key features include:</p>
           <ul class="list-disc pl-6 mt-2 space-y-2">
             <li><strong class="text-blue-button">Text-to-Video Generation:</strong> Converting descriptive text prompts into high-quality video clips.</li>
             <li><strong class="text-blue-button">Image-to-Video Generation:</strong> Animating static images based on your text prompts to create dynamic scenes.</li>
@@ -45,7 +45,7 @@
         <section>
           <h2 class="text-2xl font-bold mb-4 text-blue-h1">4. Intellectual Property Rights</h2>
           <p>Your content is yours. You retain full ownership of your Input Content. Furthermore, <strong class="text-blue-button">you own the rights to the videos you generate</strong> ("Generated Content") and can use them for any personal or commercial purpose.</p>
-          <p class="mt-2">By using the Service, you grant Wan 2.2 Plus a limited, worldwide, non-exclusive, royalty-free license to use, process, and store your Input Content solely for the purpose of providing and improving the Service for you. We are not responsible for the originality of Generated Content or its potential similarity to existing works.</p>
+          <p class="mt-2">By using the Service, you grant Wan2Video a limited, worldwide, non-exclusive, royalty-free license to use, process, and store your Input Content solely for the purpose of providing and improving the Service for you. We are not responsible for the originality of Generated Content or its potential similarity to existing works.</p>
         </section>
 
         <section>
@@ -96,7 +96,7 @@
 
         <section>
           <h2 class="text-2xl font-bold mb-4 text-blue-h1">10. Limitation of Liability</h2>
-          <p>To the maximum extent permitted by law, Wan 2.2 Plus shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, arising from your use of the Service.</p>
+          <p>To the maximum extent permitted by law, Wan2Video shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, arising from your use of the Service.</p>
         </section>
 
         <section>
@@ -105,7 +105,7 @@
         </section>
 
         <section class="mt-8">
-          <p class="text-sm">Last updated: {{ new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}</p>
+          <p class="text-sm">Last updated: 2026 January 20</p>
         </section>
       </div>
     </div>
@@ -123,7 +123,7 @@ definePageMeta({
 
 useSeo({
   title: 'Terms of Service | Wan2Video',
-  description: 'Review the terms and conditions for using Wan 2.2 Plus, the advanced AI platform for generating cinematic videos from text and images.'
+  description: 'Review the terms and conditions for using Wan2Video, the advanced AI platform for generating cinematic videos from text and images.'
 })
 </script>
 

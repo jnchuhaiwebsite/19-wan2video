@@ -113,21 +113,21 @@ useSeoMeta({
   description: 'Create cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
   ogDescription: 'Create cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
   ogImage: baseUrl + '/wan-25-og-image.webp',
-  ogUrl: baseUrl + 'wan-2-5-ai',
+  ogUrl: baseUrl + 'wan-2-5',
   ogType: 'website',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Wan 2.5 | Cinematic AI Video Generator with Audio Sync',
   twitterDescription: 'Create cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.',
   twitterImage: baseUrl + '/wan-25-og-image.webp',
-  twitterUrl: baseUrl + 'wan-2-5-ai',
+  twitterUrl: baseUrl + 'wan-2-5',
   twitterType: 'summary_large_image',
   twitterSite: '@wan2video',
-  canonical: baseUrl + 'wan-2-5-ai',
-  canonicalUrl: baseUrl + 'wan-2-5-ai',
+  canonical: baseUrl + 'wan-2-5',
+  canonicalUrl: baseUrl + 'wan-2-5',
   other: [
-    { rel: 'canonical', href: baseUrl + 'wan-2-5-ai' }
+    { rel: 'canonical', href: baseUrl + 'wan-2-5' }
   ],
-  link: [{ rel: 'canonical', href:  baseUrl + 'wan-2-5-ai' }]
+  link: [{ rel: 'canonical', href:  baseUrl + 'wan-2-5' }]
 
 })
 
@@ -138,6 +138,6 @@ useHead({
     { name: 'description', content: 'Create cinematic videos with Wan 2.5. This AI video generator delivers synchronized voices, effects, and music — fast, affordable, and without limits.' },
     { name: 'keywords', content: 'Wan 2.5, AI video generator, text-to-video, image-to-video, 1080p video, AI video creation' }
   ],
-  link: [{ rel: 'canonical', href:  baseUrl + 'wan-2-5-ai' }]
+  link: [{ rel: 'canonical', href:  baseUrl + 'wan-2-5' }]
 })
 </script>
