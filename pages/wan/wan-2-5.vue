@@ -432,7 +432,7 @@ useHead({
     { name: 'description', content: 'Wan 2.5 is an all-in-one AI video generation model that turns text, image, or audio into lip-synced HD videos. Perfect for creators, marketers, and storytellers.' },
     { name: 'keywords', content: 'Wan 2.5, AI video generator, text-to-video, image-to-video, 1080p video, AI video creation' }
   ],
-  link: [{ rel: 'canonical', href:  baseUrl + 'wan-2-5' }],
+  link: [{ rel: 'canonical', href:  baseUrl + 'wan/wan-2-5' }],
   script: [
     {
       type: 'application/ld+json',
