@@ -501,8 +501,8 @@ const progressInterval = ref<NodeJS.Timeout | null>(null)
 // 表单数据
 const formData = ref({
   prompt: '',
-  resolution: '720P', // for image-to-video
-  resolutionLevel: '720P', // for text-to-video
+  resolution: '480P', // for image-to-video
+  resolutionLevel: '480P', // for text-to-video
   size: '1280*720', // for text-to-video
   duration: '5',
   promptExtend: true,
@@ -558,9 +558,11 @@ const is1080PSelected = computed(() => {
 })
 const needCreditCheck = computed(() => is1080PSelected.value || freeTimes.value === 0)
 const generateBadgeText = computed(() => {
+
   // 1080P 展示实际消耗（不再展示 Free）
-  if (is1080PSelected.value) return `${requiredCredits.value} credits`
-  if (freeTimes.value > 0) return `${freeTimes.value} Free`
+  // if (is1080PSelected.value) return `${requiredCredits.value} credits`
+  if (freeTimes.value > 0 && formData.value.resolution === '480P' && formData.value.duration === '5' && activeMode.value === 'image-to-video')  return `${freeTimes.value} Free`
+  if (freeTimes.value > 0 && formData.value.resolutionLevel === '480P' && formData.value.duration === '5' && activeMode.value !== 'image-to-video')  return `${freeTimes.value} Free`
   return `${requiredCredits.value} credits`
 })
 
@@ -1038,9 +1040,9 @@ const resetGenerator = () => {
 const resetForm = () => {
   formData.value = {
     prompt: '',
-    resolution: '720P',
-    resolutionLevel: '720P',
-    size: '1280*720',
+    resolution: '480P',
+    resolutionLevel: '480P',
+    size: '832*480',
     duration: '5',
     promptExtend: true,
     audioUrl: ''

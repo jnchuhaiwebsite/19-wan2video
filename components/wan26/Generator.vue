@@ -1041,7 +1041,7 @@ const creditCostLabel = computed(() => {
   const duration = parseInt(durationStr, 10) || 0
 
   // 720P、5s 时优先检测 free_times
-  if (resolution === '720P' && duration === 5 && freeTimes.value > 0) {
+  if (resolution === '480P' && duration === 5 && freeTimes.value > 0) {
     return freeTimes.value + ' Free'
   }
 
