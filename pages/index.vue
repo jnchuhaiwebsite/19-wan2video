@@ -24,6 +24,9 @@
       
       <!-- Explore Real Wan 2.6 Video Creations -->
       <Wan26VideoExamplesSection />
+
+      <!-- Learn More -->
+      <Wan26LearnMore />
       
       <!-- Pricing for Wan 2.6 -->
       <Wan26Pricing />
@@ -52,6 +55,7 @@ import Wan26Advantages from '~/components/home/Wan26Advantages.vue'
 import WhyCreatorsChooseWan26 from '~/components/home/WhyCreatorsChooseWan26.vue'
 import Wan25VsWan26 from '~/components/home/Wan25VsWan26.vue'
 import Wan26VideoExamplesSection from '~/components/home/Wan26VideoExamplesSection.vue'
+import Wan26LearnMore from '~/components/home/Wan26LearnMore.vue'
 import Wan26Pricing from '~/components/home/Wan26Pricing.vue'
 import Wan26Faq from '~/components/home/Wan26Faq.vue'
 import Wan26Cta from '~/components/home/Wan26Cta.vue'
