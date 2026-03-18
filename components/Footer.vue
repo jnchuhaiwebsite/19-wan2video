@@ -3,21 +3,22 @@
     <div class="max-w-7xl mx-auto px-4 mobile-padding">
       
       <!-- 友情链接区域 -->
-      <!-- <div class="mb-8" v-if="partnerSites && partnerSites.length > 0">
+      <div class="mb-8" v-if="partnerSites && partnerSites.length > 0">
         <div class="text-blue-footer font-medium mb-4 text-left text-sm md:text-lg">Partner Sites</div>
         <div class="flex flex-wrap gap-x-6 gap-y-2">
           <a v-for="(item,index) in partnerSites" :key="index" 
              :href="item.url" 
              target="_blank" 
+             :title="`${item.name}`"
              rel="noopener noreferrer" 
              class="text-blue-footertext hover:text-blue-footerhover transition-colors text-sm">
             {{ item.name }}
           </a>
         </div>
-      </div> -->
+      </div>
 
       <!-- 分割线 -->
-      <!-- <div class="w-full h-px bg-blue-footerborder/30 mb-8" v-if="partnerSites && partnerSites.length > 0"></div> -->
+      <div class="w-full h-px bg-blue-footerborder/30 mb-8" v-if="partnerSites && partnerSites.length > 0"></div>
 
       <!-- 主要内容区域 -->
       <div class="flex flex-col md:flex-row gap-8 md:gap-16 mobile-footer-links">
@@ -112,33 +113,33 @@
 </template>
 
 <script setup lang="ts">
-// import { ref } from 'vue'
-// import { useNavigation } from '~/utils/navigation'
-// import { getFriendLinkList } from '~/api'
-// import { useAsyncData } from 'nuxt/app'
+import { ref } from 'vue'
+import { useNavigation } from '~/utils/navigation'
+import { getFriendLinkList } from '~/api'
+import { useAsyncData } from 'nuxt/app'
 
-// interface PartnerSite {
-//   url: string
-//   name: string
-// }
+interface PartnerSite {
+  url: string
+  name: string
+}
 
-// const { activeSection, sections, handleNavClick, handleScroll, footerSections, productsSections } = useNavigation()
+const { activeSection, sections, handleNavClick, handleScroll, footerSections, productsSections } = useNavigation()
 
-// // 处理链接点击，支持新标签页打开
-// const handleLinkClick = (href: string, openInNewTab?: boolean) => {
-//   if (openInNewTab) {
-//     window.open(href, '_blank', 'noopener,noreferrer');
-//   }
-// };
+// 处理链接点击，支持新标签页打开
+const handleLinkClick = (href: string, openInNewTab?: boolean) => {
+  if (openInNewTab) {
+    window.open(href, '_blank', 'noopener,noreferrer');
+  }
+};
 
 // 服务端请求友情链接
-// const { data: partnerSites, error } = await useAsyncData('partnerSites', async () => {
-//   const res = await getFriendLinkList()
-//   if (res.code === 200) {
-//     return res.data as PartnerSite[]
-//   }
-//   return []
-// })
+const { data: partnerSites, error } = await useAsyncData('partnerSites', async () => {
+  const res = await getFriendLinkList()
+  if (res.code === 200) {
+    return res.data as PartnerSite[]
+  }
+  return []
+})
 </script>
 
 <style scoped>
