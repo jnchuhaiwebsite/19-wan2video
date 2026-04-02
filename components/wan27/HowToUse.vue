@@ -17,8 +17,8 @@
           How to Use <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">Wan 2.7 AI Video Generator</span>
         </h2>
         <p class="text-lg text-slate-600 leading-relaxed">
-          A professional-grade pipeline engineered to transform multimodal inputs into seamless cinematic reality. 
-          Follow these steps to master your production.
+          A professional-grade pipeline engineered to transform multimodal inputs into seamless cinematic reality with <strong>Wan 2.7 AI Video Generator</strong>. 
+          Follow these steps to master your production with <strong>advanced AI video generation</strong>.
         </p>
       </div>
 
@@ -41,7 +41,8 @@
             <h3 class="text-sm font-bold tracking-widest text-indigo-600 uppercase mb-3">Set Your Foundation</h3>
             <p class="text-slate-600 leading-relaxed">
               Upload your source assets. Whether it’s a character portrait for identity lock or a motion clip as a template, 
-              the <span class="font-semibold text-slate-900">Wan 2.7 AI Video Generator</span> processes your files as primary directorial instructions.
+              the <strong>Wan 2.7 AI Video Generator</strong> processes your files as primary directorial instructions, 
+              ensuring <strong>100% character fidelity</strong> and perfect lighting consistency.
             </p>
           </div>
         </div>
@@ -80,8 +81,7 @@
             </div>
             <h3 class="text-sm font-bold tracking-widest text-indigo-600 uppercase mb-3">Generate &amp; Refine</h3>
             <p class="text-slate-600 leading-relaxed">
-              Execute your render to witness fluid, natural motion. Use the 
-              <span class="font-semibold text-slate-900">Wan 2.7 AI Video Generator</span>&apos;s extension suite to build longer narratives while preserving original lighting and consistency.
+              Execute your render to witness fluid, natural motion. Use the <strong>Wan 2.7 AI Video Generator</strong>’s extension suite to build longer narratives while preserving original lighting and consistency, ensuring <strong>cinematic quality</strong>.
             </p>
           </div>
         </div>

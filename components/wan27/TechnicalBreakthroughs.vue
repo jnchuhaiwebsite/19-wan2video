@@ -17,7 +17,7 @@
           Technical Breakthroughs in <span class="text-indigo-500">Wan 2.7 AI Video Generator</span>
         </h2>
         <p class="text-lg text-slate-400 max-w-2xl leading-relaxed">
-          Pioneering multimodal algorithms that redefine cinematic realism through precision physics and semantic identity retention.
+          Pioneering multimodal algorithms that redefine cinematic realism through <strong>precision physics</strong> and <strong>semantic identity retention</strong> with <strong>Wan 2.7 AI Video Generator</strong>.
         </p>
       </div>
 
@@ -33,7 +33,7 @@
           </div>
           <h3 class="text-xl font-bold text-white mb-4">Cross-Modal Conditioning</h3>
           <p class="text-slate-400 leading-relaxed text-sm md:text-base">
-            Our architecture treats images and videos as high-dimensional control signals, allowing for surgical precision in decoding motion rather than simple text-based guessing.
+            Our architecture treats images and videos as high-dimensional control signals, allowing for surgical precision in decoding motion rather than simple text-based guessing. This is key to the <strong>AI video generation</strong> capabilities of <strong>Wan 2.7 AI Video Generator</strong>.
           </p>
           <div class="mt-6 flex items-center gap-2 text-xs font-mono text-indigo-500">
             <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
@@ -50,7 +50,7 @@
           </div>
           <h3 class="text-xl font-bold text-white mb-4">Semantic Memory Layer</h3>
           <p class="text-slate-400 leading-relaxed text-sm md:text-base">
-            A specialized attention mechanism that "remembers" character attributes and environmental geometry across the entire temporal sequence, solving the AI flicker issue.
+            A specialized attention mechanism that "remembers" character attributes and environmental geometry across the entire temporal sequence, solving the AI flicker issue. This helps maintain <strong>identity retention</strong> and <strong>visual consistency</strong> throughout the video.
           </p>
           <div class="mt-6 flex items-center gap-2 text-xs font-mono text-indigo-500">
             <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
@@ -67,7 +67,7 @@
           </div>
           <h3 class="text-xl font-bold text-white mb-4">Enhanced Physical Priors</h3>
           <p class="text-slate-400 leading-relaxed text-sm md:text-base">
-            The foundation is pre-trained on vast cinematic datasets to understand complex motion, gravity, momentum, and lighting interactions for true-to-life rendering.
+            The foundation is pre-trained on vast cinematic datasets to understand complex motion, gravity, momentum, and lighting interactions for true-to-life rendering. The <strong>physical realism</strong> in <strong>Wan 2.7 AI Video Generator</strong> sets a new benchmark for <strong>cinematic AI video generation</strong>.
           </p>
           <div class="mt-6 flex items-center gap-2 text-xs font-mono text-indigo-500">
             <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>

@@ -1,5 +1,6 @@
 <template>
-  <section class="py-20 bg-gradient-to-b from-slate-50 via-blue-50/30 to-purple-50/50 relative overflow-hidden mt-20">
+  <section id="hero" class="py-32 bg-gradient-to-b from-slate-50 via-blue-50/30 to-purple-50/50 relative overflow-hidden">
+    <!-- 背景装饰 -->
     <div class="absolute inset-0 opacity-30">
       <div class="absolute top-10 left-1/4 w-32 h-32 bg-gradient-to-br from-blue-300 to-purple-300 rounded-full blur-3xl"></div>
       <div class="absolute bottom-20 right-1/4 w-40 h-40 bg-gradient-to-tr from-purple-300 to-pink-300 rounded-full blur-3xl"></div>
@@ -7,10 +8,9 @@
     </div>
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <!-- Header Content -->
       <div class="text-center max-w-3xl mx-auto">
-        <div
-          class="inline-flex items-center px-5 py-2.5 bg-white/70 backdrop-blur-md rounded-full text-sm font-semibold text-slate-700 mb-6 shadow-lg border border-slate-200/60"
-        >
+        <div class="inline-flex items-center px-5 py-2.5 bg-white/70 backdrop-blur-md rounded-full text-sm font-semibold text-slate-700 mb-6 shadow-lg border border-slate-200/60">
           <span class="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>
           Next-Gen Cinematography • Wan 2.7 AI Video Generator Pro
         </div>
@@ -26,17 +26,18 @@
         </p>
 
         <p class="text-base md:text-lg text-slate-700 max-w-2xl mx-auto leading-relaxed mb-8">
-          Bridge the gap between imagination and reality. Wan 2.7 AI Video Generator offers a professional directorial
-          suite where text, images, and video converge to create high-fidelity cinematic sequences with absolute control.
+          Bridge the gap between imagination and reality. The <strong>Wan 2.7 AI Video Generator</strong> offers a professional directorial suite where text, images, and video converge to create high-fidelity cinematic sequences with absolute control. Create cinematic-quality videos with <strong>4K resolution</strong> and <strong>60FPS</strong> using <strong>AI-powered text-to-video</strong> and <strong>image-to-video workflows</strong>.
         </p>
 
+        <!-- Model Features -->
         <div class="flex flex-wrap items-center justify-center gap-2 mb-10 text-sm font-medium text-slate-700">
-          <span class="px-3 py-1 rounded-full bg-white/80 border border-slate-200">Text-to-Video</span>
-          <span class="px-3 py-1 rounded-full bg-white/80 border border-slate-200">Image-to-Video</span>
-          <span class="px-3 py-1 rounded-full bg-white/80 border border-slate-200">Video-to-Video</span>
-          <span class="px-3 py-1 rounded-full bg-white/80 border border-slate-200">Pro Extension</span>
+          <span class="px-3 py-1 rounded-full bg-white/80 border border-slate-200">Cinematic 4K Quality</span>
+          <span class="px-3 py-1 rounded-full bg-white/80 border border-slate-200">20–30s Multi-Shot Sequences</span>
+          <span class="px-3 py-1 rounded-full bg-white/80 border border-slate-200">AI-Powered Director Mode</span>
+          <span class="px-3 py-1 rounded-full bg-white/80 border border-slate-200">Advanced Audio Sync</span>
         </div>
 
+        <!-- CTA -->
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
           <NuxtLink
             to="#"
@@ -67,4 +68,3 @@
 
 <script setup lang="ts">
 </script>
-

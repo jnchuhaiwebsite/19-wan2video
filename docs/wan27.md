@@ -4,7 +4,7 @@
 ### SEO 元数据 (Meta Data)
 
 **SEO Title:**  
-`Wan 2.7 AI Video Generator: Master Professional Multimodal AI`  
+`Wan 2.7 AI Video Generator – Create Cinematic 4K Videos in Seconds`  
 *(58 characters - 完美契合 60 字符限制，采用 Title Case，强调专业性与掌控感)*
 
 **Meta Description (MD):**  

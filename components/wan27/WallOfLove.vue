@@ -13,7 +13,7 @@
           Trusted by Professionals Using <span class="text-indigo-600">Wan 2.7 AI Video Generator</span>
         </h2>
         <p class="text-lg text-slate-600">
-          Join the community of visionary directors and creators who are redefining cinematic boundaries with our multimodal engine.
+          Join the community of visionary directors and creators who are redefining cinematic boundaries with our <strong>multimodal engine</strong> powered by the <strong>Wan 2.7 AI Video Generator</strong>.
         </p>
       </div>
 
@@ -68,28 +68,28 @@ const quotes = [
     role: 'Creative Director',
     avatar: 'https://i.pravatar.cc/100?img=22',
     content:
-      'The reference video feature in Wan 2.7 AI Video Generator has revolutionized our pre-viz process. It’s a total game-changer for camera blocking.',
+      'The reference video feature in <strong>Wan 2.7 AI Video Generator</strong> has revolutionized our pre-viz process. It’s a total game-changer for camera blocking.',
   },
   {
     name: 'Mateo',
     role: 'Brand Lead',
     avatar: 'https://i.pravatar.cc/100?img=11',
     content:
-      'Finally, an AI that keeps our brand characters consistent. We can now produce full social campaigns from a single reference image.',
+      'Finally, an AI that keeps our brand characters consistent. We can now produce full social campaigns from a single reference image using <strong>Wan 2.7 AI Video Generator</strong>.',
   },
   {
     name: 'Jay',
     role: 'Content Creator',
     avatar: 'https://i.pravatar.cc/100?img=33',
     content:
-      'The speed and sync capabilities are unmatched. I’m doing in minutes what used to take a post-production team days.',
+      'The speed and sync capabilities of the <strong>Wan 2.7 AI Video Generator</strong> are unmatched. I’m doing in minutes what used to take a post-production team days.',
   },
   {
     name: 'Aria',
     role: 'Indie Filmmaker',
     avatar: 'https://i.pravatar.cc/100?img=44',
     content:
-      'The "Continue Filming" logic allows for true cinematic flow. I can finally previsualize multi-shot sequences that feel totally coherent.',
+      'The "Continue Filming" logic allows for true cinematic flow. I can finally previsualize multi-shot sequences that feel totally coherent with <strong>Wan 2.7 AI Video Generator</strong>.',
   }
 ]
 </script>

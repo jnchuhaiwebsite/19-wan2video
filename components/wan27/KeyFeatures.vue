@@ -13,7 +13,7 @@
           Why <span class="text-indigo-600">Wan 2.7 AI Video Generator</span> Leads the Industry
         </h2>
         <p class="text-lg text-slate-600 leading-relaxed">
-          Engineered for professional directorial control, our features solve the most persistent challenges in AI filmmaking.
+          Engineered for professional directorial control, our features solve the most persistent challenges in <strong>AI filmmaking</strong>.
         </p>
       </div>
 
@@ -29,7 +29,7 @@
           </div>
           <h3 class="text-xl font-bold text-slate-900 mb-4 text-balance">Multimodal Reference Mastery</h3>
           <p class="text-slate-600 leading-relaxed text-sm md:text-base">
-            Don't just prompt—direct. Use any image or video as a direct blueprint. Our engine decodes style, composition, and motion with surgical precision.
+            Don't just prompt—direct. Use any image or video as a direct blueprint. Our engine decodes style, composition, and motion with surgical precision, ensuring your visual assets are fully integrated into your project with <strong>AI-powered precision</strong>.
           </p>
         </div>
 
@@ -42,7 +42,7 @@
           </div>
           <h3 class="text-xl font-bold text-slate-900 mb-4 text-balance">Persistent Identity Lock</h3>
           <p class="text-slate-600 leading-relaxed text-sm md:text-base">
-            Solve the problem of character &quot;flicker&quot; and drift. Ensure your protagonist looks identical across every shot, camera angle, and movement.
+            Solve the problem of character "flicker" and drift. Ensure your protagonist looks identical across every shot, camera angle, and movement, making your video production <strong>consistent and professional</strong>.
           </p>
         </div>
 
@@ -56,7 +56,7 @@
           </div>
           <h3 class="text-xl font-bold text-slate-900 mb-4 text-balance">Temporal Narrative Extension</h3>
           <p class="text-slate-600 leading-relaxed text-sm md:text-base">
-            Break the 5-second limit. Generate subsequent scenes that maintain perfect logical, visual, and rhythmic continuity for long-form storytelling.
+            Break the 5-second limit. Generate subsequent scenes that maintain perfect logical, visual, and rhythmic continuity for long-form storytelling. Ideal for <strong>AI-driven cinematic video generation</strong>.
           </p>
         </div>
 
@@ -69,7 +69,7 @@
           </div>
           <h3 class="text-xl font-bold text-slate-900 mb-4 text-balance">Context-Aware Editing</h3>
           <p class="text-slate-600 leading-relaxed text-sm md:text-base">
-            Modify specific elements—like swapping a character's outfit or changing weather conditions—without altering original motion or lighting.
+            Modify specific elements—like swapping a character's outfit or changing weather conditions—without altering original motion or lighting, ensuring <strong>seamless editing</strong>.
           </p>
         </div>
 

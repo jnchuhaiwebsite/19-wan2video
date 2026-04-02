@@ -113,9 +113,9 @@ const tabs = ref([
 ])
 
 useSeo({
-  title: 'Wan 2.7 AI Video Generator: Master Professional Multimodal AI',
+  title: 'Wan 2.7 AI Video Generator – Create Cinematic 4K Videos in Seconds',
   description:
-    'Experience the precision of Wan 2.7 AI Video Generator. Master multimodal control, character consistency, and cinematic realism for professional filmmaking.',
+    'Create cinematic 4K multi-shot videos in seconds with Wan 2.7 AI Video Generator. Turn text, images, and clips into professional videos with perfect audio sync. Try now!',
 })
 
 const jsonLD = {
@@ -125,7 +125,7 @@ const jsonLD = {
       '@type': 'WebPage',
       '@id': 'https://www.wan2video.com/wan/wan-2-7#webpage',
       url: 'https://www.wan2video.com/wan/wan-2-7',
-      name: 'Wan 2.7 AI Video Generator: Master Professional Multimodal AI',
+      name: 'Wan 2.7 AI Video Generator – Create Cinematic 4K Videos in Seconds',
       isPartOf: {
         '@id': 'https://www.wan2video.com/#website',
       },
