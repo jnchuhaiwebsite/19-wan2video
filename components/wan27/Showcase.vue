@@ -7,11 +7,11 @@
           Production Showcase
         </p>
         <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-6">
-          Cinematic Mastery with <span class="text-indigo-400">Wan 2.7 AI Video Generator</span>
+          Cinematic 4K with <span class="text-indigo-400">Wan 2.7 AI Video Generator</span>
         </h2>
         <div class="flex flex-col md:flex-row md:items-center gap-6">
           <p class="text-xl text-slate-400 max-w-2xl border-l-2 border-indigo-500 pl-6 italic">
-            &quot;Where technical precision meets artistic soul. Every frame tells a story, every motion defines reality with <strong>Wan 2.7 AI Video Generator</strong>.”
+            High-fidelity cinematic generation with precise camera control, consistent characters, and automatic audio—powered by <strong>Wan 2.7 AI Video Generator</strong>.
           </p>
         </div>
       </div>

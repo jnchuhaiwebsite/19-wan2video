@@ -191,11 +191,11 @@ const jsonLD = {
         },
       },
       featureList: [
-        'Multimodal reference-based video generation',
-        'Persistent character identity lock across frames',
-        'Temporal narrative extension for long-form stories',
-        'Context-aware video editing with physics-aware control',
-        'Audio-visual rhythmic synchronization for cinematic content',
+        'Cinematic 4K quality with 60FPS fluidity',
+        'Multi-shot sequences (20–30s) with character consistency',
+        'AI-powered Director Mode for camera, motion, and lighting',
+        'Text-to-video and image-to-video workflows',
+        'Seamless audio synchronization',
       ],
     },
     {
@@ -204,26 +204,82 @@ const jsonLD = {
       mainEntity: [
         {
           '@type': 'Question',
-          name: 'How does this model handle character consistency?',
+          name: 'What is Wan 2.7 AI Video Generator?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Wan 2.7 uses an Identity Persistence mechanism. By tagging a reference image, the model locks the visual DNA of your subject across all generated frames.',
+            text: 'An AI tool that transforms text and images into high-quality cinematic content with precise visual and audio control.',
           },
         },
         {
           '@type': 'Question',
-          name: 'Can I extend my existing video clips?',
+          name: 'What features does it have?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Yes. The Video Extension tool analyzes your original footage to generate a seamless next chapter while preserving all cinematic settings.',
+            text: 'It offers text-to-video, image-to-video, 4K rendering, and seamless audio synchronization.',
           },
         },
         {
           '@type': 'Question',
-          name: 'Is the output cleared for commercial projects?',
+          name: 'What kinds of videos can I generate?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Yes. Content generated via the professional tier includes full commercial rights for monetization and professional delivery.',
+            text: 'Cinematic trailers, product demos, social media clips, and complex multi-shot sequences.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Do I need professional skills?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No, the interface is intuitive and allows anyone to generate professional videos by providing simple instructions.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'How long does it take to generate?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Short clips take minutes; complex 4K videos may take longer depending on server load.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Will I lose credits if generation fails?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No, credits are automatically refunded if the generation process fails.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Can I use videos for commercial purposes?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes, generated videos come with full commercial rights for marketing and business use.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Will my data be used for training?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No, your prompts and assets are used only for your specific generation task.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Is it free?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'A free trial with limited credits is available upon registration.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Do you offer refunds?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes, refunds are available if less than 10% of credits are used within 7 days of purchase.',
           },
         },
       ],

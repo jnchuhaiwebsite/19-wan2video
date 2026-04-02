@@ -8,11 +8,10 @@
         <div class="inline-flex items-center gap-3 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 mb-6">
           <span class="flex h-2 w-2 rounded-full bg-indigo-600 animate-pulse"></span>
           <span class="text-xs font-bold tracking-widest text-indigo-700 uppercase">
-            The New Frontier of Cinema
+            What is Wan 2.7
           </span>
         </div>
 
-        <!-- Optimized H2 with Keyword -->
         <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-8 leading-[1.15]">
           What is
           <span class="block text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-500">
@@ -22,28 +21,18 @@
 
         <div class="space-y-6 text-lg text-slate-600 leading-relaxed">
           <p>
-            The <span class="font-bold text-slate-900">Wan 2.7 AI Video Generator</span> is more than a creative tool;
-            it is a sophisticated multimodal foundation model meticulously engineered for creators who demand absolute
-            precision. It transforms the concept of AI generation into a controllable directorial suite.
-          </p>
-          <p>
-            By moving beyond unpredictable prompting, our engine introduces
-            <span class="text-slate-900 font-semibold border-b-2 border-indigo-200">Reference-Based Intelligence</span>.
-            This allows you to anchor your creative vision—maintaining 100% visual fidelity to specific characters,
-            artistic textures, and complex camera choreography. Perfect for <strong>professional video generation</strong> and <strong>cinematic storytelling</strong> with high visual consistency.
+            Wan 2.7 is a next-generation 4K AI video model that transforms text and images into high-fidelity cinematic videos, offering professional creators unmatched visual consistency and precise motion control.
           </p>
         </div>
       </div>
 
-      <!-- Right Content: Feature Highlight Card (5 Columns) -->
+      <!-- Right Content: Core Features (5 Columns) -->
       <div class="lg:col-span-5 relative">
         <div class="absolute -top-12 -right-12 w-64 h-64 bg-indigo-200/40 rounded-full blur-3xl"></div>
         
         <div class="relative group">
-          <!-- Animated Border Gradient -->
           <div class="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-2xl opacity-20 group-hover:opacity-40 transition duration-500"></div>
           
-          <!-- Main Feature Box -->
           <div class="relative bg-white border border-slate-200 p-8 rounded-2xl shadow-2xl shadow-slate-200/60">
             <div class="flex items-center gap-4 mb-6">
               <div class="flex-shrink-0 w-12 h-12 bg-indigo-600 flex items-center justify-center rounded-xl shadow-lg shadow-indigo-200">
@@ -52,36 +41,25 @@
                 </svg>
               </div>
               <div>
-                <h3 class="text-slate-900 font-bold text-xl leading-none">Feature Highlight</h3>
-                <p class="text-indigo-600 text-sm mt-1 font-medium">Production-Ready Reliability</p>
+                <h3 class="text-slate-900 font-bold text-xl leading-none">Core Features</h3>
+                <p class="text-indigo-600 text-sm mt-1 font-medium">Wan 2.7 at a glance</p>
               </div>
             </div>
             
-            <div class="space-y-4">
-              <h4 class="text-slate-900 font-bold">Bridging the Creative Gap</h4>
-              <p class="text-slate-600 text-[15px] leading-relaxed">
-                While traditional AI often suffers from broken logic, the
-                <span class="font-medium text-slate-900">Wan 2.7 AI Video Generator</span>
-                integrates advanced physical priors and semantic memory to eliminate character drift and ensure
-                <span class="font-bold">100% Identity Persistence</span> and <span class="font-bold">Enhanced Spatial Consistency</span> across multi-shot sequences. It’s the ideal tool for <strong>professional video production</strong> with precise control.
-              </p>
-              <div class="bg-slate-50 rounded-lg p-4 border border-slate-100">
-                <ul class="space-y-2 text-sm text-slate-500 font-medium">
-                  <li class="flex items-center gap-2">
-                    <div class="w-1 h-1 bg-indigo-400 rounded-full"></div>
-                    100% Identity Persistence
-                  </li>
-                  <li class="flex items-center gap-2">
-                    <div class="w-1 h-1 bg-indigo-400 rounded-full"></div>
-                    Enhanced Spatial Consistency
-                  </li>
-                  <li class="flex items-center gap-2">
-                    <div class="w-1 h-1 bg-indigo-400 rounded-full"></div>
-                    Professional Grade Workflow
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <ul class="space-y-4">
+              <li class="flex gap-3 text-slate-700">
+                <span class="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+                <span><strong class="text-slate-900">Cinematic 4K Quality:</strong> Produce ultra-high-definition videos with exceptional visual clarity and 60FPS fluidity.</span>
+              </li>
+              <li class="flex gap-3 text-slate-700">
+                <span class="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+                <span><strong class="text-slate-900">Multi-Shot Sequences:</strong> Create dynamic 20–30s sequences that maintain narrative flow and character consistency.</span>
+              </li>
+              <li class="flex gap-3 text-slate-700">
+                <span class="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+                <span><strong class="text-slate-900">AI-Powered Director Mode:</strong> Achieve complete control over camera angles, motion dynamics, and complex scene lighting.</span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -94,7 +72,6 @@
 </script>
 
 <style scoped>
-/* 优化标题平衡与抗锯齿 */
 h2 {
   text-wrap: balance;
   -webkit-font-smoothing: antialiased;

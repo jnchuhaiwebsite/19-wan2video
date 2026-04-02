@@ -1,91 +1,48 @@
 <template>
-  <section id="features" class="py-24 bg-white relative overflow-hidden">
-    <!-- 背景点缀 -->
-    <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-bl from-indigo-50/50 to-transparent -z-10"></div>
-    
+  <section id="pricing" class="py-24 bg-slate-50 relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-1/3 h-1/3 bg-gradient-to-br from-indigo-50/80 to-transparent -z-10"></div>
+
     <div class="max-w-7xl mx-auto px-6">
-      <!-- Header Area -->
-      <div class="text-center max-w-3xl mx-auto mb-20">
+      <div class="text-center max-w-3xl mx-auto mb-16">
         <p class="text-sm font-bold tracking-[0.2em] text-indigo-600 uppercase mb-4">
-          Advanced Capabilities
+          Pricing &amp; Plans
         </p>
         <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6">
-          Why <span class="text-indigo-600">Wan 2.7 AI Video Generator</span> Leads the Industry
+          Wan 2.7 AI Video Generator <span class="text-indigo-600">Pricing &amp; Plans</span>
         </h2>
         <p class="text-lg text-slate-600 leading-relaxed">
-          Engineered for professional directorial control, our features solve the most persistent challenges in <strong>AI filmmaking</strong>.
+          Choose the perfect subscription plan for your needs, ranging from free trials to professional tiers that provide priority 4K rendering, extended video durations, and full commercial usage rights.
         </p>
       </div>
 
-      <!-- Features Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        
-        <!-- Feature 1: Multimodal Reference -->
-        <div class="group p-8 rounded-3xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:shadow-xl hover:shadow-indigo-100 transition-all duration-300">
-          <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-slate-900 mb-4 text-balance">Multimodal Reference Mastery</h3>
-          <p class="text-slate-600 leading-relaxed text-sm md:text-base">
-            Don't just prompt—direct. Use any image or video as a direct blueprint. Our engine decodes style, composition, and motion with surgical precision, ensuring your visual assets are fully integrated into your project with <strong>AI-powered precision</strong>.
-          </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm hover:shadow-lg transition-shadow">
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Free Plan</h3>
+          <ul class="space-y-3 text-slate-600 text-sm md:text-base">
+            <li class="flex gap-2"><span class="text-indigo-500">•</span> Basic generation speed</li>
+            <li class="flex gap-2"><span class="text-indigo-500">•</span> Limited daily usage</li>
+            <li class="flex gap-2"><span class="text-indigo-500">•</span> Community support</li>
+          </ul>
         </div>
 
-        <!-- Feature 2: Persistent Identity -->
-        <div class="group p-8 rounded-3xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:shadow-xl hover:shadow-indigo-100 transition-all duration-300">
-          <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-3.44A20.93 20.93 0 014.512 11c0-3.517 1.009-6.799 2.753-9.571m11.734 3.44a20.947 20.947 0 013.253 9.571c0 3.517-1.009 6.799-2.753 9.571m-3.44-3.44c.753-1.112 1.154-2.222 1.488-3.44" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-slate-900 mb-4 text-balance">Persistent Identity Lock</h3>
-          <p class="text-slate-600 leading-relaxed text-sm md:text-base">
-            Solve the problem of character "flicker" and drift. Ensure your protagonist looks identical across every shot, camera angle, and movement, making your video production <strong>consistent and professional</strong>.
-          </p>
+        <div class="rounded-3xl border-2 border-indigo-500 bg-white p-8 shadow-xl shadow-indigo-100/50 relative md:-mt-2 md:mb-2">
+          <span class="absolute top-4 right-4 text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2 py-1 rounded">Popular</span>
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Pro Plan</h3>
+          <ul class="space-y-3 text-slate-600 text-sm md:text-base">
+            <li class="flex gap-2"><span class="text-indigo-500">•</span> 4K Video @ 60FPS</li>
+            <li class="flex gap-2"><span class="text-indigo-500">•</span> Full Director Mode access</li>
+            <li class="flex gap-2"><span class="text-indigo-500">•</span> No watermarks</li>
+          </ul>
         </div>
 
-        <!-- Feature 3: Temporal Extension -->
-        <div class="group p-8 rounded-3xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:shadow-xl hover:shadow-indigo-100 transition-all duration-300">
-          <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-slate-900 mb-4 text-balance">Temporal Narrative Extension</h3>
-          <p class="text-slate-600 leading-relaxed text-sm md:text-base">
-            Break the 5-second limit. Generate subsequent scenes that maintain perfect logical, visual, and rhythmic continuity for long-form storytelling. Ideal for <strong>AI-driven cinematic video generation</strong>.
-          </p>
+        <div class="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm hover:shadow-lg transition-shadow">
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Premium Plan</h3>
+          <ul class="space-y-3 text-slate-600 text-sm md:text-base">
+            <li class="flex gap-2"><span class="text-indigo-500">•</span> Priority generation queue</li>
+            <li class="flex gap-2"><span class="text-indigo-500">•</span> Longest video duration</li>
+            <li class="flex gap-2"><span class="text-indigo-500">•</span> Full commercial license</li>
+          </ul>
         </div>
-
-        <!-- Feature 4: Context-Aware Editing -->
-        <div class="group p-8 rounded-3xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:shadow-xl hover:shadow-indigo-100 transition-all duration-300 lg:col-start-1">
-          <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-slate-900 mb-4 text-balance">Context-Aware Editing</h3>
-          <p class="text-slate-600 leading-relaxed text-sm md:text-base">
-            Modify specific elements—like swapping a character's outfit or changing weather conditions—without altering original motion or lighting, ensuring <strong>seamless editing</strong>.
-          </p>
-        </div>
-
-        <!-- Feature 5: AV Sync -->
-        <div class="group p-8 rounded-3xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:shadow-xl hover:shadow-indigo-100 transition-all duration-300 lg:col-start-2">
-          <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold text-slate-900 mb-4 text-balance">AV Rhythmic Sync</h3>
-          <p class="text-slate-600 leading-relaxed text-sm md:text-base">
-            Align visual beats with audio cues. Perfect for creating immersive music videos and high-impact social media content with frame-accurate sync.
-          </p>
-        </div>
-
       </div>
     </div>
   </section>
@@ -95,7 +52,6 @@
 </script>
 
 <style scoped>
-/* 确保标题不会在移动端断词尴尬 */
 h2 {
   text-wrap: balance;
 }

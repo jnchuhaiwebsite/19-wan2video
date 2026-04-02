@@ -12,7 +12,7 @@
       <div class="text-center max-w-3xl mx-auto">
         <div class="inline-flex items-center px-5 py-2.5 bg-white/70 backdrop-blur-md rounded-full text-sm font-semibold text-slate-700 mb-6 shadow-lg border border-slate-200/60">
           <span class="w-2 h-2 bg-emerald-500 rounded-full mr-2"></span>
-          Next-Gen Cinematography • Wan 2.7 AI Video Generator Pro
+          Cinematic 4K 60FPS • Wan 2.7 AI Video Generator
         </div>
 
         <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-4 leading-tight">
@@ -22,11 +22,15 @@
         </h1>
 
         <p class="text-xl sm:text-2xl font-semibold text-slate-800 mb-4">
-          The Professional Multimodal Engine for Precision Filmmaking
+          Create cinematic 4K 60FPS AI videos from text or images with director mode, motion brush, and synced audio.
         </p>
 
-        <p class="text-base md:text-lg text-slate-700 max-w-2xl mx-auto leading-relaxed mb-8">
-          Bridge the gap between imagination and reality. The <strong>Wan 2.7 AI Video Generator</strong> offers a professional directorial suite where text, images, and video converge to create high-fidelity cinematic sequences with absolute control. Create cinematic-quality videos with <strong>4K resolution</strong> and <strong>60FPS</strong> using <strong>AI-powered text-to-video</strong> and <strong>image-to-video workflows</strong>.
+        <p class="text-base md:text-lg text-slate-700 max-w-2xl mx-auto leading-relaxed mb-4">
+          Generate cinematic videos using the advanced Wan 2.7 model.
+        </p>
+
+        <p class="text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed mb-8">
+          Wan 2.7 is a next-generation AI video model designed for high-quality cinematic generation. Create longer videos with precise camera control, consistent characters, and automatic audio.
         </p>
 
         <!-- Model Features -->
@@ -34,7 +38,7 @@
           <span class="px-3 py-1 rounded-full bg-white/80 border border-slate-200">Cinematic 4K Quality</span>
           <span class="px-3 py-1 rounded-full bg-white/80 border border-slate-200">20–30s Multi-Shot Sequences</span>
           <span class="px-3 py-1 rounded-full bg-white/80 border border-slate-200">AI-Powered Director Mode</span>
-          <span class="px-3 py-1 rounded-full bg-white/80 border border-slate-200">Advanced Audio Sync</span>
+          <span class="px-3 py-1 rounded-full bg-white/80 border border-slate-200">Synced Audio</span>
         </div>
 
         <!-- CTA -->
@@ -43,7 +47,7 @@
             to="#"
             class="group inline-flex items-center justify-center px-7 py-3.5 rounded-xl text-white font-semibold text-base bg-gradient-to-r from-purple-600 via-violet-500 to-indigo-500 shadow-[0_12px_30px_rgba(129,140,248,0.55)] hover:shadow-[0_18px_45px_rgba(129,140,248,0.85)] transition-all duration-300 hover:-translate-y-0.5"
           >
-            Get Started Now
+            Generate Video
             <svg
               class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1"
               fill="none"
@@ -55,10 +59,10 @@
           </NuxtLink>
 
           <NuxtLink
-            to="#examples"
+            to="#cta"
             class="inline-flex items-center justify-center px-7 py-3.5 rounded-xl text-slate-800 font-semibold text-base bg-white/90 border border-slate-200 shadow-md hover:bg-slate-50 hover:border-slate-300 transition-all duration-300"
           >
-            View Gallery
+            Try Wan 2.7 Free
           </NuxtLink>
         </div>
       </div>

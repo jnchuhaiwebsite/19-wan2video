@@ -11,14 +11,13 @@
       <div class="max-w-3xl mb-16">
         <p class="text-sm font-bold tracking-[0.2em] text-indigo-600 uppercase mb-4 flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
-          Directorial Workflow
+          Step-by-Step Guide
         </p>
         <h2 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6">
           How to Use <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">Wan 2.7 AI Video Generator</span>
         </h2>
         <p class="text-lg text-slate-600 leading-relaxed">
-          A professional-grade pipeline engineered to transform multimodal inputs into seamless cinematic reality with <strong>Wan 2.7 AI Video Generator</strong>. 
-          Follow these steps to master your production with <strong>advanced AI video generation</strong>.
+          Master cinematic video production by uploading your assets, applying simple directorial commands, and generating professional-grade 4K content in seconds through our intuitive, user-friendly AI creative workflow.
         </p>
       </div>
 
@@ -38,11 +37,9 @@
                 </svg>
               </div>
             </div>
-            <h3 class="text-sm font-bold tracking-widest text-indigo-600 uppercase mb-3">Set Your Foundation</h3>
+            <h3 class="text-sm font-bold tracking-widest text-indigo-600 uppercase mb-3">Step 1 — Upload Your Assets</h3>
             <p class="text-slate-600 leading-relaxed">
-              Upload your source assets. Whether it’s a character portrait for identity lock or a motion clip as a template, 
-              the <strong>Wan 2.7 AI Video Generator</strong> processes your files as primary directorial instructions, 
-              ensuring <strong>100% character fidelity</strong> and perfect lighting consistency.
+              Upload images, text, or video clips. Wan 2.7 processes them as directorial instructions, maintaining perfect visual fidelity.
             </p>
           </div>
         </div>
@@ -58,12 +55,12 @@
                 </svg>
               </div>
             </div>
-            <h3 class="text-sm font-bold tracking-widest text-indigo-600 uppercase mb-3">Orchestrate the Scene</h3>
+            <h3 class="text-sm font-bold tracking-widest text-indigo-600 uppercase mb-3">Step 2 — Set Your Scene</h3>
             <p class="text-slate-600 leading-relaxed mb-4">
-              Refine your vision using our @Command system. Direct the AI with cinematic precision:
+              Use the <strong>@Command</strong> system to direct the AI. Example:
             </p>
             <div class="bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-xl italic text-sm text-slate-500 leading-relaxed">
-              &quot;@Image1 for the protagonist&apos;s look, following the dynamic lighting of @Video1.&quot;
+              &quot;Use @Image1 for the protagonist&apos;s look, @Video1 for dynamic lighting.&quot;
             </div>
           </div>
         </div>
@@ -79,9 +76,9 @@
                 </svg>
               </div>
             </div>
-            <h3 class="text-sm font-bold tracking-widest text-indigo-600 uppercase mb-3">Generate &amp; Refine</h3>
+            <h3 class="text-sm font-bold tracking-widest text-indigo-600 uppercase mb-3">Step 3 — Generate &amp; Refine</h3>
             <p class="text-slate-600 leading-relaxed">
-              Execute your render to witness fluid, natural motion. Use the <strong>Wan 2.7 AI Video Generator</strong>’s extension suite to build longer narratives while preserving original lighting and consistency, ensuring <strong>cinematic quality</strong>.
+              Execute your render to generate high-quality videos with perfect continuity and original lighting preservation.
             </p>
           </div>
         </div>
