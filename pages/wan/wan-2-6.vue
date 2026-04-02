@@ -117,6 +117,7 @@ useSeo({
 const breadcrumbItems = ref([
   { text: 'Wan AI',to: '/wan'},
   { text: 'Wan 2.6', to: '/wan/wan-2-6' },
+  
 ]);
 
 // 修改点 2 (可选，建议): 使用 ref 包裹，确保数据响应性一致
@@ -131,14 +132,17 @@ const tabs = ref([
     to: '/wan/wan-2-5', 
     isActive: false, 
   },
-  { 
-    text: 'Wan 2.6', 
-    to: '/wan/wan-2-6', 
-    isActive: true, 
-    badge: 'New'  
-
-  
-  }
+  {
+    text: 'Wan 2.6',
+    to: '/wan/wan-2-6',
+    isActive: true,
+  },
+  {
+    text: 'Wan 2.7',
+    to: '/wan/wan-2-7',
+    isActive: false,
+    badge: 'New',
+  },
 ]);
 const jsonLD ={
   "@context": "https://schema.org", // 使用 Schema.org 词汇表
