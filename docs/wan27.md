@@ -4,7 +4,7 @@
 
 **Title**
 
-Wan 2.7 AI Video Generator – Create Cinematic 4K Videos in Seconds
+Wan 2.7 AI Video Generator – Create Cinematic 4K Videos
 
 **Description**
 

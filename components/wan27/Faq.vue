@@ -45,17 +45,6 @@
         </div>
       </div>
 
-      <!-- Bottom Support CTA -->
-      <div class="mt-16 p-8 bg-slate-900 rounded-3xl text-center">
-        <h4 class="text-white font-bold text-xl mb-2">Still have more questions?</h4>
-        <p class="text-slate-400 mb-6 text-sm">Our technical team is ready to help you push your creative boundaries with <strong>Wan 2.7 AI Video Generator</strong>.</p>
-        <a href="mailto:support@wan2video.com" class="inline-flex items-center gap-2 text-indigo-400 font-bold hover:text-indigo-300 transition-colors">
-          Contact Our Support Team
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
-      </div>
     </div>
   </section>
 </template>

@@ -113,7 +113,7 @@ const tabs = ref([
 ])
 
 useSeo({
-  title: 'Wan 2.7 AI Video Generator – Create Cinematic 4K Videos in Seconds',
+  title: 'Wan 2.7 AI Video Generator – Create Cinematic 4K Videos',
   description:
     'Create cinematic 4K multi-shot videos in seconds with Wan 2.7 AI Video Generator. Turn text, images, and clips into professional videos with perfect audio sync. Try now!',
 })
@@ -125,7 +125,7 @@ const jsonLD = {
       '@type': 'WebPage',
       '@id': 'https://www.wan2video.com/wan/wan-2-7#webpage',
       url: 'https://www.wan2video.com/wan/wan-2-7',
-      name: 'Wan 2.7 AI Video Generator – Create Cinematic 4K Videos in Seconds',
+      name: 'Wan 2.7 AI Video Generator – Create Cinematic 4K Videos',
       isPartOf: {
         '@id': 'https://www.wan2video.com/#website',
       },

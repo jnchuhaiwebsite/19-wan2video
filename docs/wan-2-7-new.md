@@ -4,7 +4,7 @@
 
 - **Primary Keyword:** Wan 2.7 AI Video Generator
 - **Secondary Keywords:** AI Video Generator, Text to Video, Image to Video, 4K Video Generator, Cinematic AI
-- **SEO Title:** Wan 2.7 AI Video Generator – Create Cinematic 4K Videos in Seconds
+- **SEO Title:** Wan 2.7 AI Video Generator – Create Cinematic 4K Videos
 - **Meta Description:** Create cinematic 4K multi-shot videos in seconds with Wan 2.7 AI Video Generator. Turn text, images, and clips into professional videos with perfect audio sync. Try now!
 
 ---

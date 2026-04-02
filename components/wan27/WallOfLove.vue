@@ -43,7 +43,7 @@
           <div class="flex items-center gap-4 pt-6 border-t border-slate-200">
             <img :src="quote.avatar" :alt="quote.name" class="w-12 h-12 rounded-full border-2 border-white shadow-sm object-cover">
             <div>
-              <h4 class="text-sm font-bold text-slate-900 leading-none mb-1">{{ quote.name }}</h4>
+              <span class="text-sm font-bold text-slate-900 leading-none mb-1">{{ quote.name }}</span>
               <p class="text-xs text-slate-500 font-medium tracking-wide uppercase">{{ quote.role }}</p>
             </div>
           </div>
