@@ -48,6 +48,10 @@ export const urlList = {
   createTasksWan26: baseUrl + '/api/task/wan26/genvideo', // 创建任务-Wan 2.6
   createTasksWan26V2V: baseUrl + '/api/task/wan26/v2v', // 创建任务-Wan 2.6
   checkTaskWan26: baseUrl + '/api/task/wan/check_task_status', // 检查任务-Wan 2.6
+
+  createTasksWan27: baseUrl + '/api/task/wan27/create', // 创建任务-Wan 2.7
+  createTasksWan27V2V: baseUrl + '/api/task/wan27/v2v/create', // 创建任务-Wan 2.7
+  checkTaskWan27: baseUrl + '/api/task/wan/check_task_status', // 检查任务-Wan 2.7
 }
 
 /**
@@ -658,6 +662,17 @@ export const createTasksWan26V2V = async (data: any) => {
   return apiRequest(urlList.createTasksWan26V2V, 'POST', data, true);
 }
 
+export const createTasksWan27 = async (data: any) => {
+  return apiRequest(urlList.createTasksWan27, 'POST', data, true);
+}
+
+export const createTasksWan27V2V = async (data: any) => {
+  return apiRequest(urlList.createTasksWan27V2V, 'POST', data, true);
+}
+
+export const checkTaskWan27 = async (task_id:string) => {
+  return apiRequest(urlList.checkTaskWan27+'?task_id='+task_id, 'GET', undefined, true);
+}
 
 /**
    * 创建圣诞视频

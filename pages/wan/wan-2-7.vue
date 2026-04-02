@@ -19,6 +19,11 @@
         <Wan27HeroSection />
       </section>
 
+      <!-- Generator -->
+      <!-- <section class="relative">
+        <Wan27Generator />
+      </section> -->
+
       <!-- What Is -->
       <section class="relative">
         <Wan27WhatIs />
@@ -71,6 +76,7 @@
 import { ref, onMounted } from 'vue'
 import Breadcrumbs from '~/components/Breadcrumbs.vue'
 import Wan27HeroSection from '~/components/wan27/HeroSection.vue'
+import Wan27Generator from '~/components/wan27/Generator.vue'
 import Wan27WhatIs from '~/components/wan27/WhatIs.vue'
 import Wan27HowToUse from '~/components/wan27/HowToUse.vue'
 import Wan27Showcase from '~/components/wan27/Showcase.vue'
