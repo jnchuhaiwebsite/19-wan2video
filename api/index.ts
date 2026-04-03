@@ -52,6 +52,11 @@ export const urlList = {
   createTasksWan27: baseUrl + '/api/task/wan27/create', // 创建任务-Wan 2.7
   createTasksWan27V2V: baseUrl + '/api/task/wan27/v2v/create', // 创建任务-Wan 2.7
   checkTaskWan27: baseUrl + '/api/task/wan/check_task_status', // 检查任务-Wan 2.7
+
+  /** Wan 2.7 Reference：火山双链路上传（临时文件 multipart，字段名 file） */
+  volcengineImageAndHk: baseUrl + '/api/common/upload/volcengine_image_and_hk',
+  volcengineVideoAndHk: baseUrl + '/api/common/upload/volcengine_video_and_hk',
+  volcengineAudioAndHk: baseUrl + '/api/common/upload/volcengine_audio_and_hk',
 }
 
 /**
@@ -609,14 +614,18 @@ const waitForToken = async () => {
  */
 const createFormData = (data: Record<string, any>) => {
   const formData = new FormData();
-  let obj:any={};
   Object.entries(data).forEach(([key, value]) => {
-    if (value !== undefined && value !== null) {
-      formData.append(key, value as string | Blob);
-      obj[key as string]=value;
+    if (value === undefined || value === null) return
+    if (Array.isArray(value)) {
+      for (const item of value) {
+        if (item === undefined || item === null) continue
+        formData.append(key, item as string | Blob)
+      }
+      return
     }
-  });
-  return formData;
+    formData.append(key, value as string | Blob)
+  })
+  return formData
 }
 
 /**
@@ -638,6 +647,18 @@ const createHeaders = () => {
  */
 export const upload = async (data: any) => {
   return apiRequest(urlList.upload, 'POST', data, true);
+}
+
+export const uploadVolcengineImageAndHk = async (file: File) => {
+  return apiRequest(urlList.volcengineImageAndHk, 'POST', { file }, true);
+}
+
+export const uploadVolcengineVideoAndHk = async (file: File) => {
+  return apiRequest(urlList.volcengineVideoAndHk, 'POST', { file }, true);
+}
+
+export const uploadVolcengineAudioAndHk = async (file: File) => {
+  return apiRequest(urlList.volcengineAudioAndHk, 'POST', { file }, true);
 }
 
 /**
@@ -667,7 +688,8 @@ export const createTasksWan27 = async (data: any) => {
 }
 
 export const createTasksWan27V2V = async (data: any) => {
-  return apiRequest(urlList.createTasksWan27V2V, 'POST', data, true);
+  // Reference 任务无文件字段，使用 JSON 保证 image_list / video_list 等为数组类型
+  return apiRequest(urlList.createTasksWan27V2V, 'POST', data, true, true);
 }
 
 export const checkTaskWan27 = async (task_id:string) => {
@@ -699,19 +721,24 @@ export const checkTaskStatusVideo = async (task_id: string) => {
  * @param needToken 是否需要等待Token
  * @returns 响应数据
  */
-const apiRequest = async <T>(url: string, method: 'GET' | 'POST', data?: any, needToken: boolean = true): Promise<ApiResponse<T>> => {
+const apiRequest = async <T>(url: string, method: 'GET' | 'POST', data?: any, needToken: boolean = true, jsonBody: boolean = false): Promise<ApiResponse<T>> => {
   try {
     if (needToken) {
       await waitForToken();
     }
-    
+
+    const headers = {
+      ...createHeaders(),
+      ...(jsonBody && data && method === 'POST' ? { 'Content-Type': 'application/json' as const } : {})
+    }
+
     const options: any = {
       method,
-      headers: createHeaders()
-    };
-    
+      headers
+    }
+
     if (data && method === 'POST') {
-      options.body = createFormData(data);
+      options.body = jsonBody ? JSON.stringify(data) : createFormData(data)
     }
     
     try {

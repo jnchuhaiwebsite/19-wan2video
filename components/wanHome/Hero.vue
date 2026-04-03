@@ -2,7 +2,7 @@
   <section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#05050A] selection:bg-purple-500/30">
     
     <!-- Breadcrumbs 部分 - 样式已适配深色背景 -->
-    <nav aria-label="Breadcrumb" class="absolute top-0 left-0 right-0 z-20 bg-transparent pt-20">
+    <nav aria-label="Breadcrumb" class="absolute top-0 left-0 right-0 z-20 bg-transparent pt-32">
       <div class="max-w-7xl mx-auto px-6">
         
         <!-- 导航标签 -->

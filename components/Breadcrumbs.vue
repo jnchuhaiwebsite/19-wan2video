@@ -4,7 +4,7 @@
     2. relative z-20: 确保在首屏装饰元素的上方
     3. -mb-12: 使用负边距，让首屏内容往上提，形成悬浮感
   -->
-  <nav aria-label="Breadcrumb" class="relative z-20 bg-transparent pt-20">
+  <nav aria-label="Breadcrumb" class="relative z-20 bg-transparent pt-32">
     <div class="max-w-7xl mx-auto px-6">
             <!-- 导航标签：改为更加轻盈的胶囊样式 -->
             <div v-if="navTabsWithActive.length > 0" class="flex items-center gap-x-2 pb-2">
