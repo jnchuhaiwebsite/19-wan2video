@@ -44,7 +44,7 @@
         <!-- CTA -->
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
           <NuxtLink
-            to="#"
+            to="#generator"
             class="group inline-flex items-center justify-center px-7 py-3.5 rounded-xl text-white font-semibold text-base bg-gradient-to-r from-purple-600 via-violet-500 to-indigo-500 shadow-[0_12px_30px_rgba(129,140,248,0.55)] hover:shadow-[0_18px_45px_rgba(129,140,248,0.85)] transition-all duration-300 hover:-translate-y-0.5"
           >
             Generate Video
@@ -59,7 +59,7 @@
           </NuxtLink>
 
           <NuxtLink
-            to="#cta"
+            to="#generator"
             class="inline-flex items-center justify-center px-7 py-3.5 rounded-xl text-slate-800 font-semibold text-base bg-white/90 border border-slate-200 shadow-md hover:bg-slate-50 hover:border-slate-300 transition-all duration-300"
           >
             Try Wan 2.7 Free
