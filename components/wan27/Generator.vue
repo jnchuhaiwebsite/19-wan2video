@@ -661,8 +661,8 @@
               </div>
             </div>
 
-            <!-- Audio Upload (Optional) -->
-            <div class="space-y-2">
+            <!-- Audio Upload：reference 下仅隐藏 UI，提交时仍可按已选音频上传 -->
+            <div v-if="activeMode !== 'reference'" class="space-y-2">
               <label class="block text-sm font-semibold text-gray-900">
                 Upload audio <span class="text-gray-500 font-normal">(optional)</span>
               </label>
