@@ -1097,8 +1097,8 @@ let pollTimer: number | null = null
 const TEST_TASK_ID = '9c4cbc2f-c5e5-49d4-83d5-23d05761c083'
 
 // 默认示例视频（封面 + 视频）
-const defaultPoster = 'https://cfsource.wan2video.com/wan2video/26/Wan-2-6.webp'
-const defaultVideoSrc = 'https://cfsource.wan2video.com/wan2video/26/Wan-2-6.mp4'
+const defaultPoster = 'https://cfsource.wan2video.com/wan2video/wan27/wan-2-7.webp'
+const defaultVideoSrc = 'https://cfsource.wan2video.com/wan2video/wan27/wan-2-7.mp4'
 const showDefaultVideo = ref(false)
 const isDefaultLoading = ref(false)
 const defaultVideoRef = ref<HTMLVideoElement | null>(null)
@@ -1836,6 +1836,11 @@ const startPolling = (taskId: string) => {
           calculateVideoSize()
         }, 300)
         return
+      }else if(status < 0){
+        isLoading.value = false
+        errorMessage.value = data.status_msg || 'Failed to generate video.'
+        stopPolling()
+        return
       }
 
       // 超时保护：最多轮询约 2 分钟
@@ -1939,6 +1944,10 @@ const handleSubmit = async () => {
       // 图生模式可选参考视频，直接以临时文件字段透传
       if (wanVideoFile.value) {
         payload.wanVideo = wanVideoFile.value
+      }
+
+      if (imageFile.value) {
+        payload.image = imageFile.value
       }
 
       // 尾帧图直接以临时文件字段透传，不走 upload 接口
