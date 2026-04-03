@@ -20,7 +20,7 @@
       </section>
 
       <!-- Generator -->
-      <section class="relative">
+      <section id="generator" class="relative scroll-mt-32">
         <Wan27Generator />
       </section>
 

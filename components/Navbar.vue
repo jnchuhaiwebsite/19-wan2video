@@ -1,7 +1,20 @@
 <template>
   <!-- Header 容器 - 始终固定在顶部 -->
   <header class="fixed top-0 left-0 w-full z-50 flex flex-col shadow-md">
-    
+    <!-- Wan 2.7 上线引导 -->
+    <div class="w-full relative z-[51] bg-gradient-to-r from-blue-700 to-indigo-700 text-white">
+      <div class="max-w-7xl mx-auto px-4 py-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center text-xs sm:text-sm">
+        <span class="font-medium text-white/95">Wan 2.7 is now live - Explore what's new</span>
+        <NuxtLink
+          to="/wan/wan-2-7#generator"
+          title="Try Wan 2.7 Now"
+          class="inline-flex items-center font-bold text-white underline decoration-white/70 underline-offset-2 hover:decoration-white hover:text-white transition-colors shrink-0"
+        >
+          Try Wan 2.7 Now
+        </NuxtLink>
+      </div>
+    </div>
+
     <!-- Banner 区域 (根据需求保留) -->
     <!-- <div class="w-full relative z-[51]">
       <a href="/christmas" class="hidden lg:block w-full bg-slate-900 hover:opacity-95 transition-opacity">
@@ -147,7 +160,7 @@
 
       <!-- 移动端滑出菜单 (核心修改部分) -->
       <Transition name="slide-fade">
-        <div v-if="isOpen" class="lg:hidden fixed inset-0 top-[110px] w-full h-[calc(100vh-110px)] bg-white z-[100] border-t border-slate-100 px-4 pt-4 overflow-y-auto pb-10">
+        <div v-if="isOpen" class="lg:hidden fixed inset-0 top-[150px] w-full h-[calc(100vh-150px)] bg-white z-[100] border-t border-slate-100 px-4 pt-4 overflow-y-auto pb-10">
            <ul class="space-y-4">
               <li v-for="section in sections" :key="section.id" class="border-b border-slate-50 pb-2 last:border-0">
                 <!-- 一级导航 -->

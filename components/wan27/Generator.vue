@@ -51,7 +51,7 @@
               >
                 Image To Video
               </button>
-              <!-- <button
+              <button
                 type="button"
                 @click="activeMode = 'reference'"
                 :class="[
@@ -62,7 +62,7 @@
                 ]"
               >
                 Reference To Video
-              </button> -->
+              </button>
             </div>
           </div>
 
@@ -90,7 +90,7 @@
                       type="button"
                       class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                       :class="form.text.inspiration ? 'bg-blue-600' : 'bg-gray-200'"
-                      @click="() => { form.text.inspiration = !form.text.inspiration; if (!form.text.inspiration) form.text.multiShot = false }"
+                      @click="form.text.inspiration = !form.text.inspiration"
                     >
                       <span
                         class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
@@ -110,31 +110,6 @@
                 <div class="flex justify-between items-center mt-2 text-xs text-gray-500">
                   <span>Supports both English and Chinese prompts</span>
                   <span>{{ form.text.prompt.length }}/1500</span>
-                </div>
-              </div>
-
-              <!-- 开关选项：Multi-Shot -->
-              <div class="grid grid-cols-1 gap-4">
-                <div class="flex items-center justify-between px-4 py-3 bg-gray-50 rounded-2xl">
-                  <div>
-                    <p class="text-sm font-medium text-gray-900">Multi-Shot</p>
-                    <p class="text-xs text-gray-500 mt-1">Generate multi-shot sequences in one go</p>
-                  </div>
-                  <button
-                    type="button"
-                    class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    :class="[
-                      form.text.multiShot && form.text.inspiration ? 'bg-blue-600' : 'bg-gray-200',
-                      !form.text.inspiration ? 'opacity-40 cursor-not-allowed' : ''
-                    ]"
-                    :disabled="!form.text.inspiration"
-                    @click="form.text.inspiration && (form.text.multiShot = !form.text.multiShot)"
-                  >
-                    <span
-                      class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
-                      :class="form.text.multiShot ? 'translate-x-6' : 'translate-x-1'"
-                    />
-                  </button>
                 </div>
               </div>
 
@@ -408,7 +383,7 @@
                       type="button"
                       class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                       :class="form.image.inspiration ? 'bg-blue-600' : 'bg-gray-200'"
-                      @click="() => { form.image.inspiration = !form.image.inspiration; if (!form.image.inspiration) form.image.multiShot = false }"
+                      @click="form.image.inspiration = !form.image.inspiration"
                     >
                       <span
                         class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
@@ -428,31 +403,6 @@
                 <div class="flex justify-between items-center mt-2 text-xs text-gray-500">
                   <span>Supports both English and Chinese prompts</span>
                   <span>{{ form.image.prompt.length }}/1500</span>
-                </div>
-              </div>
-
-              <!-- 开关选项：Multi-Shot -->
-              <div class="grid grid-cols-1 gap-4">
-                <div class="flex items-center justify-between px-4 py-3 bg-gray-50 rounded-2xl">
-                  <div>
-                    <p class="text-sm font-medium text-gray-900">Multi-Shot</p>
-                    <p class="text-xs text-gray-500 mt-1">Create a sequence of shots from one image</p>
-                  </div>
-                  <button
-                    type="button"
-                    class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    :class="[
-                      form.image.multiShot && form.image.inspiration ? 'bg-blue-600' : 'bg-gray-200',
-                      !form.image.inspiration ? 'opacity-40 cursor-not-allowed' : ''
-                    ]"
-                    :disabled="!form.image.inspiration"
-                    @click="form.image.inspiration && (form.image.multiShot = !form.image.multiShot)"
-                  >
-                    <span
-                      class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
-                      :class="form.image.multiShot ? 'translate-x-6' : 'translate-x-1'"
-                    />
-                  </button>
                 </div>
               </div>
 
@@ -510,116 +460,86 @@
 
             <!-- Reference To Video -->
             <div v-else class="space-y-6">
-              <!-- Reference Video 1 & 2 同行，采用与图片上传相同样式 -->
-              <div class="grid grid-cols-2 gap-4">
-                <!-- Reference Video 1 -->
-                <div>
-                  <label class="block text-sm font-semibold text-gray-900 mb-3">
-                    Reference video 1
+              <div>
+                <div class="flex flex-wrap items-baseline justify-between gap-2 mb-2">
+                  <label class="block text-sm font-semibold text-gray-900">
+                    Reference media
                     <span class="text-red-500 ml-0.5">*</span>
                   </label>
-                  <div
-                    class="relative flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-teal-300 rounded-2xl cursor-pointer hover:border-teal-400 transition-colors bg-teal-50/40 overflow-hidden group"
-                    @click="checkLoginStatus($event) && triggerRefVideo1Upload()"
-                  >
-                    <div v-if="refVideo1Url" class="w-full h-full flex items-center justify-center">
-                      <video
-                        :src="refVideo1Url"
-                        controls
-                        class="w-full h-full bg-black object-contain rounded-xl"
-                      >
-                        Your browser does not support video playback.
-                      </video>
-                      <!-- 删除按钮 -->
-                      <button
-                        type="button"
-                        class="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/70 text-white flex items-center justify-center text-xs hover:bg-black"
-                        @click.stop="clearRefVideo1"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                    <div v-else class="flex flex-col items-center justify-center p-4 text-center">
-                      <svg
-                        class="w-10 h-10 text-teal-400 mb-3 group-hover:scale-110 transition-transform"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="1.5"
-                          d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
-                        />
-                      </svg>
-                      <p class="text-sm font-medium text-teal-600">Click to upload reference video</p>
-                      <p class="text-xs text-gray-500 mt-1">
-                        Supports MP4 / MOV · 2–30s · Max 30MB
-                      </p>
-                    </div>
-                  </div>
-                  <input
-                    ref="refVideo1InputRef"
-                    type="file"
-                    class="hidden"
-                    accept="video/*"
-                    @change="onRefVideo1Change"
-                  />
+                  <span class="text-xs text-gray-500">
+                    {{ refMediaTotal }} / {{ REF_MEDIA_MAX_TOTAL }} · At least one video or image · Videos + images ≤ {{ REF_MEDIA_MAX_TOTAL }}
+                  </span>
                 </div>
-
-                <!-- Reference Video 2 -->
-                <div>
-                  <label class="block text-sm font-semibold text-gray-900 mb-3">Reference video 2 (optional)</label>
+                <p class="text-[11px] text-gray-500 mb-3">
+                  Upload multiple reference videos and/or images. Use character1, character2… for videos and image1, image2… for images in your prompt (adjust if your workflow uses different tags).
+                </p>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   <div
-                    class="relative flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-teal-200 rounded-2xl cursor-pointer hover:border-teal-400 transition-colors bg-teal-50/30 overflow-hidden group"
-                    @click="checkLoginStatus($event) && triggerRefVideo2Upload()"
+                    v-for="slot in refVideoSlots"
+                    :key="'v-' + slot.id"
+                    class="relative h-36 border-2 border-teal-200 rounded-2xl overflow-hidden bg-black/5"
                   >
-                    <div v-if="refVideo2Url" class="w-full h-full flex items-center justify-center">
-                      <video
-                        :src="refVideo2Url"
-                        controls
-                        class="w-full h-full bg-black object-contain rounded-xl"
-                      >
-                        Your browser does not support video playback.
-                      </video>
-                      <!-- 删除按钮 -->
-                      <button
-                        type="button"
-                        class="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/70 text-white flex items-center justify-center text-xs hover:bg-black"
-                        @click.stop="clearRefVideo2"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                    <div v-else class="flex flex-col items-center justify-center p-4 text-center">
-                      <svg
-                        class="w-10 h-10 text-teal-400 mb-3 group-hover:scale-110 transition-transform"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="1.5"
-                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m2 2a2 2 0 002-2V8a2 2 0 00-2-2h-3l-2-2H9L7 6H4a2 2 0 00-2 2v8a2 2 0 002 2h14z"
-                        />
-                      </svg>
-                      <p class="text-sm font-medium text-teal-600">Click to upload optional reference</p>
-                      <p class="text-xs text-gray-500 mt-1">
-                        Supports MP4 / MOV · 2–30s · Max 30MB
-                      </p>
-                    </div>
+                    <video :src="slot.url" controls class="w-full h-full object-contain bg-black" />
+                    <button
+                      type="button"
+                      class="absolute top-1.5 right-1.5 w-7 h-7 rounded-full bg-black/70 text-white flex items-center justify-center text-xs hover:bg-black"
+                      @click.stop="removeRefVideoSlot(slot.id)"
+                    >
+                      ✕
+                    </button>
                   </div>
-                  <input
-                    ref="refVideo2InputRef"
-                    type="file"
-                    class="hidden"
-                    accept="video/*"
-                    @change="onRefVideo2Change"
-                  />
+                  <div
+                    v-for="slot in refImageSlots"
+                    :key="'i-' + slot.id"
+                    class="relative h-36 border-2 border-purple-200 rounded-2xl overflow-hidden bg-purple-50/40"
+                  >
+                    <img :src="slot.url" alt="" class="w-full h-full object-contain" />
+                    <button
+                      type="button"
+                      class="absolute top-1.5 right-1.5 w-7 h-7 rounded-full bg-black/70 text-white flex items-center justify-center text-xs hover:bg-black"
+                      @click.stop="removeRefImageSlot(slot.id)"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                  <button
+                    v-if="refMediaTotal < REF_MEDIA_MAX_TOTAL"
+                    type="button"
+                    class="h-36 border-2 border-dashed border-teal-300 rounded-2xl flex flex-col items-center justify-center gap-1 text-teal-700 bg-teal-50/40 hover:border-teal-400 hover:bg-teal-50/70 transition-colors"
+                    @click="checkLoginStatus($event) && triggerRefVideosUpload()"
+                  >
+                    <span class="text-2xl leading-none">+</span>
+                    <span class="text-xs font-medium px-2 text-center">Add videos</span>
+                  </button>
+                  <button
+                    v-if="refMediaTotal < REF_MEDIA_MAX_TOTAL"
+                    type="button"
+                    class="h-36 border-2 border-dashed border-purple-300 rounded-2xl flex flex-col items-center justify-center gap-1 text-purple-700 bg-purple-50/40 hover:border-purple-400 hover:bg-purple-50/70 transition-colors"
+                    @click="checkLoginStatus($event) && triggerRefImagesUpload()"
+                  >
+                    <span class="text-2xl leading-none">+</span>
+                    <span class="text-xs font-medium px-2 text-center">Add images</span>
+                  </button>
                 </div>
+                <input
+                  ref="refVideosInputRef"
+                  type="file"
+                  class="hidden"
+                  accept="video/*"
+                  multiple
+                  @change="onRefVideosChange"
+                />
+                <input
+                  ref="refImagesInputRef"
+                  type="file"
+                  class="hidden"
+                  accept="image/*"
+                  multiple
+                  @change="onRefImagesChange"
+                />
+                <p class="text-xs text-gray-500 mt-2">
+                  Video: MP4 / MOV · 2–30s · Max 30MB each. Image: JPEG / PNG / WebP / BMP · max 5MB · 360–2000px.
+                </p>
               </div>
 
               <!-- Prompt + Inspiration Mode 开关 -->
@@ -631,7 +551,7 @@
                       <span class="text-red-500 ml-0.5">*</span>
                     </p>
                     <p class="text-[11px] text-gray-500 mt-0.5">
-                      Use character1, character2 to reference your uploaded videos.
+                      Reference your uploaded videos (character1, character2…) and/or images (image1, image2…) as needed.
                     </p>
                   </div>
                   <div class="flex items-center gap-2 shrink-0">
@@ -643,7 +563,7 @@
                       type="button"
                       class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                       :class="form.reference.inspiration ? 'bg-blue-600' : 'bg-gray-200'"
-                      @click="() => { form.reference.inspiration = !form.reference.inspiration; if (!form.reference.inspiration) form.reference.multiShot = false }"
+                      @click="form.reference.inspiration = !form.reference.inspiration"
                     >
                       <span
                         class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
@@ -656,38 +576,13 @@
                   v-model="form.reference.prompt"
                   rows="3"
                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-teal-500 resize-none transition-colors bg-white"
-                  placeholder="Use character1, character2 to refer to your videos (e.g., 'character1 singing, character2 dancing'). Always use character1 for the first video."
+                  placeholder="e.g. character1 walks with image1 as style reference, or combine multiple reference clips…"
                   maxlength="1500"
                   @click="checkLoginStatus($event)"
                 />
                 <div class="flex justify-between items-center mt-2 text-xs text-gray-500">
                   <span>Supports both English and Chinese prompts</span>
                   <span>{{ form.reference.prompt.length }}/1500</span>
-                </div>
-              </div>
-
-              <!-- 开关选项：Multi-Shot -->
-              <div class="grid grid-cols-1 gap-4">
-                <div class="flex items-center justify-between px-4 py-3 bg-gray-50 rounded-2xl">
-                  <div>
-                    <p class="text-sm font-medium text-gray-900">Multi-Shot</p>
-                    <p class="text-xs text-gray-500 mt-1">Story-driven multi-shot video output</p>
-                  </div>
-                  <button
-                    type="button"
-                    class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    :class="[
-                      form.reference.multiShot && form.reference.inspiration ? 'bg-blue-600' : 'bg-gray-200',
-                      !form.reference.inspiration ? 'opacity-40 cursor-not-allowed' : ''
-                    ]"
-                    :disabled="!form.reference.inspiration"
-                    @click="form.reference.inspiration && (form.reference.multiShot = !form.reference.multiShot)"
-                  >
-                    <span
-                      class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
-                      :class="form.reference.multiShot ? 'translate-x-6' : 'translate-x-1'"
-                    />
-                  </button>
                 </div>
               </div>
 
@@ -987,20 +882,6 @@
                         : 'Off'
                     }}
                   </span>
-                  <span
-                    class="inline-flex items-center px-2 py-1 rounded-full bg-purple-50 text-purple-600 font-medium text-[11px]"
-                  >
-                    Multi-Shot:
-                    {{
-                      (activeMode === 'text'
-                        ? form.text.multiShot
-                        : activeMode === 'image'
-                        ? form.image.multiShot
-                        : form.reference.multiShot)
-                        ? 'On'
-                        : 'Off'
-                    }}
-                  </span>
                 </div> -->
                 <!-- <span>
                   <span v-if="errorMessage" class="text-red-500">{{ errorMessage }}</span>
@@ -1031,7 +912,14 @@
 <script setup lang="ts">
 import { computed, reactive, ref, onBeforeUnmount } from 'vue'
 import { useNuxtApp } from 'nuxt/app'
-import { createTasksWan27, createTasksWan27V2V, checkTaskWan27, upload } from '~/api'
+import {
+  createTasksWan27,
+  createTasksWan27V2V,
+  checkTaskWan27,
+  uploadVolcengineImageAndHk,
+  uploadVolcengineVideoAndHk,
+  uploadVolcengineAudioAndHk
+} from '~/api'
 import { validateImageFile, validateVideoFile } from '~/utils/uploadAPI'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '~/stores/user';
@@ -1047,7 +935,6 @@ const form = reactive({
   text: {
     prompt: '',
     inspiration: false,
-    multiShot: true,
     resolution: '720P',
     duration: '5s',
     aspect: '16:9'
@@ -1055,14 +942,12 @@ const form = reactive({
   image: {
     prompt: '',
     inspiration: false,
-    multiShot: true,
     resolution: '720P',
     duration: '5s'
   },
   reference: {
     prompt: '',
     inspiration: false,
-    multiShot: true,
     resolution: '720P',
     duration: '5s',
     aspect: '16:9'
@@ -1082,14 +967,22 @@ const wanVideoFile = ref<File | null>(null)
 const wanVideoInputRef = ref<HTMLInputElement | null>(null)
 const showWanVideoTip = ref(false)
 
-const refVideo1Name = ref<string | null>(null)
-const refVideo2Name = ref<string | null>(null)
-const refVideo1Url = ref<string | null>(null)
-const refVideo2Url = ref<string | null>(null)
-const refVideo1File = ref<File | null>(null)
-const refVideo2File = ref<File | null>(null)
-const refVideo1InputRef = ref<HTMLInputElement | null>(null)
-const refVideo2InputRef = ref<HTMLInputElement | null>(null)
+/** Reference 模式：参考视频 + 参考图，合计最多 5 个，至少 1 个 */
+const REF_MEDIA_MAX_TOTAL = 5
+
+type RefMediaSlot = { id: string; file: File; url: string }
+
+const refVideoSlots = ref<RefMediaSlot[]>([])
+const refImageSlots = ref<RefMediaSlot[]>([])
+const refVideosInputRef = ref<HTMLInputElement | null>(null)
+const refImagesInputRef = ref<HTMLInputElement | null>(null)
+
+const refMediaTotal = computed(() => refVideoSlots.value.length + refImageSlots.value.length)
+
+const nextRefSlotId = () =>
+  typeof crypto !== 'undefined' && crypto.randomUUID
+    ? crypto.randomUUID()
+    : `${Date.now()}-${Math.random().toString(36).slice(2)}`
 
 const audioName = ref<string | null>(null)
 const audioFile = ref<File | null>(null)
@@ -1457,16 +1350,92 @@ const clearWanVideo = () => {
   }
 }
 
-const triggerRefVideo1Upload = () => {
-  if (refVideo1InputRef.value) {
-    refVideo1InputRef.value.click()
+const triggerRefVideosUpload = () => {
+  refVideosInputRef.value?.click()
+}
+
+const triggerRefImagesUpload = () => {
+  refImagesInputRef.value?.click()
+}
+
+const onRefVideosChange = async (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const files = target.files ? Array.from(target.files) : []
+  target.value = ''
+  if (!files.length) return
+
+  let remaining = REF_MEDIA_MAX_TOTAL - refMediaTotal.value
+  if (remaining <= 0) {
+    $toast?.error?.('参考视频与参考图像合计最多 5 个')
+    return
+  }
+
+  if (files.length > remaining) {
+    $toast?.error?.(`最多还可添加 ${remaining} 个文件，已忽略多余选择`)
+  }
+
+  for (const file of files.slice(0, remaining)) {
+    try {
+      await validateVideoFile(file)
+    } catch (err: any) {
+      $toast?.error?.(err?.message || '视频无效')
+      continue
+    }
+    refVideoSlots.value.push({
+      id: nextRefSlotId(),
+      file,
+      url: URL.createObjectURL(file)
+    })
+    remaining -= 1
+    if (remaining <= 0) break
   }
 }
 
-const triggerRefVideo2Upload = () => {
-  if (refVideo2InputRef.value) {
-    refVideo2InputRef.value.click()
+const onRefImagesChange = async (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const files = target.files ? Array.from(target.files) : []
+  target.value = ''
+  if (!files.length) return
+
+  let remaining = REF_MEDIA_MAX_TOTAL - refMediaTotal.value
+  if (remaining <= 0) {
+    $toast?.error?.('参考视频与参考图像合计最多 5 个')
+    return
   }
+
+  if (files.length > remaining) {
+    $toast?.error?.(`最多还可添加 ${remaining} 个文件，已忽略多余选择`)
+  }
+
+  for (const file of files.slice(0, remaining)) {
+    try {
+      await validateImageFile(file)
+    } catch (err: any) {
+      $toast?.error?.(err?.message || '图片无效')
+      continue
+    }
+    refImageSlots.value.push({
+      id: nextRefSlotId(),
+      file,
+      url: URL.createObjectURL(file)
+    })
+    remaining -= 1
+    if (remaining <= 0) break
+  }
+}
+
+const removeRefVideoSlot = (id: string) => {
+  const idx = refVideoSlots.value.findIndex(s => s.id === id)
+  if (idx === -1) return
+  const removed = refVideoSlots.value.splice(idx, 1)[0]
+  if (removed) URL.revokeObjectURL(removed.url)
+}
+
+const removeRefImageSlot = (id: string) => {
+  const idx = refImageSlots.value.findIndex(s => s.id === id)
+  if (idx === -1) return
+  const removed = refImageSlots.value.splice(idx, 1)[0]
+  if (removed) URL.revokeObjectURL(removed.url)
 }
 
 const triggerAudioUpload = () => {
@@ -1568,80 +1537,6 @@ const clearAudio = () => {
   audioPreviewUrl.value = null
   if (audioInputRef.value) {
     audioInputRef.value.value = ''
-  }
-}
-
-const onRefVideo1Change = async (event: Event) => {
-  const target = event.target as HTMLInputElement
-  const file = target.files && target.files[0]
-  if (!file) return
-
-  try {
-    await validateVideoFile(file)
-  } catch (err: any) {
-    console.error('ref video 1 validate error', err)
-    $toast?.error?.(err?.message || 'Video is invalid. Please follow the upload requirements.')
-    if (refVideo1InputRef.value) {
-      refVideo1InputRef.value.value = ''
-    }
-    return
-  }
-
-  refVideo1Name.value = file.name
-  refVideo1File.value = file
-
-  if (refVideo1Url.value) {
-    URL.revokeObjectURL(refVideo1Url.value)
-  }
-  refVideo1Url.value = URL.createObjectURL(file)
-}
-
-const onRefVideo2Change = async (event: Event) => {
-  const target = event.target as HTMLInputElement
-  const file = target.files && target.files[0]
-  if (!file) return
-
-  try {
-    await validateVideoFile(file)
-  } catch (err: any) {
-    console.error('ref video 2 validate error', err)
-    $toast?.error?.(err?.message || 'Video is invalid. Please follow the upload requirements.')
-    if (refVideo2InputRef.value) {
-      refVideo2InputRef.value.value = ''
-    }
-    return
-  }
-
-  refVideo2Name.value = file.name
-  refVideo2File.value = file
-
-  if (refVideo2Url.value) {
-    URL.revokeObjectURL(refVideo2Url.value)
-  }
-  refVideo2Url.value = URL.createObjectURL(file)
-}
-
-const clearRefVideo1 = () => {
-  refVideo1Name.value = null
-  refVideo1File.value = null
-  if (refVideo1Url.value) {
-    URL.revokeObjectURL(refVideo1Url.value)
-  }
-  refVideo1Url.value = null
-  if (refVideo1InputRef.value) {
-    refVideo1InputRef.value.value = ''
-  }
-}
-
-const clearRefVideo2 = () => {
-  refVideo2Name.value = null
-  refVideo2File.value = null
-  if (refVideo2Url.value) {
-    URL.revokeObjectURL(refVideo2Url.value)
-  }
-  refVideo2Url.value = null
-  if (refVideo2InputRef.value) {
-    refVideo2InputRef.value.value = ''
   }
 }
 
@@ -1772,7 +1667,6 @@ const buildPayload = () => {
   let aspect: string | undefined
   let aspect_ratio: string | undefined
   let inspiration = false
-  let multiShot = false
 
   if (activeMode.value === 'text') {
     prompt = form.text.prompt.trim()
@@ -1781,7 +1675,6 @@ const buildPayload = () => {
     aspect = form.text.aspect
     aspect_ratio = form.text.aspect || '16:9'
     inspiration = form.text.inspiration
-    multiShot = form.text.multiShot
   } else if (activeMode.value === 'image') {
     prompt = form.image.prompt.trim()
     resolution = form.image.resolution
@@ -1789,27 +1682,23 @@ const buildPayload = () => {
     // 图片模式默认采用 16:9 尺寸
     aspect = '16:9'
     inspiration = form.image.inspiration
-    multiShot = form.image.multiShot
   } else {
     prompt = form.reference.prompt.trim()
     resolution = form.reference.resolution
     duration = form.reference.duration
     aspect = form.reference.aspect
     inspiration = form.reference.inspiration
-    multiShot = form.reference.multiShot
   }
 
   const size = getSizeByConfig(resolution, aspect)
   const durationSeconds = parseInt(duration, 10) || 10
-
-  const multiShotsEnabled = inspiration && multiShot
 
   return {
     prompt,
     resolution,
     duration: durationSeconds,
     prompt_extend: inspiration ? true : false,
-    multi_shots: multiShotsEnabled ? 1 : 0,
+
     size,
     ...(activeMode.value === 'text' ? { aspect_ratio: aspect_ratio || '16:9' } : {})
   }
@@ -1906,11 +1795,20 @@ const handleSubmit = async () => {
     return
   }
 
-  // Reference To Video：至少需要 Reference video 1
-  if (activeMode.value === 'reference' && !refVideo1File.value) {
-    errorMessage.value = 'Please upload Reference video 1.'
-    $toast?.error?.('Reference video 1 is required')
-    return
+  // Reference To Video：参考视频与参考图至少 1 个，合计 ≤ 5（由上传逻辑限制，此处再校验）
+  if (activeMode.value === 'reference') {
+    const nV = refVideoSlots.value.length
+    const nI = refImageSlots.value.length
+    if (nV + nI < 1) {
+      errorMessage.value = 'Please upload at least one reference video or image.'
+      $toast?.error?.('请至少上传 1 个参考视频或参考图像')
+      return
+    }
+    if (nV + nI > REF_MEDIA_MAX_TOTAL) {
+      errorMessage.value = 'Reference videos and images combined cannot exceed 5.'
+      $toast?.error?.('参考视频与参考图像合计不能超过 5 个')
+      return
+    }
   }
 
   if (!basePayload.size) {
@@ -1965,18 +1863,64 @@ const handleSubmit = async () => {
       }
     }
 
-    // Reference To Video 模式：直接使用原始文件作为 video / video2 字段
+    // Reference To Video：先走火山双链路上传，再创建任务（URL 数组写入对应字段）
     if (activeMode.value === 'reference') {
-      if (refVideo1File.value) {
-        payload.video = refVideo1File.value
+      const image_list: string[] = []
+      const reference_images: string[] = []
+      const video_list: string[] = []
+      const reference_videos: string[] = []
+      const audio_list: string[] = []
+      const reference_audios: string[] = []
+
+      for (const slot of refImageSlots.value) {
+        const up: any = await uploadVolcengineImageAndHk(slot.file)
+        if (up?.code !== 200 || !up?.data?.r3_url || !up?.data?.hk_url) {
+          isLoading.value = false
+          const msg = up?.msg || 'reference image upload failed'
+          errorMessage.value = msg
+          $toast?.error?.(msg)
+          return
+        }
+        image_list.push(up.data.r3_url)
+        reference_images.push(up.data.hk_url)
       }
-      if (refVideo2File.value) {
-        payload.video2 = refVideo2File.value
+
+      for (const slot of refVideoSlots.value) {
+        const up: any = await uploadVolcengineVideoAndHk(slot.file)
+        if (up?.code !== 200 || !up?.data?.r3_url || !up?.data?.hk_url) {
+          isLoading.value = false
+          const msg = up?.msg || 'reference video upload failed'
+          errorMessage.value = msg
+          $toast?.error?.(msg)
+          return
+        }
+        video_list.push(up.data.r3_url)
+        reference_videos.push(up.data.hk_url)
       }
+
+      if (audioFile.value) {
+        const up: any = await uploadVolcengineAudioAndHk(audioFile.value)
+        if (up?.code !== 200 || !up?.data?.r3_url || !up?.data?.hk_url) {
+          isLoading.value = false
+          const msg = up?.msg || 'audio upload failed'
+          errorMessage.value = msg
+          $toast?.error?.(msg)
+          return
+        }
+        audio_list.push(up.data.r3_url)
+        reference_audios.push(up.data.hk_url)
+      }
+
+      payload.image_list = [...image_list]
+      payload.reference_images = [...reference_images]
+      payload.video_list = [...video_list]
+      payload.reference_videos = [...reference_videos]
+      payload.audio_list = [...audio_list]
+      payload.reference_audios = [...reference_audios]
     }
 
-    // Optional audio: pass as temp file field
-    if (audioFile.value) {
+    // 非 Reference 模式：可选音频仍走临时文件字段
+    if (audioFile.value && activeMode.value !== 'reference') {
       payload.audito = audioFile.value
     }
 
@@ -2035,6 +1979,8 @@ const downloadVideo = async () => {
 
 onBeforeUnmount(() => {
   stopPolling()
+  refVideoSlots.value.forEach(s => URL.revokeObjectURL(s.url))
+  refImageSlots.value.forEach(s => URL.revokeObjectURL(s.url))
   if (audioPreviewUrl.value) {
     URL.revokeObjectURL(audioPreviewUrl.value)
   }
