@@ -20,9 +20,9 @@
       </section>
 
       <!-- Generator -->
-      <!-- <section class="relative">
+      <section class="relative">
         <Wan27Generator />
-      </section> -->
+      </section>
 
       <!-- What Is -->
       <section class="relative">

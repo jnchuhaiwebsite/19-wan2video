@@ -1,5 +1,5 @@
 <template>
-  <section class="py-24 bg-gradient-to-br from-slate-50 via-gray-50 to-blue-50 relative overflow-hidden">
+  <section class="py-24 bg-gradient-to-br from-slate-50 via-gray-50 to-blue-50 relative overflow-hidden" id="generator">
     <!-- 背景装饰 -->
     <div class="absolute inset-0 opacity-10 pointer-events-none">
       <div class="absolute top-1/4 left-10 w-72 h-72 bg-gradient-to-br from-blue-300 to-purple-300 rounded-full blur-3xl"></div>
@@ -51,7 +51,7 @@
               >
                 Image To Video
               </button>
-              <button
+              <!-- <button
                 type="button"
                 @click="activeMode = 'reference'"
                 :class="[
@@ -62,7 +62,7 @@
                 ]"
               >
                 Reference To Video
-              </button>
+              </button> -->
             </div>
           </div>
 
@@ -215,23 +215,145 @@
 
             <!-- Image To Video -->
             <div v-else-if="activeMode === 'image'" class="space-y-6">
-              <!-- Upload Image -->
-              <div>
-                <label class="block text-sm font-semibold text-gray-900 mb-3">
-                  Upload image
-                  <span class="text-red-500 ml-0.5">*</span>
+              <!-- Upload Images -->
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-semibold text-gray-900 mb-3">
+                    Upload image
+                    <span class="text-red-500 ml-0.5">*</span>
+                  </label>
+                  <div
+                    class="relative flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-purple-300 rounded-2xl cursor-pointer hover:border-purple-400 transition-colors bg-purple-50/40 overflow-hidden group"
+                    @click="checkLoginStatus($event) && triggerImageUpload()"
+                  >
+                    <div v-if="imagePreview" class="w-full h-full flex items-center justify-center">
+                      <img :src="imagePreview" alt="preview" class="max-w-full max-h-full object-contain rounded-xl" />
+                      <!-- 删除按钮 -->
+                      <button
+                        type="button"
+                        class="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/70 text-white flex items-center justify-center text-xs hover:bg-black"
+                        @click.stop="clearImage"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                    <div v-else class="flex flex-col items-center justify-center p-4 text-center">
+                      <svg
+                        class="w-10 h-10 text-purple-400 mb-3 group-hover:scale-110 transition-transform"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="1.5"
+                          d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+                        />
+                        <polyline points="17 8 12 3 7 8" />
+                        <line x1="12" y1="3" x2="12" y2="15" />
+                      </svg>
+                      <p class="text-sm font-medium text-purple-600">Click to upload the first frame</p>
+                      <p class="text-xs text-gray-500 mt-1">
+                        Supports JPEG / JPG / PNG / BMP / WEBP · 360–2000px · Max 5MB
+                      </p>
+                    </div>
+                  </div>
+                  <input
+                    ref="imageInputRef"
+                    type="file"
+                    class="hidden"
+                    accept="image/*"
+                    @change="onImageChange"
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-sm font-semibold text-gray-900 mb-3">Upload last frame (optional)</label>
+                  <div
+                    class="relative flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-purple-200 rounded-2xl cursor-pointer hover:border-purple-400 transition-colors bg-purple-50/30 overflow-hidden group"
+                    @click="checkLoginStatus($event) && triggerLastImageUpload()"
+                  >
+                    <div v-if="lastImagePreview" class="w-full h-full flex items-center justify-center">
+                      <img :src="lastImagePreview" alt="last frame preview" class="max-w-full max-h-full object-contain rounded-xl" />
+                      <button
+                        type="button"
+                        class="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/70 text-white flex items-center justify-center text-xs hover:bg-black"
+                        @click.stop="clearLastImage"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                    <div v-else class="flex flex-col items-center justify-center p-4 text-center">
+                      <svg
+                        class="w-10 h-10 text-purple-400 mb-3 group-hover:scale-110 transition-transform"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="1.5"
+                          d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+                        />
+                        <polyline points="17 8 12 3 7 8" />
+                        <line x1="12" y1="3" x2="12" y2="15" />
+                      </svg>
+                      <p class="text-sm font-medium text-purple-600">Click to upload the last frame</p>
+                      <p class="text-xs text-gray-500 mt-1">
+                        Supports JPEG / JPG / PNG / BMP / WEBP · 360–2000px · Max 5MB
+                      </p>
+                    </div>
+                  </div>
+                  <input
+                    ref="lastImageInputRef"
+                    type="file"
+                    class="hidden"
+                    accept="image/*"
+                    @change="onLastImageChange"
+                  />
+                </div>
+              </div>
+
+              <!-- 视频续写-->
+              <!-- <div>
+                <label class="block text-sm font-semibold text-gray-900 mb-2">
+                  Video continuation <span class="text-gray-500 font-normal">(optional)</span>
                 </label>
+                <div class="flex items-center text-[11px] text-gray-500 mb-2 gap-1">
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-purple-100 text-purple-600 hover:bg-purple-200"
+                    @click="showWanVideoTip = !showWanVideoTip"
+                  >
+                    i
+                  </button>
+                  <span>Click for how continuation works</span>
+                </div>
                 <div
-                  class="relative flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-purple-300 rounded-2xl cursor-pointer hover:border-purple-400 transition-colors bg-purple-50/40 overflow-hidden group"
-                  @click="checkLoginStatus($event) && triggerImageUpload()"
+                  v-if="showWanVideoTip"
+                  class="mb-2 rounded-lg bg-purple-50 border border-purple-100 px-3 py-2 text-[11px] text-gray-700 leading-relaxed"
                 >
-                  <div v-if="imagePreview" class="w-full h-full flex items-center justify-center">
-                    <img :src="imagePreview" alt="preview" class="max-w-full max-h-full object-contain rounded-xl" />
-                    <!-- 删除按钮 -->
+                The model will generate a continuation based on the video content. The upper limit of the continuation duration is controlled by the "duration" parameter. <br /> For example, when "duration" = 15,
+                if the input video is 3 seconds long, the model will generate a continuation of 12 seconds, resulting in a total output video duration of 15 seconds, and the charge will be based on 15 seconds.
+                </div>
+                <div
+                  class="relative flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-purple-200 rounded-2xl cursor-pointer hover:border-purple-400 transition-colors bg-purple-50/30 overflow-hidden group"
+                  @click="checkLoginStatus($event) && triggerWanVideoUpload()"
+                >
+                  <div v-if="wanVideoUrl" class="w-full h-full flex items-center justify-center">
+                    <video
+                      :src="wanVideoUrl"
+                      controls
+                      class="w-full h-full bg-black object-contain rounded-xl"
+                    >
+                      Your browser does not support video playback.
+                    </video>
                     <button
                       type="button"
                       class="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/70 text-white flex items-center justify-center text-xs hover:bg-black"
-                      @click.stop="clearImage"
+                      @click.stop="clearWanVideo"
                     >
                       ✕
                     </button>
@@ -247,25 +369,23 @@
                         stroke-linecap="round"
                         stroke-linejoin="round"
                         stroke-width="1.5"
-                        d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+                        d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
                       />
-                      <polyline points="17 8 12 3 7 8" />
-                      <line x1="12" y1="3" x2="12" y2="15" />
                     </svg>
-                    <p class="text-sm font-medium text-purple-600">Click to upload the first frame</p>
+                    <p class="text-sm font-medium text-purple-600">Click to upload a reference video</p>
                     <p class="text-xs text-gray-500 mt-1">
-                      Supports JPEG / JPG / PNG / BMP / WEBP · 360–2000px · Max 5MB
+                      Supports MP4 / MOV · 2–30s · Max 30MB
                     </p>
                   </div>
                 </div>
                 <input
-                  ref="imageInputRef"
+                  ref="wanVideoInputRef"
                   type="file"
                   class="hidden"
-                  accept="image/*"
-                  @change="onImageChange"
+                  accept="video/*"
+                  @change="onWanVideoChange"
                 />
-              </div>
+              </div> -->
 
               <!-- Prompt + Inspiration Mode 开关 -->
               <div>
@@ -758,10 +878,42 @@
                 </video>
               </div>
 
-     
+              <!-- 默认示例视频 -->
+              <div
+                v-else-if="showDefaultVideo"
+                class="relative z-10 w-full h-full flex items-center justify-center"
+              >
+                <video
+                  ref="defaultVideoRef"
+                  :src="defaultVideoSrc"
+                  :poster="defaultPoster"
+                  controls
+                  class="w-full h-full bg-black object-contain"
+                  @loadeddata="onDefaultVideoLoaded"
+                >
+                  Your browser does not support video playback.
+                </video>
+              </div>
 
               <!-- 默认封面 + 播放按钮 -->
-              
+              <div v-else class="relative z-10 w-full h-full flex items-center justify-center">
+                <img
+                  :src="defaultPoster"
+                  alt="Wan 2.7 default preview"
+                  class="w-full h-full object-cover opacity-80"
+                />
+                <button
+                  type="button"
+                  class="absolute w-16 h-16 rounded-full bg-white/95 flex items-center justify-center shadow-2xl hover:scale-105 transition-transform"
+                  @click="handleDefaultPlay"
+                >
+                  <svg class="w-7 h-7 text-slate-900" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M8 5.14v13.72c0 .79.87 1.27 1.54.84l9.06-6.86a1 1 0 000-1.64L9.54 4.3A1 1 0 008 5.14z"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
 
             <!-- 配置摘要 -->
@@ -913,6 +1065,13 @@ const aspectOptions = ['16:9', '9:16', '1:1', '4:3', '3:4']
 const imagePreview = ref<string | null>(null)
 const imageInputRef = ref<HTMLInputElement | null>(null)
 const imageFile = ref<File | null>(null)
+const lastImagePreview = ref<string | null>(null)
+const lastImageInputRef = ref<HTMLInputElement | null>(null)
+const lastImageFile = ref<File | null>(null)
+const wanVideoUrl = ref<string | null>(null)
+const wanVideoFile = ref<File | null>(null)
+const wanVideoInputRef = ref<HTMLInputElement | null>(null)
+const showWanVideoTip = ref(false)
 
 const refVideo1Name = ref<string | null>(null)
 const refVideo2Name = ref<string | null>(null)
@@ -1065,14 +1224,14 @@ const creditCostLabel = computed(() => {
   // Wan 2.6 积分表
   const tableTextImage: Record<string, Record<number, number>> = {
     '480P': { 5: 100, 10: 200, 15: 300 },
-    '720P': { 5: 170, 10: 340, 15: 510 },
-    '1080P': { 5: 285, 10: 570, 15: 855 }
+    '720P': { 5: 200, 10: 400, 15: 600 },
+    '1080P': { 5: 400, 10: 800, 15: 1200 }
   }
 
   const tableReference: Record<string, Record<number, number>> = {
     '480P': { 5: 100, 10: 200 },
-    '720P': { 5: 170, 10: 340 },
-    '1080P': { 5: 285, 10: 570 }
+    '720P': { 5: 200, 10: 400 },
+    '1080P': { 5: 400, 10: 800 }
   }
 
   const table = activeMode.value === 'reference' ? tableReference : tableTextImage
@@ -1086,6 +1245,18 @@ const creditCostLabel = computed(() => {
 const triggerImageUpload = () => {
   if (imageInputRef.value) {
     imageInputRef.value.click()
+  }
+}
+
+const triggerLastImageUpload = () => {
+  if (lastImageInputRef.value) {
+    lastImageInputRef.value.click()
+  }
+}
+
+const triggerWanVideoUpload = () => {
+  if (wanVideoInputRef.value) {
+    wanVideoInputRef.value.click()
   }
 }
 
@@ -1119,6 +1290,161 @@ const clearImage = () => {
   imageFile.value = null
   if (imageInputRef.value) {
     imageInputRef.value.value = ''
+  }
+}
+
+const onLastImageChange = async (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const file = target.files && target.files[0]
+  if (!file) return
+
+  try {
+    await validateImageFile(file)
+  } catch (err: any) {
+    console.error('last image validate error', err)
+    $toast?.error?.(err?.message || 'Image is invalid. Please follow the upload requirements.')
+    if (lastImageInputRef.value) {
+      lastImageInputRef.value.value = ''
+    }
+    return
+  }
+
+  lastImageFile.value = file
+
+  const reader = new FileReader()
+  reader.onload = e => {
+    lastImagePreview.value = e.target?.result as string
+  }
+  reader.readAsDataURL(file)
+}
+
+const clearLastImage = () => {
+  lastImagePreview.value = null
+  lastImageFile.value = null
+  if (lastImageInputRef.value) {
+    lastImageInputRef.value.value = ''
+  }
+}
+
+const onWanVideoChange = async (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const file = target.files && target.files[0]
+  if (!file) return
+
+  // 基础格式 & 大小校验
+  const ext = (file.name.split('.').pop() || '').toLowerCase()
+  const type = (file.type || '').toLowerCase()
+  const isMp4 = ext === 'mp4' || type === 'video/mp4'
+  const isMov = ext === 'mov' || type === 'video/quicktime'
+  if (!isMp4 && !isMov) {
+    $toast?.error?.('视频格式仅支持 MP4、MOV')
+    if (wanVideoInputRef.value) wanVideoInputRef.value.value = ''
+    return
+  }
+
+  const maxSize = 100 * 1024 * 1024
+  if (file.size > maxSize) {
+    $toast?.error?.('视频大小不能超过 100MB')
+    if (wanVideoInputRef.value) wanVideoInputRef.value.value = ''
+    return
+  }
+
+  // 通过临时 URL 读取时长和分辨率
+  const tempUrl = URL.createObjectURL(file)
+
+  const readVideoMeta = async (url: string): Promise<{ duration: number; width: number; height: number }> => {
+    return await new Promise((resolve, reject) => {
+      const video = document.createElement('video')
+      let cleaned = false
+
+      const cleanup = () => {
+        if (cleaned) return
+        cleaned = true
+        video.removeEventListener('loadedmetadata', onLoaded)
+        video.removeEventListener('error', onError)
+        video.src = ''
+      }
+
+      const onLoaded = () => {
+        const { duration, videoWidth, videoHeight } = video
+        cleanup()
+        if (!Number.isFinite(duration) || duration <= 0 || !videoWidth || !videoHeight) {
+          reject(new Error('Invalid video metadata'))
+          return
+        }
+        resolve({ duration, width: videoWidth, height: videoHeight })
+      }
+
+      const onError = () => {
+        cleanup()
+        reject(new Error('Failed to read video metadata'))
+      }
+
+      video.preload = 'metadata'
+      video.addEventListener('loadedmetadata', onLoaded)
+      video.addEventListener('error', onError)
+      video.src = url
+    })
+  }
+
+  try {
+    const meta = await readVideoMeta(tempUrl)
+
+    // 时长限制：2～10s
+    if (meta.duration < 2 || meta.duration > 10) {
+      URL.revokeObjectURL(tempUrl)
+      $toast?.error?.('参考视频时长需在 2～10 秒之间')
+      if (wanVideoInputRef.value) wanVideoInputRef.value.value = ''
+      return
+    }
+
+    // 分辨率范围 [240, 4096] 像素
+    if (
+      meta.width < 240 ||
+      meta.width > 4096 ||
+      meta.height < 240 ||
+      meta.height > 4096
+    ) {
+      URL.revokeObjectURL(tempUrl)
+      $toast?.error?.('视频分辨率需在 240～4096 像素之间')
+      if (wanVideoInputRef.value) wanVideoInputRef.value.value = ''
+      return
+    }
+
+    // 宽高比：1:8～8:1
+    const ratio = meta.width / meta.height
+    const minRatio = 1 / 8
+    const maxRatio = 8
+    if (ratio < minRatio || ratio > maxRatio) {
+      URL.revokeObjectURL(tempUrl)
+      $toast?.error?.('视频宽高比需在 1:8 ～ 8:1 范围内')
+      if (wanVideoInputRef.value) wanVideoInputRef.value.value = ''
+      return
+    }
+
+    // 校验通过，保存文件与预览 URL
+    wanVideoFile.value = file
+
+    if (wanVideoUrl.value) {
+      URL.revokeObjectURL(wanVideoUrl.value)
+    }
+    wanVideoUrl.value = tempUrl
+  } catch (err: any) {
+    console.error('wan video metadata error', err)
+    URL.revokeObjectURL(tempUrl)
+    $toast?.error?.('读取视频信息失败，请换一个文件重试')
+    if (wanVideoInputRef.value) wanVideoInputRef.value.value = ''
+  }
+}
+
+const clearWanVideo = () => {
+  wanVideoFile.value = null
+  if (wanVideoUrl.value) {
+    URL.revokeObjectURL(wanVideoUrl.value)
+  }
+  wanVideoUrl.value = null
+  if (wanVideoInputRef.value) {
+    wanVideoInputRef.value.value = ''
   }
 }
 
@@ -1435,6 +1761,7 @@ const buildPayload = () => {
   let resolution = ''
   let duration = ''
   let aspect: string | undefined
+  let aspect_ratio: string | undefined
   let inspiration = false
   let multiShot = false
 
@@ -1443,6 +1770,7 @@ const buildPayload = () => {
     resolution = form.text.resolution
     duration = form.text.duration
     aspect = form.text.aspect
+    aspect_ratio = form.text.aspect || '16:9'
     inspiration = form.text.inspiration
     multiShot = form.text.multiShot
   } else if (activeMode.value === 'image') {
@@ -1473,7 +1801,8 @@ const buildPayload = () => {
     duration: durationSeconds,
     prompt_extend: inspiration ? true : false,
     multi_shots: multiShotsEnabled ? 1 : 0,
-    size
+    size,
+    ...(activeMode.value === 'text' ? { aspect_ratio: aspect_ratio || '16:9' } : {})
   }
 }
 
@@ -1587,24 +1916,34 @@ const handleSubmit = async () => {
   try {
     // Image To Video 模式：先上传图片获取 image_url
     if (activeMode.value === 'image') {
-      try {
-        const uploadRes: any = await upload({ file: imageFile.value as File })
-        if (uploadRes && uploadRes.code === 200 && uploadRes.data) {
-          payload.image_url = uploadRes.data
-        } else {
-          isLoading.value = false
-          const msg = uploadRes?.msg || 'Image upload failed.'
-          errorMessage.value = msg
-          $toast?.error?.(msg)
-          return
-        }
-      } catch (uploadError: any) {
-        console.error('upload error', uploadError)
-        const msg = uploadError?.msg || 'Image upload failed.'
-        isLoading.value = false
-        errorMessage.value = msg
-        $toast?.error?.(msg)
-        return
+      // try {
+      //   const uploadRes: any = await upload({ file: imageFile.value as File })
+      //   if (uploadRes && uploadRes.code === 200 && uploadRes.data) {
+      //     payload.image_url = uploadRes.data
+      //   } else {
+      //     isLoading.value = false
+      //     const msg = uploadRes?.msg || 'Image upload failed.'
+      //     errorMessage.value = msg
+      //     $toast?.error?.(msg)
+      //     return
+      //   }
+      // } catch (uploadError: any) {
+      //   console.error('upload error', uploadError)
+      //   const msg = uploadError?.msg || 'Image upload failed.'
+      //   isLoading.value = false
+      //   errorMessage.value = msg
+      //   $toast?.error?.(msg)
+      //   return
+      // }
+
+      // 图生模式可选参考视频，直接以临时文件字段透传
+      if (wanVideoFile.value) {
+        payload.wanVideo = wanVideoFile.value
+      }
+
+      // 尾帧图直接以临时文件字段透传，不走 upload 接口
+      if (lastImageFile.value) {
+        payload.last_image = lastImageFile.value
       }
     }
 
@@ -1680,6 +2019,9 @@ onBeforeUnmount(() => {
   stopPolling()
   if (audioPreviewUrl.value) {
     URL.revokeObjectURL(audioPreviewUrl.value)
+  }
+  if (wanVideoUrl.value) {
+    URL.revokeObjectURL(wanVideoUrl.value)
   }
   // 清理 resize 监听器
   if (typeof window !== 'undefined') {
