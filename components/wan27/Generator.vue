@@ -1328,9 +1328,9 @@ const creditCostLabel = computed(() => {
   }
 
   const tableReference: Record<string, Record<number, number>> = {
-    '480P': { 5: 100, 10: 200 },
-    '720P': { 5: 200, 10: 400 },
-    '1080P': { 5: 400, 10: 800 }
+    '480P': { 2: 40, 5: 100, 10: 200 },
+    '720P': { 2: 80, 5: 200, 10: 400 },
+    '1080P': { 2: 160, 5: 400, 10: 800 }
   }
 
   const table = activeMode.value === 'reference' || activeMode.value === 'edit' ? tableReference : tableTextImage

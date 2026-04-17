@@ -336,7 +336,7 @@ export const getTimesLog = async (data:any) => {
  */
 export const loginAuth = async (data:any) => {
   try {
-    const response = await apiRequest(urlList.loginAuth, 'POST', data, false);
+    const response = await apiRequest<UserInfoResponse>(urlList.loginAuth, 'POST', data, false);
     
     // 如果响应中包含access_token，立即设置
     if (response?.data?.access_token) {
