@@ -117,7 +117,7 @@ export const validateImageFile = (file: File): Promise<boolean> => {
 }
 
 /**
- * 校验视频文件（MP4 / MOV，2-30s，小于30MB）
+ * 校验视频文件（MP4 / MOV，2–30s，小于30MB）— Reference To Video 等通用场景
  */
 export const validateVideoFile = (file: File): Promise<boolean> => {
   return new Promise((resolve, reject) => {
@@ -142,6 +142,50 @@ export const validateVideoFile = (file: File): Promise<boolean> => {
       const duration = video.duration
       if (duration < 2 || duration > 30) {
         reject(new Error('Video duration must be between 2 and 30 seconds.'))
+        return
+      }
+      resolve(true)
+    }
+
+    video.onerror = () => {
+      reject(new Error('Failed to read video file, please ensure the file format is correct.'))
+    }
+
+    video.src = URL.createObjectURL(file)
+  })
+}
+
+/**
+ * 仅 Wan 2.7「视频编辑」源视频：MP4/MOV，2–10s，小于30MB（Max duration: 10s）
+ */
+export const validateVideoFileForWan27Edit = (file: File): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    const allowedTypes = ['video/mp4', 'video/quicktime']
+    const maxSize = 30 * 1024 * 1024
+    const maxDuration = 10
+
+    if (!allowedTypes.includes(file.type)) {
+      reject(new Error('Unsupported video type. Please upload MP4 or MOV.'))
+      return
+    }
+
+    if (file.size > maxSize) {
+      reject(new Error('Video file size must be less than 30MB.'))
+      return
+    }
+
+    const video = document.createElement('video')
+    video.preload = 'metadata'
+
+    video.onloadedmetadata = () => {
+      window.URL.revokeObjectURL(video.src)
+      const duration = video.duration
+      if (duration < 2 || duration > maxDuration) {
+        reject(
+          new Error(
+            `Video edit source: duration must be 2–${maxDuration}s. Max duration: ${maxDuration}s.`
+          )
+        )
         return
       }
       resolve(true)
