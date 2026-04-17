@@ -51,6 +51,7 @@ export const urlList = {
 
   createTasksWan27: baseUrl + '/api/task/wan27/create', // 创建任务-Wan 2.7
   createTasksWan27V2V: baseUrl + '/api/task/wan27/v2v/create', // 创建任务-Wan 2.7
+  createTasksWan27VideoEdit: baseUrl + '/api/task/wan27/video/edit', // 创建任务-Wan 2.7 视频编辑
   checkTaskWan27: baseUrl + '/api/task/wan/check_task_status', // 检查任务-Wan 2.7
 
   /** Wan 2.7 Reference：火山双链路上传（临时文件 multipart，字段名 file） */
@@ -690,6 +691,10 @@ export const createTasksWan27 = async (data: any) => {
 export const createTasksWan27V2V = async (data: any) => {
   // Reference 任务无文件字段，使用 JSON 保证 image_list / video_list 等为数组类型
   return apiRequest(urlList.createTasksWan27V2V, 'POST', data, true, true);
+}
+
+export const createTasksWan27VideoEdit = async (data: any) => {
+  return apiRequest(urlList.createTasksWan27VideoEdit, 'POST', data, true);
 }
 
 export const checkTaskWan27 = async (task_id:string) => {
