@@ -63,6 +63,18 @@
               >
                 Reference To Video
               </button>
+              <button
+                type="button"
+                @click="activeMode = 'edit'"
+                :class="[
+                  'flex-1 py-3 px-3 rounded-xl font-semibold text-sm transition-all duration-300',
+                  activeMode === 'edit'
+                    ? 'bg-white text-emerald-600 shadow-lg transform scale-105'
+                    : 'text-gray-600 hover:text-gray-800'
+                ]"
+              >
+                Video Edit
+              </button>
             </div>
           </div>
 
@@ -459,7 +471,7 @@
             </div>
 
             <!-- Reference To Video -->
-            <div v-else class="space-y-6">
+            <div v-else-if="activeMode === 'reference'" class="space-y-6">
               <div>
                 <div class="flex flex-wrap items-baseline justify-between gap-2 mb-2">
                   <label class="block text-sm font-semibold text-gray-900">
@@ -661,8 +673,156 @@
               </div>
             </div>
 
+            <!-- Video Edit -->
+            <div v-else-if="activeMode === 'edit'" class="space-y-6">
+              <div>
+                <label class="block text-sm font-semibold text-gray-900 mb-3">
+                  Source video
+                  <span class="text-red-500 ml-0.5">*</span>
+                </label>
+                <div
+                  class="relative flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-emerald-300 rounded-2xl cursor-pointer hover:border-emerald-400 transition-colors bg-emerald-50/30 overflow-hidden group"
+                  @click="checkLoginStatus($event) && triggerEditVideoUpload()"
+                >
+                  <div v-if="editVideoUrl" class="w-full h-full flex items-center justify-center">
+                    <video :src="editVideoUrl" controls class="w-full h-full bg-black object-contain rounded-xl" />
+                    <button
+                      type="button"
+                      class="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/70 text-white flex items-center justify-center text-xs hover:bg-black"
+                      @click.stop="clearEditVideo"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                  <div v-else class="flex flex-col items-center justify-center p-4 text-center">
+                    <p class="text-sm font-medium text-emerald-700">Click to upload source video</p>
+                    <p class="text-xs text-gray-500 mt-1">MP4 / MOV · 2–10s · Max duration: 10s · Max 100MB</p>
+                  </div>
+                </div>
+                <input
+                  ref="editVideoInputRef"
+                  type="file"
+                  class="hidden"
+                  accept="video/*"
+                  @change="onEditVideoChange"
+                />
+              </div>
+
+              <div>
+                <div class="flex items-baseline justify-between mb-2">
+                  <label class="block text-sm font-semibold text-gray-900">
+                    Reference images
+                    <span class="text-red-500 ml-0.5">*</span>
+                  </label>
+                  <span class="text-xs text-gray-500">{{ editImageSlots.length }} / {{ REF_MEDIA_MAX_TOTAL }}</span>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  <div
+                    v-for="slot in editImageSlots"
+                    :key="'e-' + slot.id"
+                    class="relative h-36 border-2 border-emerald-200 rounded-2xl overflow-hidden bg-emerald-50/40"
+                  >
+                    <img :src="slot.url" alt="" class="w-full h-full object-contain" />
+                    <button
+                      type="button"
+                      class="absolute top-1.5 right-1.5 w-7 h-7 rounded-full bg-black/70 text-white flex items-center justify-center text-xs hover:bg-black"
+                      @click.stop="removeEditImageSlot(slot.id)"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                  <button
+                    v-if="editImageSlots.length < REF_MEDIA_MAX_TOTAL"
+                    type="button"
+                    class="h-36 border-2 border-dashed border-emerald-300 rounded-2xl flex flex-col items-center justify-center gap-1 text-emerald-700 bg-emerald-50/40 hover:border-emerald-400 hover:bg-emerald-50/70 transition-colors"
+                    @click="checkLoginStatus($event) && triggerEditImagesUpload()"
+                  >
+                    <span class="text-2xl leading-none">+</span>
+                    <span class="text-xs font-medium px-2 text-center">Add images</span>
+                  </button>
+                </div>
+                <input
+                  ref="editImagesInputRef"
+                  type="file"
+                  class="hidden"
+                  accept="image/*"
+                  multiple
+                  @change="onEditImagesChange"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-semibold text-gray-900 mb-2">
+                  Prompt
+                  <span class="text-red-500 ml-0.5">*</span>
+                </label>
+                <textarea
+                  v-model="form.edit.prompt"
+                  rows="3"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 resize-none transition-colors bg-white"
+                  placeholder="Describe the edit direction for the source video..."
+                  maxlength="1500"
+                  @click="checkLoginStatus($event)"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-semibold text-gray-900 mb-2">
+                  Negative prompt
+                  <span class="text-red-500 ml-0.5">*</span>
+                </label>
+                <textarea
+                  v-model="form.edit.negativePrompt"
+                  rows="2"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 resize-none transition-colors bg-white"
+                  placeholder="Describe what should be avoided in output..."
+                  maxlength="500"
+                  @click="checkLoginStatus($event)"
+                />
+              </div>
+
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-semibold text-gray-900 mb-2">Duration</label>
+                  <div class="grid grid-cols-3 gap-2">
+                    <button
+                      v-for="item in ['2s','5s','10s']"
+                      :key="'ed-' + item"
+                      type="button"
+                      class="w-full p-2 rounded-lg border-2 transition-all duration-300 text-center text-sm"
+                      :class="
+                        form.edit.duration === item
+                          ? 'border-emerald-500 bg-emerald-50 text-emerald-700 shadow-md'
+                          : 'border-gray-300 bg-gray-100 text-gray-600 hover:border-gray-400 hover:bg-gray-200'
+                      "
+                      @click="form.edit.duration = item"
+                    >
+                      {{ item }}
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold text-gray-900 mb-2">Audio setting</label>
+                  <div class="grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      class="w-full p-2 rounded-lg border-2 transition-all duration-300 text-center text-sm"
+                      :class="form.edit.audioSetting === 'auto' ? 'border-emerald-500 bg-emerald-50 text-emerald-700' : 'border-gray-300 bg-gray-100 text-gray-600'"
+                      @click="form.edit.audioSetting = 'auto'"
+                    >auto</button>
+                    <button
+                      type="button"
+                      class="w-full p-2 rounded-lg border-2 transition-all duration-300 text-center text-sm"
+                      :class="form.edit.audioSetting === 'origin' ? 'border-emerald-500 bg-emerald-50 text-emerald-700' : 'border-gray-300 bg-gray-100 text-gray-600'"
+                      @click="form.edit.audioSetting = 'origin'"
+                    >origin</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <!-- Audio Upload：reference 下仅隐藏 UI，提交时仍可按已选音频上传 -->
-            <div v-if="activeMode !== 'reference'" class="space-y-2">
+            <div v-if="activeMode !== 'reference' && activeMode !== 'edit'" class="space-y-2">
               <label class="block text-sm font-semibold text-gray-900">
                 Upload audio <span class="text-gray-500 font-normal">(optional)</span>
               </label>
@@ -835,6 +995,8 @@
                         ? form.text.resolution
                         : activeMode === 'image'
                         ? form.image.resolution
+                        : activeMode === 'edit'
+                        ? form.edit.resolution
                         : form.reference.resolution
                     }}
                   </p>
@@ -847,6 +1009,8 @@
                         ? form.text.duration
                         : activeMode === 'image'
                         ? form.image.duration
+                        : activeMode === 'edit'
+                        ? form.edit.duration
                         : form.reference.duration
                     }}
                   </p>
@@ -857,6 +1021,8 @@
                     {{
                       activeMode === 'text'
                         ? form.text.aspect
+                        : activeMode === 'edit'
+                        ? form.edit.aspect
                         : activeMode === 'reference'
                         ? form.reference.aspect
                         : 'N/A'
@@ -915,19 +1081,20 @@ import { useNuxtApp } from 'nuxt/app'
 import {
   createTasksWan27,
   createTasksWan27V2V,
+  createTasksWan27VideoEdit,
   checkTaskWan27,
   uploadVolcengineImageAndHk,
   uploadVolcengineVideoAndHk,
   uploadVolcengineAudioAndHk
 } from '~/api'
-import { validateImageFile, validateVideoFile } from '~/utils/uploadAPI'
+import { validateImageFile, validateVideoFile, validateVideoFileForWan27Edit } from '~/utils/uploadAPI'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '~/stores/user';
 const router = useRouter()
 const userStore = useUserStore()
 const userInfo = computed(() => userStore.userInfo);
 
-type Mode = 'text' | 'image' | 'reference'
+type Mode = 'text' | 'image' | 'reference' | 'edit'
 
 const activeMode = ref<Mode>('text')
 
@@ -951,6 +1118,15 @@ const form = reactive({
     resolution: '720P',
     duration: '5s',
     aspect: '16:9'
+  },
+  edit: {
+    prompt: '',
+    negativePrompt: '',
+    inspiration: false,
+    resolution: '720P',
+    duration: '5s',
+    aspect: '16:9',
+    audioSetting: 'auto' as 'auto' | 'origin'
   }
 })
 
@@ -978,6 +1154,11 @@ const refVideosInputRef = ref<HTMLInputElement | null>(null)
 const refImagesInputRef = ref<HTMLInputElement | null>(null)
 
 const refMediaTotal = computed(() => refVideoSlots.value.length + refImageSlots.value.length)
+const editVideoFile = ref<File | null>(null)
+const editVideoUrl = ref<string | null>(null)
+const editVideoInputRef = ref<HTMLInputElement | null>(null)
+const editImageSlots = ref<RefMediaSlot[]>([])
+const editImagesInputRef = ref<HTMLInputElement | null>(null)
 
 const nextRefSlotId = () =>
   typeof crypto !== 'undefined' && crypto.randomUUID
@@ -1025,6 +1206,8 @@ const isAspectDisabled = (value: string) => {
       ? form.text.resolution
       : activeMode.value === 'image'
       ? form.image.resolution
+      : activeMode.value === 'edit'
+      ? form.edit.resolution
       : form.reference.resolution
 
   if (currentResolution === '480P') {
@@ -1036,6 +1219,7 @@ const isAspectDisabled = (value: string) => {
 const modeLabel = computed(() => {
   if (activeMode.value === 'text') return 'Text To Video'
   if (activeMode.value === 'image') return 'Image To Video'
+  if (activeMode.value === 'edit') return 'Video Edit'
   return 'Reference To Video'
 })
 
@@ -1046,6 +1230,9 @@ const previewTitle = computed(() => {
   if (activeMode.value === 'image') {
     return form.image.prompt.trim() || 'Video preview generated based on the first frame image'
   }
+  if (activeMode.value === 'edit') {
+    return form.edit.prompt.trim() || 'Video preview generated by editing source video'
+  }
   return form.reference.prompt.trim() || 'Video preview generated based on the reference video'
 })
 
@@ -1055,18 +1242,24 @@ const previewMeta = computed(() => {
       ? form.text.resolution
       : activeMode.value === 'image'
       ? form.image.resolution
+      : activeMode.value === 'edit'
+      ? form.edit.resolution
       : form.reference.resolution
   const duration =
     activeMode.value === 'text'
       ? form.text.duration
       : activeMode.value === 'image'
       ? form.image.duration
+      : activeMode.value === 'edit'
+      ? form.edit.duration
       : form.reference.duration
   const aspect =
     activeMode.value === 'text'
       ? form.text.aspect
       : activeMode.value === 'reference'
       ? form.reference.aspect
+      : activeMode.value === 'edit'
+      ? form.edit.aspect
       : 'Free aspect ratio'
 
   return `${resolution} · ${duration} · ${aspect}`
@@ -1107,6 +1300,8 @@ const creditCostLabel = computed(() => {
       ? form.text.resolution
       : activeMode.value === 'image'
       ? form.image.resolution
+      : activeMode.value === 'edit'
+      ? form.edit.resolution
       : form.reference.resolution
 
   const durationStr =
@@ -1114,6 +1309,8 @@ const creditCostLabel = computed(() => {
       ? form.text.duration
       : activeMode.value === 'image'
       ? form.image.duration
+      : activeMode.value === 'edit'
+      ? form.edit.duration
       : form.reference.duration
 
   const duration = parseInt(durationStr, 10) || 0
@@ -1131,12 +1328,12 @@ const creditCostLabel = computed(() => {
   }
 
   const tableReference: Record<string, Record<number, number>> = {
-    '480P': { 5: 100, 10: 200 },
-    '720P': { 5: 200, 10: 400 },
-    '1080P': { 5: 400, 10: 800 }
+    '480P': { 2: 40, 5: 100, 10: 200 },
+    '720P': { 2: 80, 5: 200, 10: 400 },
+    '1080P': { 2: 160, 5: 400, 10: 800 }
   }
 
-  const table = activeMode.value === 'reference' ? tableReference : tableTextImage
+  const table = activeMode.value === 'reference' || activeMode.value === 'edit' ? tableReference : tableTextImage
   const byRes = table[resolution]
   const credits = byRes?.[duration]
 
@@ -1358,6 +1555,14 @@ const triggerRefImagesUpload = () => {
   refImagesInputRef.value?.click()
 }
 
+const triggerEditVideoUpload = () => {
+  editVideoInputRef.value?.click()
+}
+
+const triggerEditImagesUpload = () => {
+  editImagesInputRef.value?.click()
+}
+
 const onRefVideosChange = async (event: Event) => {
   const target = event.target as HTMLInputElement
   const files = target.files ? Array.from(target.files) : []
@@ -1389,6 +1594,63 @@ const onRefVideosChange = async (event: Event) => {
     remaining -= 1
     if (remaining <= 0) break
   }
+}
+
+const onEditVideoChange = async (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const file = target.files && target.files[0]
+  target.value = ''
+  if (!file) return
+  try {
+    await validateVideoFileForWan27Edit(file)
+  } catch (err: any) {
+    $toast?.error?.(err?.message || '视频无效')
+    return
+  }
+  if (editVideoUrl.value) URL.revokeObjectURL(editVideoUrl.value)
+  editVideoFile.value = file
+  editVideoUrl.value = URL.createObjectURL(file)
+}
+
+const clearEditVideo = () => {
+  editVideoFile.value = null
+  if (editVideoUrl.value) URL.revokeObjectURL(editVideoUrl.value)
+  editVideoUrl.value = null
+  if (editVideoInputRef.value) editVideoInputRef.value.value = ''
+}
+
+const onEditImagesChange = async (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const files = target.files ? Array.from(target.files) : []
+  target.value = ''
+  if (!files.length) return
+  let remaining = REF_MEDIA_MAX_TOTAL - editImageSlots.value.length
+  if (remaining <= 0) {
+    $toast?.error?.('参考图像最多 5 个')
+    return
+  }
+  for (const file of files.slice(0, remaining)) {
+    try {
+      await validateImageFile(file)
+    } catch (err: any) {
+      $toast?.error?.(err?.message || '图片无效')
+      continue
+    }
+    editImageSlots.value.push({
+      id: nextRefSlotId(),
+      file,
+      url: URL.createObjectURL(file)
+    })
+    remaining -= 1
+    if (remaining <= 0) break
+  }
+}
+
+const removeEditImageSlot = (id: string) => {
+  const idx = editImageSlots.value.findIndex(s => s.id === id)
+  if (idx === -1) return
+  const removed = editImageSlots.value.splice(idx, 1)[0]
+  if (removed) URL.revokeObjectURL(removed.url)
 }
 
 const onRefImagesChange = async (event: Event) => {
@@ -1682,6 +1944,13 @@ const buildPayload = () => {
     // 图片模式默认采用 16:9 尺寸
     aspect = '16:9'
     inspiration = form.image.inspiration
+  } else if (activeMode.value === 'edit') {
+    prompt = form.edit.prompt.trim()
+    resolution = form.edit.resolution
+    duration = form.edit.duration
+    aspect = form.edit.aspect
+    aspect_ratio = form.edit.aspect || '16:9'
+    inspiration = form.edit.inspiration
   } else {
     prompt = form.reference.prompt.trim()
     resolution = form.reference.resolution
@@ -1700,7 +1969,7 @@ const buildPayload = () => {
     prompt_extend: inspiration ? true : false,
 
     size,
-    ...(activeMode.value === 'text' ? { aspect_ratio: aspect_ratio || '16:9' } : {})
+    ...((activeMode.value === 'text' || activeMode.value === 'edit') ? { aspect_ratio: aspect_ratio || '16:9' } : {})
   }
 }
 
@@ -1807,6 +2076,23 @@ const handleSubmit = async () => {
     if (nV + nI > REF_MEDIA_MAX_TOTAL) {
       errorMessage.value = 'Reference videos and images combined cannot exceed 5.'
       $toast?.error?.('参考视频与参考图像合计不能超过 5 个')
+      return
+    }
+  }
+  if (activeMode.value === 'edit') {
+    if (!editVideoFile.value) {
+      errorMessage.value = 'Please upload source video.'
+      $toast?.error?.('请先上传源视频')
+      return
+    }
+    if (!editImageSlots.value.length) {
+      errorMessage.value = 'Please upload at least one reference image.'
+      $toast?.error?.('请至少上传 1 张参考图')
+      return
+    }
+    if (!form.edit.negativePrompt.trim()) {
+      errorMessage.value = 'Negative prompt is required in video edit mode.'
+      $toast?.error?.('视频编辑模式必须填写 Negative Prompt')
       return
     }
   }
@@ -1919,13 +2205,52 @@ const handleSubmit = async () => {
       payload.reference_audios = [...reference_audios]
     }
 
+    if (activeMode.value === 'edit') {
+      const videoUp: any = await uploadVolcengineVideoAndHk(editVideoFile.value as File)
+      if (videoUp?.code !== 200 || !videoUp?.data?.r3_url || !videoUp?.data?.hk_url) {
+        isLoading.value = false
+        const msg = videoUp?.msg || 'source video upload failed'
+        errorMessage.value = msg
+        $toast?.error?.(msg)
+        return
+      }
+      const image_urls: string[] = []
+      const hk_image_urls: string[] = []
+      for (const slot of editImageSlots.value) {
+        const up: any = await uploadVolcengineImageAndHk(slot.file)
+        if (up?.code !== 200 || !up?.data?.r3_url || !up?.data?.hk_url) {
+          isLoading.value = false
+          const msg = up?.msg || 'reference image upload failed'
+          errorMessage.value = msg
+          $toast?.error?.(msg)
+          return
+        }
+        image_urls.push(up.data.r3_url)
+        hk_image_urls.push(up.data.hk_url)
+      }
+
+      payload.video_url = videoUp.data.r3_url
+      payload.hk_video_url = videoUp.data.hk_url
+      payload.image_urls = image_urls
+      payload.hk_image_urls = hk_image_urls
+      payload.negative_prompt = form.edit.negativePrompt.trim()
+      payload.aspect_ratio = form.edit.aspect
+      payload.audio_setting = form.edit.audioSetting
+      delete payload.size
+      delete payload.audito
+    }
+
     // 非 Reference 模式：可选音频仍走临时文件字段
-    if (audioFile.value && activeMode.value !== 'reference') {
+    if (audioFile.value && activeMode.value !== 'reference' && activeMode.value !== 'edit') {
       payload.audito = audioFile.value
     }
 
     
-    const res: any = activeMode.value === 'reference' ? await createTasksWan27V2V(payload) : await createTasksWan27(payload);
+    const res: any = activeMode.value === 'reference'
+      ? await createTasksWan27V2V(payload)
+      : activeMode.value === 'edit'
+      ? await createTasksWan27VideoEdit(payload)
+      : await createTasksWan27(payload);
     const taskId = res?.data?.task_id
 
     if (res?.code === 200 && taskId) {
@@ -1981,8 +2306,12 @@ onBeforeUnmount(() => {
   stopPolling()
   refVideoSlots.value.forEach(s => URL.revokeObjectURL(s.url))
   refImageSlots.value.forEach(s => URL.revokeObjectURL(s.url))
+  editImageSlots.value.forEach(s => URL.revokeObjectURL(s.url))
   if (audioPreviewUrl.value) {
     URL.revokeObjectURL(audioPreviewUrl.value)
+  }
+  if (editVideoUrl.value) {
+    URL.revokeObjectURL(editVideoUrl.value)
   }
   if (wanVideoUrl.value) {
     URL.revokeObjectURL(wanVideoUrl.value)
