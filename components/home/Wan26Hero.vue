@@ -68,18 +68,26 @@ Create cinematic AI videos with multi-shot storytelling, stable characters, and 
         <!-- CTA 按钮组 -->
         <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
           <!-- 主按钮：紫色渐变发光 -->
-          <NuxtLink 
-            to="/wan/wan-2-6#generator"
+          <NuxtLink
+            to="/wan/wan-2-7#generator"
             class="group relative h-16 px-10 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xl rounded-2xl shadow-[0_0_40px_rgba(147,51,234,0.3)] hover:shadow-[0_0_60px_rgba(147,51,234,0.5)] transition-all duration-300 hover:scale-105 flex items-center gap-3"
           >
-            <span>Try Wan 2.6 Now</span>
+            <span>Try Wan 2.7 Now</span>
             <svg class="w-6 h-6 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </NuxtLink>
 
           <!-- 次按钮：磨砂玻璃效果 -->
-          <NuxtLink 
+          <NuxtLink
+            to="/wan/wan-2-6#generator"
+            class="h-16 px-10 bg-white/10 backdrop-blur-md border border-white/20 text-white font-semibold text-xl rounded-2xl hover:bg-white/20 transition-all duration-300 flex items-center justify-center"
+          >
+            Wan 2.6
+          </NuxtLink>
+
+          <!-- 次按钮：磨砂玻璃效果 -->
+          <NuxtLink
             to="/wan/wan-2-5#generator"
             class="h-16 px-10 bg-white/10 backdrop-blur-md border border-white/20 text-white font-semibold text-xl rounded-2xl hover:bg-white/20 transition-all duration-300 flex items-center justify-center"
           >
