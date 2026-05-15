@@ -15,6 +15,7 @@
         </h2>
         <p class="max-w-3xl mx-auto text-base md:text-lg text-gray-700 leading-relaxed">
           See what our customers have to say about Seedance 2.0 and how it's transforming their creative workflows.
+
         </p>
       </div>
 
