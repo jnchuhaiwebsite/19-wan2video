@@ -151,6 +151,7 @@ const jsonLD ={
       "about": {  "@id": "https://www.wan2video.com/#organization" },
       "mainEntity":{"@id":"https://www.wan2video.com/#software"},
       "breadcrumb": { "@id": "https://www.wan2video.com/#breadcrumbs"},
+      "dateModified": "2026-05-15T17:40:00+08:00"
     },
     {
       "@type": "BreadcrumbList", // 面包屑
@@ -252,6 +253,54 @@ const jsonLD ={
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Wan 2.6 supports video generation up to 15 seconds per output, allowing creators to include more narrative detail in a single generation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is audio generated together with the video?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Wan 2.6 generates audio and visuals together, which reduces synchronization issues and removes the need for separate audio editing tools."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are credits deducted if a generation fails?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Credits are only deducted after a successful generation. Failed or interrupted generations are not charged."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use Wan 2.6 videos for commercial projects?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Videos generated using paid credits can be used for commercial purposes, including marketing, social media, and creative projects."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do purchased credits expire?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Purchased credits do not expire and remain available until they are used."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need editing experience to use Wan 2.6?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Wan 2.6 is designed to reduce manual editing by generating more complete videos directly from prompts and references."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I write a good prompt for Wan 2.6?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A strong Wan 2.6 prompt typically includes four elements: a clear subject description, the environment or setting, the type of motion or action, and the desired camera style (e.g. close-up, wide shot, slow zoom). Be specific rather than vague — instead of 'a woman walking,' try 'a young woman in a red coat walking through a rainy Tokyo street at night, slow dolly forward.' The more detail you provide about lighting, mood, and movement, the more cinematic and consistent your output will be."
           }
         }
       ]

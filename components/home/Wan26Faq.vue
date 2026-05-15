@@ -122,6 +122,11 @@ const faqs = ref([
     question: 'Do I need editing experience to use Wan 2.6?',
     answer: 'No. Wan 2.6 is designed to reduce manual editing by generating more complete videos directly from prompts and references.',
     isOpen: false
+  },
+  {
+    question: 'How do I write a good prompt for Wan 2.6?',
+    answer: 'A strong Wan 2.6 prompt typically includes four elements: a clear subject description, the environment or setting, the type of motion or action, and the desired camera style (e.g. close-up, wide shot, slow zoom). Be specific rather than vague — instead of \'a woman walking,\' try \'a young woman in a red coat walking through a rainy Tokyo street at night, slow dolly forward.\' The more detail you provide about lighting, mood, and movement, the more cinematic and consistent your output will be.',
+    isOpen: false
   }
 ])
 
