@@ -151,6 +151,7 @@ const jsonLD ={
       "about": {  "@id": "https://www.wan2video.com/#organization" },
       "mainEntity":{"@id":"https://www.wan2video.com/#software"},
       "breadcrumb": { "@id": "https://www.wan2video.com/#breadcrumbs"},
+      "dateModified": "2026-05-15T17:40:00+08:00"
     },
     {
       "@type": "BreadcrumbList", // 面包屑
